@@ -20,13 +20,13 @@ La seguente repository contiene tutti gli artefatti relativi al progetto combina
 
 * **Leopoldo Todisco**        - *Sviluppatore*      - [Github](https://github.com/leotodisco)
 
-* **Alessandro Zoccola**      - *Sviluppatore*      - [Github](https://github.com/)
+* **Alessandro Zoccola**      - *Sviluppatore*      - [Github](https://github.com/alessaless)
 
-* **Vincenzo Maria Arnone**   - *Sviluppatore*      - [Github](https://github.com/)
+* **Vincenzo Maria Arnone**   - *Sviluppatore*      - [Github](https://github.com/VincenzoAr)
 
 * **Carlo Venditto**          - *Sviluppatore*      - [Github](https://github.com/carloven)
 
-* **Mario Cicalese**          - *Sviluppatore*      - [Github](https://github.com/)
+* **Mario Cicalese**          - *Sviluppatore*      - [Github](https://github.com/MarioCicalese)
 
 * **Paolo Carmine Valletta**  - *Sviluppatore*      - [Github](https://github.com/PaoloCarmine1201)
 
