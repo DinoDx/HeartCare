@@ -24,7 +24,7 @@ La seguente repository contiene tutti gli artefatti relativi al progetto combina
 
 * **Vincenzo Maria Arnone**   - *Sviluppatore*      - [Github](https://github.com/VincenzoAr)
 
-* **Carlo Venditto**          - *Sviluppatore*      - [Github](https://github.com/carloven)
+* **Carlo Venditto**          - *Sviluppatore*      - [Github](https://github.com/carlovend)
 
 * **Mario Cicalese**          - *Sviluppatore*      - [Github](https://github.com/MarioCicalese)
 
