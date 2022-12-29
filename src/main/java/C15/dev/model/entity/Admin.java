@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 
 /**
- * @author leopoldotodisco
+ * @author Leopoldo Todisco
  * Creato il: 29/12/2022
  * Questa è la classe relativa a un Admin.
  */
