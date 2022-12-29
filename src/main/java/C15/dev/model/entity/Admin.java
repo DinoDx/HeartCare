@@ -1,9 +1,7 @@
-package model.entity;
+package C15.dev.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+
 
 /**
  * @author leopoldotodisco
@@ -11,9 +9,6 @@ import lombok.experimental.SuperBuilder;
  * Questa è la classe relativa a un Admin.
  */
 @Entity
-@SuperBuilder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Admin extends UtenteRegistrato{
 
 
