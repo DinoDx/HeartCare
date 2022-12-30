@@ -5,6 +5,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -27,11 +28,39 @@ public class Medico extends UtenteRegistrato{
 
     @OneToMany(mappedBy = "stato_medico", fetch = FetchType.EAGER)
     private List<Visita> visita;
+
+    /**
+     * costruttore vuoto
+     */
+    public Medico() {
+        super();
+    }
+
+    /**
+     *
+     * @param dataDiNascita
+     * @param codiceFiscale
+     * @param numeroTelefono
+     * @param password
+     * @param email
+     * @param nome
+     * @param cognome
+     * @param genere
+     *
+     * costruttore per Medico
+     */
+    public Medico(Date dataDiNascita, String codiceFiscale, String numeroTelefono, String password, String email, String nome, String cognome, char genere) {
+        super(dataDiNascita, codiceFiscale, numeroTelefono, password, email, nome, cognome, genere);
+    }
+
     /**
      *
      * @return elencoPazienti
      * Metodo che restituisce l'elenco dei pazienti di un medico
      */
+
+
+
     public List<Paziente> getElencoPazienti() {
         return elencoPazienti;
     }

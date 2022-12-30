@@ -2,6 +2,7 @@ package C15.dev.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
 import java.util.Set;
 
 
@@ -29,6 +30,7 @@ public class Paziente extends UtenteRegistrato{
     private String emailCaregiver;
     @ManyToOne
     @JoinColumn(name = "id_medico",referencedColumnName = "id")
+    @Column(nullable = false)
     private Medico medico;
 
     @OneToMany(mappedBy = "paziente",fetch = FetchType.EAGER)
@@ -54,6 +56,40 @@ public class Paziente extends UtenteRegistrato{
     }
     public void setNotifca(Set<Notifica> notifica){
         this.notifica = notifica;
+    }
+
+    /**
+     * costruttore vuoto
+     */
+    public Paziente() {
+        super();
+    }
+
+    /**
+     *
+     * @param dataDiNascita
+     * @param codiceFiscale
+     * @param numeroTelefono
+     * @param password
+     * @param email
+     * @param nome
+     * @param cognome
+     * @param genere
+     * @param nomeCaregiver
+     * @param cognomeCaregiver
+     * @param emailCaregiver
+     * @param medico
+     *
+     * costruttore per il Paziente
+     */
+    public Paziente(Date dataDiNascita, String codiceFiscale, String numeroTelefono, String password, String email,
+                    String nome, String cognome, char genere, String nomeCaregiver, String cognomeCaregiver,
+                    String emailCaregiver, Medico medico) {
+        super(dataDiNascita, codiceFiscale, numeroTelefono, password, email, nome, cognome, genere);
+        this.nomeCaregiver = nomeCaregiver;
+        this.cognomeCaregiver = cognomeCaregiver;
+        this.emailCaregiver = emailCaregiver;
+        this.medico = medico;
     }
 
     /**
