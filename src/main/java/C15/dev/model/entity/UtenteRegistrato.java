@@ -26,7 +26,7 @@ public class UtenteRegistrato implements Serializable {
     private Long id;
     /**
      * Campo relativo alla Data di nascita nel formato GG-MM-AAAA
-     * Invariante: la data di nascita deve essere inferiore alla data corrente
+     * Invariante: la data di nascita deve essere inferiore o uguale alla data corrente
      */
 
     @Column(nullable = false)

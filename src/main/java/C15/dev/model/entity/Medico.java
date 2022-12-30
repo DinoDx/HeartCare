@@ -1,10 +1,12 @@
 package C15.dev.model.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author carlo
@@ -17,6 +19,8 @@ import java.util.List;
 public class Medico extends UtenteRegistrato{
     @OneToMany(mappedBy = "medico")
     private List<Paziente> elencoPazienti;
+    @OneToMany(mappedBy = "medico", fetch = FetchType.EAGER)
+    private Set<Nota> note;
 
     /**
      *

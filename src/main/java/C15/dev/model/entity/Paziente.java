@@ -1,8 +1,8 @@
 package C15.dev.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 
 /**
@@ -30,7 +30,10 @@ public class Paziente extends UtenteRegistrato{
     @ManyToOne
     @JoinColumn(name = "id_medico",referencedColumnName = "id")
     private Medico medico;
-
+    @OneToMany(mappedBy = "paziente",fetch = FetchType.EAGER)
+    private Set<Nota> note;
+    @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
+    private Set<DispositivoMedico> dispositivoMedico;
 
     /**
      * @return nomeCaregiver
