@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author Alessandro Zoccola
@@ -30,8 +31,8 @@ public class Misurazione implements Serializable {
      * Invariante: la data della misurazione deve essere maggiore o uguale alla data corrente
      */
 
-    @Column(nullable = false)
-    private SimpleDateFormat dataMisurazione;
+    @Column(name = "data_misurazione", nullable = false)
+    private GregorianCalendar dataMisurazione;
 
     @ManyToOne
     @JoinColumn(name = "id_paziente", referencedColumnName = "id", nullable = false)
@@ -43,8 +44,10 @@ public class Misurazione implements Serializable {
 
     /**
      * @param dataMisurazione rappresenta la data della misurazione
+     * @param paziente rappresenta il paziente coinvolto nella misurazione
+     * @param dispositivoMedico rappresenta il dispositivo medico con cui è stata effettuata la misurazione
      */
-    public Misurazione(SimpleDateFormat dataMisurazione, Paziente paziente, DispositivoMedico dispositivoMedico){
+    public Misurazione(GregorianCalendar dataMisurazione, Paziente paziente, DispositivoMedico dispositivoMedico){
         this.dataMisurazione = dataMisurazione;
         this.paziente = paziente;
         this.dispositivoMedico = dispositivoMedico;
@@ -71,7 +74,7 @@ public class Misurazione implements Serializable {
      * @return dataMisurazione
      * metodo che restituisce la data della misurazione
      */
-    public SimpleDateFormat getDataMisurazione() {
+    public GregorianCalendar getDataMisurazione() {
         return this.dataMisurazione;
     }
 
@@ -81,7 +84,7 @@ public class Misurazione implements Serializable {
      * metodo che permette di inserire la data della misurazione
      *
      */
-    public void setDataMisurazione(SimpleDateFormat dataMisurazione) {
+    public void setDataMisurazione(GregorianCalendar dataMisurazione) {
         this.dataMisurazione = dataMisurazione;
     }
 
