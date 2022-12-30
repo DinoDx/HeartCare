@@ -40,6 +40,21 @@ public class Paziente extends UtenteRegistrato{
     @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
     private Set<Misurazione> misurazione;
 
+    @OneToMany(mappedBy = "stato_paziente", fetch = FetchType.EAGER)
+    private Set<Visita> visita;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "avviso",
+            joinColumns = @JoinColumn(name = "paziente_id"),
+            inverseJoinColumns = @JoinColumn(name = "notifica_id")
+    )
+    private Set<Notifica> notifica;
+    public Set<Notifica> getNotifica(){
+        return notifica;
+    }
+    public void setNotifca(Set<Notifica> notifica){
+        this.notifica = notifica;
+    }
 
     /**
      * @return nomeCaregiver
@@ -110,5 +125,24 @@ public class Paziente extends UtenteRegistrato{
      */
     public void setMedico(Medico medico) {
         this.medico = medico;
+    }
+
+
+    /**
+     *
+     * @return visita
+     * Metodo che restituisce le visite di un paziente
+     */
+    public Set<Visita> getVisita() {
+        return visita;
+    }
+
+    /**
+     *
+     * @param visita
+     * Metodo che permette di inserire le visite di un paziente
+     */
+    public void setVisita(Set<Visita> visita) {
+        this.visita = visita;
     }
 }

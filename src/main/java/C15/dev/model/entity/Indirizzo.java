@@ -52,6 +52,8 @@ public class Indirizzo implements Serializable {
     @OneToMany(mappedBy = "indirizzoResidenza")
     private List<UtenteRegistrato> elencoUtenti;
 
+    @OneToMany(mappedBy = "indirizzoVisita")
+    private List<Visita> visita;
     /**
      *
      * @return citta
@@ -158,5 +160,23 @@ public class Indirizzo implements Serializable {
      */
     public void setElencoUtenti(List<UtenteRegistrato> elencoUtenti) {
         this.elencoUtenti = elencoUtenti;
+    }
+
+    /**
+     *
+     * @return Visista
+     * Metodo per ottenere l'elenco di tutte le visite che si effettuano in un determinato indirizzo
+     */
+    public List<Visita> getVisita() {
+        return visita;
+    }
+
+    /**
+     *
+     * @param visita
+     * Metodo per aggiungere l'elenco delle visite che si effettuano in un determinato indirizzo
+     */
+    public void setVisita(List<Visita> visita) {
+        this.visita = visita;
     }
 }
