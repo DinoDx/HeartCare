@@ -30,10 +30,16 @@ public class Paziente extends UtenteRegistrato{
     @ManyToOne
     @JoinColumn(name = "id_medico",referencedColumnName = "id")
     private Medico medico;
+
     @OneToMany(mappedBy = "paziente",fetch = FetchType.EAGER)
     private Set<Nota> note;
+
     @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
     private Set<DispositivoMedico> dispositivoMedico;
+
+    @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
+    private Set<Misurazione> misurazione;
+
 
     /**
      * @return nomeCaregiver

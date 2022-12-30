@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
+import java.util.Set;
 
 /**
  * @author Mario Cicalese
@@ -55,6 +56,9 @@ public class DispositivoMedico implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_paziente",referencedColumnName = "id", nullable = true)
     private Paziente paziente;
+
+    @OneToMany(mappedBy = "dispositivoMedico", fetch = FetchType.EAGER)
+    private Set<Misurazione> misurazione;
 
     /**
      * costruttre vuoto per la classe DispositivoMedico
