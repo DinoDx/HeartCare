@@ -13,7 +13,7 @@ import java.util.Objects;
  * Questa è la classe che rappresenta le visite.
  */
 @Entity
-final class Visita implements Serializable {
+public class Visita implements Serializable {
     /**
      * Campo relativo all'id della nota generato automaticamente.
      **/
