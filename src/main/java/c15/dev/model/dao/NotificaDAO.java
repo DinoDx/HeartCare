@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * Questa classe rappresenta il DAO della classe Notifica.
  */
 @Repository
-public interface NotificaDAO extends JpaRepository<Notifica,String> {
+public interface NotificaDAO extends JpaRepository<Notifica, Long> {
 }

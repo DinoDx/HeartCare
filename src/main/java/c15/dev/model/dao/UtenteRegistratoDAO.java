@@ -15,5 +15,5 @@ import org.springframework.data.repository.NoRepositoryBean;
  */
 @NoRepositoryBean
 public interface UtenteRegistratoDAO
-        extends JpaRepository<UtenteRegistrato, String> {
+        extends JpaRepository<UtenteRegistrato, Long> {
 }

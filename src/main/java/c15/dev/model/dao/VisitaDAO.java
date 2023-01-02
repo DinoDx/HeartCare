@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * Questa classe rappresenta il DAO della classe Visita.
  */
 @Repository
-public interface VisitaDAO extends JpaRepository<Visita,String> {
+public interface VisitaDAO extends JpaRepository<Visita, Long> {
 }
