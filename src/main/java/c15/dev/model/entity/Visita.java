@@ -13,7 +13,7 @@ import java.util.Objects;
  * Questa è la classe che rappresenta le visite.
  */
 @Entity
-public final class Visita implements Serializable {
+public class Visita implements Serializable {
     /**
      * Campo relativo all'id della nota generato automaticamente.
      **/
@@ -194,6 +194,11 @@ public final class Visita implements Serializable {
         this.indirizzoVisita = indirizzoVisita;
     }
 
+    /**
+     * metodo equals
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -210,6 +215,10 @@ public final class Visita implements Serializable {
                 && Objects.equals(getIndirizzoVisita(), visita.getIndirizzoVisita());
     }
 
+    /**
+     * Metodo Hashcode.
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getId(),

@@ -19,7 +19,7 @@ import java.util.Objects;
  * Questa Java Persistence Entity rappresenta un indirizzo,
  * esso sarà utilizzato dagli utenti registrati e dalla elencoVisite.
  * La classe ha un id autogenerato, una via, numero civico,
- * città, CAP, provincia.
+ * città, cap, provincia.
  *
  */
 @Entity
@@ -44,10 +44,10 @@ public final class Indirizzo implements Serializable {
     private Integer nCivico;
 
     /**
-     * Numero Intero che rappresenta il CAP dell'indirizzo
+     * Numero Intero che rappresenta il cap dell'indirizzo
      * deve essere un numero intero di 5 cifre.
      */
-    private Integer CAP;
+    private Integer cap;
 
     /**
      * Stringa che rappresenta la provincia dell'indirizzo.
@@ -82,19 +82,19 @@ public final class Indirizzo implements Serializable {
      *
      * @param citta
      * @param nCivico
-     * @param CAP
+     * @param cap
      * @param provincia
      * @param via
      * Costruttore comprensivo di tutti i campi.
      */
     public Indirizzo(final String citta,
                      final Integer nCivico,
-                     final Integer CAP,
+                     final Integer cap,
                      final String provincia,
                      final String via) {
         this.citta = citta;
         this.nCivico = nCivico;
-        this.CAP = CAP;
+        this.cap = cap;
         this.provincia = provincia;
         this.via = via;
     }
@@ -137,20 +137,20 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @return CAP
+     * @return cap
      * Metodo che restituisce il cap di un Indirizzo.
      */
-    public Integer getCAP() {
-        return CAP;
+    public Integer getCap() {
+        return cap;
     }
 
     /**
      *
-     * @param CAP
-     * Metodo che permette di inserire il CAP di un Indirizzo.
+     * @param cap
+     * Metodo che permette di inserire il cap di un Indirizzo.
      */
-    public void setCAP(final Integer CAP) {
-        this.CAP = CAP;
+    public void setCap(final Integer cap) {
+        this.cap = cap;
     }
 
     /**
@@ -240,7 +240,7 @@ public final class Indirizzo implements Serializable {
         return Objects.equals(id, indirizzo.id)
                 && Objects.equals(getCitta(), indirizzo.getCitta())
                 && Objects.equals(getnCivico(), indirizzo.getnCivico())
-                && Objects.equals(getCAP(), indirizzo.getCAP())
+                && Objects.equals(getCap(), indirizzo.getCap())
                 && Objects.equals(getProvincia(), indirizzo.getProvincia())
                 && Objects.equals(getVia(), indirizzo.getVia())
                 && Objects.equals(getElencoUtenti(), indirizzo.getElencoUtenti())
@@ -252,7 +252,7 @@ public final class Indirizzo implements Serializable {
         return Objects.hash(id,
                 getCitta(),
                 getnCivico(),
-                getCAP(),
+                getCap(),
                 getProvincia(),
                 getVia(),
                 getElencoUtenti(),

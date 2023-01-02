@@ -35,6 +35,34 @@ import java.util.Date;
 @Table(name = "utente_registrato")
 public class UtenteRegistrato implements Serializable {
     /**
+     * Costante il cui valore è 30.
+     * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
+     * Necessaria a causa del checkstyle.
+     */
+    private static final int LENGTH_32 = 32;
+
+    /**
+     * Costante il cui valore è 100.
+     * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
+     * Necessaria a causa del checkstyle.
+     */
+    private static final int LENGTH_10 = 10;
+
+    /**
+     * Costante il cui valore è 100.
+     * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
+     * Necessaria a causa del checkstyle.
+     */
+    private static final int LENGTH_1 = 1;
+
+    /**
+     * Costante il cui valore è 100.
+     * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
+     * Necessaria a causa del checkstyle.
+     */
+    private static final int LENGTH_16 = 16;
+
+    /**
      * id generato in modo automatico.
      */
     @Id
@@ -52,45 +80,45 @@ public class UtenteRegistrato implements Serializable {
     /**
      * Campo relativo al Codice Fiscale.
      */
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false, length = LENGTH_16)
     private String codiceFiscale;
 
     /**
      * Campo relativo al numero di telefono
      * Invariante: deve avere dimensione pari a 10 caratteri.
      */
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = LENGTH_10)
     private String numeroTelefono;
 
     /**
      * Rappresenta la password di un Utente Registrato.
      */
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = LENGTH_32)
     private byte[] password;
 
     /**
      * Rappresenta l'email di un Utente Registrato.
      */
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = LENGTH_32)
     private String email;
 
     /**
      * Rappresenta il nome di un Utente Registrato.
      */
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = LENGTH_32)
     private String nome;
 
     /**
      * Rappresenta il cognome di un Utente Registrato.
      */
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = LENGTH_32)
     private String cognome;
 
     /**
      * Rappresenta il sesso di un Utente Registrato.
      * Invariante: può essere o M o F.
      */
-    @Column(nullable = false, length = 1)
+    @Column(nullable = false, length = LENGTH_1)
     private char genere;
 
     /**

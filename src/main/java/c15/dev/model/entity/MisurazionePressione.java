@@ -52,7 +52,8 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      * @param dataMisurazione rappresenta la data della misurazione
      * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivoMedico rappresenta il dispositivo medico con cui è stata effettuata la misurazione
+     * @param dispositivoMedico rappresenta il dispositivo medico con cui
+     *                          è stata effettuata la misurazione
      * @param battitiPerMinuto rappresenta il valore dei battiti per minuto
      * @param pressioneMassima rappresenta il valore della pressione massima
      * @param pressioneMinima rappresenta il valore della pressione minima

@@ -1,10 +1,10 @@
 package c15.dev.model.entity.enumeration;
 
 /**
- * @author Mario Cicalese
- * Creato il 30/12/2022
- * Questa è l'enumeratore relativa all'autore della nota
- * il campo è : displayName
+ * @author Mario Cicalese.
+ * Creato il 30/12/2022.
+ * Questa è l'enumeratore relativa all'autore della nota.
+ * il campo è: displayName.
  */
 public enum Autore {
     /**

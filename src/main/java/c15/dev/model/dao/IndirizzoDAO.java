@@ -1,5 +1,7 @@
 package c15.dev.model.dao;
 
+import c15.dev.model.entity.Indirizzo;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,6 +10,6 @@ import org.springframework.stereotype.Repository;
  * DAO della classe Indirizzo.
  */
 @Repository
-public interface IndirizzoDAO {
+public interface IndirizzoDAO extends JpaRepository<Indirizzo,String> {
 
 }

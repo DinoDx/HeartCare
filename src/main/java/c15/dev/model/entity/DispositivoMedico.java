@@ -28,6 +28,20 @@ import java.util.Set;
 @Table(name = "Dispositivo_medico")
 public class DispositivoMedico implements Serializable {
     /**
+     * Costante il cui valore è 30.
+     * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
+     * Necessaria a causa del checkstyle.
+     */
+    private static final int LENGTH_30 = 30;
+
+    /**
+     * Costante il cui valore è 100.
+     * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
+     * Necessaria a causa del checkstyle.
+     */
+    private static final int LENGTH_100 = 100;
+
+    /**
      * Campo relativo all'id del dispositivo medico generato automaticamente.
      */
     @Id
@@ -43,7 +57,7 @@ public class DispositivoMedico implements Serializable {
      * Campo relativo alla descrizione del dispositivo medico.
      */
     @Column(nullable = false,
-            length = 100)
+            length = LENGTH_100)
     private String descrizione;
 
     /**
@@ -52,7 +66,7 @@ public class DispositivoMedico implements Serializable {
      */
     @Column(nullable = false,
             unique = true,
-            length = 30)
+            length = LENGTH_30)
     private String numeroSeriale;
 
     /**

@@ -17,7 +17,8 @@ import java.util.GregorianCalendar;
  *               troponina Cardiaca.
  */
 @Entity
-public class MisurazioneEnzimiCardiaci extends Misurazione implements Serializable {
+public class MisurazioneEnzimiCardiaci
+        extends Misurazione implements Serializable {
     /**
      * questo campo indica il valore della mioglobina.
      */

@@ -14,5 +14,6 @@ import org.springframework.data.repository.NoRepositoryBean;
  * Per questo motivo si usa l'annotazione @NoRepositoryBean
  */
 @NoRepositoryBean
-public interface UtenteRegistratoDAO extends JpaRepository<UtenteRegistrato, String> {
+public interface UtenteRegistratoDAO
+        extends JpaRepository<UtenteRegistrato, String> {
 }
