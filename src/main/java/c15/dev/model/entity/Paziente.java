@@ -40,8 +40,7 @@ public class Paziente extends UtenteRegistrato {
      */
     @ManyToOne
     @JoinColumn(name = "id_medico",
-                referencedColumnName = "id")
-    @Column(nullable = false)
+                referencedColumnName = "id", nullable = false)
     private Medico medico;
 
     /**

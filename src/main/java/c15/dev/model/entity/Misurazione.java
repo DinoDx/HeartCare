@@ -1,24 +1,17 @@
 package c15.dev.model.entity;
 
+import jakarta.persistence.*;
 
-import jakarta.persistence.Table;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.GenerationType;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * @author Alessandro Zoccola.
- * Creato il: 30/12/2022.
+ * @author Alessandro Zoccola
+ * Creato il: 30/12/2022
  * Questa è la classe relativa ad una Misurazione.
- * I campi sono: id autogenerato, data della misurazione.
+ * I campi sono: id autogenerato, data della misurazione
  */
 
 @Entity
@@ -34,58 +27,52 @@ public class Misurazione implements Serializable {
     private Long id;
 
     /**
-     * Campo relativo alla Data di misurazione nel formato GG-MM-AAAA HH:mm.
-     * Invariante: la data della misurazione deve essere maggiore o uguale alla data corrente.
+     * Campo relativo alla Data di misurazione nel formato GG-MM-AAAA HH:mm
+     * Invariante: la data della misurazione deve essere maggiore o uguale alla data corrente
      */
+
     @Column(name = "data_misurazione", nullable = false)
     private GregorianCalendar dataMisurazione;
 
     @ManyToOne
-    @JoinColumn(name = "id_paziente",
-            referencedColumnName = "id",
-            nullable = false)
+    @JoinColumn(name = "id_paziente", referencedColumnName = "id", nullable = false)
     private Paziente paziente;
 
     @ManyToOne
-    @JoinColumn(name = "id_dispositivo_medico",
-            referencedColumnName = "id",
-            nullable = false)
+    @JoinColumn(name = "id_dispositivo_medico", referencedColumnName = "id", nullable = false)
     private DispositivoMedico dispositivoMedico;
 
     /**
-     * @param dataMisurazione rappresenta la data della misurazione.
-     * @param paziente rappresenta il paziente coinvolto nella misurazione.
-     * @param dispositivoMedico rappresenta il dispositivo medico con cui
-     *                          è stata effettuata la misurazione.
+     * @param dataMisurazione rappresenta la data della misurazione
+     * @param paziente rappresenta il paziente coinvolto nella misurazione
+     * @param dispositivoMedico rappresenta il dispositivo medico con cui è stata effettuata la misurazione
      */
-    public Misurazione(final GregorianCalendar dataMisurazione,
-                       final Paziente paziente,
-                       final DispositivoMedico dispositivoMedico) {
+    public Misurazione(GregorianCalendar dataMisurazione, Paziente paziente, DispositivoMedico dispositivoMedico){
         this.dataMisurazione = dataMisurazione;
         this.paziente = paziente;
         this.dispositivoMedico = dispositivoMedico;
     }
 
     /**
-     * Costruttore vuoto per Misurazione.
+     * Costruttore vuoto per Misurazione
      */
-    public Misurazione() {
+    public Misurazione(){
 
     }
 
     /**
      *
      * @return id
-     * metodo che restituisce l'id della misurazione.
+     * metodo che restituisce l'id della misurazione
      */
-    public long getId() {
+    public long getId(){
         return this.id;
     }
 
     /**
      *
      * @return dataMisurazione
-     * metodo che restituisce la data della misurazione.
+     * metodo che restituisce la data della misurazione
      */
     public GregorianCalendar getDataMisurazione() {
         return this.dataMisurazione;
@@ -94,7 +81,7 @@ public class Misurazione implements Serializable {
     /**
      *
      * @param dataMisurazione
-     * metodo che permette di inserire la data della misurazione.
+     * metodo che permette di inserire la data della misurazione
      *
      */
     public void setDataMisurazione(GregorianCalendar dataMisurazione) {
@@ -104,7 +91,7 @@ public class Misurazione implements Serializable {
     /**
      *
      * @return dataMisurazione
-     * metodo che permette di restituire il paziente a cui afferisce la misurazione.
+     * metodo che permette di restituire il paziente a cui afferisce la misurazione
      *
      */
     public Paziente getPaziente() {
@@ -114,7 +101,7 @@ public class Misurazione implements Serializable {
     /**
      *
      * @param paziente
-     * metodo che permette di impostare il paziente della misurazione.
+     * metodo che permette di impostare il paziente della misurazione
      *
      */
     public void setPaziente(Paziente paziente) {
@@ -124,8 +111,7 @@ public class Misurazione implements Serializable {
     /**
      *
      * @return dispositivoMedico
-     * metodo che permette di restituire il dispositivo medico da cui
-     * è stata effettuata la misurazione.
+     * metodo che permette di restituire il dispositivo medico da cui  è stata effettuata la misurazione
      *
      */
     public DispositivoMedico getDispositivoMedico() {
@@ -135,10 +121,10 @@ public class Misurazione implements Serializable {
     /**
      *
      * @param dispositivoMedico
-     * metodo che permette di impostare il dispositivo medico della misurazione.
+     * metodo che permette di impostare il dispositivo medico della misurazione
      *
      */
-    public void setDispositivoMedico(final DispositivoMedico dispositivoMedico) {
+    public void setDispositivoMedico(DispositivoMedico dispositivoMedico) {
         this.dispositivoMedico = dispositivoMedico;
     }
 }
