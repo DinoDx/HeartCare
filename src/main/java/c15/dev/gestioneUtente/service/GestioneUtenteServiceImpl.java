@@ -1,4 +1,4 @@
 package c15.dev.gestioneUtente.service;
 
-public class GestioneUtenteServiceImpl {
+public class GestioneUtenteServiceImpl implements GestioneUtenteService{
 }
