@@ -7,6 +7,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Column;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -36,27 +39,35 @@ public final class Indirizzo implements Serializable {
     /**
      * Stringa che rappresenta la città dell'indirizzo.
      */
+    @NotBlank
+    @NotNull
     private String citta;
 
     /**
      * Numero Intero che rappresenta il numero civico dell'indirizzo.
      */
+    @NotNull
     private Integer nCivico;
 
     /**
      * Numero Intero che rappresenta il cap dell'indirizzo
      * deve essere un numero intero di 5 cifre.
      */
+    @NotNull
     private Integer cap;
 
     /**
      * Stringa che rappresenta la provincia dell'indirizzo.
      */
+    @NotBlank
+    @NotNull
     private String provincia;
 
     /**
      * Stringa che rappresenta la via dell'indirizzo.
      */
+    @NotNull
+    @NotBlank
     private String via;
 
     /**
@@ -80,22 +91,22 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @param citta
-     * @param nCivico
-     * @param cap
-     * @param provincia
+     * @param cit
+     * @param numeroCivico
+     * @param codiceAvviamentoPostale
+     * @param prov
      * @param via
      * Costruttore comprensivo di tutti i campi.
      */
-    public Indirizzo(final String citta,
-                     final Integer nCivico,
-                     final Integer cap,
-                     final String provincia,
+    public Indirizzo(final String cit,
+                     final Integer numeroCivico,
+                     final Integer codiceAvviamentoPostale,
+                     final String prov,
                      final String via) {
-        this.citta = citta;
-        this.nCivico = nCivico;
-        this.cap = cap;
-        this.provincia = provincia;
+        this.citta = cit;
+        this.nCivico = numeroCivico;
+        this.cap = codiceAvviamentoPostale;
+        this.provincia = prov;
         this.via = via;
     }
 
@@ -110,11 +121,11 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @param citta
+     * @param cit
      * Metodo che permette di inserire una citta di un Indirizzo.
      */
-    public void setCitta(final String citta) {
-        this.citta = citta;
+    public void setCitta(final String cit) {
+        this.citta = cit;
     }
 
     /**
@@ -128,11 +139,11 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @param nCivico
+     * @param numeroCivico
      * Metodo che permette di inserire il numero civico di un Indirizzo.
      */
-    public void setnCivico(final Integer nCivico) {
-        this.nCivico = nCivico;
+    public void setnCivico(final Integer numeroCivico) {
+        this.nCivico = numeroCivico;
     }
 
     /**
@@ -146,11 +157,11 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @param cap
+     * @param codiceAvviamentoPostale
      * Metodo che permette di inserire il cap di un Indirizzo.
      */
-    public void setCap(final Integer cap) {
-        this.cap = cap;
+    public void setCap(final Integer codiceAvviamentoPostale) {
+        this.cap = codiceAvviamentoPostale;
     }
 
     /**
@@ -164,11 +175,11 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @param provincia
+     * @param prov
      * Metodo per inserire una provincia in un indirizzo.
      */
-    public void setProvincia(final String provincia) {
-        this.provincia = provincia;
+    public void setProvincia(final String prov) {
+        this.provincia = prov;
     }
 
     /**
@@ -201,12 +212,12 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @param elencoUtenti
+     * @param ListaUtenti
      * Metodo per aggiungere l'elenco di utenti che hanno residenza
      * in un determinato indirizzo.
      */
-    public void setElencoUtenti(List<UtenteRegistrato> elencoUtenti) {
-        this.elencoUtenti = elencoUtenti;
+    public void setElencoUtenti(List<UtenteRegistrato> ListaUtenti) {
+        this.elencoUtenti = ListaUtenti;
     }
 
     /**
@@ -221,12 +232,12 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @param elencoVisite
+     * @param ListaVisite
      * Metodo per aggiungere l'elenco delle visite che si effettuano
      * in un determinato indirizzo.
      */
-    public void setElencoVisite(List<Visita> elencoVisite) {
-        this.elencoVisite = elencoVisite;
+    public void setElencoVisite(List<Visita> ListaVisite) {
+        this.elencoVisite = ListaVisite;
     }
 
     @Override

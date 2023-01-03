@@ -9,6 +9,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinTable;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Date;
 import java.util.Set;
@@ -24,15 +26,18 @@ public class Paziente extends UtenteRegistrato {
     /**
      * Questo campo rappresenta il nome del caregiver.
      */
+    @NotBlank
     private String nomeCaregiver;
 
     /**
      * Questo campo rappresenta il cognome del caregiver.
      */
+    @NotBlank
     private String cognomeCaregiver;
     /**
      * Questo campo rappresenta l'email del caregiver.
      */
+    @Email
     private String emailCaregiver;
 
     /**
@@ -51,7 +56,8 @@ public class Paziente extends UtenteRegistrato {
     private Set<Nota> note;
 
     /**
-     * Questo campo indica l'insieme dei dispositivi medici che un paziente si assegna.
+     * Questo campo indica l'insieme dei dispositivi medici che un paziente si
+     * assegna.
      */
     @OneToMany(mappedBy = "paziente",
             fetch = FetchType.EAGER)
@@ -64,7 +70,7 @@ public class Paziente extends UtenteRegistrato {
     private Set<Misurazione> misurazione;
 
     /**
-     * campo che inidica l'insieme delle visite a cui un paziente è stato.
+     * Campo che inidica l'insieme delle visite a cui un paziente è stato.
      */
     @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
     private Set<Visita> visita;
@@ -80,7 +86,6 @@ public class Paziente extends UtenteRegistrato {
     )
     private Set<Notifica> notifica;
 
-
     /**
      * costruttore vuoto.
      */
@@ -90,45 +95,35 @@ public class Paziente extends UtenteRegistrato {
 
     /**
      *
-     * @param dataDiNascita
-     * @param codiceFiscale
-     * @param numeroTelefono
-     * @param password
-     * @param email
+     * @param dataNascita
+     * @param codFiscale
+     * @param nTelefono
+     * @param pass
+     * @param indirizzoEmail
      * @param nome
      * @param cognome
-     * @param genere
-     * @param nomeCaregiver
-     * @param cognomeCaregiver
-     * @param emailCaregiver
-     * @param medico
+     * @param sesso
      *
      * costruttore per il Paziente.
      */
-    public Paziente(final Date dataDiNascita,
-                    final String codiceFiscale,
-                    final String numeroTelefono,
-                    final String password,
-                    final String email,
+    public Paziente(final Date dataNascita,
+                    final String codFiscale,
+                    final String nTelefono,
+                    final String pass,
+                    final String indirizzoEmail,
                     final String nome,
                     final String cognome,
-                    final char genere,
-                    final String nomeCaregiver,
-                    final String cognomeCaregiver,
-                    final String emailCaregiver,
-                    final Medico medico) {
-        super(dataDiNascita,
-                codiceFiscale,
-                numeroTelefono,
-                password,
-                email,
+                    final char sesso
+                   ) {
+        super(dataNascita,
+                codFiscale,
+                nTelefono,
+                pass,
+                indirizzoEmail,
                 nome,
                 cognome,
-                genere);
-        this.nomeCaregiver = nomeCaregiver;
-        this.cognomeCaregiver = cognomeCaregiver;
-        this.emailCaregiver = emailCaregiver;
-        this.medico = medico;
+                sesso);
+
     }
 
     /**
@@ -141,11 +136,11 @@ public class Paziente extends UtenteRegistrato {
 
     /**
      *
-     * @param nomeCaregiver
+     * @param nome
      * Metodo che permette di inserire il nome di un caregiver.
      */
-    public void setNomeCaregiver(String nomeCaregiver) {
-        this.nomeCaregiver = nomeCaregiver;
+    public void setNomeCaregiver(String nome) {
+        this.nomeCaregiver = nome;
     }
 
     /**
@@ -159,11 +154,11 @@ public class Paziente extends UtenteRegistrato {
 
     /**
      *
-     * @param cognomeCaregiver
+     * @param cognome
      * Metodo che  permette di inserire il cognome del caregiver.
      */
-    public void setCognomeCaregiver(String cognomeCaregiver) {
-        this.cognomeCaregiver = cognomeCaregiver;
+    public void setCognomeCaregiver(String cognome) {
+        this.cognomeCaregiver = cognome;
     }
 
     /**
@@ -177,11 +172,11 @@ public class Paziente extends UtenteRegistrato {
 
     /**
      *
-     * @param emailCaregiver
+     * @param email
      * Metodo che permette di inserire l'email del caregiver.
      */
-    public void setEmailCaregiver(String emailCaregiver) {
-        this.emailCaregiver = emailCaregiver;
+    public void setEmailCaregiver(String email) {
+        this.emailCaregiver = email;
     }
 
     /**
