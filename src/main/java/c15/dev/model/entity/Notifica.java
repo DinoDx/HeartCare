@@ -11,6 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -20,11 +23,10 @@ import java.util.Set;
 /**
  * @author Vincenzo Arnone.
  * Creato il 30/12/2022.
- * questa è la classe che rappresenta le notifiche.
+ * Questa è la classe che rappresenta le notifiche.
  */
 @Entity
 public class Notifica implements Serializable {
-
     /**
      * Campo relativo all'id della nota generato automaticamente.
      **/
@@ -36,6 +38,8 @@ public class Notifica implements Serializable {
      * Campo relativo alla data di scadenza della notifica.
      **/
     @Column(nullable = false)
+    @FutureOrPresent
+    @NotNull
     private GregorianCalendar dataScadenza;
 
 
@@ -49,12 +53,15 @@ public class Notifica implements Serializable {
      * Campo relativo al contenuto della notifica.
      **/
     @Column(nullable = false)
+    @NotNull
+    @NotBlank
     private String testo;
 
     /**
      * Campo relativo allo statoNotifica della notifica.
      **/
     @Column(nullable = false)
+    @NotNull
     private StatoNotifica statoNotifica;
 
     /**
@@ -62,8 +69,7 @@ public class Notifica implements Serializable {
      **/
     @ManyToOne
     @JoinColumn(name = "id_medico",
-                referencedColumnName = "id",
-                nullable = false)
+                referencedColumnName = "id")
     private Medico notificaMedico;
 
     /**
@@ -75,8 +81,8 @@ public class Notifica implements Serializable {
 
     /**
      *
-     * @return pazienti
-     * metodo che restituisce l'insieme dei pazienti che hanno ricvuto una notifica.
+     * @return pazienti.
+     * Metodo che restituisce l'insieme dei pazienti che hanno ricevuto una notifica.
      */
     public Set<Paziente> getPazienti(){
         return pazienti;
@@ -89,33 +95,33 @@ public class Notifica implements Serializable {
     }
 
     /**
-     * @param dataScadenza rappresenta la data di scadenza della notifica
-     * @param oggetto rappresenta l'oggetto della notifica
-     * @param testo rappresenta il testo della notifica
-     * @param statoNotifica rappresenta lo statoNotifica della notifica
-     * @param notificaMedico rappresenta il medico che ha inviato la notifica
-     * @param pazienti rappresenta la lista di pazienti che hanno ricevuto una notifica
+     * @param dataDiScadenza rappresenta la data di scadenza della notifica
+     * @param oggettoNotifica rappresenta l'oggetto della notifica
+     * @param testoNotifica rappresenta il testo della notifica
+     * @param stato rappresenta lo statoNotifica della notifica
+     * @param medico rappresenta il medico che ha inviato la notifica
+     * @param elencoPazienti rappresenta la lista di pazienti che hanno ricevuto una notifica
      *
      * Costruttore per la classe Notifica.
      */
-    public Notifica(final GregorianCalendar dataScadenza,
-                    final String oggetto,
-                    final String testo,
-                    final StatoNotifica statoNotifica,
-                    final Medico notificaMedico,
-                    final Set<Paziente> pazienti) {
-        this.dataScadenza = dataScadenza;
-        this.oggetto = oggetto;
-        this.testo = testo;
-        this.statoNotifica = statoNotifica;
-        this.notificaMedico = notificaMedico;
-        this.pazienti = pazienti;
+    public Notifica(final GregorianCalendar dataDiScadenza,
+                    final String oggettoNotifica,
+                    final String testoNotifica,
+                    final StatoNotifica stato,
+                    final Medico medico,
+                    final Set<Paziente> elencoPazienti) {
+        this.dataScadenza = dataDiScadenza;
+        this.oggetto = oggettoNotifica;
+        this.testo = testoNotifica;
+        this.statoNotifica = stato;
+        this.notificaMedico = medico;
+        this.pazienti = elencoPazienti;
     }
 
     /**
      *
      * @return id
-     * metodo che restituisce l'id della notifica.
+     * Metodo che restituisce l'id della notifica.
      */
     public Long getId() {
         return id;
@@ -123,17 +129,8 @@ public class Notifica implements Serializable {
 
     /**
      *
-     * @param id
-     * metodo che permette di definire l'id della notifica.
-     */
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    /**
-     *
      * @return dataScadenza
-     * metodo che restituisce la data di scadenza della notifica.
+     * Metodo che restituisce la data di scadenza della notifica.
      */
     public GregorianCalendar getDataScadenza() {
         return dataScadenza;
@@ -141,17 +138,17 @@ public class Notifica implements Serializable {
 
     /**
      *
-     * @param dataScadenza
-     * metodo che permette di definire la data di scadenza della notifica.
+     * @param dataDiScadenza
+     * Metodo che permette di definire la data di scadenza della notifica.
      */
-    public void setDataScadenza(final GregorianCalendar dataScadenza) {
-        this.dataScadenza = dataScadenza;
+    public void setDataScadenza(final GregorianCalendar dataDiScadenza) {
+        this.dataScadenza = dataDiScadenza;
     }
 
     /**
      *
-     * @return oggetto
-     * metodo che restituisce l'oggetto della notifica.
+     * @return oggetto.
+     * Metodo che restituisce l'oggetto della notifica.
      */
     public String getOggetto() {
         return oggetto;
@@ -159,10 +156,10 @@ public class Notifica implements Serializable {
 
     /**
      *
-     * @param oggetto
+     * @param oggettoNotifica
      * metodo che permette di definire l'oggetto della notifica.
      */
-    public void setOggetto(final String oggetto) {
+    public void setOggetto(final String oggettoNotifica) {
         this.oggetto = oggetto;
     }
 
@@ -177,11 +174,12 @@ public class Notifica implements Serializable {
 
     /**
      *
-     * @param testo
+     * @param testoNotifica
      * metodo che permette di definire il testo della notifica.
      */
-    public void setTesto(final String testo) {
-        this.testo = testo;
+    public void setTesto(final String testoNotifica) {
+        this.testo = testoNotifica;
+        return;
     }
 
     /**
@@ -195,11 +193,11 @@ public class Notifica implements Serializable {
 
     /**
      *
-     * @param statoNotifica
+     * @param stato
      * metodo che permette di definire lo statoNotifica della notifica.
      */
-    public void setStato(StatoNotifica statoNotifica) {
-        this.statoNotifica = statoNotifica;
+    public void setStato(StatoNotifica stato) {
+        this.statoNotifica = stato;
     }
 
     /**
@@ -213,21 +211,21 @@ public class Notifica implements Serializable {
 
     /**
      *
-     * @param notificaMedico
+     * @param medico
      * metodo che permette di definire il medico che ha inviato la notifica.
      */
-    public void setNotificaMedico(Medico notificaMedico) {
-        this.notificaMedico = notificaMedico;
+    public void setNotificaMedico(Medico medico) {
+        this.notificaMedico = medico;
     }
 
 
     /**
      *
-     * @param pazienti
+     * @param elencoPazienti
      * metodo che permette di definire i pazienti che hanno ricevuto le notifiche.
      */
-    public void setPazienti(Set<Paziente> pazienti) {
-        this.pazienti = pazienti;
+    public void setPazienti(Set<Paziente> elencoPazienti) {
+        this.pazienti = elencoPazienti;
     }
 
     /**

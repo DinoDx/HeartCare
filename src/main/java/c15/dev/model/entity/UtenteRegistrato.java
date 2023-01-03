@@ -10,6 +10,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Table;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Inheritance;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
+
 
 import java.io.Serializable;
 import java.security.MessageDigest;
@@ -67,6 +74,7 @@ public class UtenteRegistrato implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -75,43 +83,64 @@ public class UtenteRegistrato implements Serializable {
      * Invariante: la data di nascita deve essere inferiore o uguale alla data corrente.
      */
     @Column(nullable = false)
+    @NotBlank
+    @Past
     private Date dataDiNascita;
 
     /**
      * Campo relativo al Codice Fiscale.
+     * Invariante: deve rispettare l'espressione regolare.
      */
     @Column(nullable = false, length = LENGTH_16)
+    @NotNull
+    @NotBlank
+    @Pattern(regexp = "^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$",
+            message = "regexp codice fiscale non rispettata")
     private String codiceFiscale;
 
     /**
-     * Campo relativo al numero di telefono
+     * Campo relativo al numero di telefono.
      * Invariante: deve avere dimensione pari a 10 caratteri.
      */
     @Column(nullable = false, length = LENGTH_10)
+    @NotBlank
+    @Pattern(regexp = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$")
+    @Size(min=LENGTH_10, max=LENGTH_10)
     private String numeroTelefono;
 
     /**
      * Rappresenta la password di un Utente Registrato.
+     * La sua espressione regolare richiede che ci siano:
+     *  almeno 8 caratteri, massimo 16
+     *  almeno una maiuscola
+     *  almeno un numero
+     *  almeno un carattere speciale.
      */
     @Column(nullable = false, length = LENGTH_32)
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,16}$",
+            message = "Campo password in utente non rispetta la regexp")
     private byte[] password;
 
     /**
      * Rappresenta l'email di un Utente Registrato.
      */
     @Column(nullable = false, length = LENGTH_32)
+    @NotNull
+    @Email
     private String email;
 
     /**
      * Rappresenta il nome di un Utente Registrato.
      */
     @Column(nullable = false, length = LENGTH_32)
+    @Size(min = LENGTH_1, max = LENGTH_32)
     private String nome;
 
     /**
      * Rappresenta il cognome di un Utente Registrato.
      */
     @Column(nullable = false, length = LENGTH_32)
+    @Size(min = LENGTH_1, max = LENGTH_32)
     private String cognome;
 
     /**
@@ -119,6 +148,8 @@ public class UtenteRegistrato implements Serializable {
      * Invariante: può essere o M o F.
      */
     @Column(nullable = false, length = LENGTH_1)
+    @Pattern(regexp = "^M$|^F$",
+             message = "Genere deve rispettare l'espressione regolare")
     private char genere;
 
     /**
@@ -127,6 +158,7 @@ public class UtenteRegistrato implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_indirizzo",
                 referencedColumnName = "id")
+    @NotNull
     private Indirizzo indirizzoResidenza;
 
     /**
@@ -137,30 +169,30 @@ public class UtenteRegistrato implements Serializable {
     }
 
     /**
-     * @param dataDiNascita rappresenta la data di nascita di un admin
-     * @param codiceFiscale rappresenta il codice fiscale di un admin
-     * @param numeroTelefono rappresenta il numero di telefono di un admin
-     * @param password rappresenta la password in formato Stringa di un admin
-     * @param email rappresenta l'email di un admin
-     * @param nome rappresenta il nome di un admin
-     * @param cognome rappresenta il cognome di un admin
-     * @param genere rappresenta il genere di un admin
+     * @param dataNascita rappresenta la data di nascita di un utente
+     * @param codFiscale rappresenta il codice fiscale di un utente
+     * @param nTelefono rappresenta il numero di telefono di un utente
+     * @param pass rappresenta la password in formato Stringa di un utente
+     * @param indirizzoEmail rappresenta l'email di un utente
+     * @param nome rappresenta il nome di un utente
+     * @param cognome rappresenta il cognome di un utente
+     * @param sesso rappresenta il genere di un utente
      */
-    public UtenteRegistrato(final Date dataDiNascita,
-                  final String codiceFiscale,
-                  final String numeroTelefono,
-                  final String password,
-                  final String email,
+    public UtenteRegistrato(final Date dataNascita,
+                  final String codFiscale,
+                  final String nTelefono,
+                  final String pass,
+                  final String indirizzoEmail,
                   final String nome,
                   final String cognome,
-                  final char genere) {
-        this.dataDiNascita = dataDiNascita;
-        this.codiceFiscale = codiceFiscale;
-        this.numeroTelefono = numeroTelefono;
-        this.email = email;
+                  final char sesso) {
+        this.dataDiNascita = dataNascita;
+        this.codiceFiscale = codFiscale;
+        this.numeroTelefono = nTelefono;
+        this.email = indirizzoEmail;
         this.nome = nome;
         this.cognome = cognome;
-        this.genere = genere;
+        this.genere = sesso;
 
         /*
          * In questo blocco si converte la stringa "password" in un array di bytes
@@ -169,7 +201,7 @@ public class UtenteRegistrato implements Serializable {
          */
         try {
             MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-            this.password = msgDigest.digest(password.getBytes());
+            this.password = msgDigest.digest(pass.getBytes());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -195,12 +227,12 @@ public class UtenteRegistrato implements Serializable {
 
     /**
      * 
-     * @param dataDiNascita
+     * @param dataNascita
      * metodo che permette di inserire la data di nascita.
      * 
      */
-    public void setDataDiNascita(final Date dataDiNascita) {
-        this.dataDiNascita = dataDiNascita;
+    public void setDataDiNascita(final Date dataNascita) {
+        this.dataDiNascita = dataNascita;
     }
 
     /**
@@ -214,10 +246,10 @@ public class UtenteRegistrato implements Serializable {
 
     /**
      * 
-     * @param codiceFiscale 
+     * @param codFiscale
      * metodo per inserire il codice fiscale.
      */
-    public void setCodiceFiscale(final String codiceFiscale) {
+    public void setCodiceFiscale(final String codFiscale) {
         this.codiceFiscale = codiceFiscale;
     }
 
@@ -230,11 +262,11 @@ public class UtenteRegistrato implements Serializable {
     }
 
     /**
-     * @param numeroTelefono
+     * @param nTelefono
      * Metodo che permette di inserire il numero di telefono.
      */
-    public void setNumeroTelefono(final String numeroTelefono) {
-        this.numeroTelefono = numeroTelefono;
+    public void setNumeroTelefono(final String nTelefono) {
+        this.numeroTelefono = nTelefono;
     }
 
     /**
@@ -248,12 +280,12 @@ public class UtenteRegistrato implements Serializable {
 
     /**
      * Setter per la password implementando l'algoritmo SHA-256.
-     * @param password la password da settare
+     * @param pass la password da settare
      */
-    public void setPassword(final String password) {
+    public void setPassword(final String pass) {
         try {
             MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-            this.password = msgDigest.digest(password.getBytes());
+            this.password = msgDigest.digest(pass.getBytes());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -270,11 +302,11 @@ public class UtenteRegistrato implements Serializable {
 
     /**
      *
-     * @param email
+     * @param indirizzoEmail
      * Metodo che permette di inserisce un'email.
      */
-    public void setEmail(final String email) {
-        this.email = email;
+    public void setEmail(final String indirizzoEmail) {
+        this.email = indirizzoEmail;
     }
 
     /**
@@ -306,11 +338,11 @@ public class UtenteRegistrato implements Serializable {
 
     /**
      *
-     * @param cognome
+     * @param cog
      * Metodo che permette di inserire il cognome di un UtenteRegistrato.
      */
-    public void setCognome(final String cognome) {
-        this.cognome = cognome;
+    public void setCognome(final String cog) {
+        this.cognome = cog;
     }
 
     /**
@@ -324,11 +356,11 @@ public class UtenteRegistrato implements Serializable {
 
     /**
      *
-     * @param genere
+     * @param gen
      * Metodo che permette di inserisce il genere nel profilo utente.
      */
-    public void setGenere(final char genere) {
-        this.genere = genere;
+    public void setGenere(final char gen) {
+        this.genere = gen;
     }
 
     /**
@@ -342,10 +374,10 @@ public class UtenteRegistrato implements Serializable {
 
     /**
      *
-     * @param indirizzoResidenza
+     * @param indirizzo
      * Metodo per collegare un indirizzo a un utente.
      */
-    public void setIndirizzoResidenza(final Indirizzo indirizzoResidenza) {
-        this.indirizzoResidenza = indirizzoResidenza;
+    public void setIndirizzoResidenza(final Indirizzo indirizzo) {
+        this.indirizzoResidenza = indirizzo;
     }
 }

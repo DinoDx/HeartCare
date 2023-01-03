@@ -1,7 +1,16 @@
 package c15.dev.model.entity;
 
 import c15.dev.model.entity.enumeration.StatoVisita;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -25,12 +34,15 @@ public class Visita implements Serializable {
      * Campo relativo alla data della visita.
      **/
     @Column(nullable = false)
+    @NotNull
+    @Future
     private GregorianCalendar data;
 
     /**
      * Campo relativo allo stato della visita.
      **/
     @Column(nullable = false)
+    @NotNull
     private StatoVisita statoVisita;
 
     /**
@@ -40,6 +52,7 @@ public class Visita implements Serializable {
     @JoinColumn(name = "id_medico",
                 referencedColumnName = "id",
                 nullable = false)
+    @NotNull
     private Medico medico;
 
 
@@ -58,6 +71,7 @@ public class Visita implements Serializable {
      **/
     @ManyToOne
     @JoinColumn(name="id_indirizzo", referencedColumnName = "id")
+    @NotNull
     private Indirizzo indirizzoVisita;
 
 
@@ -68,22 +82,22 @@ public class Visita implements Serializable {
     }
 
     /**
-     * @param data rappresenta la data della visita
-     * @param statoVisita rappresenta lo stato della visita
-     * @param medico rappresenta il medico con cui si fa la visita
-     * @param paziente rappresenta il paziente che è coinvolto nella visita
-     * @param indirizzoVisita rappresenta l'indirizzo in cui si effettuerà la visita
+     * @param dataVisita rappresenta la data della visita
+     * @param stato rappresenta lo stato della visita
+     * @param med rappresenta il medico con cui si fa la visita
+     * @param paz rappresenta il paziente che è coinvolto nella visita
+     * @param indirizzo rappresenta l'indirizzo in cui si effettuerà la visita
      */
-    public Visita(final GregorianCalendar data,
-                  final StatoVisita statoVisita,
-                  final Medico medico,
-                  final Paziente paziente,
-                  final Indirizzo indirizzoVisita) {
-        this.data = data;
-        this.statoVisita = statoVisita;
-        this.medico = medico;
-        this.paziente = paziente;
-        this.indirizzoVisita = indirizzoVisita;
+    public Visita(final GregorianCalendar dataVisita,
+                  final StatoVisita stato,
+                  final Medico med,
+                  final Paziente paz,
+                  final Indirizzo indirizzo) {
+        this.data = dataVisita;
+        this.statoVisita = stato;
+        this.medico = med;
+        this.paziente = paz;
+        this.indirizzoVisita = indirizzo;
     }
 
     /**
@@ -93,15 +107,6 @@ public class Visita implements Serializable {
      */
     public Long getId() {
         return id;
-    }
-
-    /**
-     *
-     * @param id
-     * metodo che permette di definire l'id della notifica.
-     */
-    public void setId(final Long id) {
-        this.id = id;
     }
 
     /**

@@ -23,25 +23,31 @@ public class Admin extends UtenteRegistrato implements Serializable {
     /**
      * Costruttore comprensivo di tutti i parametri, richiama il costruttore
      * di "UtenteRegistrato".
-     * @param dataDiNascita
-     * @param codiceFiscale
-     * @param numeroTelefono
-     * @param password
-     * @param email
-     * @param nome
-     * @param cognome
-     * @param genere
+     * @param dataNascita indica la data di nascita dell'admin
+     * @param codFiscale
+     * @param nTelefono è il campo del numero di telefono dell'admin
+     * @param pass è la password dell'admin
+     * @param indirizzoEmail è l'indirizzo email dell'admin
+     * @param nome è il nome dell'admin
+     * @param cog è il cognome dell'admin
+     * @param sesso indica il genere dell'admin
      */
-    public Admin(final Date dataDiNascita,
-                 final String codiceFiscale,
-                 final String numeroTelefono,
-                 final String password,
-                 final String email,
+    public Admin(final Date dataNascita,
+                 final String codFiscale,
+                 final String nTelefono,
+                 final String pass,
+                 final String indirizzoEmail,
                  final String nome,
-                 final String cognome,
-                 final char genere) {
-        super(dataDiNascita, codiceFiscale, numeroTelefono,
-                password, email, nome, cognome, genere);
+                 final String cog,
+                 final char sesso) {
+        super(dataNascita,
+                codFiscale,
+                nTelefono,
+                pass,
+                indirizzoEmail,
+                nome,
+                cog,
+                sesso);
     }
 
 }
