@@ -19,4 +19,12 @@ public interface AdminDAO extends UtenteRegistratoDAO {
      */
     @Query("DELETE FROM Admin a WHERE a.id=:id")
     void removeAdmin(Long id);
+
+    /**
+     *
+     * @param email
+     * @param password
+     * @return Admin trovato nel db
+     */
+    Admin findByEmailAndPassword(String email, byte[] password);
 }
