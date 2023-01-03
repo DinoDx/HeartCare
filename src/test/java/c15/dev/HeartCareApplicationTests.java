@@ -1,4 +1,4 @@
-package C15.dev;
+package c15.dev;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
