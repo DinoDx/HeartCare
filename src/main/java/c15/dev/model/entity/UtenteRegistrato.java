@@ -74,8 +74,7 @@ public class UtenteRegistrato implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
     /**
@@ -83,7 +82,6 @@ public class UtenteRegistrato implements Serializable {
      * Invariante: la data di nascita deve essere inferiore o uguale alla data corrente.
      */
     @Column(nullable = false)
-    @NotBlank
     @Past
     private Date dataDiNascita;
 
@@ -116,7 +114,7 @@ public class UtenteRegistrato implements Serializable {
      *  almeno un numero
      *  almeno un carattere speciale.
      */
-    @Column(nullable = false, length = LENGTH_32)
+    @Column(nullable = false)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,16}$",
             message = "Campo password in utente non rispetta la regexp")
     private byte[] password;
@@ -158,7 +156,6 @@ public class UtenteRegistrato implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_indirizzo",
                 referencedColumnName = "id")
-    @NotNull
     private Indirizzo indirizzoResidenza;
 
     /**

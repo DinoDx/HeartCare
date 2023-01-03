@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
+
 @Service
 public class GestioneUtenteServiceImpl implements GestioneUtenteService{
     /**
@@ -27,7 +29,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
     @Autowired
     private MedicoDAO medico;
     @Override
-    public UtenteRegistrato login(final String email, final String password) {
+    public Optional<UtenteRegistrato> login(final String email, final String password) {
 
         try {
             MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
@@ -35,11 +37,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
             UtenteRegistrato utente;
 
             if ((utente = paziente.findByEmailAndPassword(email,pass)) != null) {
-                return utente;
+                return Optional.of(utente);
             } else if ((utente = medico.findByEmailAndPassword(email,pass)) != null) {
-                return utente;
+                return Optional.of(utente);
             } else if ((utente = admin.findByEmailAndPassword(email,pass)) != null) {
-                return utente;
+                return Optional.of(utente);
             }
 
         } catch (NoSuchAlgorithmException e) {

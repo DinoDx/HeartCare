@@ -1,13 +1,19 @@
 package c15.dev.gestioneUtente.controller;
 
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
-import c15.dev.gestioneUtente.service.GestioneUtenteServiceImpl;
+import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+
+import java.util.Date;
+import java.util.Optional;
 
 @RestController
+@SessionAttributes("utenteLoggato")
 public class GestioneUtenteController {
     /**
      * Service per le operazioni di accesso
@@ -26,16 +32,18 @@ public class GestioneUtenteController {
      * @param password
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void login( @RequestParam String email,
+    public void login(@RequestParam String email,
                        @RequestParam String password) {
-        UtenteRegistrato utente = service.login(email,password);
 
-        if(utente == null){
-            return;
-        }
-
-        session.setAttribute("utente",utente); //da vedere
-
+        Optional<UtenteRegistrato> utente = service.login(email, password);
+        utente.ifPresent(utenteRegistrato ->
+            {session.setAttribute("utenteLoggato", utente);} );
     }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public void logout() {
+        session.invalidate();
+    }
+
 
 }
