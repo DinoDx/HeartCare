@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -20,12 +21,14 @@ public class MisurazioneSaturazione extends Misurazione implements Serializable 
      * Questo campo numerico indica il numero di battiti per minuto.
      */
     @Column(name = "battiti_per_minuto", nullable = false)
+    @NotNull
     private int battitiPerMinuto;
 
     /**
      * Questo campo numerico indica la percentuale di saturazione.
      */
     @Column(name = "percentuale_saturazione", nullable = false)
+    @NotNull
     private double percentualeSaturazione;
 
     /**

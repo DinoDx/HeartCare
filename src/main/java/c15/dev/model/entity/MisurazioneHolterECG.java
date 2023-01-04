@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -24,30 +25,35 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
      * Campo che rappresenta la durata dell'onda p di un elettrocardiogramma.
      */
     @Column(name = "durata_onda_p", nullable = false)
+    @NotNull
     private double durataOndaP;
 
     /**
      * Campo che rappresenta il numero di battiti per minuto.
      */
     @Column(name = "battiti_per_minuto", nullable = false)
+    @NotNull
     private int battitiPerMinuto;
 
     /**
      * Campo che rappresenta la durata del complesso qrs.
      */
     @Column(name = "durata_complesso_qrs", nullable = false)
+    @NotNull
     private double durataComplessoQRS;
 
     /**
      * Campo che rappresenta la durata dell'intervallo PR.
      */
     @Column(name = "intervallo_pr", nullable = false)
+    @NotNull
     private double intervalloPR;
 
     /**
      * Campo che rappresenta la duraya dell'onda t.
      */
     @Column(name = "onda_t", nullable = false)
+    @NotNull
     private double ondaT;
 
     /**

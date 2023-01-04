@@ -1,6 +1,8 @@
 package c15.dev.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import org.checkerframework.checker.optional.qual.Present;
 
 import java.io.Serializable;
@@ -25,6 +27,7 @@ public class Misurazione implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @NotNull
     private Long id;
 
     /**
@@ -33,7 +36,8 @@ public class Misurazione implements Serializable {
      * o uguale alla data corrente.
      */
     @Column(name = "data_misurazione", nullable = false)
-    @Present
+    @NotNull
+    @Future
     private GregorianCalendar dataMisurazione;
     /**
      * Campo relativo alla relazione tra pazienti e misurazioni.

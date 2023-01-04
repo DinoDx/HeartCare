@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -23,18 +24,21 @@ public class MisurazioneEnzimiCardiaci
      * questo campo indica il valore della mioglobina.
      */
     @Column(name = "mioglobina", nullable = false)
+    @NotNull
     private double mioglobina;
 
     /**
      * questo campo indica il valore della creatin Kinasi.
      */
     @Column(name = "creatin_kinasi", nullable = false)
+    @NotNull
     private double creatinKinasi;
 
     /**
      * questo campo indica il valore della troponina cardiaca.
      */
     @Column(name = "troponina_cardiaca", nullable = false)
+    @NotNull
     private double troponinaCardiaca;
 
     /**
