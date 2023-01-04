@@ -9,5 +9,5 @@ import c15.dev.model.entity.DispositivoMedico;
  * Interfaccia per il service delle misurazioni.
  */
 public interface GestioneMisurazioneService {
-    public boolean registrazioneDispositivo(DispositivoMedico dispositivo, long id);
+    public boolean registrazioneDispositivo(DispositivoMedico dispositivo, long idPaziente);
 }

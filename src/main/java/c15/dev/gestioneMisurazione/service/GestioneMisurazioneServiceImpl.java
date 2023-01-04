@@ -33,8 +33,8 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
     private PazienteDAO pazienteDao;
 
     @Override
-    public boolean registrazioneDispositivo(DispositivoMedico dispositivo, long id) {
-        Optional<UtenteRegistrato> paziente = pazienteDao.findById(id);
+    public boolean registrazioneDispositivo(DispositivoMedico dispositivo, long idPaziente) {
+        Optional<UtenteRegistrato> paziente = pazienteDao.findById(idPaziente);
         if(paziente.isEmpty()){
             return false;
         }
