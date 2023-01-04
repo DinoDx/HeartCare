@@ -3,6 +3,7 @@ package c15.dev.gestioneUtente.service;
 import c15.dev.model.dao.AdminDAO;
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,19 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
         }
 
         return null;
+    }
+
+    @Override
+    public void assegnaCaregiver(Long id, String emailCaregiver,
+                                 String nomeCaregiver,
+                                 String cognomeCaregiver) {
+
+        Optional<UtenteRegistrato> pz =  paziente.findById(id);
+        Paziente tmp = (Paziente) pz.get();
+        tmp.setEmailCaregiver(emailCaregiver);
+        tmp.setNomeCaregiver(nomeCaregiver);
+        tmp.setCognomeCaregiver(cognomeCaregiver);
+
+        paziente.save(tmp);
     }
 }
