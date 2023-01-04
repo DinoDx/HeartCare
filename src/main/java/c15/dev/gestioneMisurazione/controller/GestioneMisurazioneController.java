@@ -38,6 +38,10 @@ public class GestioneMisurazioneController {
                 u.getId());
     }
 
+    /**
+     * Metodo per la rimozione del dispositivo.
+     * @param dispositivo
+     */
     @RequestMapping(value = "/rimuoviDispositivo", method = RequestMethod.POST)
     public boolean rimozioneDispositivo(
             @RequestParam DispositivoMedico dispositivo){
