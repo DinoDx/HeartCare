@@ -53,11 +53,12 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
     }
 
     @Override
-    public void assegnaCaregiver(Long id, String emailCaregiver,
+    public void assegnaCaregiver(Long idPaziente,
+                                 String emailCaregiver,
                                  String nomeCaregiver,
                                  String cognomeCaregiver) {
 
-        Optional<UtenteRegistrato> pz =  paziente.findById(id);
+        Optional<UtenteRegistrato> pz =  paziente.findById(idPaziente);
         Paziente tmp = (Paziente) pz.get();
         tmp.setEmailCaregiver(emailCaregiver);
         tmp.setNomeCaregiver(nomeCaregiver);

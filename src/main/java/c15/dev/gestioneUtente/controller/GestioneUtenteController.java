@@ -10,7 +10,7 @@ import java.util.Optional;
 
 /**
  * @author Leopoldo Todisco, Carlo Venditto.
- * Crato il: 03/01/2022.
+ * Crato il: 03/01/2023.
  * Classe controller.
  */
 @RestController
@@ -37,8 +37,9 @@ public class GestioneUtenteController {
                       @RequestParam String password) {
 
         Optional<UtenteRegistrato> utente = service.login(email, password);
-        utente.ifPresent(utenteRegistrato ->
-            {session.setAttribute("utenteLoggato", utente.get());} );
+        utente.ifPresent(
+                utenteRegistrato ->
+                    { session.setAttribute("utenteLoggato", utente.get()); });
     }
 
     /**
@@ -51,17 +52,20 @@ public class GestioneUtenteController {
 
     /**
      * Metodo per assegnare un caregiver.
-     * @param id
+     * @param idPaziente
      * @param emailCaregiver
      * @param nomeCaregiver
      * @param cognomeCaregiver
      */
     @RequestMapping(value = "/assegnaCaregiver", method = RequestMethod.POST)
-    public void assegnaCaregiver(@RequestParam Long id,
+    public void assegnaCaregiver(@RequestParam Long idPaziente,
                                  @RequestParam String emailCaregiver,
                                  @RequestParam String nomeCaregiver,
                                  @RequestParam String cognomeCaregiver){
-        service.assegnaCaregiver(id,emailCaregiver,nomeCaregiver,cognomeCaregiver);
+        service.assegnaCaregiver(idPaziente,
+                emailCaregiver,
+                nomeCaregiver,
+                cognomeCaregiver);
     }
 
 }
