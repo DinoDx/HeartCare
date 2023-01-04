@@ -9,6 +9,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinTable;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.Date;
 import java.util.Set;
@@ -24,11 +26,13 @@ public class Paziente extends UtenteRegistrato {
     /**
      * Questo campo rappresenta il nome del caregiver.
      */
+    @NotEmpty
     private String nomeCaregiver;
 
     /**
      * Questo campo rappresenta il cognome del caregiver.
      */
+    @NotEmpty
     private String cognomeCaregiver;
     /**
      * Questo campo rappresenta l'email del caregiver.
