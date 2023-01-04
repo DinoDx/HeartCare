@@ -16,6 +16,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.Length;
 
 
 import java.io.Serializable;
@@ -115,8 +116,6 @@ public class UtenteRegistrato implements Serializable {
      *  almeno un carattere speciale.
      */
     @Column(nullable = false)
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,16}$",
-            message = "Campo password in utente non rispetta la regexp")
     private byte[] password;
 
     /**
@@ -146,8 +145,7 @@ public class UtenteRegistrato implements Serializable {
      * Invariante: può essere o M o F.
      */
     @Column(nullable = false, length = LENGTH_1)
-    @Pattern(regexp = "^M$|^F$",
-             message = "Genere deve rispettare l'espressione regolare")
+    @Pattern(regexp = "^M$|^F$")
     private char genere;
 
     /**
@@ -182,7 +180,7 @@ public class UtenteRegistrato implements Serializable {
                   final String indirizzoEmail,
                   final String nome,
                   final String cognome,
-                  final char sesso) {
+                  final char sesso) throws Exception {
         this.dataDiNascita = dataNascita;
         this.codiceFiscale = codFiscale;
         this.numeroTelefono = nTelefono;
@@ -191,16 +189,26 @@ public class UtenteRegistrato implements Serializable {
         this.cognome = cognome;
         this.genere = sesso;
 
-        /*
-         * In questo blocco si converte la stringa "password" in un array di bytes
-         * per poi applicare l'algoritmo di crittografia SHA-256
-         * Per questo motivo il campo password è un array di bytes e non String
-         */
-        try {
-            MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-            this.password = msgDigest.digest(pass.getBytes());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+        String regexpPassword =
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
+                "[A-Za-z\\d@$!%*?&]{8,16}$";
+
+        /**La password deve rispettare l'espressione regolare*/
+        if(pass.matches(regexpPassword)) {
+            /*
+             * In questo blocco si converte la stringa "password" in un array di bytes
+             * per poi applicare l'algoritmo di crittografia SHA-256
+             * Per questo motivo il campo password è un array di bytes e non String
+             */
+            try {
+                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
+                this.password = msgDigest.digest(pass.getBytes());
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            throw new Exception("La password non rispetta l'espressione regolare");
         }
     }
 
@@ -279,12 +287,21 @@ public class UtenteRegistrato implements Serializable {
      * Setter per la password implementando l'algoritmo SHA-256.
      * @param pass la password da settare
      */
-    public void setPassword(final String pass) {
-        try {
-            MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-            this.password = msgDigest.digest(pass.getBytes());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+    public void setPassword(final String pass) throws Exception {
+        String regexpPassword =
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
+                "[A-Za-z\\d@$!%*?&]{8,16}$";
+
+        if(pass.matches(regexpPassword)) {
+            try {
+                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
+                this.password = msgDigest.digest(pass.getBytes());
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            throw new Exception("La password non rispetta l'espressione regolare");
         }
     }
 
