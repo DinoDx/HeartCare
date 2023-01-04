@@ -53,7 +53,6 @@ public class Notifica implements Serializable {
      * Campo relativo al contenuto della notifica.
      **/
     @Column(nullable = false)
-    @NotNull
     @NotBlank
     private String testo;
 

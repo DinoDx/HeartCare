@@ -9,6 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -31,12 +33,14 @@ public class Nota implements Serializable {
      * Campo relativo al contenuto della nota
      **/
     @Column(nullable = false)
+    @NotBlank
     private String contenuto;
     /**
      * Campo relativo alla data di pubblicazione della nota
      * Invariante: la data deve essere inferiore o uguale alla data corrente
      **/
     @Column(nullable = false)
+    @Past
     private GregorianCalendar dataPubblicazione;
     /**
      * Campo relativo all'autore della nota
