@@ -49,5 +49,19 @@ public class GestioneUtenteController {
         session.invalidate();
     }
 
+    /**
+     * Metodo per assegnare un caregiver.
+     * @param id
+     * @param emailCaregiver
+     * @param nomeCaregiver
+     * @param cognomeCaregiver
+     */
+    @RequestMapping(value = "/assegnaCaregiver", method = RequestMethod.POST)
+    public void assegnaCaregiver(@RequestParam Long id,
+                                 @RequestParam String emailCaregiver,
+                                 @RequestParam String nomeCaregiver,
+                                 @RequestParam String cognomeCaregiver){
+        service.assegnaCaregiver(id,emailCaregiver,nomeCaregiver,cognomeCaregiver);
+    }
 
 }

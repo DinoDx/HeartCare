@@ -17,4 +17,6 @@ public interface PazienteDAO extends UtenteRegistratoDAO {
      * @return Paziente trovato nel db
      */
     Paziente findByEmailAndPassword(String email, byte[] password);
+
+
 }
