@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -29,12 +30,14 @@ public class GestioneUtenteController {
 
     /**
      * Metodo di login.
-     * @param email
-     * @param password
+     * @param body è il body della richiesta.
+     *             Al suo interno vi si trovano i valori di password ed email.
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void login(@RequestParam String email,
-                      @RequestParam String password) {
+    @PostMapping(value = "/login")
+    public void login(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        String password = body.get("password");
+        System.out.println(email + password);
 
         Optional<UtenteRegistrato> utente = service.login(email, password);
         utente.ifPresent(

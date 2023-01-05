@@ -44,7 +44,7 @@ public class Medico extends UtenteRegistrato {
     /**
      * costruttore vuoto.
      */
-    public Medico() {
+    public Medico() throws Exception {
         super();
     }
 
@@ -68,7 +68,7 @@ public class Medico extends UtenteRegistrato {
                   final String email,
                   final String nome,
                   final String cognome,
-                  final char genere) {
+                  final char genere) throws Exception {
         super(dataDiNascita,
                 codiceFiscale,
                 numeroTelefono,

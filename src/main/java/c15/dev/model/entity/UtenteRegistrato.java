@@ -1,5 +1,6 @@
 package c15.dev.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
@@ -16,12 +17,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
+import lombok.Data;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
 
 
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -39,6 +44,9 @@ import java.util.Date;
  *  genere.
  */
 @Entity
+@SuperBuilder
+@Data
+@Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "utente_registrato")
 public class UtenteRegistrato implements Serializable {
@@ -84,6 +92,7 @@ public class UtenteRegistrato implements Serializable {
      */
     @Column(nullable = false)
     @Past
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataDiNascita;
 
     /**
@@ -91,11 +100,14 @@ public class UtenteRegistrato implements Serializable {
      * Invariante: deve rispettare l'espressione regolare.
      */
     @Column(nullable = false, length = LENGTH_16)
+    /*
     @NotNull
     @NotBlank
     @Pattern(regexp = "^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$",
             message = "regexp codice fiscale non rispettata")
+    */
     private String codiceFiscale;
+
 
     /**
      * Campo relativo al numero di telefono.
@@ -103,7 +115,7 @@ public class UtenteRegistrato implements Serializable {
      */
     @Column(nullable = false, length = LENGTH_10)
     @NotBlank
-    @Pattern(regexp = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$")
+    //@Pattern(regexp = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$")
     @Size(min=LENGTH_10, max=LENGTH_10)
     private String numeroTelefono;
 
@@ -145,7 +157,7 @@ public class UtenteRegistrato implements Serializable {
      * Invariante: può essere o M o F.
      */
     @Column(nullable = false, length = LENGTH_1)
-    @Pattern(regexp = "^M$|^F$")
+    //@Pattern(regexp = "^M$|^F$")
     private char genere;
 
     /**
@@ -211,82 +223,6 @@ public class UtenteRegistrato implements Serializable {
             throw new Exception("La password non rispetta l'espressione regolare");
         }
     }
-
-    /**
-     * 
-     * @return id 
-     * metodo che restituisce l'id dell'utente.
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * 
-     * @return dataDiNascita 
-     * metodo che restituisce la data di nascita dell'utente.
-     */
-    public Date getDataDiNascita() {
-        return dataDiNascita;
-    }
-
-    /**
-     * 
-     * @param dataNascita
-     * metodo che permette di inserire la data di nascita.
-     * 
-     */
-    public void setDataDiNascita(final Date dataNascita) {
-        this.dataDiNascita = dataNascita;
-    }
-
-    /**
-     * 
-     * @return codiceFiscale
-     * Metodo che restituisce il codice fiscale.
-     */
-    public String getCodiceFiscale() {
-        return codiceFiscale;
-    }
-
-    /**
-     * 
-     * @param codFiscale
-     * metodo per inserire il codice fiscale.
-     */
-    public void setCodiceFiscale(final String codFiscale) {
-        this.codiceFiscale = codiceFiscale;
-    }
-
-    /**
-     * @return numeroDiTelefono
-     * Metodo che restitusice il numero di telefono.
-     */
-    public String getNumeroTelefono() {
-        return numeroTelefono;
-    }
-
-    /**
-     * @param nTelefono
-     * Metodo che permette di inserire il numero di telefono.
-     */
-    public void setNumeroTelefono(final String nTelefono) {
-        this.numeroTelefono = nTelefono;
-    }
-
-    /**
-     * 
-     * @return password
-     * Metodo che restituisce, come array di bytes, la password di un utente.
-     */
-    public byte[] getPassword() {
-        return password;
-    }
-
-    /**
-     * Setter per la password implementando l'algoritmo SHA-256.
-     * @param pass la password da settare
-     */
     public void setPassword(final String pass) throws Exception {
         String regexpPassword =
                 "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
@@ -305,93 +241,19 @@ public class UtenteRegistrato implements Serializable {
         }
     }
 
-    /**
-     *
-     * @return email
-     * Metodo che restituisce l'email di un utente.
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     *
-     * @param indirizzoEmail
-     * Metodo che permette di inserisce un'email.
-     */
-    public void setEmail(final String indirizzoEmail) {
-        this.email = indirizzoEmail;
-    }
-
-    /**
-     * 
-     * @return nome
-     * Metodo che restituisce il nome di un UtenteRegistrato.
-     */
-    public String getNome() {
-        return nome;
-    }
-
-    /**
-     *
-     * @param nome
-     * Metodo che permette di inserire il nome di un UtenteRegistrato.
-     */
-    public void setNome(final String nome) {
-        this.nome = nome;
-    }
-
-    /**
-     *
-     * @return cognome
-     * Metodo che restituisce il cognome di un UtenteRegistrato.
-     */
-    public String getCognome() {
-        return cognome;
-    }
-
-    /**
-     *
-     * @param cog
-     * Metodo che permette di inserire il cognome di un UtenteRegistrato.
-     */
-    public void setCognome(final String cog) {
-        this.cognome = cog;
-    }
-
-    /**
-     *
-     * @return genere
-     * Metodo che restituisce il genere di un UtenteRegistrato.
-     */
-    public char getGenere() {
-        return genere;
-    }
-
-    /**
-     *
-     * @param gen
-     * Metodo che permette di inserisce il genere nel profilo utente.
-     */
-    public void setGenere(final char gen) {
-        this.genere = gen;
-    }
-
-    /**
-     *
-     * @return indirizzoResidenza
-     * Metodo che restituisce l'indirizzo di residenza dell'utente.
-     */
-    public Indirizzo getIndirizzoResidenza() {
-        return indirizzoResidenza;
-    }
-
-    /**
-     *
-     * @param indirizzo
-     * Metodo per collegare un indirizzo a un utente.
-     */
-    public void setIndirizzoResidenza(final Indirizzo indirizzo) {
-        this.indirizzoResidenza = indirizzo;
+    @Override
+    public String toString() {
+        return "UtenteRegistrato{" +
+                "id=" + id +
+                ", dataDiNascita=" + dataDiNascita +
+                ", codiceFiscale='" + codiceFiscale + '\'' +
+                ", numeroTelefono='" + numeroTelefono + '\'' +
+                ", password=" + Arrays.toString(password) +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", genere=" + genere +
+                ", indirizzoResidenza=" + indirizzoResidenza +
+                '}';
     }
 }

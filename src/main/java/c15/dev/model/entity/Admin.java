@@ -39,7 +39,7 @@ public class Admin extends UtenteRegistrato implements Serializable {
                  final String indirizzoEmail,
                  final String nome,
                  final String cog,
-                 final char sesso) {
+                 final char sesso) throws Exception{
         super(dataNascita,
                 codFiscale,
                 nTelefono,

@@ -1,6 +1,7 @@
 package c15.dev.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
@@ -11,6 +12,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import lombok.Data;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 import java.util.Set;
@@ -22,22 +26,25 @@ import java.util.Set;
  * Questa è la classe relativa a un Paziente.
  */
 @Entity
+@Data
+@SuperBuilder
+@Setter
 public class Paziente extends UtenteRegistrato {
     /**
      * Questo campo rappresenta il nome del caregiver.
      */
-    @NotEmpty
+    //@NotEmpty
     private String nomeCaregiver;
 
     /**
      * Questo campo rappresenta il cognome del caregiver.
      */
-    @NotEmpty
+    //@NotEmpty
     private String cognomeCaregiver;
     /**
      * Questo campo rappresenta l'email del caregiver.
      */
-    @Email
+    //@Email
     private String emailCaregiver;
 
     /**
@@ -115,7 +122,7 @@ public class Paziente extends UtenteRegistrato {
                     final String nome,
                     final String cognome,
                     final char sesso
-                   ) {
+                   ) throws Exception {
         super(dataNascita,
                 codFiscale,
                 nTelefono,
@@ -127,110 +134,9 @@ public class Paziente extends UtenteRegistrato {
 
     }
 
-    /**
-     * @return nomeCaregiver
-     *  Metodo che restituisce il nome del caregiver.
-     */
-    public String getNomeCaregiver() {
-        return nomeCaregiver;
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
-
-    /**
-     *
-     * @param nome
-     * Metodo che permette di inserire il nome di un caregiver.
-     */
-    public void setNomeCaregiver(String nome) {
-        this.nomeCaregiver = nome;
-    }
-
-    /**
-     *
-     * @return cognomeCaregiver
-     * Metodo che restituisce il cognome del caregiver.
-     */
-    public String getCognomeCaregiver() {
-        return cognomeCaregiver;
-    }
-
-    /**
-     *
-     * @param cognome
-     * Metodo che  permette di inserire il cognome del caregiver.
-     */
-    public void setCognomeCaregiver(String cognome) {
-        this.cognomeCaregiver = cognome;
-    }
-
-    /**
-     *
-     * @return emailCaregiver
-     * Metodo che restituisce l'email del caregiver.
-     */
-    public String getEmailCaregiver() {
-        return emailCaregiver;
-    }
-
-    /**
-     *
-     * @param email
-     * Metodo che permette di inserire l'email del caregiver.
-     */
-    public void setEmailCaregiver(String email) {
-        this.emailCaregiver = email;
-    }
-
-    /**
-     *
-     * @return medico
-     * Metodo che restituisce il medico di un paziente.
-     */
-    public Medico getMedico() {
-        return medico;
-    }
-
-    /**
-     *
-     * @param medico
-     * Metodo che permette di inserire il medico ad un paziente.
-     */
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
-
-    /**
-     *
-     * @return visita
-     * Metodo che restituisce le visite di un paziente.
-     */
-    public Set<Visita> getVisita() {
-        return visita;
-    }
-
-    /**
-     *
-     * @param visita
-     * Metodo che permette di inserire le visite di un paziente.
-     */
-    public void setVisita(Set<Visita> visita) {
-        this.visita = visita;
-    }
-
-    /**
-     * Metodo per ottenere le notifiche relative a un paziente.
-     * @return Set<Notifica>
-     */
-    public Set<Notifica> getNotifica() {
-        return notifica;
-    }
-
-    /**
-     * Metodo per inserire un insieme di notifiche relative a un paziente.
-     * @param notifica
-     */
-    public void setNotifica(Set<Notifica> notifica) {
-        this.notifica = notifica;
-    }
-
-
 }
