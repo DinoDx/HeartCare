@@ -2,6 +2,9 @@ package c15.dev.gestioneMisurazione.service;
 
 
 import c15.dev.model.entity.DispositivoMedico;
+import c15.dev.model.entity.Misurazione;
+
+import java.util.List;
 
 /**
  * @author Paolo Carmine Valletta, Alessandro Zoccola.
@@ -30,4 +33,11 @@ public interface GestioneMisurazioneService {
      */
     public boolean rimozioneDispositivo(DispositivoMedico dispositivo,
                                         long idPaziente);
+
+    /**
+     *
+     * @return List<Misurazione>
+     * Metodo che restituisce tutte le misurazioni presenti nel database
+     */
+    public List<Misurazione> getMisurazioniByPaziente(Long id);
 }

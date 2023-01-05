@@ -1,7 +1,9 @@
 package c15.dev.utils;
 
+import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.entity.Medico;
+import c15.dev.model.entity.Misurazione;
 import c15.dev.model.entity.Paziente;
 import c15.dev.registrazione.service.RegistrazioneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,12 @@ public class DBPopulator {
     private RegistrazioneService regService;
     @Autowired
     private GestioneUtenteService userService;
+
+    @Autowired
+    private GestioneMisurazioneService gestioneMisurazioneService;
     private List<Paziente> pazientiList = new ArrayList<>();
     private List<Medico> medicoList = new ArrayList<>();
+    private List<Misurazione> misurazioni = new ArrayList<>();
 
     /**
      * Metodo post construct, viene avviato dal container automaticamente
@@ -104,6 +110,8 @@ public class DBPopulator {
 
         medicoList.addAll(List.of(med1, med2, med3));
         medicoList.stream().forEach(m -> regService.registraMedico(m));
+
+
 
         //TO DO
         //quando avremo metodo per assegnare medico a paziente, a ogni paziente si assegna un medico

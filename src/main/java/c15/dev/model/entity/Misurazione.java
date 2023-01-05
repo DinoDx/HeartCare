@@ -3,6 +3,7 @@ package c15.dev.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import lombok.experimental.SuperBuilder;
 import org.checkerframework.checker.optional.qual.Present;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.util.GregorianCalendar;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@SuperBuilder
 @Table(name = "misurazione")
 public class Misurazione implements Serializable {
     /**

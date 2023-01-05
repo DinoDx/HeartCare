@@ -3,14 +3,13 @@ package c15.dev.gestioneMisurazione.controller;
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.entity.DispositivoMedico;
+import c15.dev.model.entity.Misurazione;
 import c15.dev.model.entity.UtenteRegistrato;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -59,5 +58,19 @@ public class GestioneMisurazioneController {
         }
         return misurazioneService.rimozioneDispositivo(dispositivo,
                 u.getId());
+    }
+
+    /**
+     *
+     * @param id
+     * @return List<Misurazione>
+     */
+    @PostMapping(value = "/FascicoloSanitarioElettronico")
+    public List<Misurazione> getFascicoloSanitarioElettronico(@RequestParam long id){
+        if (!utenteService.isPaziente(id)) {
+            System.out.println("paziente non esistente");
+            return null;
+        }
+        return misurazioneService.getMisurazioniByPaziente(id);
     }
 }
