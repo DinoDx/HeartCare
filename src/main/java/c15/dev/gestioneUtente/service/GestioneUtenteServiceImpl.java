@@ -148,7 +148,13 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
      */
     @Override
     public boolean isAdmin(long idUtente){
+        Optional<UtenteRegistrato> u = admin.findById(idUtente);
 
+        if (u.isEmpty()){
+            return false;
+        } else if (u.get().getClass().getSimpleName().equals("Admin")) {
+            return true;
+        }
         return false;
     }
 
