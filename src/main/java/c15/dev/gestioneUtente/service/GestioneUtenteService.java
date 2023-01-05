@@ -63,6 +63,13 @@ public interface GestioneUtenteService {
     boolean isMedico(long idUtente);
 
     /**
+     * Firma del metodo isAdmin
+     * @param idUtente id dell'utente che vogliamo controllare che sia un admin
+     * @return
+     */
+    boolean isAdmin(long idUtente);
+
+    /**
      * Firma del metodo assegnaPaziente.
      * @param idMedico id del medico a cui assegnamo il paziente
      * @param idPaziente id del paziente che viene assegnato al medico
@@ -70,17 +77,29 @@ public interface GestioneUtenteService {
      */
     boolean assegnaPaziente(long idMedico, long idPaziente);
 
+    /**
+     * Firma del metodo findPazienteById
+     * @param id id del paziente da ricercare
+     * @return
+     */
     Paziente findPazienteById(Long id);
 
     /**
-     *
-     * @param id id del medico
-     * @return medico
+     * Firma del metodo findMedicoById
+     * @param id id del medico da ricercare
+     * @return
      */
     Medico findMedicoById(Long id);
 
-    void updatePaziente(Paziente paziente);
+    /**
+     * Firma del metodo updatePaziente
+     * @param paz paziente da aggiornare
+     */
+    void updatePaziente(Paziente paz);
 
-    void updateMedico(Medico medico);
-
+    /**
+     * Firma del metodo updateMedico
+     * @param med medico da aggiornare
+     */
+    void updateMedico(Medico med);
 }

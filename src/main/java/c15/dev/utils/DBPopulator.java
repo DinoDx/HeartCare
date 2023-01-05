@@ -49,7 +49,7 @@ public class DBPopulator {
                                     "giuseppegiordano@libero.it",
                                     "Giuseppe",
                                     "Giordano",
-                                    'M');
+                "M");
 
         Paziente paz2 = new Paziente(new Date(02/11/2000),
                 "PDSLPD00E18C129A",
@@ -58,7 +58,7 @@ public class DBPopulator {
                 "pinomecca@libero.it",
                 "Pino",
                 "Mecca",
-                'M');
+                "M");
 
         Paziente paz3 = new Paziente(new Date(02/11/2000),
                 "PPSLWD10E18C129A",
@@ -67,7 +67,7 @@ public class DBPopulator {
                 "carloidea@libero.it",
                 "Carlo",
                 "Idea",
-                'M');
+                "M");
 
         pazientiList.addAll(List.of(paz1, paz2, paz3));
         pazientiList.stream().forEach(paz -> regService.registraPaziente(paz));
@@ -82,7 +82,7 @@ public class DBPopulator {
                 "alessandrozoccola@libero.it",
                 "Alessandro",
                 "Zoccola",
-                'M');
+                "M");
 
         Medico med2 = new Medico(new Date(23/11/1988),
                 "PDSLPD44E19C139Y",
@@ -91,7 +91,7 @@ public class DBPopulator {
                 "vincenzoarnone@libero.it",
                 "Vincenzo",
                 "Arnone",
-                'M');
+                "M");
 
         Medico med3 = new Medico(new Date(23/11/1988),
                 "PAFGPD00E19C139Y",
@@ -100,7 +100,7 @@ public class DBPopulator {
                 "paoladematteo@libero.it",
                 "Paola",
                 "De Matteo",
-                'F');
+                "F");
 
         medicoList.addAll(List.of(med1, med2, med3));
         medicoList.stream().forEach(m -> regService.registraMedico(m));

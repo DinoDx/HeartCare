@@ -51,6 +51,7 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
         if(paziente.isEmpty()){
             return false;
         }
+
         dispositivo.setPaziente(null);
         dispositivoDao.save(dispositivo);
         return true;

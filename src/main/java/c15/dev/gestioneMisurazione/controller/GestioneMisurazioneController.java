@@ -1,6 +1,7 @@
 package c15.dev.gestioneMisurazione.controller;
 
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
+import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.UtenteRegistrato;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +26,9 @@ public class GestioneMisurazioneController {
     @Autowired
     private GestioneMisurazioneService misurazioneService;
 
+    @Autowired
+    private GestioneUtenteService utenteService;
+
     /**
      * Metodo per la registrazione del dispositivo.
      * @param dispositivo
@@ -34,6 +38,9 @@ public class GestioneMisurazioneController {
             @RequestParam DispositivoMedico dispositivo){
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
+        if(!utenteService.isPaziente(u.getId())){
+            return false;
+        }
         return misurazioneService.registrazioneDispositivo(dispositivo,
                 u.getId());
     }
@@ -47,6 +54,9 @@ public class GestioneMisurazioneController {
             @RequestParam DispositivoMedico dispositivo){
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
+        if(!utenteService.isPaziente(u.getId())){
+            return false;
+        }
         return misurazioneService.rimozioneDispositivo(dispositivo,
                 u.getId());
     }

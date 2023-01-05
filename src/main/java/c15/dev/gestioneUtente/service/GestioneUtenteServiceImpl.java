@@ -142,7 +142,18 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
     }
 
     /**
-     * Medico che assegna un paziente ad un medico.
+     * Implementazione del metodo che verifica se un utente è un admin
+     * @param idUtente id dell'utente che vogliamo controllare che sia un admin
+     * @return
+     */
+    @Override
+    public boolean isAdmin(long idUtente){
+
+        return false;
+    }
+
+    /**
+     * Metodo che assegna un paziente ad un medico.
      * @param idMedico
      * @param idPaziente
      * @return

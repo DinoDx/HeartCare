@@ -1,7 +1,9 @@
 package c15.dev.registrazione.service;
 
+import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.dao.UtenteRegistratoDAO;
+import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import java.util.Optional;
 public class RegistrazioneServiceImpl implements RegistrazioneService{
     @Autowired
     public PazienteDAO pazienteDAO;
+
+    @Autowired
+    public MedicoDAO medicoDAO;
     @Override
     public Paziente registraPaziente(Paziente paziente) {
         return pazienteDAO.save(paziente);
@@ -31,5 +36,14 @@ public class RegistrazioneServiceImpl implements RegistrazioneService{
     @Override
     public Paziente findBycodiceFiscale(String codiceFiscale) {
         return pazienteDAO.findBycodiceFiscale(codiceFiscale);
+    }
+
+    /**
+     * Implementazione del metodo di registrazione medico.
+     * @param med è il medico da inserire nel db.
+     */
+    @Override
+    public void registraMedico(Medico med){
+        medicoDAO.saveAndFlush(med);
     }
 }

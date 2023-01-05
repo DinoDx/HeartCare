@@ -1,6 +1,7 @@
 package c15.dev.gestioneUtente.controller;
 
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
+import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import jakarta.servlet.http.HttpSession;
@@ -96,12 +97,11 @@ public class GestioneUtenteController {
      * @param idPaziente
      */
     @RequestMapping(value = "/assegnaPaziente", method = RequestMethod.POST)
-    public void assegnaCaregiver(@RequestParam long idMedico,
+    public void assegnaPaziente(@RequestParam long idMedico,
                                  @RequestParam long idPaziente) {
         if(service.isMedico(idMedico) && service.isPaziente(idPaziente)) {
             service.assegnaPaziente(idMedico,idPaziente);
         }
     }
-
 
 }
