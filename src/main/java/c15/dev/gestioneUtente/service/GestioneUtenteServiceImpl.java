@@ -161,6 +161,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
         Medico m = (Medico) med.get();
         Paziente pz = (Paziente) paz.get();
         m.getElencoPazienti().add(pz);
+        pz.setMedico(m);
+        paziente.save(pz);
         return true;
     }
 }
