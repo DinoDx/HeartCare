@@ -43,8 +43,8 @@ public class DBPopulator {
         * per poi inserirli usando il service.
         * */
         Paziente paz1 = new Paziente(new Date(23/11/2000),
-                                    "PDSLPD00E18C129Y",
-                                    "3887123300",
+                                    "PDSLPD08E18C129Y",
+                                    "+393887124900",
                                     "Wpasswd1!%",
                                     "giuseppegiordano@libero.it",
                                     "Giuseppe",
@@ -52,8 +52,8 @@ public class DBPopulator {
                 "M");
 
         Paziente paz2 = new Paziente(new Date(02/11/2000),
-                "PDSLPD00E18C129A",
-                "3887124301",
+                "PDSLPH00E18C129A",
+                "+393887122221",
                 "Wpasswd2!%",
                 "pinomecca@libero.it",
                 "Pino",
@@ -61,8 +61,8 @@ public class DBPopulator {
                 "M");
 
         Paziente paz3 = new Paziente(new Date(02/11/2000),
-                "PPSLWD10E18C129A",
-                "3887124301",
+                "PPSLWD10E18C128A",
+                "+393887124321",
                 "Wpasswd2!%",
                 "carloidea@libero.it",
                 "Carlo",
@@ -76,8 +76,8 @@ public class DBPopulator {
         * In questa sezione si istanziano medici.
         **/
         Medico med1 = new Medico(new Date(23/11/1988),
-                "PDSLPD00E19C139Y",
-                "3847123322",
+                "PDSLPD00E19C139A",
+                "+393809123300",
                 "Apasswd1!%",
                 "alessandrozoccola@libero.it",
                 "Alessandro",
@@ -85,8 +85,8 @@ public class DBPopulator {
                 "M");
 
         Medico med2 = new Medico(new Date(23/11/1988),
-                "PDSLPD44E19C139Y",
-                "3846126822",
+                "PDSLPD44E19C139U",
+                "+393809233322",
                 "Apasswd1!%",
                 "vincenzoarnone@libero.it",
                 "Vincenzo",
@@ -94,8 +94,8 @@ public class DBPopulator {
                 "M");
 
         Medico med3 = new Medico(new Date(23/11/1988),
-                "PAFGPD00E19C139Y",
-                "3899123322",
+                "PAFGPD00E19C139T",
+                "+393809123322",
                 "Apasswd1!%",
                 "paoladematteo@libero.it",
                 "Paola",
