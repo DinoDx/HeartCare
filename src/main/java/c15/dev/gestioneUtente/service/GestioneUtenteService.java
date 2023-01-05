@@ -1,5 +1,6 @@
 package c15.dev.gestioneUtente.service;
 
+import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 
@@ -68,4 +69,18 @@ public interface GestioneUtenteService {
      * @return
      */
     boolean assegnaPaziente(long idMedico, long idPaziente);
+
+    Paziente findPazienteById(Long id);
+
+    /**
+     *
+     * @param id id del medico
+     * @return medico
+     */
+    Medico findMedicoById(Long id);
+
+    void updatePaziente(Paziente paziente);
+
+    void updateMedico(Medico medico);
+
 }

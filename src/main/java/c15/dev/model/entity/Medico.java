@@ -39,7 +39,7 @@ public class Medico extends UtenteRegistrato {
      * Questo campo indica la lista di visite in cui un medico è coinvolto.
      */
     @OneToMany(mappedBy = "medico", fetch = FetchType.EAGER)
-    private List<Visita> visita;
+    private List<Visita> elencoVisite;
 
     /**
      * costruttore vuoto.
@@ -117,19 +117,27 @@ public class Medico extends UtenteRegistrato {
 
     /**
      *
-     * @return visita
+     * @return elencoVisite
      * Metodo che restituisce l'elenco delle visite di un medico.
      */
-    public List<Visita> getVisita() {
-        return visita;
+    public List<Visita> getElencoVisite() {
+        return elencoVisite;
     }
 
     /**
      *
-     * @param visita
+     * @param elencoVisite
      * Metodo che permette di inserire una lista di visite.
      */
-    public void setVisita(List<Visita> visita) {
-        this.visita = visita;
+    public void setElencoVisite(List<Visita> elencoVisite) {
+        this.elencoVisite = elencoVisite;
+    }
+
+    /**
+     * Metodo per inserire una singola elencoVisite alla lista.
+     * @param visita
+     */
+    public void addSingolaVisita(Visita visita){
+        this.elencoVisite.add(visita);
     }
 }
