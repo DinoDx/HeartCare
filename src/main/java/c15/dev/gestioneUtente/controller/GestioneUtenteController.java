@@ -65,10 +65,28 @@ public class GestioneUtenteController {
                                  @RequestParam String emailCaregiver,
                                  @RequestParam String nomeCaregiver,
                                  @RequestParam String cognomeCaregiver){
-        service.assegnaCaregiver(idPaziente,
-                emailCaregiver,
-                nomeCaregiver,
-                cognomeCaregiver);
+        if (service.isPaziente(idPaziente)) {
+            service.assegnaCaregiver(idPaziente,
+                    emailCaregiver,
+                    nomeCaregiver,
+                    cognomeCaregiver);
+        }
+    }
+
+    /**
+     * Metodo per rimuovere un Paziente o un Medico.
+     * @param idUtente
+     */
+    @RequestMapping(value = "/rimuoviUtente", method = RequestMethod.POST)
+    public void rimuoviUtente(@RequestParam Long idUtente) {
+        if(service.isPaziente(idUtente)){
+            service.rimuoviPaziente(idUtente);
+            return;
+        } else if (service.isMedico(idUtente)) {
+            service.rimuoviMedico(idUtente);
+            return;
+        }
+        return;
     }
 
 }

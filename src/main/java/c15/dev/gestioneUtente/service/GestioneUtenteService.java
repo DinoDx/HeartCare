@@ -33,4 +33,11 @@ public interface GestioneUtenteService {
                           String emailCaregiver,
                           String nomeCaregiver,
                           String cognomeCaregiver);
+
+    void rimuoviPaziente(Long idUtente);
+    void rimuoviMedico(Long idUtente);
+
+    boolean isPaziente(long idUtente);
+
+    boolean isMedico(long idUtente);
 }
