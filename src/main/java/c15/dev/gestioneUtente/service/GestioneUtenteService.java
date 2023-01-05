@@ -1,5 +1,6 @@
 package c15.dev.gestioneUtente.service;
 
+import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 
 import java.util.Optional;
@@ -34,10 +35,37 @@ public interface GestioneUtenteService {
                           String nomeCaregiver,
                           String cognomeCaregiver);
 
+    /**
+     * Firma del metodo rimuoviPaziente.
+     * @param idUtente id del paziente che deve essere rimosso
+     */
     void rimuoviPaziente(Long idUtente);
+
+    /**
+     * Firma del metodo rimuoviMedico.
+     * @param idUtente id del medico che deve essere rimosso
+     */
     void rimuoviMedico(Long idUtente);
 
+    /**
+     * Firma del metodo isPaziente.
+     * @param idUtente id dell'utente che vogliamo controllare che sia un paziente
+     * @return
+     */
     boolean isPaziente(long idUtente);
 
+    /**
+     * Firma del metodo isMedico.
+     * @param idUtente id dell'utente che vogliamo controllare che sia un medico
+     * @return
+     */
     boolean isMedico(long idUtente);
+
+    /**
+     * Firma del metodo assegnaPaziente.
+     * @param idMedico id del medico a cui assegnamo il paziente
+     * @param idPaziente id del paziente che viene assegnato al medico
+     * @return
+     */
+    boolean assegnaPaziente(long idMedico, long idPaziente);
 }

@@ -3,7 +3,7 @@ package c15.dev.gestioneUtente.service;
 import c15.dev.model.dao.AdminDAO;
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
-import c15.dev.model.dao.UtenteRegistratoDAO;
+import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,5 +140,27 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
             return true;
         }
         return false;
+    }
+
+    /**
+     * Medico che assegna un paziente ad un medico.
+     * @param idMedico
+     * @param idPaziente
+     * @return
+     */
+    @Override
+    public boolean assegnaPaziente(long idMedico, long idPaziente) {
+        Optional<UtenteRegistrato> med = medico.findById(idMedico);
+        if(med.isEmpty()) {
+            return false;
+        }
+        Optional<UtenteRegistrato> paz = medico.findById(idPaziente);
+        if(paz.isEmpty()) {
+            return false;
+        }
+        Medico m = (Medico) med.get();
+        Paziente pz = (Paziente) paz.get();
+        m.getElencoPazienti().add(pz);
+        return true;
     }
 }

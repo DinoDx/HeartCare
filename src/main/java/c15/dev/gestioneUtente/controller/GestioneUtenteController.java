@@ -1,6 +1,7 @@
 package c15.dev.gestioneUtente.controller;
 
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
+import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,5 +89,19 @@ public class GestioneUtenteController {
         }
         return;
     }
+
+    /**
+     * Metodo che assegna un paziente ad un medico.
+     * @param idMedico
+     * @param idPaziente
+     */
+    @RequestMapping(value = "/assegnaPaziente", method = RequestMethod.POST)
+    public void assegnaCaregiver(@RequestParam long idMedico,
+                                 @RequestParam long idPaziente) {
+        if(service.isMedico(idMedico) && service.isPaziente(idPaziente)) {
+            service.assegnaPaziente(idMedico,idPaziente);
+        }
+    }
+
 
 }
