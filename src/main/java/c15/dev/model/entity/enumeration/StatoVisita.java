@@ -2,7 +2,7 @@ package c15.dev.model.entity.enumeration;
 /**
  * @author Vincenzo Arnone.
  * Creato il 30/12/2022.
- * Questa è l'enumeratore relativa allo stato della visita.
+ * Questa è l'enumeratore relativa allo stato della elencoVisite.
  * il campo è: displayStato.
  */
 public enum StatoVisita {

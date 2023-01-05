@@ -1,6 +1,8 @@
 package c15.dev.registrazione.service;
 
+import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     @Autowired
     private PazienteDAO pazienteDAO;
 
+    @Autowired
+    private MedicoDAO medicoDAO;
+
     /**
      * Implementazione del metodo di registrazione.
      * @param paziente è creato dal presentation layer e passato al controller.
@@ -27,5 +32,15 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     public void registraPaziente(Paziente paziente) {
         pazienteDAO.saveAndFlush(paziente);
 
+    }
+
+    /**
+     * Implementazione del metodo di registrazione medico.
+     * @param medico è il medico da inserire nel db.
+     *
+     */
+    @Override
+    public void registraMedico(Medico medico) {
+        medicoDAO.saveAndFlush(medico);
     }
 }

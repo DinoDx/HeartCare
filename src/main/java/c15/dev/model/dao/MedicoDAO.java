@@ -16,8 +16,15 @@ public interface MedicoDAO extends UtenteRegistratoDAO {
      *
      * @param email
      * @param password
-     * @return Medico trovato nel db
+     * @return Medico trovato nel db.
      */
     Medico findByEmailAndPassword(String email, byte[] password);
+
+    /**
+     *
+     * @param id del medico.
+     * @return Medico corrispondente.
+     */
+    Medico findMedicoById(Long id);
 
 }

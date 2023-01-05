@@ -83,7 +83,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
         tmp.setEmailCaregiver(emailCaregiver);
         tmp.setNomeCaregiver(nomeCaregiver);
         tmp.setCognomeCaregiver(cognomeCaregiver);
-
         paziente.save(tmp);
     }
 
@@ -164,5 +163,53 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
         pz.setMedico(m);
         paziente.save(pz);
         return true;
+    }
+
+    /**
+     * Metodo che trova un Paziente tramite id.
+     * @param id
+     * @return
+     */
+    @Override
+    public Paziente findPazienteById(Long id) {
+        Optional<UtenteRegistrato> paz = paziente.findById(id);
+        if(paz.isEmpty()){
+            return null;
+        }
+
+        return (Paziente) paz.get();
+    }
+
+    /**
+     * Metodo che trova Medico tramite id.
+     * @param id id del medico
+     * @return
+     */
+    @Override
+    public Medico findMedicoById(Long id) {
+        Optional<UtenteRegistrato> paz = medico.findById(id);
+        if(paz.isEmpty()){
+            return null;
+        }
+
+        return (Medico) paz.get();
+    }
+
+    /**
+     * Metodo per fare update di un paziente nel DB.
+     * @param paz è il paziente da aggiornare.
+     */
+    @Override
+    public void updatePaziente(Paziente paz) {
+        this.paziente.save(paz);
+    }
+
+    /**
+     * Metodo per fare un update di un'entry nel DB.
+     * @param med è il medico da aggiornare.
+     */
+    @Override
+    public void updateMedico(Medico med) {
+        this.medico.save(med);
     }
 }

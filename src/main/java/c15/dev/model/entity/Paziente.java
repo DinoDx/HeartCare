@@ -1,7 +1,6 @@
 package c15.dev.model.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
@@ -9,14 +8,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinTable;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -81,7 +78,7 @@ public class Paziente extends UtenteRegistrato {
      * Campo che inidica l'insieme delle visite a cui un paziente è stato.
      */
     @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
-    private Set<Visita> visita;
+    private Set<Visita> elencoVisite = new HashSet<>();
 
     /**
      * Insieme delle notifiche relative a un paziente.
@@ -134,7 +131,18 @@ public class Paziente extends UtenteRegistrato {
 
     }
 
+    /**
+     * Metodo che permette di aggiungere una singola elencoVisite al set.
+     * @param visita
+     */
+    public void addSingolaVisita(Visita visita){
+        this.elencoVisite.add(visita);
 
+    }
+    /**
+     * Metodo toString.
+     * @return Stringa che contiene tutto il contenuto della classe.
+     */
     @Override
     public String toString() {
         return super.toString();
