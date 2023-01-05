@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -228,5 +229,40 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
     @Override
     public void updateMedico(Medico med) {
         this.medico.save(med);
+    }
+
+    /**
+     * Metodo per ottenere tutti i medici del db.
+     */
+    @Override
+    public List<UtenteRegistrato> getTuttiMedici() {
+        return medico.findAll();
+    }
+
+    /**
+     * Metodo per ottenere tutti i pazienti del db.
+     */
+    @Override
+    public List<UtenteRegistrato> getTuttiPazienti(){
+        return paziente.findAll();
+    }
+
+
+    /**
+     * Metodo per ottenere tutti i pazienti del db di un medico.
+     */
+    @Override
+    public List<Paziente> getPazientiByMedico(long idMedico) {
+
+        paziente.findAll().stream().filter((p) -> p.getClass()
+                        .getSimpleName().equals("Paziente"))
+                .map(Paziente.class::cast)
+                .forEach((p) -> System.out.println(p));
+
+        return paziente.findAll().stream()
+                .filter((p) -> p.getClass().getSimpleName().equals("Paziente"))
+                .map(Paziente.class::cast)
+                .filter(p -> p.getMedico().getId()==(idMedico))
+                .toList();
     }
 }

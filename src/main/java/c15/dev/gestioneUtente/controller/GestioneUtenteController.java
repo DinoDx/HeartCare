@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -102,6 +103,54 @@ public class GestioneUtenteController {
         if(service.isMedico(idMedico) && service.isPaziente(idPaziente)) {
             service.assegnaPaziente(idMedico,idPaziente);
         }
+    }
+
+    /**
+     * Metodo che restituisce tutti i medici
+     */
+    @RequestMapping(value = "/getTuttiMedici", method = RequestMethod.POST)
+    public List<UtenteRegistrato> getTuttiMedici() {
+        UtenteRegistrato u = (UtenteRegistrato)
+                session.getAttribute("utenteLoggato");
+        if(service.isAdmin(u.getId())) {
+            return service.getTuttiMedici()
+                    .stream()
+                    .filter((utente)
+                            -> utente.getClass()
+                                        .getSimpleName()
+                                        .equals("Medico"))
+                                        .toList();
+        }
+        return null;
+    }
+
+    /**
+     * Metodo che restituisce tutti i pazienti
+     */
+    @RequestMapping(value = "/getTuttiPazienti", method = RequestMethod.POST)
+    public List<UtenteRegistrato> getTuttiPazienti() {
+        UtenteRegistrato u = (UtenteRegistrato)
+                session.getAttribute("utenteLoggato");
+        if(service.isAdmin(u.getId())) {
+            return service.getTuttiMedici()
+                    .stream()
+                    .filter((utente)
+                            -> utente.getClass()
+                            .getSimpleName()
+                            .equals("Paziente"))
+                    .toList();
+        }
+        return null;
+    }
+
+    /**
+     * Metodo che restituisce tutti i pazienti
+     * @param idMedico id del medico
+     */
+    @RequestMapping(value = "/getPazientiByMedico", method = RequestMethod.POST)
+    public List<Paziente> getPazientiByMedico(@RequestParam long idMedico) {
+
+        return service.getPazientiByMedico(idMedico);
     }
 
 }

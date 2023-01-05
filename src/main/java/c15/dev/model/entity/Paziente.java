@@ -1,6 +1,7 @@
 package c15.dev.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
@@ -48,6 +49,7 @@ public class Paziente extends UtenteRegistrato {
      * Questo campo indica il Medico che viene assegnato al paziente.
      */
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_medico",
                 referencedColumnName = "id",
                 nullable = true)
@@ -145,6 +147,6 @@ public class Paziente extends UtenteRegistrato {
      */
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() + this.getMedico().getId();
     }
 }

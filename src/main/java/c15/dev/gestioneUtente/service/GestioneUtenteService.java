@@ -4,6 +4,7 @@ import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -102,4 +103,19 @@ public interface GestioneUtenteService {
      * @param med medico da aggiornare
      */
     void updateMedico(Medico med);
+
+    /**
+     * Firma del metodo getTuttiMedici
+     */
+    List<UtenteRegistrato> getTuttiMedici();
+
+    /**
+     * Firma del metodo getTuttiPazienti
+     */
+    List<UtenteRegistrato> getTuttiPazienti();
+
+    /**
+     * Firma del metodo getPazientiByMedico
+     */
+    List<Paziente> getPazientiByMedico(long idMedico);
 }
