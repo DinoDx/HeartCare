@@ -68,7 +68,7 @@ public class Medico extends UtenteRegistrato {
                   final String email,
                   final String nome,
                   final String cognome,
-                  final char genere) throws Exception {
+                  final String genere) throws Exception {
         super(dataDiNascita,
                 codiceFiscale,
                 numeroTelefono,

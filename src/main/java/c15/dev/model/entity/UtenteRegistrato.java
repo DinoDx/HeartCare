@@ -11,12 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Table;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Inheritance;
-import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -62,6 +57,13 @@ public class UtenteRegistrato implements Serializable {
      * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
      * Necessaria a causa del checkstyle.
      */
+    private static final int LENGTH_13 = 13;
+
+    /**
+     * Costante il cui valore è 100.
+     * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
+     * Necessaria a causa del checkstyle.
+     */
     private static final int LENGTH_10 = 10;
 
     /**
@@ -90,7 +92,7 @@ public class UtenteRegistrato implements Serializable {
      * Campo relativo alla Data di nascita nel formato GG-MM-AAAA.
      * Invariante: la data di nascita deve essere inferiore o uguale alla data corrente.
      */
-    @Column(nullable = false)
+    @NotNull
     @Past
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataDiNascita;
@@ -99,13 +101,10 @@ public class UtenteRegistrato implements Serializable {
      * Campo relativo al Codice Fiscale.
      * Invariante: deve rispettare l'espressione regolare.
      */
-    @Column(nullable = false, length = LENGTH_16)
-    /*
+    @Column(length = LENGTH_16,unique = true)
     @NotNull
-    @NotBlank
     @Pattern(regexp = "^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$",
             message = "regexp codice fiscale non rispettata")
-    */
     private String codiceFiscale;
 
 
@@ -113,10 +112,10 @@ public class UtenteRegistrato implements Serializable {
      * Campo relativo al numero di telefono.
      * Invariante: deve avere dimensione pari a 10 caratteri.
      */
-    @Column(nullable = false, length = LENGTH_10)
-    @NotBlank
-    //@Pattern(regexp = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$")
-    @Size(min=LENGTH_10, max=LENGTH_10)
+    @Column(unique = true)
+    @NotNull
+    @Pattern(regexp = "^((00|\\+)39[\\. ]??)??3\\d{2}[\\. ]??\\d{6,7}$")
+    @Size(min=LENGTH_13, max=LENGTH_13)
     private String numeroTelefono;
 
     /**
@@ -127,13 +126,13 @@ public class UtenteRegistrato implements Serializable {
      *  almeno un numero
      *  almeno un carattere speciale.
      */
-    @Column(nullable = false)
+    @NotNull
     private byte[] password;
 
     /**
      * Rappresenta l'email di un Utente Registrato.
      */
-    @Column(nullable = false, length = LENGTH_32)
+    @Column(unique = true)
     @NotNull
     @Email
     private String email;
@@ -141,14 +140,14 @@ public class UtenteRegistrato implements Serializable {
     /**
      * Rappresenta il nome di un Utente Registrato.
      */
-    @Column(nullable = false, length = LENGTH_32)
+    @NotNull
     @Size(min = LENGTH_1, max = LENGTH_32)
     private String nome;
 
     /**
      * Rappresenta il cognome di un Utente Registrato.
      */
-    @Column(nullable = false, length = LENGTH_32)
+    @NotNull
     @Size(min = LENGTH_1, max = LENGTH_32)
     private String cognome;
 
@@ -156,9 +155,10 @@ public class UtenteRegistrato implements Serializable {
      * Rappresenta il sesso di un Utente Registrato.
      * Invariante: può essere o M o F.
      */
-    @Column(nullable = false, length = LENGTH_1)
-    //@Pattern(regexp = "^M$|^F$")
-    private char genere;
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Pattern(regexp = "^M$|^F$")
+    private String genere;
 
     /**
      * Rappresenta l'indirizzo di residenza di un Utente.
@@ -192,7 +192,7 @@ public class UtenteRegistrato implements Serializable {
                   final String indirizzoEmail,
                   final String nome,
                   final String cognome,
-                  final char sesso) throws Exception {
+                  final String sesso) throws Exception {
         this.dataDiNascita = dataNascita;
         this.codiceFiscale = codFiscale;
         this.numeroTelefono = nTelefono;

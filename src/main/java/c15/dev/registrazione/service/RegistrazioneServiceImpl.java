@@ -1,31 +1,35 @@
 package c15.dev.registrazione.service;
 
 import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.dao.UtenteRegistratoDAO;
 import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
- * @author Leopoldo Todisco, Mario Cicalese
- * Creato il: 05/01/2023.
- * Implementazione dei metodi dell'interfaccia Service.
+ * @author Mario Cicalese
+ * Creato il : 03/01/2023
+ * Questa classe rappresenta il Service utilizzato per la registrazione
  */
 @Service
-public class RegistrazioneServiceImpl implements RegistrazioneService {
-    /**
-     * Paziente DAO per le crud operations.
-     */
+public class RegistrazioneServiceImpl implements RegistrazioneService{
     @Autowired
-    private PazienteDAO pazienteDAO;
-
-    /**
-     * Implementazione del metodo di registrazione.
-     * @param paziente è creato dal presentation layer e passato al controller.
-     *                 Il controller richiama il service.
-     */
+    public PazienteDAO pazienteDAO;
     @Override
-    public void registraPaziente(Paziente paziente) {
-        pazienteDAO.saveAndFlush(paziente);
+    public Paziente registraPaziente(Paziente paziente) {
+        return pazienteDAO.save(paziente);
+    }
 
+    @Override
+    public Paziente findByemail(String email) {
+        return pazienteDAO.findByemail(email);
+    }
+
+    @Override
+    public Paziente findBycodiceFiscale(String codiceFiscale) {
+        return pazienteDAO.findBycodiceFiscale(codiceFiscale);
     }
 }

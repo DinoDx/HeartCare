@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
 import java.io.Serializable;
@@ -32,36 +33,35 @@ public class Nota implements Serializable {
     /**
      * Campo relativo al contenuto della nota
      **/
-    @Column(nullable = false)
-    @NotBlank
+    @NotNull
     private String contenuto;
     /**
      * Campo relativo alla data di pubblicazione della nota
      * Invariante: la data deve essere inferiore o uguale alla data corrente
      **/
-    @Column(nullable = false)
+    @NotNull
     @Past
     private GregorianCalendar dataPubblicazione;
     /**
      * Campo relativo all'autore della nota
      **/
-    @Column(nullable = false)
+    @NotNull
     private Autore autore;
     /**
      * Campo (chiave esterna) relativo al medico che ha scritto/ricevuto la nota
      **/
     @ManyToOne
     @JoinColumn(name = "id_medico",
-            referencedColumnName = "id",
-            nullable = false)
+            referencedColumnName = "id")
+    @NotBlank
     private Medico medico;
     /**
      * Campo (chiave esterna) relativo al paziente che ha scritto/ricevuto la nota
      **/
     @ManyToOne
     @JoinColumn(name = "id_paziente",
-            referencedColumnName = "id",
-            nullable = false)
+            referencedColumnName = "id")
+    @NotBlank
     private Paziente paziente;
 
     /**

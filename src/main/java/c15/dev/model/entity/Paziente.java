@@ -121,7 +121,7 @@ public class Paziente extends UtenteRegistrato {
                     final String indirizzoEmail,
                     final String nome,
                     final String cognome,
-                    final char sesso
+                    final String sesso
                    ) throws Exception {
         super(dataNascita,
                 codFiscale,
