@@ -40,4 +40,5 @@ public interface GestioneMisurazioneService {
      * Metodo che restituisce tutte le misurazioni presenti nel database
      */
     public List<Misurazione> getMisurazioniByPaziente(Long id);
+    public DispositivoMedico getById(Long id);
 }

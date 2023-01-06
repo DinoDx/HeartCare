@@ -8,6 +8,10 @@ package c15.dev.model.entity.enumeration;
  */
 public enum Categoria {
     /**
+     * ENZIMI_CARDIACI sta per la categoria Enzimi cardiaci
+     */
+    ENZIMI_CARDIACI("Enzimi cardiaci"),
+    /**
      * SATURIMETRO sta per la categoria Saturimetro
      */
     SATURIMETRO("Saturimetro"),

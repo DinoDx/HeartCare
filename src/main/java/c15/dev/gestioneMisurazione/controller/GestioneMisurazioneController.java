@@ -1,5 +1,6 @@
 package c15.dev.gestioneMisurazione.controller;
 
+import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.entity.DispositivoMedico;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Paolo Carmine Valletta, Alessandro Zoccola.
@@ -27,6 +27,8 @@ public class GestioneMisurazioneController {
 
     @Autowired
     private GestioneUtenteService utenteService;
+
+    private DispositivoMedicoStub dispositivoMedicoStub = new DispositivoMedicoStub();
 
     /**
      * Metodo per la registrazione del dispositivo.
@@ -72,5 +74,19 @@ public class GestioneMisurazioneController {
             return null;
         }
         return misurazioneService.getMisurazioniByPaziente(id);
+    }
+
+    /**
+     *
+     * @param idDispositivo
+     * @return Misurazione
+     * Questo metodo permette di avviare una registrazione sull'id del dispositivo passato in input e di restituire la misurazione generata
+     *
+     */
+    @PostMapping(value = "/avvioMisurazione")
+    public Misurazione avvioMisurazione(@RequestParam Long idDispositivo){
+        DispositivoMedico dispositivoMedico = misurazioneService.getById(idDispositivo);
+        DispositivoMedicoAdapter dispositivoMedicoAdapter = new DispositivoMedicoAdapter(dispositivoMedico) ;
+        return dispositivoMedicoAdapter.avvioMisurazione();
     }
 }

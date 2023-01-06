@@ -70,5 +70,10 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
         return (List<Misurazione>) misurazioneDAO.findByPaziente(id);
     }
 
+    @Override
+    public DispositivoMedico getById(Long id) {
+        return dispositivoDao.findById(id).get();
+    }
+
 
 }

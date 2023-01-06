@@ -1,5 +1,6 @@
 package c15.dev.model.entity;
 
+import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
 import c15.dev.model.entity.enumeration.Categoria;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
@@ -17,6 +18,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -260,6 +265,31 @@ public class DispositivoMedico implements Serializable {
      */
     public void setPaziente(final Paziente paziente) {
         this.paziente = paziente;
+    }
+
+    public String avvioMisurazione(){
+        DispositivoMedicoStub dispositivoMedicoStub = new DispositivoMedicoStub();
+        String misurazione = " ";
+
+        switch(categoria.getDisplayName()){
+            case "ECG" : misurazione = dispositivoMedicoStub.MisurazioneHolterECGStub();
+                break;
+            case "Saturimetro" : misurazione = dispositivoMedicoStub.MisurazioneSaturazioneStub() ;
+                break;
+            case "Coagulometro" : misurazione = dispositivoMedicoStub.MisurazioneCoagulazioneStub();
+                break;
+            case "Misuratore glicemico" : misurazione = dispositivoMedicoStub.MisurazioneGlicemicaStub();
+                break;
+            case "Misuratore di pressione" : {
+                LocalDate currentDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate birthday = paziente.getDataDiNascita().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                misurazione = dispositivoMedicoStub.MisurazionePressioneStub(Period.between(birthday,currentDate).getYears());
+            }
+                break;
+            case "Enzimi cardiaci" : dispositivoMedicoStub.MisurazioneEnzimiCardiaciStub(paziente.getGenere());
+                break;
+        }
+        return misurazione;
     }
 
     /**
