@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 public class DispositivoMedicoAdapter implements IDispositivoMedico{
     private DispositivoMedico adaptee;
-    Gson gson;
+    Gson gson ;
 
     /**
      *
