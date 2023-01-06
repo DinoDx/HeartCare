@@ -8,14 +8,11 @@ import c15.dev.model.entity.UtenteRegistrato;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.MessageDigest;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Leopoldo Todisco, Carlo Venditto.
@@ -144,7 +141,7 @@ public class GestioneUtenteController {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
         if (service.isAdmin(u.getId())) {
-            return service.getTuttiMedici()
+            return service.getTuttiPazienti()
                     .stream()
                     .filter((utente)
                             -> utente.getClass()
@@ -174,7 +171,7 @@ public class GestioneUtenteController {
      */
     //TODO usare optional per vedere solo quali campi modificare
     @PostMapping("/modificaDatiUtente")
-    public boolean modifcaDatiPaziente(@Valid @RequestBody
+    public boolean modificaDatiPaziente(@Valid @RequestBody
                                            ModificaPazienteDTO pazienteDTO) {
         UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
@@ -188,7 +185,7 @@ public class GestioneUtenteController {
             } else if (service.isMedico(id) || service.isAdmin(id)) {
 
                 //TODO da modificare con generics per permettere ad un medico ad un utente di essere modificati
-                if (Arrays.equals(pazienteDTO.getConfermaPassword(), utente.getPassword())) {
+                if(Arrays.equals(pazienteDTO.getConfermaPassword(), utente.getPassword())) {
                     service.modificaDatiPaziente(pazienteDTO, id);
                     return true;
                 }
@@ -197,6 +194,40 @@ public class GestioneUtenteController {
         }
 
         return false;
+    }
+
+    /**
+     * @author Leopoldo Todisco.
+     * Metodo che permette di ottenere i dati relativi a un utente qualsiasi.
+     * @param idUtente
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     * Essa comprende una Map con i dati utente e lo stato della rispostama.
+     */
+    @PostMapping("/utente/{id}")
+    public ResponseEntity<Object>
+        getDatiProfiloUtente(@PathVariable("id") final Long idUtente){
+        HashMap<String, Object> map = new HashMap<>();
+
+        if(service.isPaziente(idUtente)){
+            Paziente paziente = service.findPazienteById(idUtente);
+            map.put("nome", paziente.getNome());
+            map.put("cognome", paziente.getCognome());
+            map.put("email", paziente.getEmail());
+            map.put("nTelefono", paziente.getNumeroTelefono());
+            map.put("emailCaregiver", paziente.getEmailCaregiver());
+            map.put("nomeCaregiver", paziente.getNomeCaregiver());
+            map.put("cognomeCaregiver", paziente.getCognomeCaregiver());
+        }
+
+        else if(service.isMedico(idUtente) || service.isAdmin(idUtente)){
+            Medico medico = service.findMedicoById(idUtente);
+            map.put("nome", medico.getNome());
+            map.put("cognome", medico.getCognome());
+            map.put("email", medico.getEmail());
+            map.put("nTelefono", medico.getNumeroTelefono());
+        }
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 }
