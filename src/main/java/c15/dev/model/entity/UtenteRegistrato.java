@@ -86,7 +86,7 @@ public class UtenteRegistrato implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     /**
      * Campo relativo alla Data di nascita nel formato GG-MM-AAAA.
@@ -241,6 +241,10 @@ public class UtenteRegistrato implements Serializable {
         }
     }
 
+    public void setPassword(byte[] password){
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "UtenteRegistrato{" +
@@ -256,4 +260,6 @@ public class UtenteRegistrato implements Serializable {
                 ", indirizzoResidenza=" + indirizzoResidenza +
                 '}';
     }
+
+
 }

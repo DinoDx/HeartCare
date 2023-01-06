@@ -2,13 +2,7 @@ package c15.dev.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -48,8 +42,8 @@ public class Paziente extends UtenteRegistrato {
     /**
      * Questo campo indica il Medico che viene assegnato al paziente.
      */
-    @ManyToOne
     @JsonIgnore
+    @ManyToOne
     @JoinColumn(name = "id_medico",
                 referencedColumnName = "id",
                 nullable = true)
@@ -58,6 +52,7 @@ public class Paziente extends UtenteRegistrato {
     /**
      * Questo campo indica l'insieme delle note che un paziente riceve.
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "paziente",
                 fetch = FetchType.EAGER)
     private Set<Nota> note;
@@ -66,6 +61,7 @@ public class Paziente extends UtenteRegistrato {
      * Questo campo indica l'insieme dei dispositivi medici che un paziente si
      * assegna.
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "paziente",
             fetch = FetchType.EAGER)
     private Set<DispositivoMedico> dispositivoMedico;
@@ -73,18 +69,21 @@ public class Paziente extends UtenteRegistrato {
     /**
      * Campo che indica l'insieme delle misurazioni che un paziente esegue.
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
     private Set<Misurazione> misurazione;
 
     /**
      * Campo che inidica l'insieme delle visite a cui un paziente è stato.
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
     private Set<Visita> elencoVisite = new HashSet<>();
 
     /**
      * Insieme delle notifiche relative a un paziente.
      */
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "avviso",
@@ -147,6 +146,8 @@ public class Paziente extends UtenteRegistrato {
      */
     @Override
     public String toString() {
-        return super.toString() + this.getMedico().getId();
+        return super.toString();
     }
+
+
 }
