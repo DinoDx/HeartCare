@@ -1,5 +1,6 @@
 package c15.dev.gestioneMisurazione.controller;
 
+import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoAdapter;
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
