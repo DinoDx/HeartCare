@@ -1,16 +1,18 @@
 package c15.dev.gestioneUtente.controller;
 
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
+import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Leopoldo Todisco, Carlo Venditto.
@@ -33,6 +35,7 @@ public class GestioneUtenteController {
 
     /**
      * Metodo di login.
+     *
      * @param body è il body della richiesta.
      *             Al suo interno vi si trovano i valori di password ed email.
      */
@@ -45,7 +48,9 @@ public class GestioneUtenteController {
         Optional<UtenteRegistrato> utente = service.login(email, password);
         utente.ifPresent(
                 utenteRegistrato ->
-                    { session.setAttribute("utenteLoggato", utente.get()); });
+                {
+                    session.setAttribute("utenteLoggato", utente.get());
+                });
     }
 
     /**
@@ -53,11 +58,13 @@ public class GestioneUtenteController {
      */
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public void logout() {
+        System.out.println(((UtenteRegistrato) session.getAttribute("utenteLoggato")).getNome());
         session.invalidate();
     }
 
     /**
      * Metodo per assegnare un caregiver.
+     *
      * @param idPaziente
      * @param emailCaregiver
      * @param nomeCaregiver
@@ -67,7 +74,7 @@ public class GestioneUtenteController {
     public void assegnaCaregiver(@RequestParam Long idPaziente,
                                  @RequestParam String emailCaregiver,
                                  @RequestParam String nomeCaregiver,
-                                 @RequestParam String cognomeCaregiver){
+                                 @RequestParam String cognomeCaregiver) {
         if (service.isPaziente(idPaziente)) {
             service.assegnaCaregiver(idPaziente,
                     emailCaregiver,
@@ -78,30 +85,32 @@ public class GestioneUtenteController {
 
     /**
      * Metodo per rimuovere un Paziente o un Medico.
+     *
      * @param idUtente
      */
     @RequestMapping(value = "/rimuoviUtente", method = RequestMethod.POST)
-    public void rimuoviUtente(@RequestParam Long idUtente) {
-        if(service.isPaziente(idUtente)){
+    public boolean rimuoviUtente(@RequestParam Long idUtente) {
+        if (service.isPaziente(idUtente)) {
             service.rimuoviPaziente(idUtente);
-            return;
+            return true;
         } else if (service.isMedico(idUtente)) {
-            service.rimuoviMedico(idUtente);
-            return;
+            service.rimuoviPaziente(idUtente);
+            return true;
         }
-        return;
+        return false;
     }
 
     /**
-     * Metodo che assegna un paziente ad un medico.
+     * Metodo che assegna un paziente a un medico.
+     *
      * @param idMedico
      * @param idPaziente
      */
     @RequestMapping(value = "/assegnaPaziente", method = RequestMethod.POST)
     public void assegnaPaziente(@RequestParam long idMedico,
-                                 @RequestParam long idPaziente) {
-        if(service.isMedico(idMedico) && service.isPaziente(idPaziente)) {
-            service.assegnaPaziente(idMedico,idPaziente);
+                                @RequestParam long idPaziente) {
+        if (service.isMedico(idMedico) && service.isPaziente(idPaziente)) {
+            service.assegnaPaziente(idMedico, idPaziente);
         }
     }
 
@@ -112,14 +121,14 @@ public class GestioneUtenteController {
     public List<UtenteRegistrato> getTuttiMedici() {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
-        if(service.isAdmin(u.getId())) {
+        if (service.isAdmin(u.getId())) {
             return service.getTuttiMedici()
                     .stream()
                     .filter((utente)
                             -> utente.getClass()
-                                        .getSimpleName()
-                                        .equals("Medico"))
-                                        .toList();
+                            .getSimpleName()
+                            .equals("Medico"))
+                    .toList();
         }
         return null;
     }
@@ -131,8 +140,8 @@ public class GestioneUtenteController {
     public List<UtenteRegistrato> getTuttiPazienti() {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
-        if(service.isAdmin(u.getId())) {
-            return service.getTuttiMedici()
+        if (service.isAdmin(u.getId())) {
+            return service.getTuttiPazienti()
                     .stream()
                     .filter((utente)
                             -> utente.getClass()
@@ -145,6 +154,7 @@ public class GestioneUtenteController {
 
     /**
      * Metodo che restituisce tutti i pazienti
+     *
      * @param idMedico id del medico
      */
     @RequestMapping(value = "/getPazientiByMedico", method = RequestMethod.POST)
@@ -153,4 +163,72 @@ public class GestioneUtenteController {
         return service.getPazientiByMedico(idMedico);
     }
 
+
+    /**
+     * Metodo per modificare i dati di un utente.
+     * @param pazienteDTO
+     * @return
+     */
+    //TODO usare optional per vedere solo quali campi modificare
+    @PostMapping("/modificaDatiUtente")
+    public boolean modificaDatiPaziente(@Valid @RequestBody
+                                           ModificaPazienteDTO pazienteDTO) {
+        UtenteRegistrato utente = (UtenteRegistrato)
+                session.getAttribute("utenteLoggato");
+
+        long id = utente.getId();
+
+        if (service.isPaziente(id)) {
+            if (Arrays.equals(pazienteDTO.getConfermaPassword(), utente.getPassword())) {
+                service.modificaDatiPaziente(pazienteDTO, id);
+                return true;
+            } else if (service.isMedico(id) || service.isAdmin(id)) {
+
+                //TODO da modificare con generics per permettere ad un medico ad un utente di essere modificati
+                if(Arrays.equals(pazienteDTO.getConfermaPassword(), utente.getPassword())) {
+                    service.modificaDatiPaziente(pazienteDTO, id);
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
+    }
+
+    /**
+     * @author Leopoldo Todisco.
+     * Metodo che permette di ottenere i dati relativi a un utente qualsiasi.
+     * @param idUtente
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     * Essa comprende una Map con i dati utente e lo stato della rispostama.
+     */
+    @PostMapping("/utente/{id}")
+    public ResponseEntity<Object>
+        getDatiProfiloUtente(@PathVariable("id") final Long idUtente){
+        HashMap<String, Object> map = new HashMap<>();
+
+        if(service.isPaziente(idUtente)){
+            Paziente paziente = service.findPazienteById(idUtente);
+            map.put("nome", paziente.getNome());
+            map.put("cognome", paziente.getCognome());
+            map.put("email", paziente.getEmail());
+            map.put("nTelefono", paziente.getNumeroTelefono());
+            map.put("emailCaregiver", paziente.getEmailCaregiver());
+            map.put("nomeCaregiver", paziente.getNomeCaregiver());
+            map.put("cognomeCaregiver", paziente.getCognomeCaregiver());
+        }
+
+        else if(service.isMedico(idUtente) || service.isAdmin(idUtente)){
+            Medico medico = service.findMedicoById(idUtente);
+            map.put("nome", medico.getNome());
+            map.put("cognome", medico.getCognome());
+            map.put("email", medico.getEmail());
+            map.put("nTelefono", medico.getNumeroTelefono());
+        }
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
 }
+

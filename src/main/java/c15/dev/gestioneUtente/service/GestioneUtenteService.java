@@ -1,5 +1,6 @@
 package c15.dev.gestioneUtente.service;
 
+import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
@@ -27,9 +28,9 @@ public interface GestioneUtenteService {
     /**
      * Firma del metodo di assegnaCaregiver.
      *
-     * @param idPaziente del paziente a cui si vuole assegnare il caregiver
-     * @param emailCaregiver email del caregiver
-     * @param nomeCaregiver nome del caregiver
+     * @param idPaziente       del paziente a cui si vuole assegnare il caregiver
+     * @param emailCaregiver   email del caregiver
+     * @param nomeCaregiver    nome del caregiver
      * @param cognomeCaregiver nome del caregiver
      */
     void assegnaCaregiver(Long idPaziente,
@@ -39,18 +40,21 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo rimuoviPaziente.
+     *
      * @param idUtente id del paziente che deve essere rimosso
      */
     void rimuoviPaziente(Long idUtente);
 
     /**
      * Firma del metodo rimuoviMedico.
+     *
      * @param idUtente id del medico che deve essere rimosso
      */
     void rimuoviMedico(Long idUtente);
 
     /**
      * Firma del metodo isPaziente.
+     *
      * @param idUtente id dell'utente che vogliamo controllare che sia un paziente
      * @return
      */
@@ -58,6 +62,7 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo isMedico.
+     *
      * @param idUtente id dell'utente che vogliamo controllare che sia un medico
      * @return
      */
@@ -65,6 +70,7 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo isAdmin
+     *
      * @param idUtente id dell'utente che vogliamo controllare che sia un admin
      * @return
      */
@@ -72,7 +78,8 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo assegnaPaziente.
-     * @param idMedico id del medico a cui assegnamo il paziente
+     *
+     * @param idMedico   id del medico a cui assegnamo il paziente
      * @param idPaziente id del paziente che viene assegnato al medico
      * @return
      */
@@ -80,6 +87,7 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo findPazienteById
+     *
      * @param id id del paziente da ricercare
      * @return
      */
@@ -87,6 +95,7 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo findMedicoById
+     *
      * @param id id del medico da ricercare
      * @return
      */
@@ -94,12 +103,14 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo updatePaziente
+     *
      * @param paz paziente da aggiornare
      */
     void updatePaziente(Paziente paz);
 
     /**
      * Firma del metodo updateMedico
+     *
      * @param med medico da aggiornare
      */
     void updateMedico(Medico med);
@@ -118,4 +129,15 @@ public interface GestioneUtenteService {
      * Firma del metodo getPazientiByMedico
      */
     List<Paziente> getPazientiByMedico(long idMedico);
+
+    /**
+     * Firma del metodo modificaDatiPaziente
+     * @param pazienteDTO
+     * @param idUtente
+     */
+    void modificaDatiPaziente(ModificaPazienteDTO pazienteDTO, long idUtente);
+
+    public UtenteRegistrato findUtenteById(Long id);
+
+
 }

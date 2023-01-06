@@ -3,10 +3,13 @@ package c15.dev.gestioneUtente.service;
 import c15.dev.model.dao.AdminDAO;
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.dao.UtenteRegistratoDAO;
+import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
@@ -32,6 +35,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
      */
     @Autowired
     private MedicoDAO medico;
+
+    @Qualifier("utenteRegistratoDAO")
+    @Autowired
+    private UtenteRegistratoDAO utente;
+
 
     /**
      * Metodo che permette di fare il login.
@@ -106,6 +114,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
         Optional<UtenteRegistrato> u = medico.findById(idUtente);
         medico.delete(u.get());
     }
+
 
     /**
      * Metodo che verifica se un utente è un paziente.
@@ -213,6 +222,15 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
         return (Medico) paz.get();
     }
 
+    @Override
+    public UtenteRegistrato findUtenteById(Long id) {
+        Optional<UtenteRegistrato> u = utente.findById(id);
+        if (u.isEmpty()){
+            return null;
+        }
+         return u.get();
+    }
+
     /**
      * Metodo per fare update di un paziente nel DB.
      * @param paz è il paziente da aggiornare.
@@ -265,4 +283,30 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
                 .filter(p -> p.getMedico().getId()==(idMedico))
                 .toList();
     }
+
+    /**
+     * Metodo per modificare i dati di un paziente.
+     * @param dto
+     * @param idUtente
+     */
+    @Override
+    public void modificaDatiPaziente(ModificaPazienteDTO dto, long idUtente) {
+        Paziente daModificare = findPazienteById(idUtente);
+
+        daModificare.setNome(dto.getNome());
+        daModificare.setCognome(dto.getCognome());
+        daModificare.setNumeroTelefono(dto.getNumeroTelefono());
+        daModificare.setEmailCaregiver(dto.getEmailCaregiver());
+        daModificare.setNomeCaregiver(dto.getNomeCaregiver());
+        daModificare.setCognomeCaregiver(dto.getCognomeCaregiver());
+        daModificare.setPassword(dto.getPassword());
+        //TODO AGGIUNGERE PURE INDIRIZZO QUANDO CI SARà
+        paziente.save(daModificare);
+    }
+
+
+
+
+
+
 }
