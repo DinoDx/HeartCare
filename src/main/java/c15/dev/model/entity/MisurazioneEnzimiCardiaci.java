@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -23,18 +24,21 @@ public class MisurazioneEnzimiCardiaci
      * questo campo indica il valore della mioglobina.
      */
     @Column(name = "mioglobina", nullable = false)
+    @NotNull
     private double mioglobina;
 
     /**
      * questo campo indica il valore della creatin Kinasi.
      */
     @Column(name = "creatin_kinasi", nullable = false)
+    @NotNull
     private double creatinKinasi;
 
     /**
      * questo campo indica il valore della troponina cardiaca.
      */
     @Column(name = "troponina_cardiaca", nullable = false)
+    @NotNull
     private double troponinaCardiaca;
 
     /**
@@ -45,21 +49,21 @@ public class MisurazioneEnzimiCardiaci
     }
 
     /**
-     * @param dataMisurazione rappresenta la data della misurazione
+     * @param data rappresenta la data della misurazione
      * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivoMedico rappresenta il dispositivo medico con cui
+     * @param dispositivo rappresenta il dispositivo medico con cui
      *                          è stata effettuata la misurazione
      * @param creatinKinasi rappresenta il valore della creatin Kinasi
      * @param mioglobina rappresenta il valore della mioglobina
      * @param troponinaCardiaca rappresenta il valore della troponina cardiaca
      */
-    public MisurazioneEnzimiCardiaci(final GregorianCalendar dataMisurazione,
+    public MisurazioneEnzimiCardiaci(final GregorianCalendar data,
                                      final Paziente paziente,
-                                     final DispositivoMedico dispositivoMedico,
+                                     final DispositivoMedico dispositivo,
                                      final double mioglobina,
                                      final double creatinKinasi,
                                      final double troponinaCardiaca) {
-        super(dataMisurazione, paziente, dispositivoMedico);
+        super(data, paziente, dispositivo);
         this.creatinKinasi = creatinKinasi;
         this.mioglobina = mioglobina;
         this.troponinaCardiaca = troponinaCardiaca;
@@ -68,7 +72,7 @@ public class MisurazioneEnzimiCardiaci
     /**
      *
      * @return mioglobina
-     * metodo che restituisce il valore della mioglobina.
+     * Metodo che restituisce il valore della mioglobina.
      */
     public double getMioglobina() {
         return mioglobina;
@@ -77,7 +81,7 @@ public class MisurazioneEnzimiCardiaci
     /**
      *
      * @param mioglobina
-     * metodo che permette settare la mioglobina di una misurazione.
+     * Metodo che permette settare la mioglobina di una misurazione.
      *
      */
     public void setMioglobina(final double mioglobina) {
@@ -87,7 +91,7 @@ public class MisurazioneEnzimiCardiaci
     /**
      *
      * @return creatinKinasi
-     * metodo che restituisce il valore della creatin kinasi.
+     * Metodo che restituisce il valore della creatin kinasi.
      */
     public double getCreatinKinasi() {
         return creatinKinasi;
@@ -96,7 +100,7 @@ public class MisurazioneEnzimiCardiaci
     /**
      *
      * @param creatinKinasi
-     * metodo che permette settare la creatin kinasi di una misurazione.
+     * Metodo che permette settare la creatin kinasi di una misurazione.
      *
      */
     public void setCreatinKinasi(final double creatinKinasi) {
@@ -106,7 +110,7 @@ public class MisurazioneEnzimiCardiaci
     /**
      *
      * @return troponinaCardiaca
-     * metodo che restituisce il valore della troponina Cardiaca.
+     * Metodo che restituisce il valore della troponina Cardiaca.
      */
     public double getTroponinaCardiaca() {
         return troponinaCardiaca;
@@ -116,7 +120,7 @@ public class MisurazioneEnzimiCardiaci
     /**
      *
      * @param troponinaCardiaca
-     * metodo che permette settare la troponina cardiaca di una misurazione.
+     * Metodo che permette settare la troponina cardiaca di una misurazione.
      *
      */
     public void setTroponinaCardiaca(final double troponinaCardiaca) {

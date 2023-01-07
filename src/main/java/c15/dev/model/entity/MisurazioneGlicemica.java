@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -21,18 +22,21 @@ public class MisurazioneGlicemica extends Misurazione implements Serializable {
      * Questo campo intero indica la quantità di zuccheri nel sangue.
      */
     @Column(name = "zuccheri_nel_sangue", nullable = false)
+    @NotNull
     private int zuccheriNelSangue;
 
     /**
      * questo campo indica il livello di colesterolo.
      */
     @Column(name = "colesterolo", nullable = false)
+    @NotNull
     private int colesterolo;
 
     /**
      * questo campo indica il livello di trigliceridi.
      */
     @Column(name = "trigliceridi", nullable = false)
+    @NotNull
     private int trigliceridi;
 
     /**

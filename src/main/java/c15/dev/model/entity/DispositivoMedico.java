@@ -1,5 +1,6 @@
 package c15.dev.model.entity;
 
+import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
 import c15.dev.model.entity.enumeration.Categoria;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
@@ -11,8 +12,16 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -51,34 +60,34 @@ public class DispositivoMedico implements Serializable {
      * Campo relativo alla data di registrazione del dispositivo medico.
      * Invariante: la data deve essere <= rispetto la data corrente.
      */
-    @Column(nullable = false)
+    @NotNull
     private GregorianCalendar dataRegistrazione;
     /**
      * Campo relativo alla descrizione del dispositivo medico.
      */
-    @Column(nullable = false,
-            length = LENGTH_100)
+    @NotNull
+    @Max(100)
     private String descrizione;
 
     /**
      * Campo relativo al numero seriale del dispositivo medico.
      * Invariante: deve essere composta da 30 caratteri.
      */
-    @Column(nullable = false,
-            unique = true,
-            length = LENGTH_30)
+    @Column(unique = true )
+    @NotNull
+    @Size(min = LENGTH_30, max = LENGTH_30)
     private String numeroSeriale;
 
     /**
      * Campo relativo a se il dispositivo medico è disponibile
      * per essere assegnato a un paziente.
      */
-    @Column(nullable = false)
+    @NotNull
     private Boolean disponibile;
     /**
      * Campo relativo alla categoria di appartenenza del dispositivo medico.
      */
-    @Column(nullable = false)
+    @NotNull
     private Categoria categoria;
     /**
      * Campo (chiave esterna) relativo al paziente a cui è assegnato
@@ -256,6 +265,31 @@ public class DispositivoMedico implements Serializable {
      */
     public void setPaziente(final Paziente paziente) {
         this.paziente = paziente;
+    }
+
+    public String avvioMisurazione(){
+        DispositivoMedicoStub dispositivoMedicoStub = new DispositivoMedicoStub();
+        String misurazione = " ";
+
+        switch(categoria.getDisplayName()){
+            case "ECG" : misurazione = dispositivoMedicoStub.MisurazioneHolterECGStub();
+                break;
+            case "Saturimetro" : misurazione = dispositivoMedicoStub.MisurazioneSaturazioneStub() ;
+                break;
+            case "Coagulometro" : misurazione = dispositivoMedicoStub.MisurazioneCoagulazioneStub();
+                break;
+            case "Misuratore glicemico" : misurazione = dispositivoMedicoStub.MisurazioneGlicemicaStub();
+                break;
+            case "Misuratore di pressione" : {
+                LocalDate currentDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate birthday = paziente.getDataDiNascita().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                misurazione = dispositivoMedicoStub.MisurazionePressioneStub(Period.between(birthday,currentDate).getYears());
+            }
+                break;
+            case "Enzimi cardiaci" : dispositivoMedicoStub.MisurazioneEnzimiCardiaciStub(paziente.getGenere());
+                break;
+        }
+        return misurazione;
     }
 
     /**

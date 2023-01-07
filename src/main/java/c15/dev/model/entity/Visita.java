@@ -1,7 +1,16 @@
 package c15.dev.model.entity;
 
 import c15.dev.model.entity.enumeration.StatoVisita;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -22,15 +31,18 @@ public class Visita implements Serializable {
     private Long id;
 
     /**
-     * Campo relativo alla data della visita.
+     * Campo relativo alla data della elencoVisite.
      **/
     @Column(nullable = false)
+    @NotNull
+    @Future
     private GregorianCalendar data;
 
     /**
-     * Campo relativo allo stato della visita.
+     * Campo relativo allo stato della elencoVisite.
      **/
     @Column(nullable = false)
+    @NotNull
     private StatoVisita statoVisita;
 
     /**
@@ -40,6 +52,7 @@ public class Visita implements Serializable {
     @JoinColumn(name = "id_medico",
                 referencedColumnName = "id",
                 nullable = false)
+    @NotNull
     private Medico medico;
 
 
@@ -58,6 +71,7 @@ public class Visita implements Serializable {
      **/
     @ManyToOne
     @JoinColumn(name="id_indirizzo", referencedColumnName = "id")
+    @NotNull
     private Indirizzo indirizzoVisita;
 
 
@@ -68,22 +82,22 @@ public class Visita implements Serializable {
     }
 
     /**
-     * @param data rappresenta la data della visita
-     * @param statoVisita rappresenta lo stato della visita
-     * @param medico rappresenta il medico con cui si fa la visita
-     * @param paziente rappresenta il paziente che è coinvolto nella visita
-     * @param indirizzoVisita rappresenta l'indirizzo in cui si effettuerà la visita
+     * @param dataVisita rappresenta la data della elencoVisite
+     * @param stato rappresenta lo stato della elencoVisite
+     * @param med rappresenta il medico con cui si fa la elencoVisite
+     * @param paz rappresenta il paziente che è coinvolto nella elencoVisite
+     * @param indirizzo rappresenta l'indirizzo in cui si effettuerà la elencoVisite
      */
-    public Visita(final GregorianCalendar data,
-                  final StatoVisita statoVisita,
-                  final Medico medico,
-                  final Paziente paziente,
-                  final Indirizzo indirizzoVisita) {
-        this.data = data;
-        this.statoVisita = statoVisita;
-        this.medico = medico;
-        this.paziente = paziente;
-        this.indirizzoVisita = indirizzoVisita;
+    public Visita(final GregorianCalendar dataVisita,
+                  final StatoVisita stato,
+                  final Medico med,
+                  final Paziente paz,
+                  final Indirizzo indirizzo) {
+        this.data = dataVisita;
+        this.statoVisita = stato;
+        this.medico = med;
+        this.paziente = paz;
+        this.indirizzoVisita = indirizzo;
     }
 
     /**
@@ -97,17 +111,8 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @param id
-     * metodo che permette di definire l'id della notifica.
-     */
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    /**
-     *
      * @return data
-     * metodo che restituisce la data della visita.
+     * metodo che restituisce la data della elencoVisite.
      */
     public GregorianCalendar getData() {
         return data;
@@ -116,7 +121,7 @@ public class Visita implements Serializable {
     /**
      *
      * @param data
-     * metodo che permette di definire la data della visita.
+     * metodo che permette di definire la data della elencoVisite.
      */
     public void setData(final GregorianCalendar data) {
         this.data = data;
@@ -125,7 +130,7 @@ public class Visita implements Serializable {
     /**
      *
      * @return stato
-     * metodo che restituisce lo stato della visita.
+     * metodo che restituisce lo stato della elencoVisite.
      */
     public StatoVisita getStatoVisita() {
         return statoVisita;
@@ -134,7 +139,7 @@ public class Visita implements Serializable {
     /**
      *
      * @param statoVisita
-     * metodo che permette di definire lo stato della visita.
+     * metodo che permette di definire lo stato della elencoVisite.
      */
     public void setStatoVisita(final StatoVisita statoVisita) {
         this.statoVisita = statoVisita;
@@ -143,7 +148,7 @@ public class Visita implements Serializable {
     /**
      *
      * @return medico
-     * metodo che restituisce il medico che effettua la visita.
+     * metodo che restituisce il medico che effettua la elencoVisite.
      */
     public Medico getMedico() {
         return medico;
@@ -152,7 +157,7 @@ public class Visita implements Serializable {
     /**
      *
      * @param medico
-     * metodo che permette di definire il medico che effettua la visita
+     * metodo che permette di definire il medico che effettua la elencoVisite
      */
     public void setMedico(final Medico medico) {
         this.medico = medico;
@@ -161,7 +166,7 @@ public class Visita implements Serializable {
     /**
      *
      * @return paziente
-     * metodo che restituisce il paziente che effettua la visita
+     * metodo che restituisce il paziente che effettua la elencoVisite
      */
     public Paziente getPaziente() {
         return paziente;
@@ -170,7 +175,7 @@ public class Visita implements Serializable {
     /**
      *
      * @param paziente
-     * metodo che permette di definire il paziente coinvolto nella visita
+     * metodo che permette di definire il paziente coinvolto nella elencoVisite
      */
     public void setPaziente(final Paziente paziente) {
         this.paziente = paziente;
@@ -179,7 +184,7 @@ public class Visita implements Serializable {
     /**
      *
      * @return indirizzoVisita
-     * metodo che restituisce l' indirizzo della visita
+     * metodo che restituisce l' indirizzo della elencoVisite
      */
     public Indirizzo getIndirizzoVisita() {
         return indirizzoVisita;
@@ -188,7 +193,7 @@ public class Visita implements Serializable {
     /**
      *
      * @param indirizzoVisita
-     * metodo che permette di definire l'indirizzo della visita
+     * metodo che permette di definire l'indirizzo della elencoVisite
      */
     public void setIndirizzoVisita(final Indirizzo indirizzoVisita) {
         this.indirizzoVisita = indirizzoVisita;

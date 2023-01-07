@@ -1,16 +1,14 @@
 package c15.dev.model.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.JoinTable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -20,39 +18,50 @@ import java.util.Set;
  * Questa è la classe relativa a un Paziente.
  */
 @Entity
+@Data
+@SuperBuilder
+@Setter
 public class Paziente extends UtenteRegistrato {
     /**
      * Questo campo rappresenta il nome del caregiver.
      */
+    //@NotEmpty
     private String nomeCaregiver;
 
     /**
      * Questo campo rappresenta il cognome del caregiver.
      */
+    //@NotEmpty
     private String cognomeCaregiver;
     /**
      * Questo campo rappresenta l'email del caregiver.
      */
+    //@Email
     private String emailCaregiver;
 
     /**
      * Questo campo indica il Medico che viene assegnato al paziente.
      */
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_medico",
-                referencedColumnName = "id", nullable = false)
+                referencedColumnName = "id",
+                nullable = true)
     private Medico medico;
 
     /**
      * Questo campo indica l'insieme delle note che un paziente riceve.
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "paziente",
                 fetch = FetchType.EAGER)
     private Set<Nota> note;
 
     /**
-     * Questo campo indica l'insieme dei dispositivi medici che un paziente si assegna.
+     * Questo campo indica l'insieme dei dispositivi medici che un paziente si
+     * assegna.
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "paziente",
             fetch = FetchType.EAGER)
     private Set<DispositivoMedico> dispositivoMedico;
@@ -60,18 +69,21 @@ public class Paziente extends UtenteRegistrato {
     /**
      * Campo che indica l'insieme delle misurazioni che un paziente esegue.
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
     private Set<Misurazione> misurazione;
 
     /**
-     * campo che inidica l'insieme delle visite a cui un paziente è stato.
+     * Campo che inidica l'insieme delle visite a cui un paziente è stato.
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
-    private Set<Visita> visita;
+    private Set<Visita> elencoVisite = new HashSet<>();
 
     /**
      * Insieme delle notifiche relative a un paziente.
      */
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "avviso",
@@ -79,7 +91,6 @@ public class Paziente extends UtenteRegistrato {
             inverseJoinColumns = @JoinColumn(name = "notifica_id")
     )
     private Set<Notifica> notifica;
-
 
     /**
      * costruttore vuoto.
@@ -90,150 +101,52 @@ public class Paziente extends UtenteRegistrato {
 
     /**
      *
-     * @param dataDiNascita
-     * @param codiceFiscale
-     * @param numeroTelefono
-     * @param password
-     * @param email
+     * @param dataNascita
+     * @param codFiscale
+     * @param nTelefono
+     * @param pass
+     * @param indirizzoEmail
      * @param nome
      * @param cognome
-     * @param genere
-     * @param nomeCaregiver
-     * @param cognomeCaregiver
-     * @param emailCaregiver
-     * @param medico
+     * @param sesso
      *
      * costruttore per il Paziente.
      */
-    public Paziente(final Date dataDiNascita,
-                    final String codiceFiscale,
-                    final String numeroTelefono,
-                    final String password,
-                    final String email,
+    public Paziente(final Date dataNascita,
+                    final String codFiscale,
+                    final String nTelefono,
+                    final String pass,
+                    final String indirizzoEmail,
                     final String nome,
                     final String cognome,
-                    final char genere,
-                    final String nomeCaregiver,
-                    final String cognomeCaregiver,
-                    final String emailCaregiver,
-                    final Medico medico) {
-        super(dataDiNascita,
-                codiceFiscale,
-                numeroTelefono,
-                password,
-                email,
+                    final String sesso
+                   ) throws Exception {
+        super(dataNascita,
+                codFiscale,
+                nTelefono,
+                pass,
+                indirizzoEmail,
                 nome,
                 cognome,
-                genere);
-        this.nomeCaregiver = nomeCaregiver;
-        this.cognomeCaregiver = cognomeCaregiver;
-        this.emailCaregiver = emailCaregiver;
-        this.medico = medico;
+                sesso);
+
     }
 
     /**
-     * @return nomeCaregiver
-     *  Metodo che restituisce il nome del caregiver.
-     */
-    public String getNomeCaregiver() {
-        return nomeCaregiver;
-    }
-
-    /**
-     *
-     * @param nomeCaregiver
-     * Metodo che permette di inserire il nome di un caregiver.
-     */
-    public void setNomeCaregiver(String nomeCaregiver) {
-        this.nomeCaregiver = nomeCaregiver;
-    }
-
-    /**
-     *
-     * @return cognomeCaregiver
-     * Metodo che restituisce il cognome del caregiver.
-     */
-    public String getCognomeCaregiver() {
-        return cognomeCaregiver;
-    }
-
-    /**
-     *
-     * @param cognomeCaregiver
-     * Metodo che  permette di inserire il cognome del caregiver.
-     */
-    public void setCognomeCaregiver(String cognomeCaregiver) {
-        this.cognomeCaregiver = cognomeCaregiver;
-    }
-
-    /**
-     *
-     * @return emailCaregiver
-     * Metodo che restituisce l'email del caregiver.
-     */
-    public String getEmailCaregiver() {
-        return emailCaregiver;
-    }
-
-    /**
-     *
-     * @param emailCaregiver
-     * Metodo che permette di inserire l'email del caregiver.
-     */
-    public void setEmailCaregiver(String emailCaregiver) {
-        this.emailCaregiver = emailCaregiver;
-    }
-
-    /**
-     *
-     * @return medico
-     * Metodo che restituisce il medico di un paziente.
-     */
-    public Medico getMedico() {
-        return medico;
-    }
-
-    /**
-     *
-     * @param medico
-     * Metodo che permette di inserire il medico ad un paziente.
-     */
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
-
-    /**
-     *
-     * @return visita
-     * Metodo che restituisce le visite di un paziente.
-     */
-    public Set<Visita> getVisita() {
-        return visita;
-    }
-
-    /**
-     *
+     * Metodo che permette di aggiungere una singola elencoVisite al set.
      * @param visita
-     * Metodo che permette di inserire le visite di un paziente.
      */
-    public void setVisita(Set<Visita> visita) {
-        this.visita = visita;
-    }
+    public void addSingolaVisita(Visita visita){
+        this.elencoVisite.add(visita);
 
-    /**
-     * Metodo per ottenere le notifiche relative a un paziente.
-     * @return Set<Notifica>
-     */
-    public Set<Notifica> getNotifica() {
-        return notifica;
     }
-
     /**
-     * Metodo per inserire un insieme di notifiche relative a un paziente.
-     * @param notifica
+     * Metodo toString.
+     * @return Stringa che contiene tutto il contenuto della classe.
      */
-    public void setNotifica(Set<Notifica> notifica) {
-        this.notifica = notifica;
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
 

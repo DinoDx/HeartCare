@@ -39,12 +39,12 @@ public class Medico extends UtenteRegistrato {
      * Questo campo indica la lista di visite in cui un medico è coinvolto.
      */
     @OneToMany(mappedBy = "medico", fetch = FetchType.EAGER)
-    private List<Visita> visita;
+    private List<Visita> elencoVisite;
 
     /**
      * costruttore vuoto.
      */
-    public Medico() {
+    public Medico() throws Exception {
         super();
     }
 
@@ -68,7 +68,7 @@ public class Medico extends UtenteRegistrato {
                   final String email,
                   final String nome,
                   final String cognome,
-                  final char genere) {
+                  final String genere) throws Exception {
         super(dataDiNascita,
                 codiceFiscale,
                 numeroTelefono,
@@ -99,6 +99,25 @@ public class Medico extends UtenteRegistrato {
 
     /**
      *
+     * @return note
+     * Metodo che restituisce l'elenco delle note destinate al medico.
+     */
+
+    public Set<Nota> getNote() {
+        return note;
+    }
+
+    /**
+     *
+     * @param note
+     * Metodo che permette di inserire una lista di note
+     */
+    public void setNote(Set<Nota> note) {
+        this.note = note;
+    }
+
+    /**
+     *
      * @return notifica
      * Metodo che restituisce l'elenco delle notifiche inviate da un medico.
      */
@@ -117,19 +136,27 @@ public class Medico extends UtenteRegistrato {
 
     /**
      *
-     * @return visita
+     * @return elencoVisite
      * Metodo che restituisce l'elenco delle visite di un medico.
      */
-    public List<Visita> getVisita() {
-        return visita;
+    public List<Visita> getElencoVisite() {
+        return elencoVisite;
     }
 
     /**
      *
-     * @param visita
+     * @param elencoVisite
      * Metodo che permette di inserire una lista di visite.
      */
-    public void setVisita(List<Visita> visita) {
-        this.visita = visita;
+    public void setElencoVisite(List<Visita> elencoVisite) {
+        this.elencoVisite = elencoVisite;
+    }
+
+    /**
+     * Metodo per inserire una singola elencoVisite alla lista.
+     * @param visita
+     */
+    public void addSingolaVisita(Visita visita){
+        this.elencoVisite.add(visita);
     }
 }

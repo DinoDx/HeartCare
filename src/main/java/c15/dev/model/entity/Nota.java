@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import c15.dev.model.entity.enumeration.Autore;
 
+import c15.dev.model.entity.enumeration.StatoNotifica;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -9,55 +10,74 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 /**
- * @author Mario Cicalese
- * Creato il 30/12/2022
- * Questa è la classe relativa a una nota scambiata tra un paziente e medico e viceversa
- * I campi sono id(generato), contenuto, dataPubblicazione, autore, medico(chiave esterna), paziente(chiave esterna)
+ * @author Mario Cicalese.
+ * Creato il 30/12/2022.
+ * Questa è la classe relativa a una nota scambiata
+ * tra un paziente e medico e viceversa
+ * I campi sono id(generato),
+ * contenuto,
+ * dataPubblicazione,
+ * autore,
+ * medico(chiave esterna),
+ * paziente(chiave esterna).
 **/
 @Entity
 public class Nota implements Serializable {
     /**
-     * Campo relativo all'id della nota generato automaticamente
+     * Campo relativo all'id della nota generato automaticamente.
      **/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
-     * Campo relativo al contenuto della nota
+     * Campo relativo al contenuto della nota.
      **/
-    @Column(nullable = false)
+    @NotNull
     private String contenuto;
     /**
-     * Campo relativo alla data di pubblicazione della nota
-     * Invariante: la data deve essere inferiore o uguale alla data corrente
+     * Campo relativo alla data di pubblicazione della nota.
+     * Invariante: la data deve essere inferiore o uguale alla data corrente.
      **/
-    @Column(nullable = false)
+    @NotNull
+    @Past
     private GregorianCalendar dataPubblicazione;
     /**
      * Campo relativo all'autore della nota
      **/
-    @Column(nullable = false)
+    @NotNull
     private Autore autore;
+
+    /**
+     * Campo relativo allo stato della nota
+     */
+
+    @NotNull
+    @Column(nullable = false)
+    private StatoNotifica statoNota;
+
     /**
      * Campo (chiave esterna) relativo al medico che ha scritto/ricevuto la nota
      **/
     @ManyToOne
     @JoinColumn(name = "id_medico",
-            referencedColumnName = "id",
-            nullable = false)
+            referencedColumnName = "id")
+    @NotBlank
     private Medico medico;
     /**
      * Campo (chiave esterna) relativo al paziente che ha scritto/ricevuto la nota
      **/
     @ManyToOne
     @JoinColumn(name = "id_paziente",
-            referencedColumnName = "id",
-            nullable = false)
+            referencedColumnName = "id")
+    @NotBlank
     private Paziente paziente;
 
     /**
@@ -70,17 +90,20 @@ public class Nota implements Serializable {
      * @param contenuto rappresenta il contenuto della nota
      * @param dataPubblicazione rappresenta la data di pubblicazione della nota
      * @param autore rappresenta chi ha scritto la nota
+     * @param stato rappresenta lo stato della nota
      * @param medico rappresenta il medico che ha scritto/ricevuto la nota
      * @param paziente rappresenta il paziente che ha scritto/ricevuto la nota
      **/
     public Nota(final String contenuto,
                 final GregorianCalendar dataPubblicazione,
                 final Autore autore,
+                final StatoNotifica stato,
                 final Medico medico,
                 final Paziente paziente) {
         this.contenuto = contenuto;
         this.dataPubblicazione = dataPubblicazione;
         this.autore = autore;
+        this.statoNota = stato;
         this.medico = medico;
         this.paziente = paziente;
     }
@@ -155,6 +178,24 @@ public class Nota implements Serializable {
      */
     public void setAutore(final Autore autore) {
         this.autore = autore;
+    }
+
+    /**
+     *
+     * @return statoNota
+     * metodo che permette di restituire lo stato della nota
+     */
+    public StatoNotifica getStatoNota() {
+        return statoNota;
+    }
+
+    /**
+     *
+     * @param statoNota
+     * metodo che permette di definire lo stato della nota
+     */
+    public void setStatoNota(StatoNotifica statoNota) {
+        this.statoNota = statoNota;
     }
 
     /**

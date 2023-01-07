@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -17,39 +18,41 @@ import java.util.GregorianCalendar;
 @Entity
 public class MisurazioneSaturazione extends Misurazione implements Serializable {
     /**
-     * Questo campo numerico indica il numero di battiti per minuto
+     * Questo campo numerico indica il numero di battiti per minuto.
      */
     @Column(name = "battiti_per_minuto", nullable = false)
+    @NotNull
     private int battitiPerMinuto;
 
     /**
-     * Questo campo numerico indica la percentuale di saturazione
+     * Questo campo numerico indica la percentuale di saturazione.
      */
     @Column(name = "percentuale_saturazione", nullable = false)
+    @NotNull
     private double percentualeSaturazione;
 
     /**
-     * Costruttore senza parametri per MisurazioneSaturazione
+     * Costruttore senza parametri per MisurazioneSaturazione.
      */
     public MisurazioneSaturazione() {
         super();
     }
 
     /**
-     * @param dataMisurazione rappresenta la data della misurazione
+     * @param data rappresenta la data della misurazione
      * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivoMedico rappresenta il dispositivo medico con cui
+     * @param dispositivo rappresenta il dispositivo medico con cui
      *                          è stata effettuata la misurazione
      * @param battitiPerMinuto rappresenta il valore dei battiti per minuto
      * @param percentualeSaturazione rappresenta il valore della
      *                               percentuale di saturazione
      */
-    public MisurazioneSaturazione(final GregorianCalendar dataMisurazione,
+    public MisurazioneSaturazione(final GregorianCalendar data,
                                   final Paziente paziente,
-                                  final DispositivoMedico dispositivoMedico,
+                                  final DispositivoMedico dispositivo,
                                   final int battitiPerMinuto,
                                   final double percentualeSaturazione) {
-        super(dataMisurazione, paziente, dispositivoMedico);
+        super(data, paziente, dispositivo);
         this.battitiPerMinuto = battitiPerMinuto;
         this.percentualeSaturazione = percentualeSaturazione;
     }

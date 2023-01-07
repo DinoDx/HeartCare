@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -19,12 +20,14 @@ public class MisurazioneCoagulazione extends Misurazione implements Serializable
      * Questo campo indica il tempo di protrombina.
      */
     @Column(name = "tempo_di_protrobina", nullable = false)
+    @NotNull
     private double tempoDiProtrobina;
 
     /**
      * questo campo indica inr
      */
     @Column(name = "inr", nullable = false)
+    @NotNull
     private int inr;
 
     /**

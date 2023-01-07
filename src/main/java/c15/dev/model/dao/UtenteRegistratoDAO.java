@@ -3,6 +3,7 @@ package c15.dev.model.dao;
 import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.stereotype.Repository;
 
 /**
  *
@@ -13,7 +14,7 @@ import org.springframework.data.repository.NoRepositoryBean;
  * per creare i DAO delle classi figlie di UtenteRegistrato.
  * Per questo motivo si usa l'annotazione @NoRepositoryBean
  */
-@NoRepositoryBean
+@Repository
 public interface UtenteRegistratoDAO
         extends JpaRepository<UtenteRegistrato, Long> {
 }

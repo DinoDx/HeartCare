@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -19,31 +20,35 @@ import java.util.GregorianCalendar;
 @Entity
 public class MisurazionePressione extends Misurazione implements Serializable {
     /**
-     * Questo campo indica il numero di battiti per minuto
+     * Questo campo indica il numero di battiti per minuto.
      */
     @Column(name = "battiti_per_minuto", nullable = false)
+    @NotNull
     private int battitiPerMinuto;
 
     /**
-     * questo campo indica il valore della pressione massima
+     * Questo campo indica il valore della pressione massima.
      */
     @Column(name = "pressione_massima", nullable = false)
+    @NotNull
     private double pressioneMassima;
 
     /**
-     * questo campo indica il valore della pressione minima
+     * Questo campo indica il valore della pressione minima.
      */
     @Column(name = "pressione_minima", nullable = false)
+    @NotNull
     private double pressioneMinima;
 
     /**
-     * questo campo indica il valore della pressione media
+     * Questo campo indica il valore della pressione media.
      */
     @Column(name = "pressione_media", nullable = false)
+    @NotNull
     private double pressioneMedia;
 
     /**
-     * Costruttore senza parametri per MisurazionePressione
+     * Costruttore senza parametri per MisurazionePressione.
      */
     public MisurazionePressione() {
         super();
@@ -76,7 +81,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      *
      * @return battitiPerMinuto
-     * metodo che restituisce il valore dei battiti per minuto
+     * Metodo che restituisce il valore dei battiti per minuto.
      */
     public int getBattitiPerMinuto() {
         return battitiPerMinuto;
@@ -85,17 +90,18 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      *
      * @param battitiPerMinuto
-     * metodo che permette settare i battiti per minuto di una misurazione
+     * Metodo che permette settare i battiti per minuto di una misurazione.
      *
      */
     public void setBattitiPerMinuto(final int battitiPerMinuto) {
         this.battitiPerMinuto = battitiPerMinuto;
+
     }
 
     /**
      *
      * @return pressioneMassima
-     * metodo che restituisce il valore della pressione massima
+     * Metodo che restituisce il valore della pressione massima.
      */
     public double getPressioneMassima() {
         return pressioneMassima;
@@ -103,7 +109,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      *
      * @param pressioneMassima
-     * metodo che permette settare la pressione massima di una misurazione
+     * Metodo che permette settare la pressione massima di una misurazione.
      *
      */
     public void setPressioneMassima(final double pressioneMassima) {
@@ -113,7 +119,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      *
      * @return pressioneMinima
-     * metodo che restituisce il valore della pressione minima
+     * Metodo che restituisce il valore della pressione minima.
      */
     public double getPressioneMinima() {
         return pressioneMinima;
@@ -122,7 +128,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      *
      * @param pressioneMinima
-     * metodo che permette settare la pressione minima di una misurazione
+     * Metodo che permette settare la pressione minima di una misurazione.
      *
      */
     public void setPressioneMinima(final double pressioneMinima) {
@@ -132,7 +138,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      *
      * @return pressioneMedia
-     * metodo che restituisce il valore della pressione media
+     * Metodo che restituisce il valore della pressione media.
      */
     public double getPressioneMedia() {
         return pressioneMedia;
@@ -141,7 +147,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      *
      * @param pressioneMedia
-     * metodo che permette settare la pressione media di una misurazione
+     * Metodo che permette settare la pressione media di una misurazione.
      *
      */
     public void setPressioneMedia(final double pressioneMedia) {
