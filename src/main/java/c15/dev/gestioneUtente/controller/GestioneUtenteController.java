@@ -2,7 +2,6 @@ package c15.dev.gestioneUtente.controller;
 
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dto.ModificaPazienteDTO;
-import c15.dev.model.dto.UtenteGenericoDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
 import c15.dev.model.entity.*;
 import c15.dev.model.entity.enumeration.StatoNotifica;
