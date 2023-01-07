@@ -2,6 +2,7 @@ package c15.dev.model.entity;
 
 import c15.dev.model.entity.enumeration.Autore;
 
+import c15.dev.model.entity.enumeration.StatoNotifica;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -47,6 +48,15 @@ public class Nota implements Serializable {
      **/
     @NotNull
     private Autore autore;
+
+    /**
+     * Campo relativo allo stato della nota
+     */
+
+    @NotNull
+    @Column(nullable = false)
+    private StatoNotifica statoNota;
+
     /**
      * Campo (chiave esterna) relativo al medico che ha scritto/ricevuto la nota
      **/
@@ -74,17 +84,20 @@ public class Nota implements Serializable {
      * @param contenuto rappresenta il contenuto della nota
      * @param dataPubblicazione rappresenta la data di pubblicazione della nota
      * @param autore rappresenta chi ha scritto la nota
+     * @param stato rappresenta lo stato della nota
      * @param medico rappresenta il medico che ha scritto/ricevuto la nota
      * @param paziente rappresenta il paziente che ha scritto/ricevuto la nota
      **/
     public Nota(final String contenuto,
                 final GregorianCalendar dataPubblicazione,
                 final Autore autore,
+                final StatoNotifica stato,
                 final Medico medico,
                 final Paziente paziente) {
         this.contenuto = contenuto;
         this.dataPubblicazione = dataPubblicazione;
         this.autore = autore;
+        this.statoNota = stato;
         this.medico = medico;
         this.paziente = paziente;
     }
@@ -159,6 +172,24 @@ public class Nota implements Serializable {
      */
     public void setAutore(final Autore autore) {
         this.autore = autore;
+    }
+
+    /**
+     *
+     * @return statoNota
+     * metodo che permette di restituire lo stato della nota
+     */
+    public StatoNotifica getStatoNota() {
+        return statoNota;
+    }
+
+    /**
+     *
+     * @param statoNota
+     * metodo che permette di definire lo stato della nota
+     */
+    public void setStatoNota(StatoNotifica statoNota) {
+        this.statoNota = statoNota;
     }
 
     /**

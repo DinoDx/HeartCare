@@ -99,6 +99,25 @@ public class Medico extends UtenteRegistrato {
 
     /**
      *
+     * @return note
+     * Metodo che restituisce l'elenco delle note destinate al medico.
+     */
+
+    public Set<Nota> getNote() {
+        return note;
+    }
+
+    /**
+     *
+     * @param note
+     * Metodo che permette di inserire una lista di note
+     */
+    public void setNote(Set<Nota> note) {
+        this.note = note;
+    }
+
+    /**
+     *
      * @return notifica
      * Metodo che restituisce l'elenco delle notifiche inviate da un medico.
      */
