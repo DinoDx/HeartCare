@@ -18,27 +18,33 @@ import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 /**
- * @author Mario Cicalese
- * Creato il 30/12/2022
- * Questa è la classe relativa a una nota scambiata tra un paziente e medico e viceversa
- * I campi sono id(generato), contenuto, dataPubblicazione, autore, medico(chiave esterna), paziente(chiave esterna)
+ * @author Mario Cicalese.
+ * Creato il 30/12/2022.
+ * Questa è la classe relativa a una nota scambiata
+ * tra un paziente e medico e viceversa
+ * I campi sono id(generato),
+ * contenuto,
+ * dataPubblicazione,
+ * autore,
+ * medico(chiave esterna),
+ * paziente(chiave esterna).
 **/
 @Entity
 public class Nota implements Serializable {
     /**
-     * Campo relativo all'id della nota generato automaticamente
+     * Campo relativo all'id della nota generato automaticamente.
      **/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
-     * Campo relativo al contenuto della nota
+     * Campo relativo al contenuto della nota.
      **/
     @NotNull
     private String contenuto;
     /**
-     * Campo relativo alla data di pubblicazione della nota
-     * Invariante: la data deve essere inferiore o uguale alla data corrente
+     * Campo relativo alla data di pubblicazione della nota.
+     * Invariante: la data deve essere inferiore o uguale alla data corrente.
      **/
     @NotNull
     @Past

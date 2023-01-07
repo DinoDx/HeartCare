@@ -15,13 +15,11 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.validator.constraints.Length;
 
 
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -243,22 +241,6 @@ public class UtenteRegistrato implements Serializable {
 
     public void setPassword(byte[] password){
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "UtenteRegistrato{" +
-                "id=" + id +
-                ", dataDiNascita=" + dataDiNascita +
-                ", codiceFiscale='" + codiceFiscale + '\'' +
-                ", numeroTelefono='" + numeroTelefono + '\'' +
-                ", password=" + Arrays.toString(password) +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", genere=" + genere +
-                ", indirizzoResidenza=" + indirizzoResidenza +
-                '}';
     }
 
 
