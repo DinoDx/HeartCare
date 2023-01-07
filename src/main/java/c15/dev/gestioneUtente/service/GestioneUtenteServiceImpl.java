@@ -5,6 +5,8 @@ import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.dao.UtenteRegistratoDAO;
 import c15.dev.model.dto.ModificaPazienteDTO;
+import c15.dev.model.dto.UtenteGenericoDTO;
+import c15.dev.model.dto.UtenteRegistratoDTO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
@@ -304,9 +306,18 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
         paziente.save(daModificare);
     }
 
+    @Override
+    public void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente) {
+        Medico daModificare = findMedicoById(idUtente);
 
+        daModificare.setNome(dto.getNome());
+        daModificare.setCognome(dto.getCognome());
+        daModificare.setNumeroTelefono(dto.getNumeroTelefono());
+        daModificare.setPassword(dto.getPassword());
 
+        medico.save(daModificare);
 
+    }
 
 
 }

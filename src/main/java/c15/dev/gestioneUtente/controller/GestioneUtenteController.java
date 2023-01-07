@@ -2,6 +2,8 @@ package c15.dev.gestioneUtente.controller;
 
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dto.ModificaPazienteDTO;
+import c15.dev.model.dto.UtenteGenericoDTO;
+import c15.dev.model.dto.UtenteRegistratoDTO;
 import c15.dev.model.entity.*;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import c15.dev.model.entity.enumeration.StatoVisita;
@@ -174,29 +176,47 @@ public class GestioneUtenteController {
     //TODO usare optional per vedere solo quali campi modificare
     @PostMapping("/modificaDatiUtente")
     public boolean modificaDatiPaziente(@Valid @RequestBody
-                                           ModificaPazienteDTO pazienteDTO) {
-        UtenteRegistrato utente = (UtenteRegistrato)
-                session.getAttribute("utenteLoggato");
+                                        ModificaPazienteDTO pazienteDTO) {
+       /* UtenteRegistrato utente = (UtenteRegistrato)
+                session.getAttribute("utenteLoggato");*/
 
-        long id = utente.getId();
-
+        long id = 1L;//utente.getId();
+        UtenteRegistrato utente = service.findUtenteById(id);
         if (service.isPaziente(id)) {
             if (Arrays.equals(pazienteDTO.getConfermaPassword(), utente.getPassword())) {
                 service.modificaDatiPaziente(pazienteDTO, id);
                 return true;
-            } else if (service.isMedico(id) || service.isAdmin(id)) {
-
-                //TODO da modificare con generics per permettere ad un medico ad un utente di essere modificati
-                if(Arrays.equals(pazienteDTO.getConfermaPassword(), utente.getPassword())) {
-                    service.modificaDatiPaziente(pazienteDTO, id);
-                    return true;
-                }
             }
 
         }
-
         return false;
     }
+
+    //TODO usare generics se possibile
+
+    /**
+     * Metodo per modificare i dati di un medico.
+     * @param pazienteDTO
+     * @return
+     */
+    @PostMapping("/modificaDatiMedico")
+    public boolean modificaDatiPaziente(@Valid @RequestBody
+                                        UtenteRegistratoDTO pazienteDTO) {
+       /* UtenteRegistrato utente = (UtenteRegistrato)
+                session.getAttribute("utenteLoggato");*/
+
+        long id = 4L;//utente.getId();
+        UtenteRegistrato utente = service.findUtenteById(id);
+        if (service.isMedico(id)) {
+            if (Arrays.equals(pazienteDTO.getConfermaPassword(), utente.getPassword())) {
+                service.modificaDatiMedico(pazienteDTO, id);
+                return true;
+            }
+
+        }
+        return false;
+    }
+
 
     /**
      * @author Leopoldo Todisco.

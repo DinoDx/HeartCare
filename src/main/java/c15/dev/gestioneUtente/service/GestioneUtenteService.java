@@ -1,6 +1,8 @@
 package c15.dev.gestioneUtente.service;
 
 import c15.dev.model.dto.ModificaPazienteDTO;
+import c15.dev.model.dto.UtenteGenericoDTO;
+import c15.dev.model.dto.UtenteRegistratoDTO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
@@ -136,6 +138,7 @@ public interface GestioneUtenteService {
      * @param idUtente
      */
     void modificaDatiPaziente(ModificaPazienteDTO pazienteDTO, long idUtente);
+    void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente);
 
     public UtenteRegistrato findUtenteById(Long id);
 
