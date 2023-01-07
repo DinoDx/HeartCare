@@ -1,0 +1,14 @@
+package heartcare.gestioneVisita.service;
+
+import heartcare.model.entity.Visita;
+
+
+/**
+ * @author Leopoldo Todisco.
+ * Creato il 05/01/2023.
+ * Service per il package gestioneVisita.
+ *
+ */
+public interface GestioneVisitaService {
+    void aggiuntaVisita(Visita visita);
+}
