@@ -1,0 +1,139 @@
+@font-face {
+    font-family: 'Cambay Devanagari Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Cambay Devanagari Regular'), url('fonts/CambayDevanagari-Regular.AH.woff') format('woff');
+}
+
+*{
+    font-family: 'Cambay Devanagari Regular';
+    font-size: 18px;
+}
+
+.logo{
+    width: 40%;
+    height: auto;
+    align-self : center;
+}
+
+.sfondoPagina{
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: rgb(56,166,155);
+    background: linear-gradient(180deg, rgba(56,166,155,1) 42%, rgba(105,127,140,1) 100%);
+}
+
+.contenitoreLogin {
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+}
+
+.contenitoreForm {
+    display : flex;
+    width : 70%;
+    flex-direction : column;
+    gap: 10px;
+}
+
+.formEditText{
+    width: 100%;
+    height: 30px;
+    align-self : center;
+    border-radius: 10px;
+    border: 2px solid #37a69b;
+    background-color: #ffffff;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
+    box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
+}
+
+.formButton {
+    height : 45px;
+    width : 190px;
+    align-self : center;
+    border-radius: 10px;
+    border: 2px solid #37a69b;
+    background-color: #ffffff;
+    font-weight: bold;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
+    box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
+}
+
+.formLink {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.centerFlexItem {
+    align-self: center;
+}
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .contenitoreLogin {
+        width: 85%;
+        height: 50vh;
+    }
+
+    .contenitoreForm {
+        width : 80%;
+    }
+
+    .logo{
+        width: 70%;
+    }
+
+    .formButton{
+        width : 160px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px)  and (max-width: 767px) {
+    .contenitoreLogin {
+        width: 70%;
+        height: 50vh;
+    }
+
+    .contenitoreForm {
+        width : 70%;
+    }
+
+    .logo{
+        width: 60%;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px)  and (max-width: 991px) {
+    .contenitoreLogin {
+        width: 70%;
+        height: 60vh;
+    }
+
+    .contenitoreForm {
+        width : 70%;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .contenitoreLogin {
+        height: 70vh;
+    }
+
+    .logo{
+        width: 50%;
+    }
+}
+
