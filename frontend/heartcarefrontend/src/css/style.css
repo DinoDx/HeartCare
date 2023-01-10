@@ -16,11 +16,21 @@
     align-self : center;
 }
 
-.sfondoPagina{
+.contenitorePaginaLogin{
     display : flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.contenitorePaginaHomePage{
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.sfondoPagina{
     height: 100vh;
     background: rgb(56,166,155);
     background: linear-gradient(180deg, rgba(56,166,155,1) 42%, rgba(105,127,140,1) 100%);

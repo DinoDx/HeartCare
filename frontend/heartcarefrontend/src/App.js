@@ -1,7 +1,7 @@
-import logoPath from './images/LogoHeartCare.png';
 import './App.css';
 import './css/style.css'
-import LoginForm from './components/LoginForm';
+import Menu from './components/Menu';
+import MainContent from "./components/MainContent";
 
 
 
@@ -9,12 +9,11 @@ function App() {
 
   return (
       <div>
-        <div className='sfondoPagina'>
-          <div className='contenitoreLogin'>
-            <img src={logoPath} alt="Logo" className='logo'/><br></br>
-            <LoginForm/>
-          </div>
-        </div>
+            {/* nella pagina di login SI DEVE aggiungere la classe contenitorePaginaLogin */}
+            <div className='sfondoPagina contenitorePaginaHomePage'>
+                <Menu/>
+                <MainContent/>
+            </div>
       </div>
   );
 }

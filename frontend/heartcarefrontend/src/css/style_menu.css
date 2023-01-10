@@ -1,0 +1,69 @@
+.contenitoreMenu{
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    width: 15%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+    margin:2px;
+}
+
+.contenitoreLogoMenu {
+    display: flex;
+    height: 20vh;
+}
+
+.logoMenu{
+    width: 80%;
+    height: auto;
+    padding-top: 30px;
+}
+
+.contenitoreVociMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100%;
+    gap: 30px;
+}
+
+.voceMenu {
+    width: 80%;
+    height: 50px;
+    background-color: #37a69b;
+    color: #f2f2f2;
+    transition: .3s;
+    border-radius: 10px;
+    display: flex;
+    align-content: center;
+    -webkit-box-shadow: 2px 2px 14px -1px rgba(0,0,0,0.56);
+    box-shadow: 2px 2px 14px -1px rgba(0,0,0,0.56);
+}
+
+.voceMenu:hover {
+    background-color: #f2f2f2;
+    color: #37a69b;
+}
+
+.voceMenuText {
+    font-size: 25px;
+    list-style-type: none;
+    font-family: "Cambay Devanagari Regular";
+    margin: 11px;
+}
+
+.iconaMenu{
+    width: 20px;
+    height: 20px;
+    margin: 15px;
+}
+
+.lineaMenu{
+    width: 70%;
+    border: 1px solid #37a69b;
+}
+
+
