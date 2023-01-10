@@ -14,8 +14,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * Questa classe permette di generare le misurazioni.
  */
 public class DispositivoMedicoStub {
-    Map<String,Number> mappa;
-    Gson gson;
+    private Map<String,Number> mappa;
+    private Gson gson;
 
     /**
      * Costruttore per la classe DispositivoMedicoStub.
@@ -40,7 +40,9 @@ public class DispositivoMedicoStub {
             creatinKenasi = ThreadLocalRandom.current().nextInt(30, 200);
         else
             creatinKenasi = ThreadLocalRandom.current().nextInt(30, 150);
-        Double troponinaCardiaca = ThreadLocalRandom.current().nextDouble(0.1, 10);
+        Double troponinaCardiaca = ThreadLocalRandom
+                                    .current()
+                                    .nextDouble(0.1, 10);
 
         mappa.put("mioglobina",mioglobina);
         mappa.put("creatinKenasi",creatinKenasi);
@@ -106,7 +108,7 @@ public class DispositivoMedicoStub {
             pressioneMassima = ThreadLocalRandom.current().nextInt(91, 147);
         }
 
-        pressioneMedia = (2*pressioneMinima+pressioneMassima)/3 ;
+        pressioneMedia = (2*pressioneMinima+pressioneMassima)/3;
         mappa.put("battitiPerMinuto",battitiPerMinuto);
         mappa.put("pressioneMinima",pressioneMinima);
         mappa.put("pressioneMassima",pressioneMassima);
@@ -118,11 +120,12 @@ public class DispositivoMedicoStub {
     /**
      *
      * @return String
-     * Questo metodo restituisce una misurazione della categoria
-     * Glicemica
+     * Questo metodo restituisce una misurazione della categoria Glicemica.
      */
     public String MisurazioneGlicemicaStub(){
-        Integer zuccheriNelSangue = ThreadLocalRandom.current().nextInt(70, 110);
+        Integer zuccheriNelSangue = ThreadLocalRandom
+                                        .current()
+                                        .nextInt(70, 110);
         Integer colesterolo = ThreadLocalRandom.current().nextInt(100, 300);
         Integer trigliceridi = ThreadLocalRandom.current().nextInt(100, 500);
 
@@ -158,8 +161,7 @@ public class DispositivoMedicoStub {
     /**
      *
      * @return String
-     * Questo metodo restituisce una misurazione della categoria
-     * Coagulazione.
+     * Questo metodo restituisce una misurazione della categoria Coagulazione.
      */
     public String MisurazioneCoagulazioneStub(){
         Integer tempoDiProtrombina = ThreadLocalRandom.current().nextInt(8, 14);
