@@ -1,0 +1,46 @@
+.contenitorePazientiContent{
+    display : flex;
+    flex-direction: column;
+    width: 80%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+    margin:2px;
+}
+
+.contenitorePazientiContent > *{
+    margin: 20px;
+}
+
+.logoMenu {
+    width: 80%;
+    height: auto;
+    padding-top: 30px;
+}
+
+.searchbar {
+    display: flex;
+    justify-content: left;
+
+}
+
+ #search{
+    width: 60vh;
+    margin-right: 5vh;
+    font-size: 25px ;
+    background-color: rgba(242, 242, 242, 0.76);
+    border: 2px solid #37a69b;
+     -webkit-box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
+     box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
+     border-radius: 10px;
+
+}
+
+ .testosaluto{
+     font-size: 27px;
+
+ }
+
+
+
+
