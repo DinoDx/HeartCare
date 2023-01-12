@@ -1,26 +1,34 @@
 import React from "react";
-import logoPath from "../images/LogoHeartCare.png";
-import homeIconPath from "../images/menuIcon/home.png";
 import "../css/style.css";
 import "../css/PazientiCss.css";
 import axios from "axios";
+import {useState, useEffect} from "react";
 
 function ListaPazienti(){
-    axios.post('http://localhost:8080/getTuttiPazienti')
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState([])
 
+    useEffect(() => {
+        const fetchData = async () =>{
+            setLoading(true);
+            try {
+                const response = await axios.post('http://localhost:8080/getTuttiPazienti');
+                setData(response.data);
+            } catch (error) {
+                console.error(error.message);
+            }
+            setLoading(false);
+        }
+        fetchData();
+    }, []);
 
-        .then((response) => {
-          console.log(response);
-          let utenti = response.data;
-        }, (error) => {
-          console.error(error.response.data);
-        });
-
-
-
-  return <div>
-
-  </div>
+    return(
+        <div>
+            {data.map(function(paziente, idx){
+                return (<li key={idx}>{paziente.id}</li>)
+            })}
+        </div>
+    );
 }
 
 export default ListaPazienti;

@@ -5,6 +5,14 @@
     src: local('Cambay Devanagari Regular'), url('fonts/CambayDevanagari-Regular.AH.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans'), url('fonts/OpenSans-VariableFont_wdth,wght.ttf') format('woff');
+}
+
+
 *{
     font-family: 'Cambay Devanagari Regular';
     font-size: 18px;

@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Open Sans'), url('fonts/OpenSans-VariableFont_wdth,wght.ttf') format('woff');
+}
+
 .contenitoreMenu {
   display: flex;
   flex-direction: column;
@@ -28,39 +35,47 @@
   height: 80vh;
   width: 100%;
   gap: 30px;
+  font-family: 'Open Sans', sans-serif  !important;
 }
 
 .voceMenu {
-  width: 80%;
+  width: 100%;
   height: 50px;
-  background-color: #37a69b;
-  color: #f2f2f2;
   transition: 0.3s;
+  color: #37a69b;
   border-radius: 10px;
   display: flex;
+  flex-wrap: wrap;
   align-content: center;
+  font-size: 25px;
+}
+
+.voceMenuActive{
+  background-color: #37a69b;
+  color: #f2f2f2;
   -webkit-box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
   box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
 }
 
 .voceMenu:hover {
-  background-color: #f2f2f2;
-  color: #37a69b;
+  background-color: #37a69b;
+  color: #f2f2f2;
+  -webkit-box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+  box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
 }
 
-.voceMenuText {
-  text-decoration: none;
-  color: #f2f2f2;
-  font-size: 25px;
+.voceMenuText{
   list-style-type: none;
-  font-family: "Cambay Devanagari Regular";
-  margin: 11px;
+  text-decoration: none;
+  color:inherit;
+  width: 80%;
 }
 
 .iconaMenu {
   width: 20px;
   height: 20px;
-  margin: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .lineaMenu {
