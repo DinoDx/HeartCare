@@ -1,8 +1,9 @@
 @font-face {
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: normal;
-  src: local('Open Sans'), url('fonts/OpenSans-VariableFont_wdth,wght.ttf') format('woff');
+  src: local("Open Sans"),
+    url("fonts/OpenSans-VariableFont_wdth,wght.ttf") format("woff");
 }
 
 .contenitoreMenu {
@@ -34,23 +35,24 @@
   align-items: center;
   height: 80vh;
   width: 100%;
-  gap: 30px;
-  font-family: 'Open Sans', sans-serif  !important;
+  gap: 20px;
+  font-family: "Open Sans", sans-serif !important;
 }
 
 .voceMenu {
   width: 100%;
   height: 50px;
   transition: 0.3s;
-  color: #37a69b;
+  color: #697f8c;
   border-radius: 10px;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   align-content: center;
   font-size: 25px;
 }
 
-.voceMenuActive{
+.voceMenuActive {
   background-color: #37a69b;
   color: #f2f2f2;
   -webkit-box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
@@ -64,10 +66,10 @@
   box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
 }
 
-.voceMenuText{
+.voceMenuText {
   list-style-type: none;
   text-decoration: none;
-  color:inherit;
+  color: inherit;
   width: 80%;
 }
 
@@ -79,6 +81,15 @@
 }
 
 .lineaMenu {
-  width: 70%;
-  border: 1px solid #37a69b;
+  width: 77%;
+  border: none;
+  border-top: 1px solid rgba(105, 127, 140, 0.6);
+  border-top-left-radius: 75%;
+  border-top-right-radius: 75%;
+  height: 1px;
+}
+
+.voceMenu > span {
+  font-size: 22px;
+  font-family: "Open Sans", sans-serif !important;
 }
