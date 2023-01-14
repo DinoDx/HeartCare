@@ -3,6 +3,7 @@ import "../css/style.css";
 import "../css/PazientiCss.css";
 import PazientiMedico from "../components/ListaPazienti";
 import ListaPazienti from "../components/ListaPazienti";
+import HamburgerMenu from "../components/HamburgerMenu";
 
 function Pazienti() {
   return (

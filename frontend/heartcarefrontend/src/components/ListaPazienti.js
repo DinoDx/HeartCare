@@ -3,6 +3,7 @@ import "../css/style.css";
 import "../css/PazientiCss.css";
 import axios from "axios";
 import {useState, useEffect} from "react";
+import CardPaziente from "./CardPaziente";
 
 function ListaPazienti(){
     const [loading, setLoading] = useState(true);
@@ -23,9 +24,11 @@ function ListaPazienti(){
     }, []);
 
     return(
-        <div>
+        <div className="contenitoreCardPazienti">
             {data.map(function(paziente, idx){
-                return (<li key={idx}>{paziente.id}</li>)
+                return (
+                    <CardPaziente key={idx} idPaziente={paziente.id} nomePaziente={paziente.nome} cognomePaziente={paziente.cognome}/>
+                )
             })}
         </div>
     );

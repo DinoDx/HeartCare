@@ -1,0 +1,42 @@
+.cardPaziente{
+    width: 31%;
+    border-radius: 10px;
+    border: 2px solid #37a69b;
+    height: 200px;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
+    box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    background-color: white;
+}
+
+.nomePaziente{
+    font-family: "Cambay Devanagari Regular";
+    font-weight: 300;
+    letter-spacing: 0.7px;
+    font-size: 25px;
+}
+
+.contenitorePulsantiPazienteCard{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    gap: 5px;
+}
+
+.iconaPaziente{
+    width: 50px;
+    height: auto;
+}
+
+.buttonVisualizzaFascicolo {
+    height: 35px;
+    width: 130px;
+    border: 2px solid #697f8c;
+    border-radius: 10px 10px;
+    font-family: "Questrial", sans-serif;
+    font-size: 15px;
+}
