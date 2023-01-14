@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
+
+.searchbar {
+  display: flex;
+  justify-content: left;
+  margin-top: 20px;
+  margin-left: 40px;
+  height: 5vh;
+}
+
+#search {
+  font-family: "Questrial", sans-serif;
+}
+
+.testo-bentornat {
+  margin-top: 70px;
+  margin-bottom: 0px;
+  margin-left: 40px;
+  font-family: "Questrial", sans-serif;
+  font-size: 38px;
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  margin: 10px 40px 0px 40px;
+  width: 65%;
+  height: 10%;
+  border-radius: 15px 15px;
+  flex-wrap: wrap;
+}
+
+.testo-banner {
+  margin-top: 10px;
+  color: rgb(255, 255, 255);
+  font-size: 22px;
+}
+
+.testo-banner-numero {
+  margin-top: 5px;
+  color: hsl(174, 50%, 44%);
+  font-size: 25px;
+}
+
+.blocco-testo-banner {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.visite-container {
+  display: flex;
+  flex-direction: column;
+  column-gap: 15px;
+  margin: 20px 40px;
+  width: 65%;
+  border: 2px solid hsl(174, 50%, 44%);
+  border-radius: 20px 20px;
+}
+
+.visite-in-programma {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  font-family: "Questrial", sans-serif;
+  font-size: 40px;
+}
+
+.box-visite {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 30px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.note-container {
+  background-color: red;
+}

@@ -1,0 +1,88 @@
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Open Sans"),
+    url("fonts/OpenSans-VariableFont_wdth,wght.ttf") format("woff");
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
+
+.container-visita {
+  margin: 0;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border: 3px solid hsl(174, 50%, 44%);
+  border-radius: 10px 10px;
+  -webkit-box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+  box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+}
+
+.titolo-visita {
+  margin-top: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-family: "Cambay Devanagari Regular";
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  font-size: 37px;
+}
+
+.linea-visita {
+  width: 80%;
+  border: 1px solid rgba(105, 127, 140, 0.6);
+  border-top-left-radius: 90%;
+  border-top-right-radius: 90%;
+  border-bottom: 0;
+  margin-top: 0;
+}
+
+.soggetto-visita-container {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+
+  margin-bottom: 10px;
+}
+
+.nome-soggetto {
+  margin: 15px;
+  font-family: "Questrial", sans-serif;
+  font-size: 25px;
+}
+
+.voce-visita {
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  text-align: center;
+  column-gap: 10px;
+  margin-left: 20px;
+  margin-bottom: 13px;
+}
+
+.testo-voce-visita {
+  font-family: "Questrial", sans-serif;
+  font-size: 16px;
+}
+
+.footer-visita {
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  height: 50px;
+  margin: 20px;
+}
+
+.button-visualizza-fascicolo {
+  display: inline-block;
+  height: 70%;
+  width: 75%;
+  border: 2px solid #697f8c;
+  border-radius: 10px 10px;
+  font-family: "Questrial", sans-serif;
+  font-size: 15px;
+  text-align: center;
+}

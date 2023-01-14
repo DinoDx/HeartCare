@@ -6,6 +6,8 @@
     url("fonts/OpenSans-VariableFont_wdth,wght.ttf") format("woff");
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
+
 .contenitoreMenu {
   display: flex;
   flex-direction: column;
@@ -36,7 +38,7 @@
   height: 80vh;
   width: 100%;
   gap: 20px;
-  font-family: "Open Sans", sans-serif !important;
+  /*font-family: "Open Sans", sans-serif !important;*/
 }
 
 .voceMenu {
@@ -90,6 +92,9 @@
 }
 
 .voceMenu > span {
-  font-size: 22px;
-  font-family: "Open Sans", sans-serif !important;
+  /*TRA COMMENTO SONO I VECCHI SETTINGS*/
+  /*font-size: 22px;*/
+  font-family: "Questrial", sans-serif;
+  font-size: 30px;
+  /*font-family: "Open Sans", sans-serif !important;*/
 }
