@@ -1,8 +1,7 @@
-.contenitoreMainContent {
+.contenitoreMainContent-Home {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 80%;
   height: 90vh;
   border-radius: 20px;

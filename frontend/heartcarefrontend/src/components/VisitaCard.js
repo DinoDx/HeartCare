@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { BiCalendar } from "react-icons/bi";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { MdOutlinePlace } from "react-icons/md";
-import "../css/style.css";
+
 import "../css/visita-style.css";
 
 function VisitaCard(props) {
@@ -17,17 +17,17 @@ function VisitaCard(props) {
       </div>
 
       <div className="voce-visita">
-        <BiCalendar />
+        <BiCalendar className="icona-visita-card" />
         <span className="testo-voce-visita">Mercoledì 23 Dicembre</span>
       </div>
 
       <div className="voce-visita">
-        <AiOutlineClockCircle />
+        <AiOutlineClockCircle className="icona-visita-card" />
         <span className="testo-voce-visita">10:00 - 12:00</span>
       </div>
 
       <div className="voce-visita">
-        <MdOutlinePlace />
+        <MdOutlinePlace className="icona-visita-card" />
         <span className="testo-voce-visita">Studio Medico Olivia Gargiulo</span>
       </div>
 

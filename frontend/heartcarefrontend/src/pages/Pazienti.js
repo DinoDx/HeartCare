@@ -7,15 +7,15 @@ import HamburgerMenu from "../components/HamburgerMenu";
 
 function Pazienti() {
   return (
-      <div className="contenitorePazientiContent">
-          <div className="searchbar">
-              <input id="search" type="text" placeholder=" 🔍Cerca Paziente..."/>
-          </div>
-          <span className="testosaluto">Bentornata,👋</span>
-
-        <ListaPazienti />
-
+    <div className="contenitorePazientiContent">
+      <HamburgerMenu nomeClasseMainContent="contenitorePazientiContent" />
+      <div className="searchbar">
+        <input id="search" type="text" placeholder=" 🔍Cerca Paziente..." />
       </div>
+      <span className="testosaluto">Bentornata,👋</span>
+
+      <ListaPazienti />
+    </div>
   );
 }
 

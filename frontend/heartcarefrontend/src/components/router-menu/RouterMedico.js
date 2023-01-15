@@ -2,7 +2,7 @@ import React from "react";
 import Menu from "../Menu";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
-import Home from "../../pages/Home.js";
+import HomeMedico from "../../pages/HomeMedico.js";
 import Profilo from "../../pages/Profilo.js";
 import About from "../../pages/About.js";
 import Pazienti from "../../pages/Pazienti.js";
@@ -13,7 +13,7 @@ function RouterMedico() {
     <Router>
       <Menu />
       <Routes>
-        <Route path="Home" element={<Home />} />
+        <Route path="HomeMedico" element={<HomeMedico />} />
         <Route path="Schedules" element={<Schedules />} />
         <Route path="Pazienti" element={<Pazienti />} />
         <Route path="Profilo" element={<Profilo />} />

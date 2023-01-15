@@ -9,7 +9,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
 
 .container-visita {
-  margin: 0;
+  width: 270px;
+  height: 310px;
+
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
@@ -21,13 +23,11 @@
 }
 
 .titolo-visita {
-  margin-top: 15px;
-  margin-left: 20px;
-  margin-right: 20px;
+  text-align: center;
+  margin-top: 7px;
   font-family: "Cambay Devanagari Regular";
   font-weight: 700;
-  letter-spacing: 0.7px;
-  font-size: 37px;
+  font-size: 30px;
 }
 
 .linea-visita {
@@ -48,7 +48,8 @@
 }
 
 .nome-soggetto {
-  margin: 15px;
+  text-align: center;
+  margin: 15px 0px;
   font-family: "Questrial", sans-serif;
   font-size: 25px;
 }
@@ -57,32 +58,41 @@
   display: flex;
   flex-direction: row;
   vertical-align: middle;
-  text-align: center;
-  column-gap: 10px;
-  margin-left: 20px;
   margin-bottom: 13px;
+}
+
+.icona-visita-card {
+  margin-left: 10px;
 }
 
 .testo-voce-visita {
   font-family: "Questrial", sans-serif;
   font-size: 16px;
+  margin-left: 5px;
+  margin-right: 10px;
 }
 
 .footer-visita {
   display: flex;
   justify-content: center;
   vertical-align: middle;
-  height: 50px;
-  margin: 20px;
+  margin-top: 20px;
 }
 
 .button-visualizza-fascicolo {
-  display: inline-block;
-  height: 70%;
-  width: 75%;
+  background-color: transparent;
+  width: 85%;
+  color: black;
   border: 2px solid #697f8c;
   border-radius: 10px 10px;
   font-family: "Questrial", sans-serif;
   font-size: 15px;
   text-align: center;
+  transition: 0.4s ease-out 100ms;
+}
+
+.button-visualizza-fascicolo:hover {
+  background-color: rgb(105, 127, 140, 0.1);
+  cursor: pointer;
+  transition: 0.4s ease-out 100ms;
 }

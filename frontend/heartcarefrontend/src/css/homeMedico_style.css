@@ -1,19 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
 
+.container-sinistra {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+}
+
 .searchbar {
   display: flex;
   justify-content: left;
   margin-top: 20px;
   margin-left: 40px;
-  height: 5vh;
 }
 
+/*parte interna della searchbar*/
 #search {
+  padding-left: 5px;
+  height: 6vh;
   font-family: "Questrial", sans-serif;
 }
 
+#search:focus {
+  outline: none;
+  border: 3px solid #37a69b;
+  -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+  box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+}
+
+/*span del testo che si trova in alto*/
 .testo-bentornat {
-  margin-top: 70px;
+  margin-top: 30px;
   margin-bottom: 0px;
   margin-left: 40px;
   font-family: "Questrial", sans-serif;
@@ -23,10 +39,9 @@
 .banner {
   display: flex;
   flex-direction: column;
-  background-color: black;
+  background-color: rgb(45, 45, 45);
   margin: 10px 40px 0px 40px;
-  width: 65%;
-  height: 10%;
+  height: 13%;
   border-radius: 15px 15px;
   flex-wrap: wrap;
 }
@@ -47,36 +62,59 @@
   margin-left: 20px;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
 }
 
+/*è l'intera sezione in cui ci sono le visite
+  non confondere con box-visite, 
+  questo è il div + esterno.
+*/
 .visite-container {
+  background-color: rgba(242, 242, 242, 0.6);
+
   display: flex;
-  flex-direction: column;
-  column-gap: 15px;
+  flex-wrap: wrap;
+  flex-direction: row;
   margin: 20px 40px;
-  width: 65%;
   border: 2px solid hsl(174, 50%, 44%);
   border-radius: 20px 20px;
+
+  overflow-x: scroll; /* Add the ability to scroll */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
 }
 
+.visite-container::-webkit-scrollbar {
+  display: none;
+}
+
+/*testo "visite in programma"*/
 .visite-in-programma {
   margin-top: 20px;
   margin-left: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-family: "Questrial", sans-serif;
   font-size: 40px;
 }
 
+/*è la parte che continene solamente le card visite.*/
 .box-visite {
   display: flex;
-  justify-content: center;
-  flex-direction: row;
-  gap: 30px;
-  height: auto;
-  margin-bottom: 20px;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  column-gap: 20px;
+  padding-left: 30px;
+  padding-right: 10px;
+  padding-bottom: 30px;
 }
 
 .note-container {
-  background-color: red;
+  display: flex;
+  margin-top: 10px;
+  color: black;
+  flex-direction: row;
+}
+
+.full-container {
+  display: flex;
+  height: 100%;
 }
