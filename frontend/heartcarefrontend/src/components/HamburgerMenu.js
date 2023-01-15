@@ -16,9 +16,9 @@ function chiudiMenu(mainContentClass){
 }
 
 function HamburgerMenu(props) {
-    return <RxHamburgerMenu onClick={() => {
+    return <span className="HamburgerMenu" onClick={() => {
             apriMenu(props.nomeClasseMainContent);
         }
-    }/>
+    }><RxHamburgerMenu/></span>
 }
 export default HamburgerMenu;

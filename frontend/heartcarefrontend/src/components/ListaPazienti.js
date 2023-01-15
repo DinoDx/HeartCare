@@ -15,6 +15,7 @@ function ListaPazienti(){
             try {
                 const response = await axios.post('http://localhost:8080/getTuttiPazienti');
                 setData(response.data);
+                console.log(data);
             } catch (error) {
                 console.error(error.message);
             }
@@ -27,7 +28,7 @@ function ListaPazienti(){
         <div className="contenitoreCardPazienti">
             {data.map(function(paziente, idx){
                 return (
-                    <CardPaziente key={idx} idPaziente={paziente.id} nomePaziente={paziente.nome} cognomePaziente={paziente.cognome}/>
+                    <CardPaziente key={idx} idPaziente={paziente.id} nomePaziente={paziente.nome} cognomePaziente={paziente.cognome} dataNascita={paziente.dataDiNascita} genere={paziente.genere} numero={paziente.numeroTelefono}/>
                 )
             })}
         </div>

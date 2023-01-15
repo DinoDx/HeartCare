@@ -146,16 +146,13 @@ public class GestioneUtenteController {
     public List<UtenteRegistrato> getTuttiPazienti() {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
-        if (service.isAdmin(u.getId())) {
-            return service.getTuttiPazienti()
-                    .stream()
-                    .filter((utente)
-                            -> utente.getClass()
-                            .getSimpleName()
-                            .equals("Paziente"))
-                    .toList();
-        }
-        return null;
+        return service.getTuttiPazienti()
+                .stream()
+                .filter((utente)
+                        -> utente.getClass()
+                        .getSimpleName()
+                        .equals("Paziente"))
+                .toList();
     }
 
     /**

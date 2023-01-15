@@ -1,10 +1,15 @@
 .contenitoreMainContent-Home {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 80%;
-  height: 90vh;
-  border-radius: 20px;
-  background-color: rgba(242, 242, 242, 0.76);
-  margin: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 80%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+    margin: 2px;
+    overflow: scroll;
 }
+.contenitoreMainContent-Home::-webkit-scrollbar {
+    display: none;
+}
+

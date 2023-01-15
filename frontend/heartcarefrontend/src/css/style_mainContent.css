@@ -8,4 +8,9 @@
   border-radius: 20px;
   background-color: rgba(242, 242, 242, 0.76);
   margin: 2px;
+  overflow-y: scroll;
+}
+
+contenitoreMainContent::-webkit-scrollbar {
+  display: none;
 }
