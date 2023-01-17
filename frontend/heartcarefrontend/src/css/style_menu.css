@@ -1,0 +1,149 @@
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Open Sans"),
+    url("fonts/OpenSans-VariableFont_wdth,wght.ttf") format("woff");
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
+
+.contenitoreMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 15%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+    margin: 2px;
+}
+
+.contenitoreLogoMenu {
+    display: flex;
+    height: 20vh;
+}
+
+.logoMenu {
+    width: 80%;
+    height: auto;
+    padding-top: 30px;
+}
+
+.contenitoreVociMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100%;
+    gap: 20px;
+    /*font-family: "Open Sans", sans-serif !important;*/
+}
+
+.voceMenu {
+    width: 100%;
+    height: 50px;
+    transition: 0.3s;
+    color: #697f8c;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    font-size: 25px;
+}
+
+.voceMenuActive {
+    background-color: #37a69b;
+    color: #f2f2f2;
+    -webkit-box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+    box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+}
+
+.voceMenu:hover {
+    background-color: #37a69b;
+    color: #f2f2f2;
+    -webkit-box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+    box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+}
+
+.voceMenuText {
+    list-style-type: none;
+    text-decoration: none;
+    color: inherit;
+    width: 80%;
+}
+
+.iconaMenu {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.lineaMenu {
+    width: 77%;
+    border: none;
+    border-top: 1px solid rgba(105, 127, 140, 0.6);
+    border-top-left-radius: 75%;
+    border-top-right-radius: 75%;
+    height: 1px;
+}
+
+.voceMenu > span {
+    /*TRA COMMENTO SONO I VECCHI SETTINGS*/
+    /*font-size: 22px;*/
+    font-family: "Questrial", sans-serif;
+    font-size: 20px;
+    /*font-family: "Open Sans", sans-serif !important;*/
+}
+
+.HamburgerMenu{
+    display: none;
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 767px) {
+    .contenitoreMenu{
+        display: none;
+        width: 90%;
+    }
+
+    .HamburgerMenu{
+        display: flex;
+    }
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+    .iconaMenu {
+        width: 10px;
+        height: 10px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    .voceMenu > span {
+        font-family: "Questrial", sans-serif;
+        font-size: 12px;
+    }
+
+    .contenitoreVociMenu{
+        gap: 10px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1250px) {
+    .voceMenu > span {
+        font-family: "Questrial", sans-serif;
+        font-size: 15px;
+    }
+
+    .iconaMenu {
+        width: 15px;
+        height: 15px;
+    }
+}

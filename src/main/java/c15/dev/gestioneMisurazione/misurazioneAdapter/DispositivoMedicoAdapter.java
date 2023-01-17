@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 public class DispositivoMedicoAdapter implements IDispositivoMedico{
     private DispositivoMedico adaptee;
-    Gson gson ;
+    private Gson gson ;
 
     /**
      *
@@ -40,7 +40,9 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico{
     @Override
     public Misurazione avvioMisurazione() {
         String misurazioneJSON = adaptee.avvioMisurazione();
-        Misurazione misurazione = gson.fromJson(misurazioneJSON,misurazioneFactory(misurazioneJSON).getClass());
+        Misurazione misurazione = gson
+                .fromJson(misurazioneJSON,misurazioneFactory(misurazioneJSON)
+                        .getClass());
         return misurazione;
     }
 
@@ -49,7 +51,7 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico{
      * @param misurazioneJSON
      * @return Misurazione
      * Questo metodo rappresenta il design pattern Factory Method che in base
-     * alla categoria del dispositivo medico restituisce un'oggetto figlia
+     * alla categoria del dispositivo medico restituisce un oggetto figlio
      * di misurazione.
      */
     public Misurazione misurazioneFactory(String misurazioneJSON) {

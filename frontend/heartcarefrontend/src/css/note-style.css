@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
+
+.container-note {
+  width: 85%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #37a69b;
+  border-radius: 20px 20px;
+  background-color: rgba(242, 242, 242, 0.6);
+  padding-left: 10px;
+  row-gap: 15px;
+}
+
+.intestazione-note {
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  padding-top: 13px;
+}
+
+.div-intestazione-sx {
+  width: 50%;
+}
+
+.container-icona {
+  padding-right: 40px;
+  width: 50%;
+  justify-content: end;
+  display: flex;
+}
+
+.icona-aggiunta-nota {
+  width: 30px;
+  height: 30px;
+}
+
+.testo-intestazione-note {
+  font-size: 35px;
+  font-family: "Questrial", sans-serif;
+  font-weight: 700;
+}
+
+.nota-div {
+  padding-bottom: 3px;
+  padding-left: 8px;
+  border-left: 3px solid #d9514a;
+
+  display: flex;
+  flex-direction: column;
+  vertical-align: center;
+  row-gap: 5px;
+}
+
+.autore-nota {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.corpo-nota {
+  font-family: "Questrial", sans-serif;
+  font-size: 15px;
+}
+
+.linea-tra-note {
+  margin-left: 0;
+  width: 95%;
+  border: none;
+  border-top: 1px solid rgba(105, 127, 140, 0.6);
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1250px) {
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+}
+
+@media only screen and (max-width: 767px) {
+  .container-note {
+    width: 90%;
+    height: 100%;
+    margin-bottom: 30px;
+  }
+
+  .intestazione-note {
+    display: none;
+  }
+
+  .nota-div {
+    margin-top: 15px;
+  }
+
+  .autore-nota {
+    font-size: 18px;
+  }
+}

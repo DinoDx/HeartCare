@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
+
+.container-visita {
+  width: 270px;
+  height: 310px;
+
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border: 3px solid hsl(174, 50%, 44%);
+  border-radius: 10px 10px;
+  -webkit-box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+  box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+}
+
+.ottieni-info {
+  display: none;
+}
+
+.titolo-visita {
+  text-align: center;
+  margin-top: 7px;
+  font-family: "Cambay Devanagari Regular";
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.linea-visita {
+  width: 80%;
+  border: 1px solid rgba(105, 127, 140, 0.6);
+  border-top-left-radius: 90%;
+  border-top-right-radius: 90%;
+  border-bottom: 0;
+  margin-top: 0;
+}
+
+.soggetto-visita-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.nome-soggetto {
+  margin: 15px 0px;
+  font-family: "Questrial", sans-serif;
+  font-size: 25px;
+}
+
+.voce-visita {
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  margin-bottom: 13px;
+}
+
+.icona-visita-card {
+  margin-left: 10px;
+}
+
+.testo-voce-visita {
+  font-family: "Questrial", sans-serif;
+  font-size: 16px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.footer-visita {
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  margin-top: 20px;
+}
+
+.button-visualizza-fascicolo {
+  background-color: transparent;
+  width: 85%;
+  color: black;
+  border: 2px solid #697f8c;
+  border-radius: 10px 10px;
+  font-family: "Questrial", sans-serif;
+  font-size: 15px;
+  text-align: center;
+  transition: 0.4s ease-out 100ms;
+}
+
+.button-visualizza-fascicolo:hover {
+  background-color: rgb(105, 127, 140, 0.1);
+  cursor: pointer;
+  transition: 0.4s ease-out 100ms;
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1250px) {
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+}
+
+@media only screen and (max-width: 767px) {
+  .container-visita {
+    width: 85%;
+    height: 50px;
+    margin-bottom: 17px;
+  }
+
+  .linea-visita {
+    display: none;
+  }
+
+  .soggetto-visita-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .voce-visita {
+    display: none;
+  }
+
+  .nome-soggetto {
+    padding-left: 7%;
+    font-size: 23px;
+    width: 85%;
+  }
+
+  .container-ottieni-info {
+    width: 15%;
+    justify-content: flex-end;
+  }
+
+  .ottieni-info {
+    display: block;
+    cursor: pointer;
+  }
+
+  .ottieni-info:hover {
+    width: 35%;
+    height: 35%;
+  }
+
+  .titolo-visita {
+    display: none;
+  }
+
+  .infoVisita {
+    display: none;
+  }
+
+  .button-visualizza-fascicolo {
+    display: none;
+  }
+}

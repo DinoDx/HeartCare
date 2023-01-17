@@ -49,10 +49,13 @@ public class GestioneUtenteController {
         System.out.println(email + password);
 
         Optional<UtenteRegistrato> utente = service.login(email, password);
+
         utente.ifPresent(
                 utenteRegistrato ->
                 {
                     session.setAttribute("utenteLoggato", utente.get());
+                    // aggiungi id utente alla risposta e da front aggiungila alla sessione
+                    System.out.println(((UtenteRegistrato)session.getAttribute("utenteLoggato")).getCognome());
                 });
     }
 
@@ -143,16 +146,13 @@ public class GestioneUtenteController {
     public List<UtenteRegistrato> getTuttiPazienti() {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
-        if (service.isAdmin(u.getId())) {
-            return service.getTuttiPazienti()
-                    .stream()
-                    .filter((utente)
-                            -> utente.getClass()
-                            .getSimpleName()
-                            .equals("Paziente"))
-                    .toList();
-        }
-        return null;
+        return service.getTuttiPazienti()
+                .stream()
+                .filter((utente)
+                        -> utente.getClass()
+                        .getSimpleName()
+                        .equals("Paziente"))
+                .toList();
     }
 
     /**

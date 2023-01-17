@@ -1,0 +1,72 @@
+.contenitorePazientiContent {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+    margin: 2px;
+    overflow-y: scroll;
+}
+
+.contenitoreCardPazienti > *{
+
+}
+
+.iTuoiPazienti{
+    font-size: 33px;font-family: "Questrial", sans-serif;
+}
+
+.contenitorePazientiContent::-webkit-scrollbar {
+    display: none;
+}
+
+.contenitorePazientiContent > * {
+    margin: 20px;
+}
+
+.logoMenu {
+    width: 80%;
+    height: auto;
+    padding-top: 30px;
+}
+
+.searchbar {
+    display: flex;
+    justify-content: left;
+}
+
+#search {
+    width: 60vh;
+    margin-right: 5vh;
+    font-size: 25px;
+    background-color: rgba(242, 242, 242, 0.76);
+    border: 2px solid #37a69b;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
+    box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
+    border-radius: 10px;
+}
+
+.contenitoreCardPazienti {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.bentornato{
+    font-family: "Questrial", sans-serif;
+    font-size: 43px;
+}
+
+@media only screen and (max-width: 767px) {
+    .bentornato{
+        font-family: "Questrial", sans-serif;
+        font-size: 23px;
+    }
+
+    .iTuoiPazienti{
+        font-size: 18px;
+        font-family: "Questrial", sans-serif;
+    }
+}
+

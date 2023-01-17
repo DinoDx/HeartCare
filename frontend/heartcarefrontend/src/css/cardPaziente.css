@@ -1,0 +1,123 @@
+.cardPaziente{
+    width: 30%;
+    border-radius: 10px;
+    border: 2px solid #37a69b;
+    height: 300px;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
+    box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #f2f2f2;
+    -moz-transition: height .3s;
+    -ms-transition: height .3s;
+    -o-transition: height .3s;
+    -webkit-transition: height .3s;
+    transition: height .3s;
+}
+
+.nomePaziente{
+    font-family: "Cambay Devanagari Regular";
+    font-weight: bolder;
+    letter-spacing: 0.7px;
+    font-size: 25px;
+}
+
+.contenitorePulsantiPazienteCard{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    gap: 5px;
+}
+
+.iconaPaziente{
+    width: 50px;
+    height: auto;
+}
+
+.buttonVisualizzaFascicolo {
+    height: 35px;
+    width: 48%;
+    border: 2px solid #697f8c;
+    border-radius: 10px 10px;
+    font-family: "Questrial", sans-serif;
+    font-size: 13px;
+}
+
+.contenitoreInformazioniPazienteCard{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.informazionePaziente{
+    font-family: "Questrial", sans-serif;
+    font-size: 15px;
+    margin: 5px;
+}
+
+.altreInfoPaziente{
+    display: none;
+}
+
+@media only screen and (max-width: 767px) {
+    .cardPaziente{
+        width: 100%;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+    .informazionePaziente{
+        font-size: 12px;
+    }
+
+    .buttonVisualizzaFascicolo {
+        height: 25px;
+        width: 80%;
+        font-size: 10px;
+    }
+
+    .linea-visita{
+        display: none;
+    }
+
+    .contenitoreInformazioniPazienteCard{display: none}
+
+    .contenitorePulsantiPazienteCard{display: none}
+
+    .altreInfoPaziente{
+        display: flex;
+    }
+
+    .nomePaziente{
+        letter-spacing: 0.4px;
+        font-weight: bolder;
+        font-size: 19px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+    .cardPaziente{
+        width: 44%;
+        height: 250px;
+    }
+    .informazionePaziente{
+        font-size: 15px;
+    }
+
+    .buttonVisualizzaFascicolo {
+        height: 30px;
+        width: 45%;
+        font-size: 12px;
+    }
+
+    .nomePaziente{
+        letter-spacing: 0.4px;
+        font-weight: bolder;
+        font-size: 25px;
+    }
+}
