@@ -48,9 +48,9 @@ function Menu() {
         </Link>
 
         <Link
-          to={"/Schedule"}
+          to={"/Schedules"}
           className="voceMenuText"
-          onClick={() => addClassActive(2, "contenitoreMainContent")}
+          onClick={() => addClassActive(2, "contenitoreScheduleContent")}
         >
           <div className="voceMenu" id="2">
             <BsCalendarEvent className="iconaMenu" />
