@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
 
+.header-responsive {
+  display: none;
+}
+
 .container-sinistra {
   display: flex;
   width: 70%;
@@ -39,6 +43,7 @@
 .banner {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background-color: rgb(45, 45, 45);
   margin: 10px 40px 0px 40px;
   height: 13%;
@@ -70,7 +75,6 @@
 */
 .visite-container {
   background-color: rgba(242, 242, 242, 0.6);
-
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -80,10 +84,10 @@
 
   overflow-x: scroll; /* Add the ability to scroll */
   -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;
+  scrollbar-width: 2px;
 }
 
-.visite-container::-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
 }
 
@@ -111,10 +115,147 @@
   display: flex;
   margin-top: 10px;
   color: black;
+  width: 100%;
   flex-direction: row;
+}
+
+.note-header-responsive {
+  display: none;
 }
 
 .full-container {
   display: flex;
   height: 100%;
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1250px) {
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+  .container-sinistra {
+    width: 100%;
+  }
+
+  .banner {
+    margin-top: 40px;
+    margin-bottom: 0;
+    width: 85%;
+    height: 10%;
+    align-items: center;
+  }
+
+  .blocco-testo-banner {
+    margin: 0%;
+  }
+
+  .testo-banner {
+    font-size: 15px;
+  }
+
+  .testo-banner-numero {
+    font-size: 20px;
+  }
+
+  .full-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .header-responsive {
+    display: block;
+    text-align: center;
+  }
+
+  .logoMenu-main-content {
+    width: 50%;
+    height: auto;
+    padding-top: 30px;
+    margin-bottom: 5px;
+  }
+
+  .testo-bentornat {
+    font-size: 30px;
+  }
+
+  .container-sinistra {
+    width: 100%;
+  }
+
+  .banner {
+    margin-top: 40px;
+    margin-bottom: 0;
+    width: 85%;
+    height: 10%;
+    align-items: center;
+  }
+
+  .blocco-testo-banner {
+    margin: 0%;
+  }
+
+  .testo-banner {
+    font-size: 15px;
+  }
+
+  .testo-banner-numero {
+    font-size: 20px;
+  }
+
+  .full-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .visite-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .container-sinistra {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .visite-in-programma {
+    margin-left: 0;
+    font-size: 27px;
+  }
+
+  .box-visite {
+    padding-left: 0;
+    flex-wrap: wrap;
+    padding-bottom: 0;
+  }
+
+  .note-header-responsive {
+    display: flex;
+    display: block;
+    font-size: 27px;
+    font-family: "Questrial", sans-serif;
+    margin-left: 0;
+  }
+
+  .note-header-container {
+    display: flex;
+    width: 100%;
+    padding-left: 40px;
+  }
+
+  .note-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    margin-top: 0;
+  }
 }

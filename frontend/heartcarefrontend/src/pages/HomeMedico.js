@@ -2,15 +2,20 @@ import React from "react";
 import RouterMedico from "../components/router-menu/RouterMedico";
 import MainContent from "../components/MainContent";
 import VisitaCard from "../components/VisitaCard";
+import NoteContainer from "../components/NoteContainer";
 import "../css/style.css";
 import "../css/home-main-content.css";
 import "../css/homeMedico_style.css";
+import logoPath from "../images/LogoHeartCare.png";
 import { useNavigate } from "react-router";
 
 function HomeMedico() {
   //let nav = useNavigate();
   return (
     <div className="contenitoreMainContent-Home">
+      <div className="header-responsive">
+        <img src={logoPath} className="logoMenu-main-content" />
+      </div>
       <div className="searchbar">
         <input id="search" type="text" placeholder=" 🔍 Cerca paziente..." />
       </div>
@@ -38,7 +43,7 @@ function HomeMedico() {
 
           <div className="visite-container">
             <span className="visite-in-programma">
-              Le prossime visite in programma
+              Visite in programma oggi:
             </span>
 
             <div className="box-visite">
@@ -50,8 +55,12 @@ function HomeMedico() {
             </div>
           </div>
         </div>
+
         <div className="note-container">
-          <VisitaCard />
+          <div className="note-header-container">
+            <span className="note-header-responsive">Note</span>
+          </div>
+          <NoteContainer />
         </div>
       </div>
     </div>

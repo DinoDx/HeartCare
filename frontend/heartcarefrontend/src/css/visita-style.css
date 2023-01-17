@@ -1,11 +1,3 @@
-@font-face {
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Open Sans"),
-    url("fonts/OpenSans-VariableFont_wdth,wght.ttf") format("woff");
-}
-
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
 
 .container-visita {
@@ -20,6 +12,10 @@
   border-radius: 10px 10px;
   -webkit-box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
   box-shadow: 2px 2px 14px -1px rgba(0, 0, 0, 0.56);
+}
+
+.ottieni-info {
+  display: none;
 }
 
 .titolo-visita {
@@ -41,14 +37,11 @@
 
 .soggetto-visita-container {
   display: flex;
-  text-align: center;
   justify-content: center;
-
   margin-bottom: 10px;
 }
 
 .nome-soggetto {
-  text-align: center;
   margin: 15px 0px;
   font-family: "Questrial", sans-serif;
   font-size: 25px;
@@ -95,4 +88,68 @@
   background-color: rgb(105, 127, 140, 0.1);
   cursor: pointer;
   transition: 0.4s ease-out 100ms;
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1250px) {
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+}
+
+@media only screen and (max-width: 767px) {
+  .container-visita {
+    width: 85%;
+    height: 50px;
+    margin-bottom: 17px;
+  }
+
+  .linea-visita {
+    display: none;
+  }
+
+  .soggetto-visita-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .voce-visita {
+    display: none;
+  }
+
+  .nome-soggetto {
+    padding-left: 7%;
+    font-size: 23px;
+    width: 85%;
+  }
+
+  .container-ottieni-info {
+    width: 15%;
+    justify-content: flex-end;
+  }
+
+  .ottieni-info {
+    display: block;
+    cursor: pointer;
+  }
+
+  .ottieni-info:hover {
+    width: 35%;
+    height: 35%;
+  }
+
+  .titolo-visita {
+    display: none;
+  }
+
+  .infoVisita {
+    display: none;
+  }
+
+  .button-visualizza-fascicolo {
+    display: none;
+  }
 }

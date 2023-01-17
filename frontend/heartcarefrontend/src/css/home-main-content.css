@@ -1,15 +1,28 @@
 .contenitoreMainContent-Home {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 80%;
-    height: 90vh;
-    border-radius: 20px;
-    background-color: rgba(242, 242, 242, 0.76);
-    margin: 2px;
-    overflow: scroll;
-}
-.contenitoreMainContent-Home::-webkit-scrollbar {
-    display: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 80%;
+  height: 90vh;
+  border-radius: 20px;
+  background-color: rgba(242, 242, 242, 0.76);
+  margin: 2px;
+  overflow: scroll;
 }
 
+.contenitoreMainContent-Home::-webkit-scrollbar {
+  display: none;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1250px) {
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+}
+
+@media only screen and (max-width: 767px) {
+  .contenitoreMainContent-Home {
+    width: 95%;
+    height: 97%;
+  }
+}
