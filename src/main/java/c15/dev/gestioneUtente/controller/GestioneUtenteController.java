@@ -43,20 +43,19 @@ public class GestioneUtenteController {
      *             Al suo interno vi si trovano i valori di password ed email.
      */
     @PostMapping(value = "/login")
-    public void login(@RequestBody Map<String, String> body) {
+    public UtenteRegistrato login(@RequestBody Map<String, String> body) {
         String email = body.get("email");
         String password = body.get("password");
         System.out.println(email + password);
 
         Optional<UtenteRegistrato> utente = service.login(email, password);
 
-        utente.ifPresent(
-                utenteRegistrato ->
-                {
-                    session.setAttribute("utenteLoggato", utente.get());
-                    // aggiungi id utente alla risposta e da front aggiungila alla sessione
-                    System.out.println(((UtenteRegistrato)session.getAttribute("utenteLoggato")).getCognome());
-                });
+        UtenteRegistrato ur;
+        if(utente.get() != null){
+            ur = utente.get();
+            return ur;
+        }
+        return null;
     }
 
     /**

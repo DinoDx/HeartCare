@@ -3,7 +3,6 @@ import "../css/style.css";
 import "../css/PazientiCss.css";
 import ListaPazienti from "../components/ListaPazienti";
 import HamburgerMenu from "../components/HamburgerMenu";
-import { GiHamburgerMenu } from "react-icons/gi";
 
 function Pazienti() {
   return (
