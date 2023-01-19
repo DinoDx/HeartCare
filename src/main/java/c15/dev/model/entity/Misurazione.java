@@ -2,20 +2,18 @@ package c15.dev.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.experimental.SuperBuilder;
-import org.checkerframework.checker.optional.qual.Present;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
- * @author Alessandro Zoccola
- * Creato il: 30/12/2022
+ * @author Alessandro Zoccola.
+ * Creato il: 30/12/2022.
  * Questa è la classe relativa ad una Misurazione.
- * I campi sono: id autogenerato, data della misurazione
+ * I campi sono: id autogenerato, data della misurazione.
  */
 
 @Entity
@@ -29,7 +27,6 @@ public class Misurazione implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    @NotNull
     private Long id;
 
     /**
@@ -39,8 +36,8 @@ public class Misurazione implements Serializable {
      */
     @Column(name = "data_misurazione", nullable = false)
     @NotNull
-    @Future
-    private GregorianCalendar dataMisurazione;
+    // @FutureOrPresent
+    private Date dataMisurazione;
     /**
      * Campo relativo alla relazione tra pazienti e misurazioni.
      */
@@ -62,7 +59,7 @@ public class Misurazione implements Serializable {
      * @param dispositivo rappresenta il dispositivo medico con cui è stata
      *effettuata la misurazione
      */
-    public Misurazione(GregorianCalendar data, Paziente paziente,
+    public Misurazione(Date data, Paziente paziente,
                        DispositivoMedico dispositivo) {
         this.dataMisurazione = data;
         this.paziente = paziente;
@@ -90,7 +87,7 @@ public class Misurazione implements Serializable {
      * @return dataMisurazione
      * metodo che restituisce la data della misurazione.
      */
-    public GregorianCalendar getDataMisurazione() {
+    public Date getDataMisurazione() {
         return this.dataMisurazione;
     }
 
@@ -100,7 +97,7 @@ public class Misurazione implements Serializable {
      * Metodo che permette di inserire la data della misurazione.
      *
      */
-    public void setDataMisurazione(GregorianCalendar data) {
+    public void setDataMisurazione(Date data) {
         this.dataMisurazione = data;
     }
 

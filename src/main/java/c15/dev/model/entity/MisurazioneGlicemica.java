@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -60,7 +61,7 @@ public class MisurazioneGlicemica extends Misurazione implements Serializable {
      *                     della misurazione glicemica
      *
      */
-    public MisurazioneGlicemica(final GregorianCalendar dataMisurazione,
+    public MisurazioneGlicemica(final Date dataMisurazione,
                                 final Paziente paziente,
                                 final DispositivoMedico dispositivoMedico,
                                 final int zuccheriNelSangue,

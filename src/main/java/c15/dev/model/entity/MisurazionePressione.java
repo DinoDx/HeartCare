@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 /**
  * @author Alessandro Zoccola.
@@ -64,7 +64,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
      * @param pressioneMinima rappresenta il valore della pressione minima
      * @param pressioneMedia rappresenta il valore della pressione media
      */
-    public MisurazionePressione(final GregorianCalendar dataMisurazione,
+    public MisurazionePressione(final Date dataMisurazione,
                                 final Paziente paziente,
                                 final DispositivoMedico dispositivoMedico,
                                 final int battitiPerMinuto,

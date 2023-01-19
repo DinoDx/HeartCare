@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 
@@ -57,7 +58,7 @@ public class MisurazioneEnzimiCardiaci
      * @param mioglobina rappresenta il valore della mioglobina
      * @param troponinaCardiaca rappresenta il valore della troponina cardiaca
      */
-    public MisurazioneEnzimiCardiaci(final GregorianCalendar data,
+    public MisurazioneEnzimiCardiaci(final Date data,
                                      final Paziente paziente,
                                      final DispositivoMedico dispositivo,
                                      final double mioglobina,

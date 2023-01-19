@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -47,7 +48,7 @@ public class MisurazioneSaturazione extends Misurazione implements Serializable 
      * @param percentualeSaturazione rappresenta il valore della
      *                               percentuale di saturazione
      */
-    public MisurazioneSaturazione(final GregorianCalendar data,
+    public MisurazioneSaturazione(final Date data,
                                   final Paziente paziente,
                                   final DispositivoMedico dispositivo,
                                   final int battitiPerMinuto,

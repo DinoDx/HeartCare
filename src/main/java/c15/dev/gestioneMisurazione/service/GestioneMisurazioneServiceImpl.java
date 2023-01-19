@@ -3,11 +3,10 @@ package c15.dev.gestioneMisurazione.service;
 
 import c15.dev.model.dao.DispositivoMedicoDAO;
 import c15.dev.model.dao.MisurazioneDAO;
+import c15.dev.model.dao.MisurazionePressioneDAO;
 import c15.dev.model.dao.PazienteDAO;
-import c15.dev.model.entity.DispositivoMedico;
-import c15.dev.model.entity.Misurazione;
-import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.model.entity.*;
+import c15.dev.model.entity.enumeration.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +38,9 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
      */
     @Autowired
     private MisurazioneDAO misurazioneDAO;
+
+    @Autowired
+    private MisurazionePressioneDAO misurazionePressioneDAO;
 
     @Override
     public boolean registrazioneDispositivo(DispositivoMedico dispositivo,
@@ -73,6 +75,21 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
     @Override
     public DispositivoMedico getById(Long id) {
         return dispositivoDao.findById(id).get();
+    }
+
+    @Override
+    public List<Misurazione> getMisurazioneByCategoria(Categoria categoria, Long id) {
+        return (List<Misurazione>) misurazioneDAO.findByCategoria(categoria, id);
+    }
+
+    @Override
+    public Misurazione save(Misurazione misurazione) {
+        return misurazioneDAO.save(misurazione);
+    }
+
+    @Override
+    public MisurazionePressione save(MisurazionePressione misurazionePressione) {
+        return misurazionePressioneDAO.save(misurazionePressione);
     }
 
 
