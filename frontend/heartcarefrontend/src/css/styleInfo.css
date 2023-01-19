@@ -1,0 +1,62 @@
+.contenitoreAboutContent{
+    display : flex;
+    flex-direction: row;
+    width: 80%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+    margin:2px;
+    overflow: auto;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.systemGoal{
+    display: flex;
+    background-color: #f2f2f2;
+    flex-direction: column;
+    width: 40%;
+    height: 70%;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #37a69b;
+    overflow-y: scroll;
+}
+
+.titolo{
+    font-size: 33px;font-family: "Questrial", sans-serif;
+}
+
+.paragrafo{
+    font-family: "Questrial", sans-serif;
+    line-height: 2;
+}
+
+.grassetto{
+    font-weight: bolder;
+}
+
+.contenitoreAboutContent::-webkit-scrollbar {
+    display: none;
+}
+
+.systemGoal::-webkit-scrollbar {
+    display: none;
+}
+
+.footer-about{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.footer-element{
+    font-family: "Questrial", sans-serif;
+    cursor: pointer;
+}
+
