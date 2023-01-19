@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -84,7 +83,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
      *              della misurazione Holter ECG
      *
      */
-    public MisurazioneHolterECG(final Date dataMisurazione,
+    public MisurazioneHolterECG(final GregorianCalendar dataMisurazione,
                                 final Paziente paziente,
                                 final DispositivoMedico dispositivoMedico,
                                 final double durataOndaP,

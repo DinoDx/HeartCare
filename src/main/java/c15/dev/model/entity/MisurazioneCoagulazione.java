@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -49,7 +48,7 @@ public class MisurazioneCoagulazione extends Misurazione implements Serializable
      * @param inr rappresenta il valore dell'inr della misurazione coagulazione
      *
      */
-    public MisurazioneCoagulazione(final Date dataMisurazione,
+    public MisurazioneCoagulazione(final GregorianCalendar dataMisurazione,
                                    final Paziente paziente,
                                    final DispositivoMedico dispositivoMedico,
                                    final double tempoDiProtrobina,

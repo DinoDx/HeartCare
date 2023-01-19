@@ -61,10 +61,12 @@ public class DispositivoMedico implements Serializable {
      * Invariante: la data deve essere <= rispetto la data corrente.
      */
     @NotNull
-    private Date dataRegistrazione;
+    private GregorianCalendar dataRegistrazione;
     /**
      * Campo relativo alla descrizione del dispositivo medico.
      */
+    @NotNull
+    @Max(100)
     private String descrizione;
 
     /**
@@ -122,7 +124,7 @@ public class DispositivoMedico implements Serializable {
      * @param paziente rappresenta il paziente a cui è assegnato
      *                 il dispositivo medico.
      */
-    public DispositivoMedico(final Date dataRegistrazione,
+    public DispositivoMedico(final GregorianCalendar dataRegistrazione,
                              final String descrizione,
                              final String numeroSeriale,
                              final Boolean disponibile,
@@ -159,7 +161,7 @@ public class DispositivoMedico implements Serializable {
      * @return dataRegistrazione
      * metodo che restituisce la data di registrazione del dispositivo medico
      */
-    public Date getDataRegistrazione() {
+    public GregorianCalendar getDataRegistrazione() {
         return dataRegistrazione;
     }
 
@@ -169,7 +171,7 @@ public class DispositivoMedico implements Serializable {
      * metodo che permette di definire la data di registrazione
      * del dispositivo medico
      */
-    public void setDataRegistrazione(final Date dataRegistrazione) {
+    public void setDataRegistrazione(final GregorianCalendar dataRegistrazione) {
         this.dataRegistrazione = dataRegistrazione;
     }
 
