@@ -3,6 +3,8 @@ package c15.dev.gestioneMisurazione.service;
 
 import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.Misurazione;
+import c15.dev.model.entity.MisurazionePressione;
+import c15.dev.model.entity.enumeration.Categoria;
 
 import java.util.List;
 
@@ -41,4 +43,9 @@ public interface GestioneMisurazioneService {
      */
     public List<Misurazione> getMisurazioniByPaziente(Long id);
     public DispositivoMedico getById(Long id);
+
+    public List<Misurazione> getMisurazioneByCategoria(Categoria categoria,
+                                                       Long id);
+    public Misurazione save(Misurazione misurazione);
+    public MisurazionePressione save(MisurazionePressione misurazionePressione);
 }
