@@ -7,6 +7,7 @@ import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.Misurazione;
 import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.model.entity.enumeration.Categoria;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -89,5 +90,10 @@ public class GestioneMisurazioneController {
         DispositivoMedico dispositivoMedico = misurazioneService.getById(idDispositivo);
         DispositivoMedicoAdapter dispositivoMedicoAdapter = new DispositivoMedicoAdapter(dispositivoMedico) ;
         return dispositivoMedicoAdapter.avvioMisurazione();
+    }
+
+    @PostMapping(value = "/getMisurazioneCategoria")
+    public List<Misurazione> getMisurazioniByCategoria(@RequestParam("categoria") Categoria categoria, @RequestParam("id") Long id){
+        return misurazioneService.getMisurazioneByCategoria(categoria,id);
     }
 }
