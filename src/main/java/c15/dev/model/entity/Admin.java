@@ -3,6 +3,7 @@ package c15.dev.model.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -32,7 +33,7 @@ public class Admin extends UtenteRegistrato implements Serializable {
      * @param cog è il cognome dell'admin
      * @param sesso indica il genere dell'admin
      */
-    public Admin(final Date dataNascita,
+    public Admin(final LocalDate dataNascita,
                  final String codFiscale,
                  final String nTelefono,
                  final String pass,

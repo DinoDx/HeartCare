@@ -3,10 +3,14 @@ package c15.dev.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.LazyGroup;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,8 +23,9 @@ import java.util.Set;
  */
 @Entity
 @Data
-@SuperBuilder
 @Setter
+@Getter
+@SuperBuilder
 public class Paziente extends UtenteRegistrato {
     /**
      * Questo campo rappresenta il nome del caregiver.
@@ -80,17 +85,6 @@ public class Paziente extends UtenteRegistrato {
     @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
     private Set<Visita> elencoVisite = new HashSet<>();
 
-    /**
-     * Insieme delle notifiche relative a un paziente.
-     */
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "avviso",
-            joinColumns = @JoinColumn(name = "paziente_id"),
-            inverseJoinColumns = @JoinColumn(name = "notifica_id")
-    )
-    private Set<Notifica> notifica;
 
     /**
      * costruttore vuoto.
@@ -112,7 +106,7 @@ public class Paziente extends UtenteRegistrato {
      *
      * costruttore per il Paziente.
      */
-    public Paziente(final Date dataNascita,
+    public Paziente(final LocalDate dataNascita,
                     final String codFiscale,
                     final String nTelefono,
                     final String pass,
@@ -120,7 +114,7 @@ public class Paziente extends UtenteRegistrato {
                     final String nome,
                     final String cognome,
                     final String sesso
-                   ) throws Exception {
+    ) throws Exception {
         super(dataNascita,
                 codFiscale,
                 nTelefono,
@@ -132,6 +126,7 @@ public class Paziente extends UtenteRegistrato {
 
     }
 
+
     /**
      * Metodo che permette di aggiungere una singola elencoVisite al set.
      * @param visita
@@ -140,14 +135,5 @@ public class Paziente extends UtenteRegistrato {
         this.elencoVisite.add(visita);
 
     }
-    /**
-     * Metodo toString.
-     * @return Stringa che contiene tutto il contenuto della classe.
-     */
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
 
 }

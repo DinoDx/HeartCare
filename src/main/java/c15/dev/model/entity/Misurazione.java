@@ -3,10 +3,13 @@ package c15.dev.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.checkerframework.checker.optional.qual.Present;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -19,6 +22,8 @@ import java.util.Date;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @SuperBuilder
+@Getter
+@Setter
 @Table(name = "misurazione")
 public class Misurazione implements Serializable {
     /**
@@ -36,7 +41,7 @@ public class Misurazione implements Serializable {
      */
     @Column(name = "data_misurazione", nullable = false)
     @NotNull
-    private Date dataMisurazione;
+    private LocalDate dataMisurazione;
     /**
      * Campo relativo alla relazione tra pazienti e misurazioni.
      */
@@ -58,7 +63,8 @@ public class Misurazione implements Serializable {
      * @param dispositivo rappresenta il dispositivo medico con cui è stata
      *effettuata la misurazione
      */
-    public Misurazione(Date data, Paziente paziente,
+    public Misurazione(LocalDate data,
+                       Paziente paziente,
                        DispositivoMedico dispositivo) {
         this.dataMisurazione = data;
         this.paziente = paziente;
@@ -71,77 +77,4 @@ public class Misurazione implements Serializable {
     public Misurazione(){
 
     }
-
-    /**
-     *
-     * @return id
-     * metodo che restituisce l'id della misurazione.
-     */
-    public long getId(){
-        return this.id;
-    }
-
-    /**
-     *
-     * @return dataMisurazione
-     * metodo che restituisce la data della misurazione.
-     */
-    public Date getDataMisurazione() {
-        return this.dataMisurazione;
-    }
-
-    /**
-     *
-     * @param data
-     * Metodo che permette di inserire la data della misurazione.
-     *
-     */
-    public void setDataMisurazione(Date data) {
-        this.dataMisurazione = data;
-    }
-
-    /**
-     *
-     * @return dataMisurazione
-     * Metodo che permette di restituire il paziente a cui afferisce
-     * la misurazione.
-     *
-     */
-    public Paziente getPaziente() {
-        return paziente;
-    }
-
-    /**
-     *
-     * @param paziente
-     * Metodo che permette di impostare il paziente della misurazione.
-     *
-     */
-    public void setPaziente(Paziente paziente) {
-        this.paziente = paziente;
-    }
-
-    /**
-     *
-     * @return dispositivoMedico
-     * Metodo che permette di restituire il dispositivo medico da cui è stata
-     * effettuata la misurazione.
-     *
-     */
-    public DispositivoMedico getDispositivoMedico() {
-        return dispositivoMedico;
-    }
-
-    /**
-     *
-     * @param dispositivo
-     * Metodo che permette di impostare il dispositivo medico della
-     * misurazione.
-     *
-     */
-    public void setDispositivoMedico(DispositivoMedico dispositivo) {
-        this.dispositivoMedico = dispositivo;
-    }
-
-
 }

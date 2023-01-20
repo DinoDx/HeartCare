@@ -3,8 +3,10 @@ package c15.dev.model.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +17,7 @@ import java.util.Set;
  * Questa è la classe relativa a un Medico.
  */
 @Entity
+@Data
 public class Medico extends UtenteRegistrato {
     /**
      * Lista che contiene l'elenco dei pazienti che sono stati
@@ -28,12 +31,6 @@ public class Medico extends UtenteRegistrato {
      */
     @OneToMany(mappedBy = "medico", fetch = FetchType.EAGER)
     private Set<Nota> note;
-
-    /**
-     * Insieme delle notifiche destinate al medico in questione.
-     */
-    @OneToMany(mappedBy = "notificaMedico", fetch = FetchType.EAGER)
-    private List<Notifica> notifica;
 
     /**
      * Questo campo indica la lista di visite in cui un medico è coinvolto.
@@ -61,7 +58,7 @@ public class Medico extends UtenteRegistrato {
      *
      * costruttore per Medico.
      */
-    public Medico(final Date dataDiNascita,
+    public Medico(final LocalDate dataDiNascita,
                   final String codiceFiscale,
                   final String numeroTelefono,
                   final String password,
@@ -79,78 +76,6 @@ public class Medico extends UtenteRegistrato {
                 genere);
     }
 
-    /**
-     *
-     * @return elencoPazienti
-     * Metodo che restituisce l'elenco dei pazienti di un medico.
-     */
-    public List<Paziente> getElencoPazienti() {
-        return elencoPazienti;
-    }
-
-    /**
-     *
-     * @param elencoPazienti
-     * Metodo che permette di inserire una lista di paziente.
-     */
-    public void setElencoPazienti(List<Paziente> elencoPazienti) {
-        this.elencoPazienti = elencoPazienti;
-    }
-
-    /**
-     *
-     * @return note
-     * Metodo che restituisce l'elenco delle note destinate al medico.
-     */
-
-    public Set<Nota> getNote() {
-        return note;
-    }
-
-    /**
-     *
-     * @param note
-     * Metodo che permette di inserire una lista di note
-     */
-    public void setNote(Set<Nota> note) {
-        this.note = note;
-    }
-
-    /**
-     *
-     * @return notifica
-     * Metodo che restituisce l'elenco delle notifiche inviate da un medico.
-     */
-    public List<Notifica> getNotifica() {
-        return notifica;
-    }
-
-    /**
-     *
-     * @param notifica
-     * Metodo che permette di inserire una lista di notifiche.
-     */
-    public void setNotifica(List<Notifica> notifica) {
-        this.notifica = notifica;
-    }
-
-    /**
-     *
-     * @return elencoVisite
-     * Metodo che restituisce l'elenco delle visite di un medico.
-     */
-    public List<Visita> getElencoVisite() {
-        return elencoVisite;
-    }
-
-    /**
-     *
-     * @param elencoVisite
-     * Metodo che permette di inserire una lista di visite.
-     */
-    public void setElencoVisite(List<Visita> elencoVisite) {
-        this.elencoVisite = elencoVisite;
-    }
 
     /**
      * Metodo per inserire una singola elencoVisite alla lista.

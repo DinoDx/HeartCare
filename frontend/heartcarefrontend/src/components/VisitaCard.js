@@ -9,6 +9,7 @@ import { MdOutlinePlace } from "react-icons/md";
 import "../css/visita-style.css";
 
 function VisitaCard(props) {
+  const nome = props.nome;
   const containerVisita = useRef();
   const infoVisita = useRef();
   const bottoneFascicolo = useRef();
@@ -19,7 +20,7 @@ function VisitaCard(props) {
       <hr className="linea-visita"></hr>
 
       <div className="soggetto-visita-container">
-        <span className="nome-soggetto">Gianluigi Buffon</span>
+        <span className="nome-soggetto">{nome}</span>
         <div className="container-ottieni-info">
           <SlArrowDown className="ottieni-info" />
         </div>

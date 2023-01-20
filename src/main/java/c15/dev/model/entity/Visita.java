@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
@@ -36,7 +37,7 @@ public class Visita implements Serializable {
     @Column(nullable = false)
     @NotNull
     @Future
-    private GregorianCalendar data;
+    private LocalDate data;
 
     /**
      * Campo relativo allo stato della elencoVisite.
@@ -88,7 +89,7 @@ public class Visita implements Serializable {
      * @param paz rappresenta il paziente che è coinvolto nella elencoVisite
      * @param indirizzo rappresenta l'indirizzo in cui si effettuerà la elencoVisite
      */
-    public Visita(final GregorianCalendar dataVisita,
+    public Visita(final LocalDate dataVisita,
                   final StatoVisita stato,
                   final Medico med,
                   final Paziente paz,
@@ -114,7 +115,7 @@ public class Visita implements Serializable {
      * @return data
      * metodo che restituisce la data della elencoVisite.
      */
-    public GregorianCalendar getData() {
+    public LocalDate getData() {
         return data;
     }
 
@@ -123,7 +124,7 @@ public class Visita implements Serializable {
      * @param data
      * metodo che permette di definire la data della elencoVisite.
      */
-    public void setData(final GregorianCalendar data) {
+    public void setData(final LocalDate data) {
         this.data = data;
     }
 

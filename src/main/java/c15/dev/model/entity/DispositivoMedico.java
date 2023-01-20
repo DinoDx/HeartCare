@@ -16,6 +16,8 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -32,6 +34,8 @@ import java.util.Set;
  * I campi sono id (auto generato), dataRegistrazione,
  * descrizione, numeroSeriale, disponibile, categoria,paziente.
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "Dispositivo_medico")
 public class DispositivoMedico implements Serializable {
@@ -60,7 +64,7 @@ public class DispositivoMedico implements Serializable {
      * Invariante: la data deve essere <= rispetto la data corrente.
      */
     @NotNull
-    private Date dataRegistrazione;
+    private LocalDate dataRegistrazione;
     /**
      * Campo relativo alla descrizione del dispositivo medico.
      */
@@ -122,7 +126,7 @@ public class DispositivoMedico implements Serializable {
      * @param paziente rappresenta il paziente a cui è assegnato
      *                 il dispositivo medico.
      */
-    public DispositivoMedico(final Date dataRegistrazione,
+    public DispositivoMedico(final LocalDate dataRegistrazione,
                              final String descrizione,
                              final String numeroSeriale,
                              final Boolean disponibile,
@@ -133,135 +137,6 @@ public class DispositivoMedico implements Serializable {
         this.numeroSeriale = numeroSeriale;
         this.disponibile = disponibile;
         this.categoria = categoria;
-        this.paziente = paziente;
-    }
-
-    /**
-     *
-     * @return id
-     * metodo che restituisce l'id del dispositivo medico
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     *
-     * @param id
-     * metodo che permette di definire l'id del dispositivo medico
-     */
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    /**
-     *
-     * @return dataRegistrazione
-     * metodo che restituisce la data di registrazione del dispositivo medico
-     */
-    public Date getDataRegistrazione() {
-        return dataRegistrazione;
-    }
-
-    /**
-     *
-     * @param dataRegistrazione
-     * metodo che permette di definire la data di registrazione
-     * del dispositivo medico
-     */
-    public void setDataRegistrazione(final Date dataRegistrazione) {
-        this.dataRegistrazione = dataRegistrazione;
-    }
-
-    /**
-     *
-     * @return descrizione
-     * metodo che restituisce la descrizione del dispositivo medico
-     */
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    /**
-     *
-     * @param descrizione
-     * metodo che permette di definire la descrizione del dispositivo medico
-     */
-    public void setDescrizione(final String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    /**
-     *
-     * @return numeroSeriale
-     * metodo che restituisce il numero seriale del dispositivo medico
-     */
-    public String getNumeroSeriale() {
-        return numeroSeriale;
-    }
-
-    /**
-     *
-     * @param numeroSeriale
-     * metodo che permette di definire il numero seriale del dispositivo medico
-     */
-    public void setNumeroSeriale(final String numeroSeriale) {
-        this.numeroSeriale = numeroSeriale;
-    }
-
-    /**
-     *
-     * @return disponibile
-     * metodo che restituisce la disponibilità o meno del dispositivo medico
-     */
-    public Boolean getDisponibile() {
-        return disponibile;
-    }
-
-    /**
-     *
-     * @param disponibile
-     * metodo che permette di definire la disponibilità del dispositivo medico
-     */
-    public void setDisponibile(final Boolean disponibile) {
-        this.disponibile = disponibile;
-    }
-
-    /**
-     *
-     * @return categoria
-     * metodo che restituisce la categoria del dispositivo medico
-     */
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    /**
-     *
-     * @param categoria
-     * metodo che permette di definire la categoria del dispositivo medico
-     */
-    public void setCategoria(final Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    /**
-     *
-     * @return paziente
-     * metodo che restituisce il paziente a cui è assegnato
-     * il dispositivo medico
-     */
-    public Paziente getPaziente() {
-        return paziente;
-    }
-
-    /**
-     *
-     * @param paziente
-     * metodo che permette di definire il paziente a cui è assegnato
-     * il dispositivo medico
-     */
-    public void setPaziente(final Paziente paziente) {
         this.paziente = paziente;
     }
 
@@ -280,7 +155,7 @@ public class DispositivoMedico implements Serializable {
                 break;
             case "Misuratore di pressione" : {
                 LocalDate currentDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                LocalDate birthday = paziente.getDataDiNascita().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate birthday = paziente.getDataDiNascita();//toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 misurazione = dispositivoMedicoStub.MisurazionePressioneStub(Period.between(birthday,currentDate).getYears());
             }
                 break;
@@ -290,21 +165,4 @@ public class DispositivoMedico implements Serializable {
         return misurazione;
     }
 
-    /**
-     * Metodo per ottenere una stringa comprensiva di tutti i campi
-     * dell'oggetto.
-     * @return String
-     */
-    @Override
-    public String toString() {
-        return "DispositivoMedico{"
-                + "id=" + id
-                + ", dataRegistrazione=" + dataRegistrazione
-                + ", descrizione='" + descrizione + '\''
-                + ", numeroSeriale='" + numeroSeriale + '\''
-                + ", disponibile=" + disponibile
-                + ", categoria=" + categoria
-                + ", paziente=" + paziente
-                + '}';
-    }
 }

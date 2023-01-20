@@ -13,8 +13,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
+import org.springframework.cglib.core.Local;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.GregorianCalendar;
 
 /**
@@ -47,8 +50,8 @@ public class Nota implements Serializable {
      * Invariante: la data deve essere inferiore o uguale alla data corrente.
      **/
     @NotNull
-    @Past
-    private GregorianCalendar dataPubblicazione;
+    @PastOrPresent
+    private LocalDate dataPubblicazione;
     /**
      * Campo relativo all'autore della nota
      **/
@@ -95,7 +98,7 @@ public class Nota implements Serializable {
      * @param paziente rappresenta il paziente che ha scritto/ricevuto la nota
      **/
     public Nota(final String contenuto,
-                final GregorianCalendar dataPubblicazione,
+                final LocalDate dataPubblicazione,
                 final Autore autore,
                 final StatoNotifica stato,
                 final Medico medico,
@@ -149,7 +152,7 @@ public class Nota implements Serializable {
      * @return dataPubblicazione
      * metodo che restituisce la data di pubblicazione della nota
      */
-    public GregorianCalendar getDataPubblicazione() {
+    public LocalDate getDataPubblicazione() {
         return dataPubblicazione;
     }
 
@@ -158,7 +161,7 @@ public class Nota implements Serializable {
      * @param dataPubblicazione
      * metodo che permette di definire la data di pubblicazione della nota
      */
-    public void setDataPubblicazione(final GregorianCalendar dataPubblicazione) {
+    public void setDataPubblicazione(final LocalDate dataPubblicazione) {
         this.dataPubblicazione = dataPubblicazione;
     }
 

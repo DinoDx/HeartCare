@@ -1,26 +1,23 @@
 package c15.dev.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Id;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Table;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Inheritance;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.stereotype.Service;
 
 
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Leopoldo Todisco.
@@ -38,8 +35,9 @@ import java.util.Date;
  */
 @Entity
 @SuperBuilder
-@Data
 @Setter
+@Data
+@Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "utente_registrato")
 public class UtenteRegistrato implements Serializable {
@@ -90,11 +88,15 @@ public class UtenteRegistrato implements Serializable {
      * Campo relativo alla Data di nascita nel formato GG-MM-AAAA.
      * Invariante: la data di nascita deve essere inferiore o uguale alla data corrente.
      */
+    /*@NotNull
+    @Past
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private Date dataDiNascita;*/
+
     @NotNull
     @Past
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date dataDiNascita;
-
+    private LocalDate dataDiNascita;
     /**
      * Campo relativo al Codice Fiscale.
      * Invariante: deve rispettare l'espressione regolare.
@@ -167,6 +169,13 @@ public class UtenteRegistrato implements Serializable {
     private Indirizzo indirizzoResidenza;
 
     /**
+     * Insieme delle notifiche relative a un utente.
+     */
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "destinatario")
+    private Set<Notifica> elencoNotifiche;
+
+    /**
      * Costruttore vuoto per UtenteRegistrato.
      */
     public UtenteRegistrato() {
@@ -183,7 +192,7 @@ public class UtenteRegistrato implements Serializable {
      * @param cognome rappresenta il cognome di un utente
      * @param sesso rappresenta il genere di un utente
      */
-    public UtenteRegistrato(final Date dataNascita,
+    public UtenteRegistrato(final LocalDate dataNascita,
                   final String codFiscale,
                   final String nTelefono,
                   final String pass,

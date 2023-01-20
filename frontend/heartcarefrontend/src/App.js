@@ -10,7 +10,6 @@ import Schedules from "./pages/Schedules";
 import Profilo from "./pages/Profilo";
 import About from "./pages/About";
 import Menu from "./components/Menu";
-import Fascicolo from "./pages/Fascicolo"
 
 function App() {
 
@@ -30,7 +29,6 @@ function App() {
                     <Route path="Pazienti" element={<AppShell><Pazienti /></AppShell>} />
                     <Route path="Profilo" element={<AppShell><Profilo /></AppShell>} />
                     <Route path="About" element={<AppShell><About /></AppShell>} />
-                    <Route path="Fascicolo" element={<AppShell><Fascicolo /></AppShell>} />
                 </Route>
             </Routes>
         );
