@@ -2,9 +2,7 @@ package c15.dev.utils;
 
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
-import c15.dev.model.entity.Medico;
-import c15.dev.model.entity.Misurazione;
-import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.*;
 import c15.dev.registrazione.service.RegistrazioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +13,8 @@ import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static c15.dev.model.entity.enumeration.Categoria.MISURATORE_DI_PRESSIONE;
 
 /**
  * @author Leopoldo Todisco.
@@ -110,6 +110,26 @@ public class DBPopulator {
 
         medicoList.addAll(List.of(med1, med2, med3));
         medicoList.stream().forEach(m -> regService.registraMedico(m));
+
+        DispositivoMedico d1 = new DispositivoMedico(new Date(23/01/2022),
+                "funziona ti prego",
+                "hbdsdsdhjsdfhjdsdsdfhjdfhsdfsd",
+                true,
+                MISURATORE_DI_PRESSIONE,
+                paz1
+        );
+        gestioneMisurazioneService.registrazioneDispositivo(d1,1);
+
+        MisurazionePressione mis1 = new MisurazionePressione(new Date(17/01/2023),
+                paz1,
+                d1,
+                120,
+                110.0,
+                89.0,
+                99.5
+        );
+
+        gestioneMisurazioneService.save(mis1);
 
 
 

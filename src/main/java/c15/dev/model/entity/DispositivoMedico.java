@@ -22,7 +22,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Set;
 
 /**
@@ -61,12 +60,11 @@ public class DispositivoMedico implements Serializable {
      * Invariante: la data deve essere <= rispetto la data corrente.
      */
     @NotNull
-    private GregorianCalendar dataRegistrazione;
+    private Date dataRegistrazione;
     /**
      * Campo relativo alla descrizione del dispositivo medico.
      */
     @NotNull
-    @Max(100)
     private String descrizione;
 
     /**
@@ -124,7 +122,7 @@ public class DispositivoMedico implements Serializable {
      * @param paziente rappresenta il paziente a cui è assegnato
      *                 il dispositivo medico.
      */
-    public DispositivoMedico(final GregorianCalendar dataRegistrazione,
+    public DispositivoMedico(final Date dataRegistrazione,
                              final String descrizione,
                              final String numeroSeriale,
                              final Boolean disponibile,
@@ -161,7 +159,7 @@ public class DispositivoMedico implements Serializable {
      * @return dataRegistrazione
      * metodo che restituisce la data di registrazione del dispositivo medico
      */
-    public GregorianCalendar getDataRegistrazione() {
+    public Date getDataRegistrazione() {
         return dataRegistrazione;
     }
 
@@ -171,7 +169,7 @@ public class DispositivoMedico implements Serializable {
      * metodo che permette di definire la data di registrazione
      * del dispositivo medico
      */
-    public void setDataRegistrazione(final GregorianCalendar dataRegistrazione) {
+    public void setDataRegistrazione(final Date dataRegistrazione) {
         this.dataRegistrazione = dataRegistrazione;
     }
 
