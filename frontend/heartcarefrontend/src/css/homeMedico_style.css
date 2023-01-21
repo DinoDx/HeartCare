@@ -71,9 +71,13 @@
 
 /*è l'intera sezione in cui ci sono le visite
   non confondere con box-visite, 
-  questo è il div + esterno.
+  questo è il div più esterno.
+
+  width:1000px sembra andare bene, ma si sminchia se ho 1 solo elemento dentro
 */
 .visite-container {
+  width: 1000px;
+
   background-color: rgba(242, 242, 242, 0.6);
   display: flex;
   flex-wrap: wrap;
@@ -93,6 +97,7 @@
 
 /*testo "visite in programma"*/
 .visite-in-programma {
+  width: 100%;
   margin-top: 20px;
   margin-left: 20px;
   margin-bottom: 20px;

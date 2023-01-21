@@ -141,25 +141,36 @@ public class DispositivoMedico implements Serializable {
     }
 
     public String avvioMisurazione(){
-        DispositivoMedicoStub dispositivoMedicoStub = new DispositivoMedicoStub();
+        var dispositivoMedicoStub = new DispositivoMedicoStub();
         String misurazione = " ";
 
         switch(categoria.getDisplayName()){
-            case "ECG" : misurazione = dispositivoMedicoStub.MisurazioneHolterECGStub();
+            case "ECG" : misurazione = dispositivoMedicoStub
+                    .MisurazioneHolterECGStub();
                 break;
-            case "Saturimetro" : misurazione = dispositivoMedicoStub.MisurazioneSaturazioneStub() ;
+            case "Saturimetro" : misurazione = dispositivoMedicoStub
+                    .MisurazioneSaturazioneStub() ;
                 break;
-            case "Coagulometro" : misurazione = dispositivoMedicoStub.MisurazioneCoagulazioneStub();
+            case "Coagulometro" : misurazione = dispositivoMedicoStub
+                    .MisurazioneCoagulazioneStub();
                 break;
-            case "Misuratore glicemico" : misurazione = dispositivoMedicoStub.MisurazioneGlicemicaStub();
+            case "Misuratore glicemico" : misurazione = dispositivoMedicoStub
+                    .MisurazioneGlicemicaStub();
                 break;
             case "Misuratore di pressione" : {
-                LocalDate currentDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate currentDate = new Date()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
                 LocalDate birthday = paziente.getDataDiNascita();//toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                misurazione = dispositivoMedicoStub.MisurazionePressioneStub(Period.between(birthday,currentDate).getYears());
+                misurazione = dispositivoMedicoStub.
+                        MisurazionePressioneStub(Period
+                                .between(birthday,currentDate)
+                                .getYears());
             }
                 break;
-            case "Enzimi cardiaci" : dispositivoMedicoStub.MisurazioneEnzimiCardiaciStub(paziente.getGenere());
+            case "Enzimi cardiaci" : dispositivoMedicoStub
+                    .MisurazioneEnzimiCardiaciStub(paziente.getGenere());
                 break;
         }
         return misurazione;

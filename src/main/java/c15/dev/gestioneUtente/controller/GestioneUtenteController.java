@@ -3,7 +3,9 @@ package c15.dev.gestioneUtente.controller;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
-import c15.dev.model.entity.*;
+import c15.dev.model.entity.Medico;
+import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import c15.dev.model.entity.enumeration.StatoVisita;
 import jakarta.servlet.http.HttpSession;
@@ -11,10 +13,21 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMethod;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Optional;
+import java.util.List;
+import java.util.GregorianCalendar;
+import java.util.Arrays;
 
 /**
  * @author Leopoldo Todisco, Carlo Venditto.
@@ -43,19 +56,28 @@ public class GestioneUtenteController {
      *             Al suo interno vi si trovano i valori di password ed email.
      */
     @PostMapping(value = "/login")
-    public UtenteRegistrato login(@RequestBody Map<String, String> body) {
+    public ResponseEntity<Object>
+                login(@RequestBody Map<String, String> body) {
         String email = body.get("email");
         String password = body.get("password");
-        System.out.println(email + password);
 
         Optional<UtenteRegistrato> utente = service.login(email, password);
+        UtenteRegistrato user;
+        HashMap<String, Object> userInfo = new HashMap<>();
 
-        UtenteRegistrato ur;
-        if(utente.get() != null){
-            ur = utente.get();
-            return ur;
+        if(utente.isPresent()) {
+            user = utente.get();
+            session.setAttribute("utenteLoggato", user.getId());
+            userInfo.put("nome", user.getNome());
+            userInfo.put("id", user.getId());
+            userInfo.put("genere", user.getGenere());
+            String ruolo = user.getClass().getSimpleName();
+            userInfo.put("ruolo", ruolo);
+            return new ResponseEntity<>(userInfo, HttpStatus.OK);
         }
-        return null;
+        else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     /**
@@ -63,7 +85,7 @@ public class GestioneUtenteController {
      */
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public void logout() {
-        System.out.println(((UtenteRegistrato) session.getAttribute("utenteLoggato")).getNome());
+        System.out.println(((UtenteRegistrato) session.getAttribute("utenteLoggato")));
         session.invalidate();
     }
 
@@ -120,7 +142,8 @@ public class GestioneUtenteController {
     }
 
     /**
-     * Metodo che restituisce tutti i medici
+     * Metodo che restituisce tutti i medici.
+     * Invariante: il metodo può essere chiamato solo da admin.
      */
     @RequestMapping(value = "/getTuttiMedici", method = RequestMethod.POST)
     public List<UtenteRegistrato> getTuttiMedici() {
@@ -139,7 +162,8 @@ public class GestioneUtenteController {
     }
 
     /**
-     * Metodo che restituisce tutti i pazienti
+     * Metodo che restituisce tutti i pazienti.
+     * Invariante: il metodo può essere chiamato solo da admin.
      */
     @RequestMapping(value = "/getTuttiPazienti", method = RequestMethod.POST)
     public List<UtenteRegistrato> getTuttiPazienti() {
@@ -155,13 +179,11 @@ public class GestioneUtenteController {
     }
 
     /**
-     * Metodo che restituisce tutti i pazienti
-     *
+     * Metodo che restituisce tutti i pazienti di un medico.
      * @param idMedico id del medico
      */
     @RequestMapping(value = "/getPazientiByMedico", method = RequestMethod.POST)
     public List<Paziente> getPazientiByMedico(@RequestParam long idMedico) {
-
         return service.getPazientiByMedico(idMedico);
     }
 
@@ -221,13 +243,12 @@ public class GestioneUtenteController {
      * Metodo che permette di ottenere i dati relativi a un utente qualsiasi.
      * @param idUtente
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
-     * Essa comprende una Map con i dati utente e lo stato della rispostama.
+     * Essa comprende una Map con i dati utente e lo stato della risposta.
      */
-    @PostMapping("/utente/{id}")
+    @PostMapping("/utente")
     public ResponseEntity<Object>
-        getDatiProfiloUtente(@PathVariable("id") final Long idUtente){
+        getDatiProfiloUtente(@RequestBody final Long idUtente){
         HashMap<String, Object> map = new HashMap<>();
-
         if(service.isPaziente(idUtente)){
             Paziente paziente = service.findPazienteById(idUtente);
             map.put("nome", paziente.getNome());
@@ -251,8 +272,8 @@ public class GestioneUtenteController {
     }
 
     /**
-     * @author Paolo Carmine Valletta
-     * Metodo che permette di visualizzare la home di un utente medico o Paziente.
+     * @author Paolo Carmine Valletta.
+     * Metodo che permette di visualizzare la home di un Medico o Paziente.
      * @param idUtente
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
      * Essa comprende una Map con i dati della home e lo stato della risposta.

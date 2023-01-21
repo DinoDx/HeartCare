@@ -21,16 +21,14 @@ import java.util.List;
  */
 @RestController
 public class GestioneMisurazioneController {
-
     @Autowired
     private HttpSession session;
     @Autowired
     private GestioneMisurazioneService misurazioneService;
-
     @Autowired
     private GestioneUtenteService utenteService;
-
-    private DispositivoMedicoStub dispositivoMedicoStub = new DispositivoMedicoStub();
+    private DispositivoMedicoStub dispositivoMedicoStub
+            = new DispositivoMedicoStub();
 
     /**
      * Metodo per la registrazione del dispositivo.
@@ -70,7 +68,7 @@ public class GestioneMisurazioneController {
      * @return List<Misurazione>
      */
     @PostMapping(value = "/FascicoloSanitarioElettronico")
-    public List<Misurazione> getFascicoloSanitarioElettronico(@RequestParam long id){
+    public List<Misurazione> getFascicoloSanitarioElettronico(@RequestParam long id) {
         if (!utenteService.isPaziente(id)) {
             System.out.println("paziente non esistente");
             return null;
@@ -82,18 +80,20 @@ public class GestioneMisurazioneController {
      *
      * @param idDispositivo
      * @return Misurazione
-     * Questo metodo permette di avviare una registrazione sull'id del dispositivo passato in input e di restituire la misurazione generata
+     * Questo metodo permette di avviare una registrazione sull'id
+     * del dispositivo passato input e di restituire la misurazione generata.
      *
      */
     @PostMapping(value = "/avvioMisurazione")
-    public Misurazione avvioMisurazione(@RequestParam Long idDispositivo){
-        DispositivoMedico dispositivoMedico = misurazioneService.getById(idDispositivo);
-        DispositivoMedicoAdapter dispositivoMedicoAdapter = new DispositivoMedicoAdapter(dispositivoMedico) ;
-        return dispositivoMedicoAdapter.avvioMisurazione();
+    public Misurazione avvioMisurazione(@RequestParam Long idDispositivo) {
+        var dispositivoMedico = misurazioneService.getById(idDispositivo);
+        var dispositivoAdapter = new DispositivoMedicoAdapter(dispositivoMedico);
+        return dispositivoAdapter.avvioMisurazione();
     }
 
     @PostMapping(value = "/getMisurazioneCategoria")
-    public List<Misurazione> getMisurazioniByCategoria(@RequestParam("categoria") Categoria categoria, @RequestParam("id") Long id){
-        return misurazioneService.getMisurazioneByCategoria(categoria,id);
+    public List<Misurazione> getMisurazioniByCategoria(@RequestParam("categoria") Categoria c,
+                                                       @RequestParam("id") Long id){
+        return misurazioneService.getMisurazioneByCategoria(c, id);
     }
 }

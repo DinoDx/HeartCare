@@ -3,11 +3,12 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 
 /**
@@ -19,6 +20,8 @@ import java.util.GregorianCalendar;
  *               valore creatin Kinasi,
  *               troponina Cardiaca.
  */
+@Getter
+@Setter
 @Entity
 public class MisurazioneEnzimiCardiaci
         extends Misurazione implements Serializable {
@@ -68,64 +71,6 @@ public class MisurazioneEnzimiCardiaci
         super(data, paziente, dispositivo);
         this.creatinKinasi = creatinKinasi;
         this.mioglobina = mioglobina;
-        this.troponinaCardiaca = troponinaCardiaca;
-    }
-
-    /**
-     *
-     * @return mioglobina
-     * Metodo che restituisce il valore della mioglobina.
-     */
-    public double getMioglobina() {
-        return mioglobina;
-    }
-
-    /**
-     *
-     * @param mioglobina
-     * Metodo che permette settare la mioglobina di una misurazione.
-     *
-     */
-    public void setMioglobina(final double mioglobina) {
-        this.mioglobina = mioglobina;
-    }
-
-    /**
-     *
-     * @return creatinKinasi
-     * Metodo che restituisce il valore della creatin kinasi.
-     */
-    public double getCreatinKinasi() {
-        return creatinKinasi;
-    }
-
-    /**
-     *
-     * @param creatinKinasi
-     * Metodo che permette settare la creatin kinasi di una misurazione.
-     *
-     */
-    public void setCreatinKinasi(final double creatinKinasi) {
-        this.creatinKinasi = creatinKinasi;
-    }
-
-    /**
-     *
-     * @return troponinaCardiaca
-     * Metodo che restituisce il valore della troponina Cardiaca.
-     */
-    public double getTroponinaCardiaca() {
-        return troponinaCardiaca;
-    }
-
-
-    /**
-     *
-     * @param troponinaCardiaca
-     * Metodo che permette settare la troponina cardiaca di una misurazione.
-     *
-     */
-    public void setTroponinaCardiaca(final double troponinaCardiaca) {
         this.troponinaCardiaca = troponinaCardiaca;
     }
 }

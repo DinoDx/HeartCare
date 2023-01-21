@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * @author Mario Cicalese
- * Creato il : 03/01/2023
- * Questa classe rappresenta il Service utilizzato per la registrazione
+ * @author Mario Cicalese.
+ * Creato il : 03/01/2023.
+ * Questa classe rappresenta il Service utilizzato per la registrazione.
  */
 @Service
-public class RegistrazioneServiceImpl implements RegistrazioneService{
+public class RegistrazioneServiceImpl implements RegistrazioneService {
     @Autowired
     public PazienteDAO pazienteDAO;
-
     @Autowired
     public MedicoDAO medicoDAO;
+
     @Override
     public Paziente registraPaziente(Paziente paziente) {
         return pazienteDAO.save(paziente);

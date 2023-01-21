@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Map;
 
 /**
@@ -52,7 +52,7 @@ public class GestioneVisitaController {
             return;
         }
 
-        @Valid Visita visita = new Visita(new GregorianCalendar(
+        @Valid Visita visita = new Visita(LocalDate.of(
                 dataVisita.getDay(),
                 dataVisita.getMonth(),
                 dataVisita.getYear()),

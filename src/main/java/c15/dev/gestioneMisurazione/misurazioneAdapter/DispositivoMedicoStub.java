@@ -82,28 +82,28 @@ public class DispositivoMedicoStub {
         Integer pressioneMassima = 0;
         Integer pressioneMedia;
 
-        if(eta<20){
+        if(eta < 20){
             pressioneMinima = ThreadLocalRandom.current().nextInt(73, 105);
             pressioneMassima = ThreadLocalRandom.current().nextInt(81, 120);
 
         }
-        else if(eta>19 && eta <30){
+        else if(eta > 19 && eta < 30){
             pressioneMinima = ThreadLocalRandom.current().nextInt(75, 108);
             pressioneMassima = ThreadLocalRandom.current().nextInt(84, 133);
         }
-        else if(eta>29 && eta<40){
+        else if(eta > 29 && eta < 40){
             pressioneMinima = ThreadLocalRandom.current().nextInt(78, 111);
             pressioneMassima = ThreadLocalRandom.current().nextInt(86, 135);
         }
-        else if(eta>39 && eta<50){
+        else if(eta > 39 && eta < 50){
             pressioneMinima = ThreadLocalRandom.current().nextInt(80, 113);
             pressioneMassima = ThreadLocalRandom.current().nextInt(88, 139);
         }
-        else if(eta>49 && eta<60){
+        else if(eta > 49 && eta < 60){
             pressioneMinima = ThreadLocalRandom.current().nextInt(81, 116);
             pressioneMassima = ThreadLocalRandom.current().nextInt(90, 144);
         }
-        else if(eta>60){
+        else if(eta > 60){
             pressioneMinima = ThreadLocalRandom.current().nextInt(83, 118);
             pressioneMassima = ThreadLocalRandom.current().nextInt(91, 147);
         }
@@ -129,9 +129,9 @@ public class DispositivoMedicoStub {
         Integer colesterolo = ThreadLocalRandom.current().nextInt(100, 300);
         Integer trigliceridi = ThreadLocalRandom.current().nextInt(100, 500);
 
-        mappa.put("zuccheriNelSangue",zuccheriNelSangue);
-        mappa.put("colesterolo",colesterolo);
-        mappa.put("trigliceridi",trigliceridi);
+        mappa.put("zuccheriNelSangue", zuccheriNelSangue);
+        mappa.put("colesterolo", colesterolo);
+        mappa.put("trigliceridi", trigliceridi);
         String json = gson.toJson(mappa);
         return json;
     }
@@ -145,8 +145,11 @@ public class DispositivoMedicoStub {
     public String MisurazioneHolterECGStub(){
         Integer durataOndaP = ThreadLocalRandom.current().nextInt(60, 120);
         Integer battitiPerMinuto = ThreadLocalRandom.current().nextInt(60, 90);
-        Double durataComplessoQRS = ThreadLocalRandom.current().nextDouble(0.08, 0.11);
-        Double intervalloPR = ThreadLocalRandom.current().nextDouble(0.10, 0.20);
+        Double durataComplessoQRS = ThreadLocalRandom
+                .current()
+                .nextDouble(0.08, 0.11);
+        Double intervalloPR = ThreadLocalRandom.current()
+                .nextDouble(0.10, 0.20);
         Integer ondaT = ThreadLocalRandom.current().nextInt(300, 500);
 
         mappa.put("durataOndaP",durataOndaP);
@@ -164,11 +167,11 @@ public class DispositivoMedicoStub {
      * Questo metodo restituisce una misurazione della categoria Coagulazione.
      */
     public String MisurazioneCoagulazioneStub(){
-        Integer tempoDiProtrombina = ThreadLocalRandom.current().nextInt(8, 14);
+        var tempoDiProtrombina = ThreadLocalRandom.current().nextInt(8, 14);
         Double inr = ThreadLocalRandom.current().nextDouble(0.9, 1.3);
 
-        mappa.put("tempoDiProtrombina",tempoDiProtrombina);
-        mappa.put("INR",inr);
+        mappa.put("tempoDiProtrombina", tempoDiProtrombina);
+        mappa.put("INR", inr);
 
         String json = gson.toJson(mappa);
         return json;

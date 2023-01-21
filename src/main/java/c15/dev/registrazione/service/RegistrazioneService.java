@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * @author Mario Cicalese
- * Creato il : 03/01/2023
- * Questa classe rappresenta il Service utilizzato per la registrazione
+ * @author Mario Cicalese.
+ * Creato il : 03/01/2023.
+ * Questa classe rappresenta il Service utilizzato per la registrazione.
  */
 public interface RegistrazioneService {
     public Paziente registraPaziente(Paziente paziente);

@@ -5,19 +5,11 @@ import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.registrazione.service.RegistrazioneService;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Mario Cicalese
@@ -36,7 +28,8 @@ public class RegistrazioneController {
     public HttpSession session;
 
     @PostMapping(value = "/registrazione")
-        public String registrazione(@Valid @RequestBody Paziente paziente) throws Exception {
+        public String registrazione(@Valid @RequestBody Paziente paziente)
+                throws Exception {
 
         registrazioneService.registraPaziente(paziente);
 

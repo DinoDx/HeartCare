@@ -64,11 +64,7 @@ function HomeMedico() {
             </span>
 
             <div className="box-visite">
-              <VisitaCard nome="Cicc pall arret" />
-              <VisitaCard nome="Massimo Boldi" />
               <VisitaCard nome="Gianluigi Buffon" />
-              <VisitaCard nome="Andrew Tate" />
-              <VisitaCard nome="Giuseppe Gragnano" />
             </div>
           </div>
         </div>

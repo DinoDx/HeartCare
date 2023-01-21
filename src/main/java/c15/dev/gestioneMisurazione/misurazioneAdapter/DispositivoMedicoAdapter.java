@@ -41,7 +41,7 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico{
     public Misurazione avvioMisurazione() {
         String misurazioneJSON = adaptee.avvioMisurazione();
         Misurazione misurazione = gson
-                .fromJson(misurazioneJSON,misurazioneFactory(misurazioneJSON)
+                .fromJson(misurazioneJSON, misurazioneFactory(misurazioneJSON)
                         .getClass());
         return misurazione;
     }

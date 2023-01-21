@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
+
+.container-icona-dispositivo {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.icona-dispositivo-card {
+  width: 80px;
+  height: 80px;
+  font-weight: 100;
+}
+
+.container-descrizione-dispositivo {
+  display: flex;
+  margin-top: 25px;
+  justify-content: center;
+  font-family: "Questrial", sans-serif;
+  font-size: 20px;
+}
+
+.testo-descrizione-dispositivo {
+  width: 80%;
+}

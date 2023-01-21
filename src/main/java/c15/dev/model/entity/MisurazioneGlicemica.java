@@ -3,11 +3,11 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
-
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import lombok.Getter;
+import lombok.Setter;
+
 
 /**
  * @author Paolo Carmine Valletta
@@ -17,7 +17,8 @@ import java.util.GregorianCalendar;
  *
  */
 
-
+@Getter
+@Setter
 @Entity
 public class MisurazioneGlicemica extends Misurazione implements Serializable {
     /**
@@ -71,63 +72,6 @@ public class MisurazioneGlicemica extends Misurazione implements Serializable {
         super(dataMisurazione, paziente, dispositivoMedico);
         this.zuccheriNelSangue = zuccheriNelSangue;
         this.colesterolo = colesterolo;
-        this.trigliceridi = trigliceridi;
-    }
-
-    /**
-     *
-     * @return zuccheriNelSangue
-     * metodo che restituisce il valore degli zuccheri nel sangue.
-     */
-    public int getZuccheriNelSangue() {
-        return zuccheriNelSangue;
-    }
-
-    /**
-     *
-     * @return colesterolo
-     * metodo che restituisce il valore del colesterolo.
-     */
-    public int getColesterolo() {
-        return colesterolo;
-    }
-
-    /**
-     *
-     * @return trigliceridi
-     * metodo che restituisce il valore dei trigliceridi.
-     */
-    public int getTrigliceridi() {
-        return trigliceridi;
-    }
-
-    /**
-     *
-     * @param zuccheriNelSangue
-     * metodo che permette di impostare il valore degli zuccheri nel sangue
-     * della misurazione glicemica.
-     */
-    public void setZuccheriNelSangue(final int zuccheriNelSangue) {
-        this.zuccheriNelSangue = zuccheriNelSangue;
-    }
-
-    /**
-     *
-     * @param colesterolo
-     * metodo che permette di impostare il valore del colesterolo
-     * della misurazione glicemica.
-     */
-    public void setColesterolo(final int colesterolo) {
-        this.colesterolo = colesterolo;
-    }
-
-    /**
-     *
-     * @param trigliceridi
-     * metodo che permette di impostare il valore dei trigliceridi
-     * della misurazione glicemica.
-     */
-    public void setTrigliceridi(final int trigliceridi) {
         this.trigliceridi = trigliceridi;
     }
 }

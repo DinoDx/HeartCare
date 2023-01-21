@@ -112,7 +112,7 @@ public class DBPopulator {
         medicoList.addAll(List.of(med1, med2, med3));
         medicoList.stream().forEach(m -> regService.registraMedico(m));
 
-        DispositivoMedico d1 = new DispositivoMedico(LocalDate.of(2023, 01, 22),
+        DispositivoMedico d1 = new DispositivoMedico(LocalDate.of(2023, 1, 22),
                 "funziona ti prego",
                 "hbdsdsdhjsdfhjdsdsdfhjdfhsdfsd",
                 true,
@@ -120,8 +120,9 @@ public class DBPopulator {
                 paz1
         );
         gestioneMisurazioneService.registrazioneDispositivo(d1,1);
+        LocalDate data2 = LocalDate.of(2023, 01, 18);
 
-        MisurazionePressione mis1 = new MisurazionePressione(LocalDate.of(2023, 01, 18),
+        MisurazionePressione mis1 = new MisurazionePressione(data2,
                 paz1,
                 d1,
                 120,
