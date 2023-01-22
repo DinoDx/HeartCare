@@ -102,6 +102,10 @@ public interface GestioneUtenteService {
      */
     Medico findMedicoById(Long id);
 
+    boolean findUtenteByCf(String cf);
+
+    boolean findUtenteByEmail(String email);
+
     /**
      * Firma del metodo updatePaziente
      *

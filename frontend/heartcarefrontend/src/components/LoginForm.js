@@ -51,7 +51,9 @@ function LoginForm(){
             <input type="password" placeholder=" Password" className="formEditText" onChange={aggiornaPassword}/>
             <span className="formLink">Ho dimenticato la password</span>
             <button className="formButton" onClick={handleSubmit}>Accedi</button>
-            <span className="formLink centerFlexItem">Non hai un account? Registrati</span>
+            <span className="formLink centerFlexItem">
+            <a href = "/Registrazione">Non hai un account? Registrati</a>
+            </span>
         </div>
     );
 }

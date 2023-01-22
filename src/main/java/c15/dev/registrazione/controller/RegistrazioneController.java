@@ -8,6 +8,7 @@ import c15.dev.registrazione.service.RegistrazioneService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * Questa classe rappresenta il Service utilizzato per la registrazione
  */
 @RestController
+@CrossOrigin
 public class RegistrazioneController {
     @Autowired
     public RegistrazioneService registrazioneService;

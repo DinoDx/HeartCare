@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -323,5 +324,29 @@ public class GestioneUtenteController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/getByCodice")
+    public ResponseEntity<Object> getByCodice(@RequestBody String codiceFiscale){
+        HashMap<String, Object> map = new HashMap<>();
+        System.out.println(codiceFiscale);
+
+        System.out.println(service.findUtenteByCf(codiceFiscale));
+        map.put("codiceFiscale", service.findUtenteByCf(codiceFiscale));
+
+        return new ResponseEntity<>(map,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getByEmail")
+    public ResponseEntity<Object> getByEmail(@RequestBody String email){
+        HashMap<String, Object> map = new HashMap<>();
+        System.out.println(email);
+
+        System.out.println(service.findUtenteByEmail(email));
+        map.put("email", service.findUtenteByEmail(email));
+
+        return new ResponseEntity<>(map,HttpStatus.OK);
+    }
+
+
 }
+
 

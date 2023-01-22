@@ -10,6 +10,8 @@ import Schedules from "./pages/Schedules";
 import Profilo from "./pages/Profilo";
 import About from "./pages/About";
 import Menu from "./components/Menu";
+import Registrazione from "./pages/Registrazione";
+import RegistrazioneForm from "./components/RegistrazioneForm";
 
 function App() {
 
@@ -22,6 +24,7 @@ function App() {
     const AppRoutes = () => {
         return (
             <Routes>
+                <Route path="Registrazione" element={<Registrazione />} />
                 <Route path="Login" element={<Login />} />
                 <Route path="/" element={<AuthenticatedRoute />}>
                     <Route path="HomeMedico" element={<AppShell><HomeMedico /></AppShell>} />
