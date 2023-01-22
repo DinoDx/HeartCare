@@ -27,7 +27,6 @@ function LoginForm(){
     const handleSubmit = (event) => {
         event.preventDefault()
 
-
         axios.post('http://localhost:8080/login', {
             email: email,
             password: password

@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Menu from "./components/Menu";
 import Registrazione from "./pages/Registrazione";
 import RegistrazioneForm from "./components/RegistrazioneForm";
+import HomePaziente from "./pages/HomePaziente";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
                 <Route path="Registrazione" element={<Registrazione />} />
                 <Route path="Login" element={<Login />} />
                 <Route path="/" element={<AuthenticatedRoute />}>
+                    <Route path="HomePaziente" element={<HomePaziente/>}/>
                     <Route path="HomeMedico" element={<AppShell><HomeMedico /></AppShell>} />
                     <Route path="Schedules" element={<AppShell><Schedules /></AppShell>} />
                     <Route path="Pazienti" element={<AppShell><Pazienti /></AppShell>} />
