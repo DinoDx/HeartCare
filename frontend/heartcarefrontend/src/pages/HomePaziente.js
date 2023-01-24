@@ -5,6 +5,8 @@ import "../css/homeMedico_style.css";
 import "../css/HomePaziente.css";
 import { Navigate } from "react-router-dom";
 import {Chart} from "react-google-charts";
+import NoteContainer from "../components/NoteContainer";
+import VisitePazienteContainer from "../components/VisitePazienteContainer";
 
 function HomePaziente() {
 
@@ -78,8 +80,8 @@ function HomePaziente() {
 
             </div>
             <div className="contenitoreDestra">
-                note
-                prossime visite
+                <NoteContainer/>
+                <VisitePazienteContainer/>
             </div>
         </div>
     );

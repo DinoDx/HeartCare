@@ -19,7 +19,8 @@
     height: 90vh;
     width: 25%;
     margin-left: 25px;
-    background-color: #37a69b;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .bannerNero{
@@ -114,4 +115,8 @@
     border-radius: 15px;
     -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
     box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+}
+
+.marginSotto{
+    margin-bottom: 10px;
 }
