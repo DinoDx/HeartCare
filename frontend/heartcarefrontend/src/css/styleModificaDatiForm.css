@@ -1,19 +1,28 @@
-.contenitoreForm {
-    display : flex;
-    width : 70%;
-    flex-direction : column;
-    gap: 10px;
+.contenitoreFormGenerale {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+    margin: 2px 2px 2px 2px;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+.contenitoreFormGenerale::-webkit-scrollbar {
+    display: none;
 }
 
 .formEditText{
-    width: 100%;
-    height: 30px;
-    align-self : center;
-    border-radius: 10px;
-    border: 2px solid #37a69b;
-    background-color: #ffffff;
-    -webkit-box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
-    box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
+    border: none;
+    background-color: #f2f2f2;
+    box-shadow: none;
+    margin: 5px;
+    border-bottom: 1px solid #37a69b;
+    border-radius: unset;
 }
 
 .formButton {
@@ -26,4 +35,99 @@
     font-weight: bold;
     -webkit-box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
     box-shadow: 7px 7px 28px -11px rgba(0,0,0,0.57);
+    margin-bottom: 10px;
+}
+
+.contenitoreForm-infoPersonali{
+    display: flex;
+    flex-direction: column;
+    margin: 5px 20px 10px 20px;
+    padding: 10px 20px 20px 20px;
+    background-color: #f2f2f2;
+    width: 50%;
+    height: 60vh;
+    border-radius: 15px;
+    border: 2px solid #37a69b;
+}
+
+.userImg{
+    width: 27%;
+    height: 35%;
+    align-self: center;
+}
+
+.contenitoreForm-infoCaregiver{
+    display: flex;
+    flex-direction: column;
+    margin: 5px 20px 10px 0px;
+    padding: 10px 20px 0px 20px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    border: 2px solid #37a69b;
+    width: 80%;
+    height: 20vh;
+}
+
+.contenitoreForm-Indirizzo{
+    display: flex;
+    flex-direction: column;
+    margin: 5px 20px 5px 0px;
+    padding: 10px 20px 0px 20px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    border: 2px solid #37a69b;
+    width: 80%;
+    height: 40vh;
+}
+
+.contenitoreForm-Secondario{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 40%;
+    justify-content: space-around;
+}
+
+.titoloDati{
+    font-size: 27px;font-family: "Questrial", sans-serif;
+    margin: 0;
+}
+
+.bannerProfilo {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(45, 45, 45);
+    margin: 10px 0px 0px 0px;
+    height: 13%;
+    border-radius: 15px 15px;
+    flex-wrap: wrap;
+}
+
+.testo-banner-profilo {
+    margin-top: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+}
+
+.testo-banner-numero-profilo {
+    margin-top: 5px;
+    color: hsl(174, 50%, 44%);
+    font-size: 25px;
+}
+
+.blocco-testo-banner-profilo {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.lineaMenuProfilo {
+    width: 97%;
+    border: none;
+    border-top: 1px solid rgba(105, 127, 140, 0.6);
+    border-top-left-radius: 75%;
+    border-top-right-radius: 75%;
+    height: 1px;
 }
