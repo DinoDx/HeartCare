@@ -9,7 +9,10 @@ export function FascicoloBanner(props){
     
     useEffect(() => {
         const fetchData = async() => {
-            const response = await axios.post('http://localhost:8080/getMisurazioneCategoria?categoria='+props.categoria+'&id=1');
+            const response = await axios.post("http://localhost:8080/getMisurazioneCategoria", {
+                categoria : props.categoria,
+                id : 1
+            });
             response.data.forEach( m=> {
                 delete m.id;
                 delete m.dataMisurazione;

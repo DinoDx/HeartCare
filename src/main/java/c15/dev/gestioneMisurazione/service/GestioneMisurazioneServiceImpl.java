@@ -6,7 +6,6 @@ import c15.dev.model.dao.MisurazioneDAO;
 import c15.dev.model.dao.MisurazionePressioneDAO;
 import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.entity.*;
-import c15.dev.model.entity.enumeration.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,7 +77,8 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
     }
 
     @Override
-    public List<Misurazione> getMisurazioneByCategoria(Categoria categoria, Long id) {
+    public List<Misurazione> getMisurazioneByCategoria(String categoria, Long id) {
+        System.out.println(categoria+" cccdcd "+id);
         return (List<Misurazione>) misurazioneDAO.findByCategoria(categoria, id);
     }
 

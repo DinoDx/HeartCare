@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static c15.dev.model.entity.enumeration.Categoria.MISURATORE_DI_PRESSIONE;
-
 /**
  * @author Leopoldo Todisco.
  * Creato il 05/01/2023.
@@ -116,7 +114,7 @@ public class DBPopulator {
                 "funziona ti prego",
                 "hbdsdsdhjsdfhjdsdsdfhjdfhsdfsd",
                 true,
-                MISURATORE_DI_PRESSIONE,
+                "Misuratore di pressione",
                 paz1
         );
         gestioneMisurazioneService.registrazioneDispositivo(d1,1);

@@ -2,7 +2,6 @@ package c15.dev.model.dao;
 
 import c15.dev.model.entity.Misurazione;
 import c15.dev.model.entity.UtenteRegistrato;
-import c15.dev.model.entity.enumeration.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -24,5 +23,5 @@ public interface MisurazioneDAO extends JpaRepository<Misurazione, Long> {
     public Iterable<Misurazione> findByPaziente(Long id);
 
     @Query(value = "SELECT m FROM Misurazione m WHERE m.dispositivoMedico.categoria = ?1 and m.paziente.id = ?2")
-    public Iterable<Misurazione> findByCategoria(Categoria categoria, Long id);
+    public Iterable<Misurazione> findByCategoria(String categoria, Long id);
 }

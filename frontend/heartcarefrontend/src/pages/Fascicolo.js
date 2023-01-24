@@ -10,7 +10,7 @@ function Fascicolo(){
                 <input id="search" type="text" placeholder=" 🔍Cerca Paziente..." />
             </div>
             <span>bentornato, Mario 👋🏻</span>
-            <FascicoloBanner categoria="MISURATORE_DI_PRESSIONE" />
+            <FascicoloBanner categoria="Misuratore di pressione" />
         </div>
     )
 }

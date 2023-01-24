@@ -7,11 +7,11 @@ import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.Misurazione;
 import c15.dev.model.entity.UtenteRegistrato;
-import c15.dev.model.entity.enumeration.Categoria;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -93,9 +93,12 @@ public class GestioneMisurazioneController {
     }
 
     @PostMapping(value = "/getMisurazioneCategoria")
-    public List<Misurazione> getMisurazioniByCategoria(@RequestParam("categoria") Categoria c,
-                                                       @RequestParam("id") Long id){
-        System.out.println(misurazioneService.getMisurazioneByCategoria(c, id));
-        return misurazioneService.getMisurazioneByCategoria(c, id);
+    public List<Misurazione> getMisurazioniByCategoria(@RequestBody HashMap<String,Object> body){
+        String cat = body.get("categoria").toString() ;
+        Long idPaz = Long.parseLong(body.get("id").toString());
+        System.out.println(cat+" cccdcd "+idPaz);
+        System.out.println(misurazioneService.getMisurazioneByCategoria(cat, idPaz));
+        System.out.println("HO ESEGUITP LA QUERY");
+        return misurazioneService.getMisurazioneByCategoria(cat, idPaz);
     }
 }
