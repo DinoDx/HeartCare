@@ -20,6 +20,7 @@ import java.util.List;
  * Controller per le operazioni legate alle misurazioni.
  */
 @RestController
+@CrossOrigin
 public class GestioneMisurazioneController {
     @Autowired
     private HttpSession session;
@@ -94,6 +95,7 @@ public class GestioneMisurazioneController {
     @PostMapping(value = "/getMisurazioneCategoria")
     public List<Misurazione> getMisurazioniByCategoria(@RequestParam("categoria") Categoria c,
                                                        @RequestParam("id") Long id){
+        System.out.println(misurazioneService.getMisurazioneByCategoria(c, id));
         return misurazioneService.getMisurazioneByCategoria(c, id);
     }
 }

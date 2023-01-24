@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/Fascicolo.css"
 import {FascicoloBanner} from "../components/FascicoloBanner";
+import Grafico from "../components/Grafico";
 
 function Fascicolo(){
     return (

@@ -13,6 +13,7 @@ import Menu from "./components/Menu";
 import Registrazione from "./pages/Registrazione";
 import RegistrazioneForm from "./components/RegistrazioneForm";
 import HomePaziente from "./pages/HomePaziente";
+import Fascicolo from "./pages/Fascicolo";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/" element={<AuthenticatedRoute />}>
                     <Route path="HomePaziente" element={<HomePaziente/>}/>
                     <Route path="HomeMedico" element={<AppShell><HomeMedico /></AppShell>} />
+                    <Route path="Fascicolo" element={<AppShell><Fascicolo /></AppShell>} />
                     <Route path="Schedules" element={<AppShell><Schedules /></AppShell>} />
                     <Route path="Pazienti" element={<AppShell><Pazienti /></AppShell>} />
                     <Route path="Profilo" element={<AppShell><Profilo /></AppShell>} />
