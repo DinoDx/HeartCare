@@ -3,7 +3,11 @@ package c15.dev.gestioneComunicazione.service;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dao.NotaDAO;
 import c15.dev.model.dao.NotificaDAO;
+import c15.dev.model.entity.Medico;
+import c15.dev.model.entity.Nota;
 import c15.dev.model.entity.Notifica;
+import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.enumeration.Autore;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.ServerSentEvent;
@@ -45,8 +49,7 @@ public class GestioneComunicazioneServiceImpl
                 .data(n.getTesto()).build());
                 */
 
-        return Flux.interval(Duration.ofSeconds(4)).map(sequence -> ServerSentEvent.<String>builder().event("notifica-prova")
-        .data(n.getTesto()).build());
+        return Flux.just(ServerSentEvent.builder(n.getTesto()).build()).take(1);
     }
 
     @Override
@@ -57,5 +60,11 @@ public class GestioneComunicazioneServiceImpl
     @Override
     public void invioNota(String messaggio, Long idDestinatario, Long idMittente) {
 
+        Medico m = utenteService.findMedicoById(5L);
+        Paziente p = utenteService.findPazienteById(1L);
+
+        Nota nota = new Nota("sassi", LocalDate.of(2022,11,10),
+                    Autore.M,StatoNotifica.NON_LETTA, m,p
+                );
     }
 }
