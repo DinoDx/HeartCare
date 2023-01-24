@@ -1,5 +1,5 @@
 import React from "react";
-import '../css/style.css';
+import '../css/RegistrazioneStyle.css';
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -118,21 +118,21 @@ function RegistrazioneForm() {
     })
 
     return (
-        <div className="contenitoreForm">
-            <div>
-                <input type="text" placeholder="Mario" className="formEditText" onChange={aggiornaNome} {...register("nome", { required: true })} />
+        <div className="contenitoreRegistrazioneForm">
+            <div className="contenitoreEditTextCorta">
+                <input type="text" placeholder="Mario" className="registrazioneEditTextCorta" onChange={aggiornaNome} {...register("nome", { required: true })} />
                 <error>
                     {errors.nome?.type === "required" && "Name is required"}
                 </error>
             </div>
-            <div>
-                <input type="text" placeholder="Rossi" className="formEditText" onChange={aggiornaCognome} {...register("cognome", { required: true })} />
+            <div className="contenitoreEditTextCorta">
+                <input type="text" placeholder="Rossi" className="registrazioneEditTextCorta" onChange={aggiornaCognome} {...register("cognome", { required: true })} />
                 <error>
                     {errors.cognome?.type === "required" && "Cognome is required"}
                 </error>
             </div>
-            <div>
-                <input type="text" placeholder="333333333" className="formEditText" onChange={aggiornaNtelefono} {...register("numeroTelefono", {
+            <div className="contenitoreEditTextCorta">
+                <input type="text" placeholder="333333333" className="registrazioneEditTextCorta" onChange={aggiornaNtelefono} {...register("numeroTelefono", {
                     required: true,
                     minLength: 13,
                     maxLength: 13,
@@ -147,8 +147,8 @@ function RegistrazioneForm() {
                     {errors.numeroTelefono?.type === "pattern" && "Pattern non corretto"}
                 </error>
             </div>
-            <div>
-                <input type="text" placeholder="M|F" className="formEditText" onChange={aggiornaGenere} {...register("genere", {
+            <div className="contenitoreEditTextCorta">
+                <input type="text" placeholder="M|F" className="registrazioneEditTextCorta" onChange={aggiornaGenere} {...register("genere", {
                     required: true,
                     pattern: /^M$|^F$/
                 })} />
@@ -158,7 +158,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input type="date" placeholder="Data Nascita" className="formEditText" max={moment().format("YYYY-MM-DD")} onChange={aggiornaDataNascita}{...register("dataDiNascita", {
+                <input type="date" placeholder="Data Nascita" className="registrazioneEditText" max={moment().format("YYYY-MM-DD")} onChange={aggiornaDataNascita}{...register("dataDiNascita", {
                     required: true,
                     validate: (value) => {
                         return value < moment().format("YYYY-MM-DD");
@@ -170,7 +170,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input id="codiceFiscale" type="text" placeholder="Codice Fiscale" className="formEditText" onChange={aggiornaCodiceFiscale}{...register("codiceFiscale", {
+                <input id="codiceFiscale" type="text" placeholder="Codice Fiscale" className="registrazioneEditText" onChange={aggiornaCodiceFiscale}{...register("codiceFiscale", {
                     required: true,
                     pattern: /^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$/,
                     validate:  async (value) => {
@@ -189,7 +189,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input type="text" placeholder="email@example.ti" className="formEditText" onChange={aggiornaEmail}{...register("email", {
+                <input type="text" placeholder="email@example.ti" className="registrazioneEditText" onChange={aggiornaEmail}{...register("email", {
                     required: true,
                     pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
                     validate:  async (val) => {
@@ -210,7 +210,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input id="password" type="password" placeholder="Password" className="formEditText" onChange={aggiornaPassword}
+                <input id="password" type="password" placeholder="Password" className="registrazioneEditText" onChange={aggiornaPassword}
                     {...register("password", {
                         required: true,
                         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?^#()<>+&.])[A-Za-z\d@$!%*?^#()<>+&.]{8,16}$/i,
@@ -222,7 +222,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input type="password" placeholder="Conferma password" className="formEditText" onChange={aggiornaConfermaPassword}
+                <input type="password" placeholder="Conferma password" className="registrazioneEditText" onChange={aggiornaConfermaPassword}
                     {...register("confermaPassword", {
                         required: true,
                         validate: (value) => {
@@ -237,7 +237,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input type="text" placeholder="Città" className="formEditText"
+                <input type="text" placeholder="Città" className="registrazioneEditText"
                     {...register("citta", {
                         required: true
                     })} />
@@ -246,7 +246,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input type="text" placeholder="Provincia" className="formEditText"
+                <input type="text" placeholder="Provincia" className="registrazioneEditText"
                     {...register("provincia", {
                         required: true
                     })} />
@@ -255,7 +255,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input type="text" placeholder="Via" className="formEditText"
+                <input type="text" placeholder="Via" className="registrazioneEditText"
                     {...register("via", {
                         required: true
                     })} />
@@ -264,7 +264,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input type="text" placeholder="Numero civico" className="formEditText"
+                <input type="text" placeholder="Numero civico" className="registrazioneEditText"
                     {...register("nCivico", {
                         required: true
                     })} />
@@ -273,7 +273,7 @@ function RegistrazioneForm() {
                 </error>
             </div>
             <div>
-                <input type="number" placeholder="CAP" className="formEditText"
+                <input type="number" placeholder="CAP" className="registrazioneEditText"
                     {...register("cap", {
                         required: true
                     })} />
