@@ -323,8 +323,8 @@ public class GestioneUtenteController {
         HashMap<String, Object> map = new HashMap<>();
         System.out.println(email);
 
-        System.out.println(service.findUtenteByEmail(email));
-        map.put("email", service.findUtenteByEmail(email));
+        System.out.println(service.checkByEmail(email));
+        map.put("email", service.checkByEmail(email));
 
         return new ResponseEntity<>(map,HttpStatus.OK);
     }

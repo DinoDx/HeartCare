@@ -60,11 +60,13 @@ public class GestioneComunicazioneServiceImpl
     @Override
     public void invioNota(String messaggio, Long idDestinatario, Long idMittente) {
 
-        Medico m = utenteService.findMedicoById(5L);
-        Paziente p = utenteService.findPazienteById(1L);
+        Medico m = (Medico) utenteService.findMedicoById(5L);
+        Paziente p = (Paziente) utenteService.findPazienteById(1L);
 
         Nota nota = new Nota("sassi", LocalDate.of(2022,11,10),
                     Autore.M,StatoNotifica.NON_LETTA, m,p
                 );
+        notaDAO.save(nota);
+
     }
 }

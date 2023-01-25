@@ -242,10 +242,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     @Override
-    public boolean findUtenteByEmail(String email) {
-        Paziente p = paziente.findByemail(email);
+    public boolean checkByEmail(String email) {
+        Paziente p = paziente.findByEmail(email);
 
-        if(p==null){
+        if(p == null){
             return false;
         }
         return true;
