@@ -241,6 +241,15 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return true;
     }
 
+    @Override
+    public boolean checkByEmail(String email) {
+        Paziente u = paziente.findByEmail(email);
+        if (u == null){
+            return false;
+        }
+        return true;
+    }
+
 
     @Override
     public UtenteRegistrato findUtenteById(Long id) {
@@ -270,11 +279,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return null;
     }
 
-    @Override
-    public boolean checkByEmail(String email) {
 
-        return false;
-    }
 
 
     /**

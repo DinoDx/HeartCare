@@ -33,4 +33,11 @@ public class GestioneComunicazioneController {
     }
 
 
+    @PostMapping(path = "invioNota")
+    public void invioNota(){
+        System.out.println("Ciao sono qui");
+        String messaggio = "Ciao";
+        service.invioNota(messaggio,5L,1L);
+    }
+
 }
