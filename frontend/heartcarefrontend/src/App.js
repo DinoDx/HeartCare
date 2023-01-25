@@ -17,7 +17,7 @@ import Profilo from "./pages/Profilo";
 import About from "./pages/About";
 import Dispositivi from "./pages/Dispositivi";
 import Menu from "./components/Menu";
-
+import Fascicolo from "./pages/Fascicolo"
 function App() {
   const AuthenticatedRoute = () => {
     return !localStorage.getItem("token") ? (
@@ -83,6 +83,14 @@ function App() {
               </AppShell>
             }
           />
+        <Route
+            path="Fascicolo"
+            element={
+              <AppShell>
+                <Fascicolo />
+              </AppShell>
+            }
+            />
         </Route>
       </Routes>
     );

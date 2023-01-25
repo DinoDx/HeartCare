@@ -27,17 +27,13 @@ function LoginForm(){
     const handleSubmit = (event) => {
         event.preventDefault()
 
-
-        axios.post('http://localhost:8080/login', {
+        axios.post('http://localhost:8080/auth/login', {
             email: email,
             password: password
         })
             .then((response) => {
-                console.log(ReactSession.set("utenteLoggato"));
                 console.log(response);
-                localStorage.setItem('utente', JSON.stringify(response.data));
-                console.log(localStorage.getItem("utente"));
-                localStorage.setItem('items', JSON.stringify(user));
+                localStorage.setItem('token', response.data.token);
                 nav("/HomeMedico");
             }, (error) => {
                 console.log(error);

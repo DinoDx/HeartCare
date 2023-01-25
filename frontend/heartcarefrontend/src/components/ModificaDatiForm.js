@@ -3,6 +3,7 @@ import '../css/styleModificaDatiForm.css';
 import { useState } from "react";
 import axios from "axios";
 import { ReactSession }  from 'react-client-session';
+import userPath from "../images/user.png";
 
 
 function ModificaDatiForm(){
@@ -148,5 +149,6 @@ function ModificaDatiForm(){
             <button className="formButton" onClick={handleSubmit}>Salva</button>
         </div>
     );
+    }
 
 export default ModificaDatiForm;

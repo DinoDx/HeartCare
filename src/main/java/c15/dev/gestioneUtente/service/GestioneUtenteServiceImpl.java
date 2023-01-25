@@ -270,6 +270,12 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return null;
     }
 
+    @Override
+    public boolean checkByEmail(String email) {
+
+        return false;
+    }
+
 
     /**
      * Metodo per fare update di un paziente nel DB.

@@ -146,4 +146,5 @@ public interface GestioneUtenteService {
 
     public UtenteRegistrato findUtenteByEmail(String email);
 
+    boolean checkByEmail(String email);
 }

@@ -41,7 +41,7 @@ function HomeMedico() {
     };
   }, []);
 
-  useState;
+  
 
   return !localStorage.getItem("token") ? (
     <Navigate to={"/Login"} />

@@ -77,7 +77,7 @@ public class DBPopulator {
         pazientiList.addAll(List.of(paz1, paz2, paz3));
         pazientiList.stream().forEach(paz -> {
             try {
-                regService.registraPaziente(paz);
+                //regService.registraPaziente(paz);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
