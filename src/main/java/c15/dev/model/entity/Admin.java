@@ -1,5 +1,6 @@
 package c15.dev.model.entity;
 
+import c15.dev.utils.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import java.io.Serializable;
@@ -48,7 +49,8 @@ public class Admin extends UtenteRegistrato implements Serializable {
                 indirizzoEmail,
                 nome,
                 cog,
-                sesso);
+                sesso,
+                Role.ADMIN);
     }
 
 }

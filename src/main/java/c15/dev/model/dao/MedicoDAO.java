@@ -2,6 +2,7 @@ package c15.dev.model.dao;
 
 
 import c15.dev.model.entity.Medico;
+import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.stereotype.Repository;
 
 
@@ -27,4 +28,5 @@ public interface MedicoDAO extends UtenteRegistratoDAO {
      */
     Medico findMedicoById(Long id);
 
+    UtenteRegistrato findByEmail(String email);
 }

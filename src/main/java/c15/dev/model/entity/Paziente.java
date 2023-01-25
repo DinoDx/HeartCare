@@ -1,6 +1,7 @@
 package c15.dev.model.entity;
 
 
+import c15.dev.utils.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -122,7 +123,8 @@ public class Paziente extends UtenteRegistrato {
                 indirizzoEmail,
                 nome,
                 cognome,
-                sesso);
+                sesso,
+        Role.PAZIENTE);
 
     }
 

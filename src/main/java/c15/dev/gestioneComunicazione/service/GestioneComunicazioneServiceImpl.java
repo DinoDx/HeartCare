@@ -7,14 +7,11 @@ import c15.dev.model.entity.Notifica;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.ServerSentEvent;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
-
-import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.util.*;
 
 @Service
 public class GestioneComunicazioneServiceImpl
@@ -25,11 +22,12 @@ public class GestioneComunicazioneServiceImpl
     private NotificaDAO daoNotifica;
     @Autowired
     private NotaDAO notaDAO;
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Override
-    public Flux<ServerSentEvent<String>> invioNotifica(String messaggio, Long idDestinatario) {
-
-
+    public Flux<ServerSentEvent<String>> invioNotifica(String messaggio,
+                                                       Long idDestinatario) {
         Notifica n = new Notifica(
                 LocalDate.of(2023, 11, 12),
                 "Notifica Prova",
@@ -38,20 +36,21 @@ public class GestioneComunicazioneServiceImpl
                 utenteService.findPazienteById(1L)
         );
         daoNotifica.save(n);
-  /*
-   puoi usare emitter per inviare un singolo evento, altrimenti così ogni 4 secondi invia
-   SseEmitter em = new SseEmitter();
-        em.send(ServerSentEvent.<String>builder().event("notifica-prova")
-                .data(n.getTesto()).build());
-                */
 
-        return Flux.interval(Duration.ofSeconds(4)).map(sequence -> ServerSentEvent.<String>builder().event("notifica-prova")
-        .data(n.getTesto()).build());
+        return Flux.just(ServerSentEvent.builder(n.getTesto()).build()).take(1);
     }
 
     @Override
-    public void invioEmail(String messaggio, Long idDestinatario) {
+    public void invioEmail(String messaggio, String emailDestinatario) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("leopoldo.todiscozte@gmail.com");
+        message.setTo("leopoldo.todiscozte@gmail.com");
+        message.setSubject("PROVA");
+        message.setText(messaggio);
+        mailSender.send(message);
+        System.out.println("email inviata");
 
+        //jujdhvttecwbdgdn
     }
 
     @Override

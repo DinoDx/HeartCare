@@ -19,6 +19,18 @@ public class GestioneComunicazioneController {
         String messaggio = "notifica di prova";
         Long id = 1L;
 
+        System.out.println("EVENTO ANCORA");
+
+
         return service.invioNotifica(messaggio, id);
     }
+
+    @PostMapping(path = "invioEmail")
+    public void invioEmail() {
+        System.out.println("almeno qui va");
+        String messaggio = "notifica di prova";
+        service.invioEmail(messaggio, "leopoldo.todiscozte@gmail.com");
+    }
+
+
 }

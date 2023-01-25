@@ -52,49 +52,12 @@ public class ModificaPazienteDTO implements Serializable {
     /**
      * Campo che indica la password nuova di un paziente.
      */
-    private byte[] password;
+    private String password;
     /**
      * Campo che indica la password vecchia di un paziente.
      */
-    private byte[] confermaPassword;
-
-    public void setPassword(final String pass) throws Exception {
-        String regexpPassword =
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
-                        "[A-Za-z\\d@$!%*?&]{8,16}$";
-
-        System.out.println(pass);
-
-        if(pass.matches(regexpPassword)) {
-            try {
-                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-                this.password = msgDigest.digest(pass.getBytes());
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else {
-            throw new Exception("La password non rispetta l'espressione regolare");
-        }
-    }
+    private String confermaPassword;
 
 
-    public void setConfermaPassword(final String pass) throws Exception {
-        String regexpPassword =
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
-                        "[A-Za-z\\d@$!%*?&]{8,16}$";
-
-        if(pass.matches(regexpPassword)) {
-            try {
-                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-                this.confermaPassword = msgDigest.digest(pass.getBytes());
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else {
-            throw new Exception("La password non rispetta l'espressione regolare");
-        }
-    }
 
 }

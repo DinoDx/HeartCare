@@ -1,35 +1,49 @@
 import React, { useEffect, useState } from "react";
-import RouterMedico from "../components/router-menu/RouterMedico";
-import MainContent from "../components/MainContent";
 import VisitaCard from "../components/VisitaCard";
 import NoteContainer from "../components/NoteContainer";
 import "../css/style.css";
 import "../css/home-main-content.css";
 import "../css/homeMedico_style.css";
 import { useNavigate } from "react-router";
-import { Navigate, Outlet } from "react-router-dom";
-import AppShell from "../AppShell";
-import Menu from "../components/Menu";
-import { fetchEventSource } from "@microsoft/fetch-event-source";
+import { Navigate } from "react-router-dom";
 
 function HomeMedico() {
+  //mi occorre:
+  /*
+  1. sesso
+  2. nome
+  3. cognome
+  4. n note
+  5. n visite
+  6. n pazienti
+  7. tutte le visite
+  8. tutte le note
+  */
+  const [{}] = useState([{}]);
+
   let nav = useNavigate();
   useEffect(() => {
-    const sseForLastMessage = new EventSource(
-      `http://localhost:8080/comunicazione/invioNotifica`,
-      {
-        withCredentials: true,
-      }
+    const eventSource = new EventSource(
+      "http://localhost:8080/comunicazione/invioNotifica"
     );
-    sseForLastMessage.onopen = (e) => {
-      console.log("SSE For LastMessage Connected !");
+    eventSource.onmessage = (event) => {
+      console.log(eventSource.readyState);
+      console.log(event.data);
+      eventSource.close();
     };
-    sseForLastMessage.addEventListener("notifica-prova", (event) => {
-      console.log("ciao");
-    });
-  });
+    eventSource.onerror = (error) => {
+      console.log("siamo in errore");
+      console.error(error.type);
+      eventSource.close();
+    };
+    return () => {
+      eventSource.close();
+    };
+  }, []);
 
-  return !localStorage.getItem("utente") ? (
+  useState;
+
+  return !localStorage.getItem("token") ? (
     <Navigate to={"/Login"} />
   ) : (
     <div className="contenitoreMainContent-Home">

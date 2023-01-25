@@ -2,9 +2,12 @@ package c15.dev.gestioneUtente.service;
 
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
+import c15.dev.model.entity.Admin;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.utils.AuthenticationRequest;
+import c15.dev.utils.AuthenticationResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,11 +23,9 @@ public interface GestioneUtenteService {
     /**
      * Firma del metodo di login.
      *
-     * @param email    dell'utente che vuole loggare
-     * @param password dell'utente che vuole loggare
      * @return UtenteRegistrato loggato
      */
-    Optional<UtenteRegistrato> login(String email, String password);
+    public AuthenticationResponse login(AuthenticationRequest request);
 
     /**
      * Firma del metodo di assegnaCaregiver.
@@ -136,10 +137,11 @@ public interface GestioneUtenteService {
      * @param pazienteDTO
      * @param idUtente
      */
-    void modificaDatiPaziente(ModificaPazienteDTO pazienteDTO, long idUtente);
-    void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente);
+    void modificaDatiPaziente(ModificaPazienteDTO pazienteDTO, long idUtente) throws Exception;
+    void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente) throws Exception;
 
     public UtenteRegistrato findUtenteById(Long id);
 
+    public UtenteRegistrato findUtenteByEmail(String email);
 
 }

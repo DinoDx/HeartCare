@@ -38,11 +38,11 @@ public class UtenteRegistratoDTO implements Serializable {
     /**
      * Campo che indica la password nuova di un paziente.
      */
-    private byte[] password;
+    private String password;
     /**
      * Campo che indica la password vecchia di un paziente.
      */
-    private byte[] confermaPassword;
+    private String confermaPassword;
 
     public void setPassword(final String pass) throws Exception {
         String regexpPassword =
@@ -52,17 +52,14 @@ public class UtenteRegistratoDTO implements Serializable {
         System.out.println(pass);
 
         if(pass.matches(regexpPassword)) {
-            try {
-                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-                this.password = msgDigest.digest(pass.getBytes());
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
+            this.password = pass;
         }
         else {
             throw new Exception("La password non rispetta l'espressione regolare");
         }
     }
+
+
 
 
     public void setConfermaPassword(final String pass) throws Exception {
@@ -71,12 +68,7 @@ public class UtenteRegistratoDTO implements Serializable {
                         "[A-Za-z\\d@$!%*?&]{8,16}$";
 
         if(pass.matches(regexpPassword)) {
-            try {
-                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-                this.confermaPassword = msgDigest.digest(pass.getBytes());
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
+            this.confermaPassword = pass;
         }
         else {
             throw new Exception("La password non rispetta l'espressione regolare");

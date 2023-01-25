@@ -1,5 +1,6 @@
 package c15.dev.model.entity;
 
+import c15.dev.utils.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -73,7 +74,8 @@ public class Medico extends UtenteRegistrato {
                 email,
                 nome,
                 cognome,
-                genere);
+                genere,
+                Role.MEDICO);
     }
 
 

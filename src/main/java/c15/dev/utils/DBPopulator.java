@@ -23,8 +23,8 @@ import static c15.dev.model.entity.enumeration.Categoria.MISURATORE_DI_PRESSIONE
  * Questa classe fornisce i metodi di inizializzazione e distruzione del DB.
  * Attraverso l'uso di questa classe tutto il team lavora con lo stesso DB.
  */
-@Component
-@Scope("singleton")
+//@Component
+//@Scope("singleton")
 public class DBPopulator {
     @Autowired
     private RegistrazioneService regService;
@@ -43,7 +43,7 @@ public class DBPopulator {
      * Si occupa di inserire elementi nel datatabase.
      * @throws Exception
      */
-    @PostConstruct
+    //@PostConstruct
     private void populateDB() throws Exception {
         LocalDate dataNascita = LocalDate.of(2000, 11, 18);
         /*
@@ -77,7 +77,13 @@ public class DBPopulator {
                 "M");
 
         pazientiList.addAll(List.of(paz1, paz2, paz3));
-        pazientiList.stream().forEach(paz -> regService.registraPaziente(paz));
+        pazientiList.stream().forEach(paz -> {
+            try {
+                regService.registraPaziente(paz);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         /*
         * In questa sezione si istanziano medici.

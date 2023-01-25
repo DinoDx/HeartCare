@@ -8,6 +8,9 @@ import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import c15.dev.model.entity.enumeration.StatoVisita;
+import c15.dev.utils.AuthenticationRequest;
+import c15.dev.utils.AuthenticationResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Optional;
@@ -35,7 +41,7 @@ import java.util.Arrays;
  * Classe controller.
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @SessionAttributes("utenteLoggato")
 public class GestioneUtenteController {
     /**
@@ -49,36 +55,7 @@ public class GestioneUtenteController {
     @Autowired
     private HttpSession session;
 
-    /**
-     * Metodo di login.
-     *
-     * @param body è il body della richiesta.
-     *             Al suo interno vi si trovano i valori di password ed email.
-     */
-    @PostMapping(value = "/login")
-    public ResponseEntity<Object>
-                login(@RequestBody Map<String, String> body) {
-        String email = body.get("email");
-        String password = body.get("password");
 
-        Optional<UtenteRegistrato> utente = service.login(email, password);
-        UtenteRegistrato user;
-        HashMap<String, Object> userInfo = new HashMap<>();
-
-        if(utente.isPresent()) {
-            user = utente.get();
-            session.setAttribute("utenteLoggato", user.getId());
-            userInfo.put("nome", user.getNome());
-            userInfo.put("id", user.getId());
-            userInfo.put("genere", user.getGenere());
-            String ruolo = user.getClass().getSimpleName();
-            userInfo.put("ruolo", ruolo);
-            return new ResponseEntity<>(userInfo, HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-    }
 
     /**
      * Metodo di logout.
@@ -196,14 +173,14 @@ public class GestioneUtenteController {
     //TODO usare optional per vedere solo quali campi modificare
     @PostMapping("/modificaDatiUtente")
     public boolean modificaDatiPaziente(@Valid @RequestBody
-                                        ModificaPazienteDTO pazienteDTO) {
+                                        ModificaPazienteDTO pazienteDTO) throws Exception {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
 
         long id = 1L;//utente.getId();
         UtenteRegistrato utente = service.findUtenteById(id);
         if (service.isPaziente(id)) {
-            if (Arrays.equals(pazienteDTO.getConfermaPassword(), utente.getPassword())) {
+            if (utente.getPassword().equals(pazienteDTO.getConfermaPassword())) {
                 service.modificaDatiPaziente(pazienteDTO, id);
                 return true;
             }
@@ -221,14 +198,14 @@ public class GestioneUtenteController {
      */
     @PostMapping("/modificaDatiMedico")
     public boolean modificaDatiPaziente(@Valid @RequestBody
-                                        UtenteRegistratoDTO pazienteDTO) {
+                                        UtenteRegistratoDTO pazienteDTO) throws Exception {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
 
         long id = 4L;//utente.getId();
         UtenteRegistrato utente = service.findUtenteById(id);
         if (service.isMedico(id)) {
-            if (Arrays.equals(pazienteDTO.getConfermaPassword(), utente.getPassword())) {
+            if (utente.getPassword().equals(pazienteDTO.getConfermaPassword())) {
                 service.modificaDatiMedico(pazienteDTO, id);
                 return true;
             }
@@ -245,9 +222,14 @@ public class GestioneUtenteController {
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
      * Essa comprende una Map con i dati utente e lo stato della risposta.
      */
-    @PostMapping("/utente")
+    @PostMapping("/utente/{id}")
     public ResponseEntity<Object>
-        getDatiProfiloUtente(@RequestBody final Long idUtente){
+        getDatiProfiloUtente(@PathVariable("id") final Long idUtente) {
+
+        HttpServletRequest request = ((ServletRequestAttributes)
+                RequestContextHolder.getRequestAttributes()).getRequest();
+
+        System.out.println("qui va");
         HashMap<String, Object> map = new HashMap<>();
         if(service.isPaziente(idUtente)){
             Paziente paziente = service.findPazienteById(idUtente);
@@ -299,7 +281,8 @@ public class GestioneUtenteController {
             map.put("listaNote", paz.getNote());
             map.put("listaVisite", paz.getElencoVisite());
             map.put("listaMisurazioni", paz.getMisurazione());
-        } else if (service.isMedico(idUtente)) {
+        }
+        else if (service.isMedico(idUtente)) {
             Medico med = service.findMedicoById(idUtente);
             map.put("pazientiTotali", med.getElencoPazienti());
             map.put("appuntamentiInProgramma", med.getElencoVisite()

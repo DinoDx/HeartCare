@@ -1,5 +1,6 @@
 package c15.dev.model.entity;
 
+import c15.dev.utils.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -8,6 +9,10 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 
@@ -15,9 +20,7 @@ import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Leopoldo Todisco.
@@ -40,7 +43,7 @@ import java.util.Set;
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "utente_registrato")
-public class UtenteRegistrato implements Serializable {
+public class UtenteRegistrato implements Serializable, UserDetails {
     /**
      * Costante il cui valore è 30.
      * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
@@ -127,7 +130,7 @@ public class UtenteRegistrato implements Serializable {
      *  almeno un carattere speciale.
      */
     @NotNull
-    private byte[] password;
+    private String password;
 
     /**
      * Rappresenta l'email di un Utente Registrato.
@@ -175,6 +178,9 @@ public class UtenteRegistrato implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "destinatario")
     private Set<Notifica> elencoNotifiche;
 
+    @Enumerated(EnumType.STRING)
+    private Role ruolo;
+
     /**
      * Costruttore vuoto per UtenteRegistrato.
      */
@@ -199,7 +205,7 @@ public class UtenteRegistrato implements Serializable {
                   final String indirizzoEmail,
                   final String nome,
                   final String cognome,
-                  final String sesso) throws Exception {
+                  final String sesso, final Role ruolo) throws Exception {
         this.dataDiNascita = dataNascita;
         this.codiceFiscale = codFiscale;
         this.numeroTelefono = nTelefono;
@@ -207,6 +213,7 @@ public class UtenteRegistrato implements Serializable {
         this.nome = nome;
         this.cognome = cognome;
         this.genere = sesso;
+        this.ruolo = ruolo;
 
         String regexpPassword =
                 "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
@@ -214,43 +221,50 @@ public class UtenteRegistrato implements Serializable {
 
         /**La password deve rispettare l'espressione regolare*/
         if(pass.matches(regexpPassword)) {
-            /*
-             * In questo blocco si converte la stringa "password" in un array di bytes
-             * per poi applicare l'algoritmo di crittografia SHA-256
-             * Per questo motivo il campo password è un array di bytes e non String
-             */
-            try {
-                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-                this.password = msgDigest.digest(pass.getBytes());
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
+            this.password = pass;
         }
         else {
             throw new Exception("La password non rispetta l'espressione regolare");
         }
     }
     public void setPassword(final String pass) throws Exception {
-        String regexpPassword =
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
-                "[A-Za-z\\d@$!%*?&]{8,16}$";
-
-        if(pass.matches(regexpPassword)) {
-            try {
-                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-                this.password = msgDigest.digest(pass.getBytes());
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else {
-            throw new Exception("La password non rispetta l'espressione regolare");
-        }
-    }
-
-    public void setPassword(byte[] password){
-        this.password = password;
+            this.password = pass;
     }
 
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(ruolo.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

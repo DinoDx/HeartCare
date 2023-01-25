@@ -6,11 +6,24 @@ import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.dao.UtenteRegistratoDAO;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
+import c15.dev.model.entity.Admin;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.utils.AuthenticationRequest;
+import c15.dev.utils.AuthenticationResponse;
+import c15.dev.utils.JwtService;
+import c15.dev.utils.SecurityConfig;
+import lombok.RequiredArgsConstructor;
+import org.apache.catalina.Authenticator;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
@@ -19,7 +32,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GestioneUtenteServiceImpl implements GestioneUtenteService{
+@RequiredArgsConstructor
+public class GestioneUtenteServiceImpl implements GestioneUtenteService {
+    @Autowired
+    private final JwtService jwtService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
 
     /**
      * Provvede ad accedere al db per il paziente.
@@ -44,32 +63,21 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
 
     /**
      * Metodo che permette di fare il login.
-     * @param email    dell'utente che vuole loggare
-     * @param password dell'utente che vuole loggare
      * @return
      */
     @Override
-    public Optional<UtenteRegistrato> login(final String email, final String password) {
+    public AuthenticationResponse login(AuthenticationRequest request) {
+        authenticationManager.authenticate
+                (new UsernamePasswordAuthenticationToken(
+                        request.getEmail(), request.getPassword()));
 
-        try {
-            MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-            byte[] pass = msgDigest.digest(password.getBytes());
-            UtenteRegistrato utente;
 
-            if ((utente = paziente.findByEmailAndPassword(email,pass)) != null) {
-                return Optional.of(utente);
-            } else if ((utente = medico.findByEmailAndPassword(email,pass)) != null) {
-                return Optional.of(utente);
-            } else if ((utente = admin.findByEmailAndPassword(email,pass)) != null) {
-                return Optional.of(utente);
-            }
-
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+        var user = this.findUtenteByEmail(request.getEmail());
+        var jwtToken = jwtService.generateToken(user);
+        return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
         }
-
-        return null;
-    }
 
     /**
      * Metodo che assegna un caregiver a un paziente.
@@ -232,6 +240,26 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
          return u.get();
     }
 
+    @Override
+    public UtenteRegistrato findUtenteByEmail(String email) {
+        UtenteRegistrato result;
+
+        if((result = paziente.findByEmail(email)) != null) {
+            return result;
+        }
+
+        else if((result = medico.findByEmail(email)) != null) {
+            return result;
+        }
+
+        else if((result = admin.findByEmail(email)) != null) {
+            return result;
+        }
+
+        return null;
+    }
+
+
     /**
      * Metodo per fare update di un paziente nel DB.
      * @param paz è il paziente da aggiornare.
@@ -291,7 +319,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
      * @param idUtente
      */
     @Override
-    public void modificaDatiPaziente(ModificaPazienteDTO dto, long idUtente) {
+    public void modificaDatiPaziente(ModificaPazienteDTO dto, long idUtente) throws Exception {
         Paziente daModificare = findPazienteById(idUtente);
 
         daModificare.setNome(dto.getNome());
@@ -306,7 +334,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
     }
 
     @Override
-    public void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente) {
+    public void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente) throws Exception {
         Medico daModificare = findMedicoById(idUtente);
 
         daModificare.setNome(dto.getNome());
@@ -317,6 +345,5 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService{
         medico.save(daModificare);
 
     }
-
 
 }
