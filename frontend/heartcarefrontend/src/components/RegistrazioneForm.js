@@ -11,7 +11,7 @@ import moment from 'moment';
 function RegistrazioneForm() {
     const [nome, setNome] = useState("");
     const [cognome, setCognome] = useState("");
-    const [nTelefono, setNtelefono] = useState("");
+    const [nTelefono, setNtelefono] = useState("") ;
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [confermaPassword, setConfermaPassword] = useState("");
