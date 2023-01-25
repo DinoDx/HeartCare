@@ -476,6 +476,7 @@ public class DBPopulator {
                 mis11,mis12,mis13,mis14,mis15,mis16,mis17,mis18));
         misurazioniList.stream().forEach(mis -> gestioneMisurazioneService.save(mis));
 
+
         /*
          * In questa sezione creano gli indirizzi.
          **/
@@ -536,7 +537,6 @@ public class DBPopulator {
         /*
             In questa sezione si assegnano i medici ai pazienti
          */
-
         userService.assegnaMedicoAPaziente(4,1);
         userService.assegnaMedicoAPaziente(5,2);
         userService.assegnaMedicoAPaziente(6,3);
@@ -562,8 +562,6 @@ public class DBPopulator {
                 "Allegri"
         );
 
-        //TO DO
-        //quando avremo metodo per assegnare medico a paziente, a ogni paziente si assegna un medico
     }
 
     /**

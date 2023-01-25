@@ -23,7 +23,6 @@ import java.util.Set;
  * Questa è la classe relativa a un Paziente.
  */
 @Entity
-@Data
 @Setter
 @Getter
 @SuperBuilder

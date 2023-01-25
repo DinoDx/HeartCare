@@ -126,15 +126,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     @Override
     public boolean assegnaMedicoAPaziente(long idMedico, long idPaziente){
-        Optional<UtenteRegistrato> med = medico.findById(idMedico);
-        Optional<UtenteRegistrato> paz = paziente.findById(idPaziente);
+        Medico med = findMedicoById(idMedico);
+        Paziente paz = findPazienteById(idPaziente);
 
-        if(med.isEmpty() || paz.isEmpty()){
-            return false;
-        }
-
-        ((Paziente) paz.get()).setMedico((Medico) med.get());
-        paziente.saveAndFlush(paz.get());
+        paz.setMedico(med);
+        paziente.saveAndFlush(paz);
 
         return true;
     }
