@@ -32,15 +32,14 @@ public class RegistrazioneController {
     public HttpSession session;
 
     @PostMapping(value = "/registrazione")
-        public AuthenticationResponse registrazione()
-                throws Exception {
-        return registrazioneService.registraPaziente();
+        public AuthenticationResponse
+            registrazione(@RequestBody @Valid Paziente paz) throws Exception {
+        return registrazioneService.registraPaziente(paz);
     }
 
     @PostMapping(value = "/login")
     public AuthenticationResponse login(@RequestBody AuthenticationRequest req)
             throws Exception {
-        System.out.println("CAZZO " + req.toString());
         return registrazioneService.login(req);
     }
 

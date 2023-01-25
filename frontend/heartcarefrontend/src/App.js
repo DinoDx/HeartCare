@@ -18,6 +18,8 @@ import About from "./pages/About";
 import Dispositivi from "./pages/Dispositivi";
 import Menu from "./components/Menu";
 import Fascicolo from "./pages/Fascicolo"
+import Registrazione from "./pages/Registrazione"
+
 function App() {
   const AuthenticatedRoute = () => {
     return !localStorage.getItem("token") ? (
@@ -34,6 +36,7 @@ function App() {
     return (
       <Routes>
         <Route path="Login" element={<Login />} />
+        <Route path="Registrazione" element={<Registrazione />} />
         <Route path="/" element={<AuthenticatedRoute />}>
           <Route
             path="HomeMedico"
@@ -83,14 +86,14 @@ function App() {
               </AppShell>
             }
           />
-        <Route
-            path="Fascicolo"
-            element={
-              <AppShell>
-                <Fascicolo />
-              </AppShell>
-            }
-            />
+          <Route
+              path="Fascicolo"
+              element={
+                <AppShell>
+                  <Fascicolo />
+                </AppShell>
+              }
+          />
         </Route>
       </Routes>
     );

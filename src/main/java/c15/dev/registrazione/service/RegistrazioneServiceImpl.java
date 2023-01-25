@@ -41,20 +41,12 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
 
 
     @Override
-    public AuthenticationResponse registraPaziente() throws Exception {
-        Paziente paz2 = new Paziente(LocalDate.of(2001, 07, 14),
-                "PDSPPH09E18C139A",
-                "+393886122291",
-                "Wpasswd2!%",
-                "pinomecca1@libero.it",
-                "Pino",
-                "Mecca",
-                "F");
+    public AuthenticationResponse registraPaziente(Paziente paz) throws Exception {
 
-        paz2.setPassword(pwdEncoder.encode(paz2.getPassword()));
-        Long id = pazienteDAO.save(paz2).getId();
+        paz.setPassword(pwdEncoder.encode(paz.getPassword()));
+        Long id = pazienteDAO.save(paz).getId();
 
-        var jwtToken = jwtService.generateToken(paz2);
+        var jwtToken = jwtService.generateToken(paz);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();

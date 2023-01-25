@@ -17,7 +17,8 @@ import java.util.Optional;
  * Questa classe rappresenta il Service utilizzato per la registrazione.
  */
 public interface RegistrazioneService {
-    public AuthenticationResponse registraPaziente() throws Exception;
+    public AuthenticationResponse registraPaziente(Paziente paziente)
+            throws Exception;
     public AuthenticationResponse login(AuthenticationRequest req)
             throws Exception;
     public Paziente findByemail(String email);
