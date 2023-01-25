@@ -1,8 +1,6 @@
 import React from "react";
 import '../css/RegistrazioneStyle.css';
 import { useState } from "react";
-import { useEffect } from "react";
-
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import moment from 'moment';
@@ -119,26 +117,30 @@ function RegistrazioneForm() {
 
     return (
         <div className="contenitoreRegistrazioneForm">
+            <span className="testo-bentornat max-width">I tuoi dati</span>
             <div className="contenitoreEditTextCorta">
-                <input type="text" placeholder="Mario" className="registrazioneEditTextCorta" onChange={aggiornaNome} {...register("nome", { required: true })} />
-                <error>
+                <span className="labelEditText">Nome</span>
+                <input type="text" placeholder="Mario" className="registrazioneEditText" onChange={aggiornaNome} {...register("nome", { required: true })} />
+                <error className="errore">
                     {errors.nome?.type === "required" && "Name is required"}
                 </error>
             </div>
             <div className="contenitoreEditTextCorta">
-                <input type="text" placeholder="Rossi" className="registrazioneEditTextCorta" onChange={aggiornaCognome} {...register("cognome", { required: true })} />
-                <error>
+                <span className="labelEditText">Cognome</span>
+                <input type="text" placeholder="Rossi" className="registrazioneEditText" onChange={aggiornaCognome} {...register("cognome", { required: true })} />
+                <error className="errore">
                     {errors.cognome?.type === "required" && "Cognome is required"}
                 </error>
             </div>
             <div className="contenitoreEditTextCorta">
-                <input type="text" placeholder="333333333" className="registrazioneEditTextCorta" onChange={aggiornaNtelefono} {...register("numeroTelefono", {
+                <span className="labelEditText">Numero di telefono</span>
+                <input type="text" placeholder="333333333" className="registrazioneEditText" onChange={aggiornaNtelefono} {...register("numeroTelefono", {
                     required: true,
                     minLength: 13,
                     maxLength: 13,
                     pattern: /^((00|\+)39[\. ]??)??3\d{2}[\. ]??\d{6,7}$/
                 })} />
-                <error>
+                <error className="errore">
                     {errors.numeroTelefono?.type === "minLength" &&
                         "Entered number is less than 13 digits"}
                     {errors.number?.type === "maxLength" &&
@@ -147,29 +149,32 @@ function RegistrazioneForm() {
                     {errors.numeroTelefono?.type === "pattern" && "Pattern non corretto"}
                 </error>
             </div>
-            <div className="contenitoreEditTextCorta">
-                <input type="text" placeholder="M|F" className="registrazioneEditTextCorta" onChange={aggiornaGenere} {...register("genere", {
+            <div className="contenitoreEditTextCortissima">
+                <span className="labelEditText">Genere</span>
+                <input type="text" placeholder="M|F" className="registrazioneEditText" onChange={aggiornaGenere} {...register("genere", {
                     required: true,
                     pattern: /^M$|^F$/
                 })} />
-                <error>
+                <error className="errore">
                     {errors.genere?.type === "required" && "Inserire genere"}
                     {errors.genere?.type === "pattern" && "Inserire correttamente"}
                 </error>
             </div>
-            <div>
+            <div className="contenitoreEditTextCorta">
+                <span className="labelEditText">Data di nascita</span>
                 <input type="date" placeholder="Data Nascita" className="registrazioneEditText" max={moment().format("YYYY-MM-DD")} onChange={aggiornaDataNascita}{...register("dataDiNascita", {
                     required: true,
                     validate: (value) => {
                         return value < moment().format("YYYY-MM-DD");
                     }
                 })} />
-                <error>
+                <error className="errore">
                     {errors.dataNascita?.type === "required" && "Inserire data nascita"}
                     {errors.dataDiNascita?.type === "validate" && "Data troppo grande"}
                 </error>
             </div>
-            <div>
+            <div className="contenitoreEditTextCorta">
+                <span className="labelEditText">Codice Fiscale</span>
                 <input id="codiceFiscale" type="text" placeholder="Codice Fiscale" className="registrazioneEditText" onChange={aggiornaCodiceFiscale}{...register("codiceFiscale", {
                     required: true,
                     pattern: /^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$/,
@@ -181,14 +186,15 @@ function RegistrazioneForm() {
                      return !data.data.codiceFiscale
                     }
                 })} />
-                <error>
+                <error className="errore">
                     {errors.codiceFiscale?.type === "required" && "Inserire codice fiscale"}
                     {errors.codiceFiscale?.type === "pattern" && "Inserire correttamente il codice fiscale"}
                     {errors.codiceFiscale?.type === "validate" && "Codice fiscale già presente"}
 
                 </error>
             </div>
-            <div>
+            <div className="contenitoreEditTextLunga">
+                <span className="labelEditText">E-mail</span>
                 <input type="text" placeholder="email@example.ti" className="registrazioneEditText" onChange={aggiornaEmail}{...register("email", {
                     required: true,
                     pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
@@ -201,7 +207,7 @@ function RegistrazioneForm() {
                      return !pippo.data.email
                     }
                 })} />
-                <error>
+                <error className="errore">
                     {errors.email?.type === "required" && "Email is required"}
                     {errors.email?.type === "pattern" &&
                         "Entered email is in wrong format"}
@@ -209,19 +215,21 @@ function RegistrazioneForm() {
 
                 </error>
             </div>
-            <div>
+            <div className="contenitoreEditTextCorta">
+                <span className="labelEditText">Password</span>
                 <input id="password" type="password" placeholder="Password" className="registrazioneEditText" onChange={aggiornaPassword}
                     {...register("password", {
                         required: true,
                         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?^#()<>+&.])[A-Za-z\d@$!%*?^#()<>+&.]{8,16}$/i,
                     })} />
-                <error>
+                <error className="errore">
                     {errors.password?.type === "required" && "Inserire password"}
                     {errors.password?.type === "pattern" &&
                         "Password non rispetta il formato almeno 8 caratteri una maiuscola un simbolo e un numero"}
                 </error>
             </div>
-            <div>
+            <div className="contenitoreEditTextCorta">
+                <span className="labelEditText">Conferma password</span>
                 <input type="password" placeholder="Conferma password" className="registrazioneEditText" onChange={aggiornaConfermaPassword}
                     {...register("confermaPassword", {
                         required: true,
@@ -231,56 +239,67 @@ function RegistrazioneForm() {
                             return value == pass
                         }
                     })} />
-                <error>
+                <error className="errore">
                     {errors.confermaPassword?.type === "required" && "Inserire conferma password"}
                     {errors.confermaPassword?.type === "validate" && "Le password non corrispondono"}
                 </error>
             </div>
-            <div>
-                <input type="text" placeholder="Città" className="registrazioneEditText"
-                    {...register("citta", {
-                        required: true
-                    })} />
-                <error>
-                    {errors.citta?.type === "required" && "Inserire una città"}
-                </error>
+            <hr className="lineaMenu" />
+            <div className="formIndirizzo">
+                <span className="testo-bentornat max-width">Il tuo indirizzo</span>
+                <div className="contenitoreEditTextCorta">
+                    <span className="labelEditText">Città</span>
+                    <input type="text" placeholder="Città" className="registrazioneEditText"
+                           {...register("citta", {
+                               required: true
+                           })} />
+                    <error className="errore">
+                        {errors.citta?.type === "required" && "Inserire una città"}
+                    </error>
+                </div>
+                <div className="contenitoreEditTextCorta">
+                    <span className="labelEditText">Provincia</span>
+                    <input type="text" placeholder="Provincia" className="registrazioneEditText"
+                           {...register("provincia", {
+                               required: true
+                           })} />
+                    <error className="errore">
+                        {errors.citta?.type === "required" && "Inserire una provincia"}
+                    </error>
+                </div>
+                <div className="contenitoreEditTextCortissima">
+                    <span className="labelEditText">Via</span>
+                    <input type="text" placeholder="Via" className="registrazioneEditText"
+                           {...register("via", {
+                               required: true
+                           })} />
+                    <error className="errore">
+                        {errors.citta?.type === "required" && "Inserire una via"}
+                    </error>
+                </div>
+                <div className="contenitoreEditTextCortissima">
+                    <span className="labelEditText">Numero civico</span>
+                    <input type="text" placeholder="Numero civico" className="registrazioneEditText"
+                           {...register("nCivico", {
+                               required: true
+                           })} />
+                    <error className="errore">
+                        {errors.citta?.type === "required" && "Inserire un numero civico"}
+                    </error>
+                </div>
+                <div className="contenitoreEditTextCortissima">
+                    <span className="labelEditText">CAP</span>
+                    <input type="number" placeholder="CAP" className="registrazioneEditText"
+                           {...register("cap", {
+                               required: true
+                           })} />
+                    <error className="errore">
+                        {errors.citta?.type === "required" && "Inserire un cap"}
+                    </error>
+                </div>
+
             </div>
-            <div>
-                <input type="text" placeholder="Provincia" className="registrazioneEditText"
-                    {...register("provincia", {
-                        required: true
-                    })} />
-                <error>
-                    {errors.citta?.type === "required" && "Inserire una provincia"}
-                </error>
-            </div>
-            <div>
-                <input type="text" placeholder="Via" className="registrazioneEditText"
-                    {...register("via", {
-                        required: true
-                    })} />
-                <error>
-                    {errors.citta?.type === "required" && "Inserire una via"}
-                </error>
-            </div>
-            <div>
-                <input type="text" placeholder="Numero civico" className="registrazioneEditText"
-                    {...register("nCivico", {
-                        required: true
-                    })} />
-                <error>
-                    {errors.citta?.type === "required" && "Inserire un numero civico"}
-                </error>
-            </div>
-            <div>
-                <input type="number" placeholder="CAP" className="registrazioneEditText"
-                    {...register("cap", {
-                        required: true
-                    })} />
-                <error>
-                    {errors.citta?.type === "required" && "Inserire un cap"}
-                </error>
-            </div>
+
             <button className="formButton" onClick={handleSubmit(onSubmit)}>Registrati</button>
 
         </div>
