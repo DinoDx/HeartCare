@@ -6,9 +6,12 @@ import c15.dev.model.dao.UtenteRegistratoDAO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 import c15.dev.utils.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +35,13 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     @Autowired
     private PasswordEncoder pwdEncoder;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+
+
     @Override
-    public AuthenticationResponse registraPaziente(Paziente request) throws Exception {
+    public AuthenticationResponse registraPaziente() throws Exception {
         Paziente paz2 = new Paziente(LocalDate.of(2001, 07, 14),
                 "PDSPPH09E18C139A",
                 "+393886122291",
@@ -47,6 +55,21 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
         Long id = pazienteDAO.save(paz2).getId();
 
         var jwtToken = jwtService.generateToken(paz2);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
+    @Override
+    public AuthenticationResponse login(AuthenticationRequest request) throws Exception {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                request.getEmail(),
+                request.getPassword()
+        ));
+
+        var user = pazienteDAO.findByEmail(request.getEmail());
+        System.out.println(user.toString());
+        var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();

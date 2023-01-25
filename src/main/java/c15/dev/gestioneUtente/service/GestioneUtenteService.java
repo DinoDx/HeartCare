@@ -105,8 +105,6 @@ public interface GestioneUtenteService {
 
     boolean findUtenteByCf(String cf);
 
-    boolean findUtenteByEmail(String email);
-
     /**
      * Firma del metodo updatePaziente
      *

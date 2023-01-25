@@ -4,6 +4,7 @@ import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,9 @@ import java.util.Optional;
  * Questa classe rappresenta il Service utilizzato per la registrazione.
  */
 public interface RegistrazioneService {
-    public AuthenticationResponse registraPaziente(Paziente paziente) throws Exception;
+    public AuthenticationResponse registraPaziente() throws Exception;
+    public AuthenticationResponse login(AuthenticationRequest req)
+            throws Exception;
     public Paziente findByemail(String email);
     public Paziente findBycodiceFiscale(String codiceFiscale);
     /**

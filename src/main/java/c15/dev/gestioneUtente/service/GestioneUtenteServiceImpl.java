@@ -241,15 +241,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return true;
     }
 
-    @Override
-    public boolean findUtenteByEmail(String email) {
-        Paziente p = paziente.findByemail(email);
-
-        if(p==null){
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public UtenteRegistrato findUtenteById(Long id) {
