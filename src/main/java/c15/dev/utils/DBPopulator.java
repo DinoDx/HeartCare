@@ -2,6 +2,7 @@ package c15.dev.utils;
 
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
+import c15.dev.gestioneVisita.service.GestioneVisitaService;
 import c15.dev.model.entity.*;
 import c15.dev.registrazione.service.RegistrazioneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static c15.dev.model.entity.enumeration.StatoVisita.EFFETTUATA;
+import static c15.dev.model.entity.enumeration.StatoVisita.PROGRAMMATA;
 
 /**
  * @author Leopoldo Todisco.
@@ -28,14 +32,15 @@ public class DBPopulator {
     private RegistrazioneService regService;
     @Autowired
     private GestioneUtenteService userService;
-
     @Autowired
     private GestioneMisurazioneService gestioneMisurazioneService;
+    @Autowired
+    private GestioneVisitaService gestioneVisitaService;
     private List<Paziente> pazientiList = new ArrayList<>();
     private List<Medico> medicoList = new ArrayList<>();
     private List<Misurazione> misurazioniList = new ArrayList<>();
-
     private List<Indirizzo> indirizzoList = new ArrayList<>();
+    private List<Visita> visitaList = new ArrayList<>();
 
     /**
      * Metodo post construct, viene avviato dal container automaticamente,
@@ -84,21 +89,6 @@ public class DBPopulator {
                 throw new RuntimeException(e);
             }
         });
-
-        /*
-         * In questa sezione si istanziano gli admin.
-         **/
-        Admin ad1 = new Admin(dataNascita,
-                "PLAVLT00B18H703H",
-                "+393890877654",
-                "Ppasswd1!%",
-                "paolovalletta@libero.it",
-                "Paolo",
-                "Valletta",
-                "M"
-        );
-
-
 
         /*
         * In questa sezione si istanziano medici.
@@ -561,6 +551,61 @@ public class DBPopulator {
                 "Massimiliano",
                 "Allegri"
         );
+
+        /*
+            In questa sezione si istanziano le visite
+         */
+        LocalDate dataVisita1 = LocalDate.of(2023, 02, 18);
+        LocalDate dataVisita2 = LocalDate.of(2023, 03, 20);
+        LocalDate dataVisita3 = LocalDate.of(2023, 04, 22);
+        LocalDate dataVisita4 = LocalDate.of(2023, 05, 6);
+        LocalDate dataVisita5 = LocalDate.of(2023, 06, 8);
+        LocalDate dataVisita6 = LocalDate.of(2023, 07, 10);
+
+        Visita v1 = new Visita(dataVisita1,
+                PROGRAMMATA,
+                med1,
+                paz1,
+                ind4
+        );
+
+        Visita v2 = new Visita(dataVisita2,
+                EFFETTUATA,
+                med1,
+                paz2,
+                ind4
+        );
+
+        Visita v3 = new Visita(dataVisita3,
+                PROGRAMMATA,
+                med2,
+                paz3,
+                ind5
+        );
+
+        Visita v4 = new Visita(dataVisita4,
+                EFFETTUATA,
+                med2,
+                paz1,
+                ind5
+        );
+
+        Visita v5 = new Visita(dataVisita5,
+                PROGRAMMATA,
+                med3,
+                paz2,
+                ind6
+        );
+
+        Visita v6 = new Visita(dataVisita6,
+                EFFETTUATA,
+                med3,
+                paz1,
+                ind6
+        );
+
+        visitaList.addAll(List.of(v1,v2,v3,v4,v5,v6));
+        visitaList.stream().forEach(v -> gestioneVisitaService.aggiuntaVisita(v));
 
     }
 
