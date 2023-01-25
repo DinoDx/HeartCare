@@ -28,5 +28,5 @@ public interface MedicoDAO extends UtenteRegistratoDAO {
      */
     Medico findMedicoById(Long id);
 
-    UtenteRegistrato findByEmail(String email);
+    Medico findByEmail(String email);
 }

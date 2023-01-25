@@ -19,6 +19,8 @@ import java.util.Optional;
 public interface RegistrazioneService {
     public AuthenticationResponse registraPaziente(Paziente paziente)
             throws Exception;
+
+    public AuthenticationResponse registraMedico(Medico medico) throws Exception;
     public AuthenticationResponse login(AuthenticationRequest req)
             throws Exception;
     public Paziente findByemail(String email);
@@ -27,5 +29,5 @@ public interface RegistrazioneService {
      * Firma del metodo che consente la registrazione di un medico.
      * @param med è il medico che viene registrato.
      */
-    void registraMedico(Medico med);
+
 }

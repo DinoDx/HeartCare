@@ -48,7 +48,7 @@ public class RegistrazioneController {
      * @param med
      */
     @RequestMapping(value = "/registraMedico", method = RequestMethod.POST)
-    public void registraMedico(@Valid @RequestBody Medico med) {
+    public void registraMedico(@Valid @RequestBody Medico med) throws Exception {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
         if(!utenteService.isAdmin(u.getId())){

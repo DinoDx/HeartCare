@@ -152,6 +152,7 @@ public interface GestioneUtenteService {
      */
     boolean registraIndirizzo(Indirizzo ind);
 
+
     boolean assegnaIndirizzoAdUtente(long idUtente, Indirizzo ind);
 
     boolean assegnaMedicoAPaziente(long idMedico, long idUtente);

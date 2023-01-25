@@ -1,9 +1,8 @@
 package c15.dev.model.dao;
 
 import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 /**
  * @author carlo.

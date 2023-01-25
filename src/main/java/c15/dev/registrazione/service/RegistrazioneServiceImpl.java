@@ -53,6 +53,17 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     }
 
     @Override
+    public AuthenticationResponse registraMedico(Medico med) throws Exception {
+        med.setPassword(pwdEncoder.encode(med.getPassword()));
+        Long id = pazienteDAO.save(med).getId();
+
+        var jwtToken = jwtService.generateToken(med);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
+    @Override
     public AuthenticationResponse login(AuthenticationRequest request) throws Exception {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getEmail(),
@@ -60,6 +71,15 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
         ));
 
         var user = pazienteDAO.findByEmail(request.getEmail());
+        Medico medico = null;
+        if(user == null) {
+            medico = medicoDAO.findByEmail(request.getEmail());
+
+            var jwtToken = jwtService.generateToken(medico);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        }
         System.out.println(user.toString());
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
@@ -81,8 +101,5 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
      * Implementazione del metodo di registrazione medico.
      * @param med è il medico da inserire nel db.
      */
-    @Override
-    public void registraMedico(Medico med){
-        medicoDAO.saveAndFlush(med);
-    }
+
 }

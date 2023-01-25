@@ -3,7 +3,12 @@ package c15.dev.utils;
 import c15.dev.model.dao.AdminDAO;
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.dao.UtenteRegistratoDAO;
+import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.UtenteRegistrato;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,17 +21,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class ApplicationConfig {
-    @Autowired
-    private PazienteDAO pazienteDAO;
-    @Autowired
-    private MedicoDAO medicoDAO;
-    @Autowired
-    private AdminDAO adminDAO;
+    @Autowired  @Qualifier("utenteRegistratoDAO")
+    private UtenteRegistratoDAO usrdao;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        //SI DEVE FARE ANCHE PER MEDICO E PER ADMIN
-        return username -> pazienteDAO.findByEmail(username);
+        return username -> usrdao.findByEmail(username);
     }
 
     @Bean

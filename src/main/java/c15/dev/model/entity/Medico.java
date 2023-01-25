@@ -7,6 +7,7 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ import java.util.Set;
  */
 @Entity
 @Setter
+@SuperBuilder
 @Getter
 public class Medico extends UtenteRegistrato {
     /**

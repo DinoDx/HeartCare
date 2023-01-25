@@ -2,7 +2,7 @@ import React from "react";
 import logoPath from "../images/LogoHeartCare.png";
 import "../css/style.css";
 import "../css/style_menu.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHospital } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { SlHome } from "react-icons/sl";
@@ -31,6 +31,13 @@ function addClassActive(id, nomeClasseMainContent) {
 }
 
 function Menu() {
+  let nav = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    nav("/Login");
+  }
+  
   return (
     <div className="contenitoreMenu">
       <img src={logoPath} className="logoMenu" />
@@ -93,12 +100,12 @@ function Menu() {
           </div>
         </Link>
 
-        <Link to={"/About"} className="voceMenuText">
-          <div className="voceMenu">
+        <div className="voceMenuText" onClick={() => logout()}>
+          <div className="voceMenu" >
             <CiLogout className="iconaMenu" />
             <span>Logout</span>
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );

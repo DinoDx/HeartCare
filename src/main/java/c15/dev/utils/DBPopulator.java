@@ -121,7 +121,13 @@ public class DBPopulator {
                 "F");
 
         medicoList.addAll(List.of(med1, med2, med3));
-        medicoList.stream().forEach(m -> regService.registraMedico(m));
+        medicoList.stream().forEach(m -> {
+            try {
+                regService.registraMedico(m);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         //In questa sezione si istanziano i dispositivi per la misurazione della pressione
 
