@@ -232,6 +232,26 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     @Override
+    public boolean findUtenteByCf(String codiceFiscale) {
+            Paziente u = paziente.findBycodiceFiscale(codiceFiscale);
+
+        if (u == null){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean findUtenteByEmail(String email) {
+        Paziente p = paziente.findByemail(email);
+
+        if(p==null){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public UtenteRegistrato findUtenteById(Long id) {
         Optional<UtenteRegistrato> u = utente.findById(id);
         if (u.isEmpty()){

@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
 
 .container-note {
-  width: 85%;
-  height: 50%;
+  width: 100%;
+  height: 45%;
   display: flex;
   flex-direction: column;
   border: 3px solid #37a69b;
@@ -10,6 +10,7 @@
   background-color: rgba(242, 242, 242, 0.6);
   padding-left: 10px;
   row-gap: 15px;
+  overflow-y: scroll;
 }
 
 .intestazione-note {

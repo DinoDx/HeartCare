@@ -5,24 +5,24 @@ import axios from "axios";
 
 export function FascicoloBanner(props){
     const [Misurazioni,setMisurazioni] = useState([{}]);
-
+    console.log(props.categoria);
+    
     useEffect(() => {
         const fetchData = async() => {
-            const response = await axios.post('http://localhost:8080/getMisurazioneCategoria?categoria='+props.categoria+'&id=1');
+            const response = await axios.post("http://localhost:8080/getMisurazioneCategoria", {
+                categoria : props.categoria,
+                id : 1
+            });
+            response.data.forEach( m=> {
+                delete m.id;
+                delete m.dataMisurazione;
+                delete m.paziente;
+                delete m.dispositivoMedico;
+            })
             setMisurazioni(response.data);
         }
         fetchData();
     },[]);
-
-    const cancellaAttributi = () => {
-        Misurazioni.forEach( m =>  {
-            delete m.id;
-            delete m.dataMisurazione;
-            delete m.paziente;
-            delete m.dispositivoMedico;
-        })
-    }
-    cancellaAttributi();
 
     const average = (valu) => {
         return Misurazioni.map(a => a[valu]).reduce((a, b) => (a + b)) / Misurazioni.length;

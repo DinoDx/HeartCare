@@ -1,7 +1,6 @@
 package c15.dev.model.entity;
 
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
-import c15.dev.model.entity.enumeration.Categoria;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -90,7 +89,7 @@ public class DispositivoMedico implements Serializable {
      * Campo relativo alla categoria di appartenenza del dispositivo medico.
      */
     @NotNull
-    private Categoria categoria;
+    private String categoria;
     /**
      * Campo (chiave esterna) relativo al paziente a cui è assegnato
      * il paziente
@@ -130,7 +129,7 @@ public class DispositivoMedico implements Serializable {
                              final String descrizione,
                              final String numeroSeriale,
                              final Boolean disponibile,
-                             final Categoria categoria,
+                             final String categoria,
                              final Paziente paziente) {
         this.dataRegistrazione = dataRegistrazione;
         this.descrizione = descrizione;
@@ -144,7 +143,7 @@ public class DispositivoMedico implements Serializable {
         var dispositivoMedicoStub = new DispositivoMedicoStub();
         String misurazione = " ";
 
-        switch(categoria.getDisplayName()){
+        switch(categoria){
             case "ECG" : misurazione = dispositivoMedicoStub
                     .MisurazioneHolterECGStub();
                 break;

@@ -55,7 +55,7 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico{
      * di misurazione.
      */
     public Misurazione misurazioneFactory(String misurazioneJSON) {
-        switch (adaptee.getCategoria().getDisplayName()) {
+        switch (adaptee.getCategoria()) {
             case "ECG":
                 return new MisurazioneHolterECG();
             case "Saturimetro":

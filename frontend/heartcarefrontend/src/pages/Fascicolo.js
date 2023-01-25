@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/Fascicolo.css"
 import {FascicoloBanner} from "../components/FascicoloBanner";
+import Grafico from "../components/Grafico";
 
 function Fascicolo(){
     return (
@@ -9,7 +10,7 @@ function Fascicolo(){
                 <input id="search" type="text" placeholder=" 🔍Cerca Paziente..." />
             </div>
             <span>bentornato, Mario 👋🏻</span>
-            <FascicoloBanner categoria="MISURATORE_DI_PRESSIONE" />
+            <FascicoloBanner categoria="Misuratore di pressione" />
         </div>
     )
 }

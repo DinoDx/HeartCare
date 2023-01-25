@@ -1,5 +1,6 @@
 package c15.dev.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
@@ -55,6 +56,7 @@ public class Misurazione implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_dispositivo_medico",
             referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private DispositivoMedico dispositivoMedico;
 
     /**

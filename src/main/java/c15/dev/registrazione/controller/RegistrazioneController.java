@@ -5,14 +5,10 @@ import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.registrazione.service.RegistrazioneService;
-import c15.dev.utils.AuthenticationRequest;
-import c15.dev.utils.AuthenticationResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.EntityResponse;
 
 
 /**
@@ -21,8 +17,6 @@ import org.springframework.web.servlet.function.EntityResponse;
  * Questa classe rappresenta il Service utilizzato per la registrazione
  */
 @RestController
-@RequestMapping(path = "auth")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class RegistrazioneController {
     @Autowired
     public RegistrazioneService registrazioneService;
@@ -33,26 +27,32 @@ public class RegistrazioneController {
     @Autowired
     public HttpSession session;
 
-    //aggiungi valid poi
     @PostMapping(value = "/registrazione")
-    public  ResponseEntity<AuthenticationResponse> registrazione(@RequestBody Paziente paziente) throws Exception {
-System.out.println("sono nel metodo di login");
-        return ResponseEntity.ok(registrazioneService.registraPaziente(paziente));
-    }
+        public String registrazione(@Valid @RequestBody Paziente paziente)
+                throws Exception {
 
-    /**
-     * Metodo di login.
-     *
-     * @param  request è la richiesta.
-     *             Al suo interno vi si trovano i valori di password ed email.
-     */
-    @PostMapping(value = "/login")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
-    ) {
-        return ResponseEntity.ok(utenteService.login(request));
-    }
+        registrazioneService.registraPaziente(paziente);
 
+    /*  Paziente pazienteOptional = registrazioneService.findByemail(paziente.getEmail());
+      if(pazienteOptional != null)
+          return "/registrazione";
+
+      pazienteOptional = registrazioneService.findBycodiceFiscale(paziente.getCodiceFiscale());
+      if(pazienteOptional!=null)
+          return "/registrazione";
+
+     String password = new String(paziente.getPassword());
+      /*if(!(password.equals(confermaPassword)))
+          return "/registrazione";
+
+      paziente.setPassword(password);
+      Paziente pazienteRegistrato = registrazioneService.registraPaziente(paziente);
+      if (pazienteRegistrato == null)
+          return("/registrazioneNonAvvenuta");
+*/
+        return "/registrazioneAvvenuta";
+
+    }
 
     /**
      * Metodo che permette all'admin di registrare un medico.

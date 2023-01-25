@@ -98,7 +98,7 @@ public class UtenteRegistrato implements Serializable, UserDetails {
 
     @NotNull
     @Past
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+
     private LocalDate dataDiNascita;
     /**
      * Campo relativo al Codice Fiscale.

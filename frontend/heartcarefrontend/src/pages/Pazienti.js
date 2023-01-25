@@ -3,7 +3,7 @@ import "../css/style.css";
 import "../css/PazientiCss.css";
 import ListaPazienti from "../components/ListaPazienti";
 import HamburgerMenu from "../components/HamburgerMenu";
-
+import { Chart } from "react-google-charts";
 function Pazienti() {
   return (
     <div className="contenitorePazientiContent">

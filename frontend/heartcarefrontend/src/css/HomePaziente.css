@@ -1,0 +1,122 @@
+.contenitoreHomePaziente{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.searchbar{
+    width: 100%;
+}
+
+.contenitoreSinistra{
+    display: flex;
+    height: 90vh;
+    width: 65%;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contenitoreDestra{
+    height: 90vh;
+    width: 25%;
+    margin-left: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.bannerNero{
+    width: 100%;
+    height: 20%;
+    background-color: #282c34;
+    background-color: rgb(45, 45, 45);
+    border: 3px solid #37a69b;
+    border-radius: 15px;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+    box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    padding: 15px;
+    justify-content: space-between;
+    margin: 0px;
+}
+
+.informazioneBannerNero{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    font-size: 22px;
+    color: #f2f2f2;
+    font-family: "Questrial", sans-serif;
+}
+
+.valoreInformazioneBannerNero{
+    color:#37a69b;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.contenitoreGrafico{
+    width: 100%;
+    border: 3px solid #37a69b;
+    border-radius: 15px;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+    box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+    background-color: white;
+}
+
+.contenitoreGrafico{
+    width: 100%;
+    border: 3px solid #37a69b;
+    border-radius: 15px;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+    box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+    justify-content: space-between;
+    margin: 0px;
+}
+
+.selectMisurazione{
+    height: 30px;
+    border-radius: 5px;
+    background-color: #d9d9d9;
+    color: #282c34;
+    width: 30%;
+    font-weight: bolder;
+    font-family: "Questrial", sans-serif;
+    border: none;
+    padding: 5px;
+}
+
+.titoloGrafico{
+    font-size: 23px;
+    font-family: "Questrial", sans-serif;
+    font-weight: bolder;
+}
+
+.containerBottoni{
+    display: flex;
+    flex-direction: row;
+}
+
+.bottoneHomePaziente{
+    font-weight: bold;
+    font-family: "Questrial", sans-serif;
+    width: 25%;
+    height: 60px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #37a69b;
+    border-radius: 15px;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+    box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+}
+
+.marginSotto{
+    margin-bottom: 10px;
+}
