@@ -33,7 +33,9 @@ public class DBPopulator {
     private GestioneMisurazioneService gestioneMisurazioneService;
     private List<Paziente> pazientiList = new ArrayList<>();
     private List<Medico> medicoList = new ArrayList<>();
-    private List<Misurazione> misurazioni = new ArrayList<>();
+    private List<Misurazione> misurazioniList = new ArrayList<>();
+
+    private List<Indirizzo> indirizzoList = new ArrayList<>();
 
     /**
      * Metodo post construct, viene avviato dal container automaticamente,
@@ -84,6 +86,21 @@ public class DBPopulator {
         });
 
         /*
+         * In questa sezione si istanziano gli admin.
+         **/
+        Admin ad1 = new Admin(dataNascita,
+                "PLAVLT00B18H703H",
+                "+393890877654",
+                "Ppasswd1!%",
+                "paolovalletta@libero.it",
+                "Paolo",
+                "Valletta",
+                "M"
+        );
+
+
+
+        /*
         * In questa sezione si istanziano medici.
         **/
         Medico med1 = new Medico(dataNascita,
@@ -116,28 +133,434 @@ public class DBPopulator {
         medicoList.addAll(List.of(med1, med2, med3));
         medicoList.stream().forEach(m -> regService.registraMedico(m));
 
+        //In questa sezione si istanziano i dispositivi per la misurazione della pressione
+
         DispositivoMedico d1 = new DispositivoMedico(LocalDate.of(2023, 1, 22),
-                "funziona ti prego",
-                "hbdsdsdhjsdfhjdsdsdfhjdfhsdfsd",
+                "Sfigmomanometro da braccio",
+                "DFsUegbP5K7AMm6aPUNJ8Dmyv2KV4S",
                 true,
                 "Misuratore di pressione",
                 paz1
         );
-        gestioneMisurazioneService.registrazioneDispositivo(d1,1);
-        LocalDate data2 = LocalDate.of(2023, 01, 18);
 
+        DispositivoMedico d2 = new DispositivoMedico(LocalDate.of(2021,2, 15),
+                "pulsossimetro da dito",
+                "ccbZMA4xU62ftxsv3FCA8qbFS2Sbkh",
+                true,
+                "Misuratore di pressione",
+                paz2
+        );
+
+        DispositivoMedico d3 = new DispositivoMedico(LocalDate.of(2021,5,5),
+                "Pic sfigmomanometro aneroide",
+                "96XD5UqTtemJNZSBkS7YkNWUusnndC",
+                true,
+                "Misuratore di pressione",
+                paz3
+        );
+
+        //Qui ci sono i dispositivi per gli enzimi cardiaci
+
+        DispositivoMedico d4 = new DispositivoMedico(LocalDate.of(2021,8,15),
+                "Test mioglobina e troponina tramite sangue",
+                "rABq8J743PnBZkgseN8cXeEZaKF5Er",
+                true,
+                "Enzimi cardiaci",
+                paz1
+        );
+
+        DispositivoMedico d5 = new DispositivoMedico(LocalDate.of(2021,3,15),
+                "Analisi TSH",
+                "e5Ax4yjfR9er4NNZrjNmvYK9bEvGHa",
+                true,
+                "Enzimi cardiaci",
+                paz2
+        );
+
+        DispositivoMedico d6 = new DispositivoMedico(LocalDate.of(2021,4,15),
+                "Enzimi cardiaci e biomarcatori",
+                "GjqM8rZf6uGBPAPFtPn3JahUtp2xRJ",
+                true,
+                "Enzimi cardiaci",
+                paz3
+        );
+
+        //Qui ci sono i dispositivi medici per il saturimetro
+
+        DispositivoMedico d7 = new DispositivoMedico(LocalDate.of(2021,9,15),
+                "Beurer Po 40 Saturimetro Per Il Monitoraggio Della Saturazione",
+                "uGaT6BDbHFzLhxSx7Y32X9FisiHK4k",
+                true,
+                "Saturimetro",
+                paz1
+        );
+
+        DispositivoMedico d8 = new DispositivoMedico(LocalDate.of(2021,10,15),
+                "saturazione di ossigeno, livelli di ossigeno nel sangue",
+                "w5bgHth7U8uprjceemBcJLTN2jD4qF",
+                true,
+                "Saturimetro",
+                paz2
+        );
+
+        DispositivoMedico d9 = new DispositivoMedico(LocalDate.of(2021,11,15),
+                "Saturimetro per Frequenza Cardiaca",
+                "XqLVLGCK9a7ymm92v3CodKT7YjBEBu",
+                true,
+                "Saturimetro",
+                paz3
+        );
+
+        //Qui ci sono i dispositivi per il Coagulometro
+
+        DispositivoMedico d10 = new DispositivoMedico(LocalDate.of(2021,12,25),
+                "Sinocare Misuratore Glicemia, Diabete",
+                "9m7v4BXVhjNpayahocURLUk2dc2unX",
+                true,
+                "Coagulometro",
+                paz1
+        );
+
+        DispositivoMedico d11 = new DispositivoMedico(LocalDate.of(2021,11,26),
+                "Coagulometro per il monitoraggio della Protrombina",
+                "Jzb2YgiG2KfN6BbJrTQcS8C8Rv9BbN",
+                true,
+                "Coagulometro",
+                paz2
+        );
+
+        DispositivoMedico d12 = new DispositivoMedico(LocalDate.of(2021,11,27),
+                "Roche CoaguChek INRange Coaugulometro Misuratore INR",
+                "eK7RgTKMtYkovKndJPQxEqaCkB6DxZ",
+                true,
+                "Coagulometro",
+                paz3
+        );
+
+        //Qui ci sono i dispositivi per ElettroCardioGramma
+
+        DispositivoMedico d13 = new DispositivoMedico(LocalDate.of(2021,7,27),
+                "MINI ECG PALMARE PRINCE 180BCW CARDIO B",
+                "ooNweTyrhBvh4nF3y59MvcnmovDLXe",
+                true,
+                "ECG",
+                paz1
+        );
+
+        DispositivoMedico d14 = new DispositivoMedico(LocalDate.of(2021,7,1),
+                "ELETTROCARDIOGRAFO ECG CONTEC 600G",
+                "M8HnYAXtVsFgFdBfyhEGf9NDdHGyaS",
+                true,
+                "ECG",
+                paz2
+        );
+
+        DispositivoMedico d15 = new DispositivoMedico(LocalDate.of(2021,11,2),
+                "MONITOR MULTIPARAMETRICO PC-300",
+                "jAn4kwrZoW5p65Yg8qEFnUnU6HJjjm",
+                true,
+                "ECG",
+                paz3
+        );
+
+        //Qui ci sono i dispositivi per la misurazione glicemica
+
+        DispositivoMedico d16 = new DispositivoMedico(LocalDate.of(2021,4,10),
+                "MISURATORE GLICEMIA GLUCOMETRO GIMA",
+                "vC28JEE2pS7ojzzdHZDJm6qqFDeDhW",
+                true,
+                "Misuratore glicemico",
+                paz1
+        );
+
+        DispositivoMedico d17 = new DispositivoMedico(LocalDate.of(2021,4,9),
+                "MISURATORE LETTORE EMATICO LUX",
+                "7r3C8LyBmzm5RzsHSnFVeuimjAs7iB",
+                true,
+                "Misuratore glicemico",
+                paz2
+        );
+
+        DispositivoMedico d18 = new DispositivoMedico(LocalDate.of(2021,4,29),
+                "Glucometro Multicare-In Completo",
+                "GAsapAPXsWAK8o7aEgfjhLbgBmToty",
+                true,
+                "Misuratore glicemico",
+                paz3
+        );
+
+        gestioneMisurazioneService.registrazioneDispositivo(d1,1);
+        gestioneMisurazioneService.registrazioneDispositivo(d2,2);
+        gestioneMisurazioneService.registrazioneDispositivo(d3,3);
+        gestioneMisurazioneService.registrazioneDispositivo(d4,1);
+        gestioneMisurazioneService.registrazioneDispositivo(d5,2);
+        gestioneMisurazioneService.registrazioneDispositivo(d6,3);
+        gestioneMisurazioneService.registrazioneDispositivo(d7,1);
+        gestioneMisurazioneService.registrazioneDispositivo(d8,2);
+        gestioneMisurazioneService.registrazioneDispositivo(d9,3);
+        gestioneMisurazioneService.registrazioneDispositivo(d10,1);
+        gestioneMisurazioneService.registrazioneDispositivo(d11,2);
+        gestioneMisurazioneService.registrazioneDispositivo(d12,3);
+        gestioneMisurazioneService.registrazioneDispositivo(d13,1);
+        gestioneMisurazioneService.registrazioneDispositivo(d14,2);
+        gestioneMisurazioneService.registrazioneDispositivo(d15,3);
+        gestioneMisurazioneService.registrazioneDispositivo(d16,1);
+        gestioneMisurazioneService.registrazioneDispositivo(d17,2);
+        gestioneMisurazioneService.registrazioneDispositivo(d18,3);
+
+        LocalDate data2 = LocalDate.of(2023, 01, 18);
+        LocalDate data3 = LocalDate.of(2022, 02, 18);
+        LocalDate data4 = LocalDate.of(2022, 03, 18);
+        LocalDate data5 = LocalDate.of(2022, 04, 18);
+        LocalDate data6 = LocalDate.of(2022, 05, 18);
+        LocalDate data7 = LocalDate.of(2022, 06, 18);
+
+        //Misurazioni per la pressione
         MisurazionePressione mis1 = new MisurazionePressione(data2,
                 paz1,
                 d1,
                 120,
                 110.0,
-                89.0,
+                80.0,
+                90.5
+        );
+
+        MisurazionePressione mis2 = new MisurazionePressione(data2,
+                paz2,
+                d2,
+                90,
+                120.0,
+                100.0,
                 99.5
         );
 
-        gestioneMisurazioneService.save(mis1);
+        MisurazionePressione mis3 = new MisurazionePressione(data2,
+                paz3,
+                d3,
+                80,
+                99.0,
+                89.0,
+                85.5
+        );
 
+        //Misurazioni per gli enzimi cardiaci
 
+        MisurazioneEnzimiCardiaci mis4 = new MisurazioneEnzimiCardiaci(data3,
+                paz1,
+                d4,
+                50.0,
+                60.0,
+                0.6
+        );
+
+        MisurazioneEnzimiCardiaci mis5 = new MisurazioneEnzimiCardiaci(data3,
+                paz2,
+                d5,
+                60.0,
+                100.0,
+                4.0
+        );
+
+        MisurazioneEnzimiCardiaci mis6 = new MisurazioneEnzimiCardiaci(data3,
+                paz3,
+                d6,
+                70.0,
+                140.0,
+                7.8
+        );
+
+        //Misurazioni con saturimetro
+        MisurazioneSaturazione mis7 = new MisurazioneSaturazione(data4,
+                paz1,
+                d7,
+                60,
+                80.0
+        );
+
+        MisurazioneSaturazione mis8 = new MisurazioneSaturazione(data4,
+                paz2,
+                d8,
+                70,
+                90.0
+        );
+
+        MisurazioneSaturazione mis9 = new MisurazioneSaturazione(data4,
+                paz3,
+                d9,
+                80,
+                99.0
+        );
+
+        //Misurazioni con coagulometro
+        MisurazioneCoagulazione mis10 = new MisurazioneCoagulazione(data5,
+                paz1,
+                d10,
+                8.5,
+                1
+        );
+
+        MisurazioneCoagulazione mis11 = new MisurazioneCoagulazione(data5,
+                paz2,
+                d11,
+                11.3,
+                1
+        );
+
+        MisurazioneCoagulazione mis12 = new MisurazioneCoagulazione(data5,
+                paz3,
+                d12,
+                13.6,
+                1
+        );
+
+        //Misurazioni per ElettroCardioGramma
+        MisurazioneHolterECG mis13 = new MisurazioneHolterECG(data6,
+                paz1,
+                d13,
+                70.0,
+                70,
+                0.10,
+                0.10,
+                490.0
+
+        );
+
+        MisurazioneHolterECG mis14 = new MisurazioneHolterECG(data6,
+                paz2,
+                d14,
+                80.0,
+                80,
+                0.09,
+                0.15,
+                350.0
+
+        );
+
+        MisurazioneHolterECG mis15 = new MisurazioneHolterECG(data6,
+                paz3,
+                d15,
+                90.0,
+                90,
+                0.08,
+                0.19,
+                450.0
+
+        );
+
+        //Misurazioni per Glicemia
+        MisurazioneGlicemica mis16 = new MisurazioneGlicemica(data7,
+                paz1,
+                d16,
+                80,
+                150,
+                200
+        );
+
+        MisurazioneGlicemica mis17 = new MisurazioneGlicemica(data7,
+                paz2,
+                d17,
+                90,
+                200,
+                300
+        );
+
+        MisurazioneGlicemica mis18 = new MisurazioneGlicemica(data7,
+                paz3,
+                d18,
+                100,
+                250,
+                400
+        );
+
+        misurazioniList.addAll(List.of(mis1,mis2,mis3,mis4,mis5,mis6,mis7,mis8,mis9,mis10,
+                mis11,mis12,mis13,mis14,mis15,mis16,mis17,mis18));
+        misurazioniList.stream().forEach(mis -> gestioneMisurazioneService.save(mis));
+
+        /*
+         * In questa sezione creano gli indirizzi.
+         **/
+
+        Indirizzo ind1 = new Indirizzo("Salerno",
+                12,
+                81043,
+                "SA",
+                "Via roma"
+        );
+
+        Indirizzo ind2 = new Indirizzo("Caserta",
+                1,
+                80056,
+                "CE",
+                "Via nazionale appia"
+        );
+
+        Indirizzo ind3 = new Indirizzo("Napoli",
+                5,
+                80017,
+                "NA",
+                "Via campi flegrei"
+        );
+
+        Indirizzo ind4 = new Indirizzo("Nocera Inferiore",
+                2,
+                80069,
+                "SA",
+                "Via 4 novembre"
+        );
+
+        Indirizzo ind5 = new Indirizzo("Capua",
+                7,
+                81043,
+                "CE",
+                "Via ponte barbieri"
+        );
+
+        Indirizzo ind6 = new Indirizzo("Pompei",
+                56,
+                80017,
+                "NA",
+                "Via del vesuvio"
+        );
+
+        indirizzoList.addAll(List.of(ind1,ind2,ind3,
+                ind4,ind5,ind6));
+        indirizzoList.stream().forEach(i -> userService.registraIndirizzo(i));
+
+        userService.assegnaIndirizzoAdUtente(1,ind1);
+        userService.assegnaIndirizzoAdUtente(2,ind2);
+        userService.assegnaIndirizzoAdUtente(3,ind3);
+        userService.assegnaIndirizzoAdUtente(4,ind4);
+        userService.assegnaIndirizzoAdUtente(5,ind5);
+        userService.assegnaIndirizzoAdUtente(6,ind6);
+
+        /*
+            In questa sezione si assegnano i medici ai pazienti
+         */
+
+        userService.assegnaMedicoAPaziente(4,1);
+        userService.assegnaMedicoAPaziente(5,2);
+        userService.assegnaMedicoAPaziente(6,3);
+
+        /*
+            In questa sezione si assegnano i caregiver ai pazienti
+         */
+        userService.assegnaCaregiver(1l,
+                "caregiver1@libero.it",
+                "Mario",
+                "Cicalese"
+        );
+
+        userService.assegnaCaregiver(2l,
+                "caregiver2@libero.it",
+                "Gianluca",
+                "Vialli"
+        );
+
+        userService.assegnaCaregiver(3l,
+                "caregiver3@libero.it",
+                "Massimiliano",
+                "Allegri"
+        );
 
         //TO DO
         //quando avremo metodo per assegnare medico a paziente, a ogni paziente si assegna un medico

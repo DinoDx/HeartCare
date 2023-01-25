@@ -2,10 +2,7 @@ package c15.dev.gestioneUtente.service;
 
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
-import c15.dev.model.entity.Admin;
-import c15.dev.model.entity.Medico;
-import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.model.entity.*;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 
@@ -148,4 +145,14 @@ public interface GestioneUtenteService {
     public UtenteRegistrato findUtenteByEmail(String email);
 
     boolean checkByEmail(String email);
+
+    /**
+     * Firma del metodo registraIndirizzo
+     * @param ind
+     */
+    boolean registraIndirizzo(Indirizzo ind);
+
+    boolean assegnaIndirizzoAdUtente(long idUtente, Indirizzo ind);
+
+    boolean assegnaMedicoAPaziente(long idMedico, long idUtente);
 }

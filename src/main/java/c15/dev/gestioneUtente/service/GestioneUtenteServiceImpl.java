@@ -1,15 +1,9 @@
 package c15.dev.gestioneUtente.service;
 
-import c15.dev.model.dao.AdminDAO;
-import c15.dev.model.dao.MedicoDAO;
-import c15.dev.model.dao.PazienteDAO;
-import c15.dev.model.dao.UtenteRegistratoDAO;
+import c15.dev.model.dao.*;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
-import c15.dev.model.entity.Admin;
-import c15.dev.model.entity.Medico;
-import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.model.entity.*;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 import c15.dev.utils.JwtService;
@@ -55,6 +49,9 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      */
     @Autowired
     private MedicoDAO medico;
+
+    @Autowired
+    private IndirizzoDAO indirizzo;
 
     @Qualifier("utenteRegistratoDAO")
     @Autowired
@@ -102,6 +99,44 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         tmp.setNomeCaregiver(nomeCaregiver);
         tmp.setCognomeCaregiver(cognomeCaregiver);
         paziente.save(tmp);
+    }
+
+    /**
+     * Metodo che assegna indirizzo ad utente.
+     * @param idUtente
+     * @param ind
+     */
+    @Override
+    public boolean assegnaIndirizzoAdUtente(long idUtente, Indirizzo ind){
+        Optional<UtenteRegistrato> user = utente.findById(idUtente);
+        if(user.isEmpty()){
+            return false;
+        }
+
+        user.get().setIndirizzoResidenza(ind);
+        utente.save(user.get());
+        return true;
+    }
+
+    /**
+     * Metodo che assegna medico a paziente.
+     * @param idMedico
+     * @param idPaziente
+     */
+
+    @Override
+    public boolean assegnaMedicoAPaziente(long idMedico, long idPaziente){
+        Optional<UtenteRegistrato> med = medico.findById(idMedico);
+        Optional<UtenteRegistrato> paz = paziente.findById(idPaziente);
+
+        if(med.isEmpty() || paz.isEmpty()){
+            return false;
+        }
+
+        ((Paziente) paz.get()).setMedico((Medico) med.get());
+        paziente.saveAndFlush(paz.get());
+
+        return true;
     }
 
     /**
@@ -247,6 +282,16 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         if (u == null){
             return false;
         }
+        return true;
+    }
+
+    /**
+     * Metodo per registrare indirizzo nel DB.
+     * @param ind è l'indirizzo da aggiungere.
+     */
+    @Override
+    public boolean registraIndirizzo(Indirizzo ind) {
+        indirizzo.save(ind);
         return true;
     }
 
