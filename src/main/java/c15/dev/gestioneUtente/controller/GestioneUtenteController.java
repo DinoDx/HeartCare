@@ -144,16 +144,17 @@ public class GestioneUtenteController {
      * Invariante: il metodo può essere chiamato solo da admin.
      */
     @RequestMapping(value = "/getTuttiPazienti", method = RequestMethod.POST)
-    public List<UtenteRegistrato> getTuttiPazienti() {
+    public ResponseEntity<Object> getTuttiPazienti() {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
-        return service.getTuttiPazienti()
+        System.out.println("CIAOOOOOOO");
+        return new ResponseEntity<>(service.getTuttiPazienti()
                 .stream()
                 .filter((utente)
                         -> utente.getClass()
                         .getSimpleName()
                         .equals("Paziente"))
-                .toList();
+                .toList(), HttpStatus.OK);
     }
 
     /**

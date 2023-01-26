@@ -47,4 +47,5 @@ public interface GestioneMisurazioneService {
                                                        Long id);
     public Misurazione save(Misurazione misurazione);
     public MisurazionePressione save(MisurazionePressione misurazionePressione);
+    public List<String> findCategorieByPaziente(Long id);
 }

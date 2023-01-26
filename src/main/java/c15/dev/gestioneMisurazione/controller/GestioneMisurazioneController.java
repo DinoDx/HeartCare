@@ -96,9 +96,13 @@ public class GestioneMisurazioneController {
     public List<Misurazione> getMisurazioniByCategoria(@RequestBody HashMap<String,Object> body){
         String cat = body.get("categoria").toString() ;
         Long idPaz = Long.parseLong(body.get("id").toString());
-        System.out.println(cat+" cccdcd "+idPaz);
-        System.out.println(misurazioneService.getMisurazioneByCategoria(cat, idPaz));
-        System.out.println("HO ESEGUITP LA QUERY");
         return misurazioneService.getMisurazioneByCategoria(cat, idPaz);
+    }
+
+    @PostMapping(value = "/getCategorie")
+    public List<String> getCategorieByPaziente(@RequestBody HashMap<String,Object> body){
+        Long idPaz = Long.parseLong(body.get("id").toString());
+        System.out.println("aoooo");
+        return misurazioneService.findCategorieByPaziente(idPaz);
     }
 }

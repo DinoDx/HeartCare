@@ -1,6 +1,7 @@
 package c15.dev.model.entity;
 
 import c15.dev.utils.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -31,6 +32,7 @@ public class Medico extends UtenteRegistrato {
      * assegnati al medico in questione
      */
     @OneToMany(mappedBy = "medico")
+    @JsonIgnore
     private List<Paziente> elencoPazienti = new ArrayList<>();
 
     /**

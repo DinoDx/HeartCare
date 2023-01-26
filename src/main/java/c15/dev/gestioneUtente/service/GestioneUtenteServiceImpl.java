@@ -321,8 +321,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
 
-
-
     /**
      * Metodo per fare update di un paziente nel DB.
      * @param paz è il paziente da aggiornare.
@@ -354,6 +352,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      */
     @Override
     public List<UtenteRegistrato> getTuttiPazienti(){
+        System.out.println("CIAO2");
         return paziente.findAll();
     }
 

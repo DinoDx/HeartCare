@@ -18,6 +18,7 @@ function ModificaDatiForm(){
       withCredentials: true,
       Authorization: `Bearer ${token}`,
     };
+
     const getDati = async () => {
       return await fetch("http://localhost:8080/utente/1", {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -84,17 +85,22 @@ function ModificaDatiForm(){
         event.preventDefault()
 
 
-        axios.post('http://localhost:8080/modificaDatiUtente', {
-            nome: nome,
-            cognome: cognome,
-            password: password,
-            numeroTelefono: nTelefono,
-            confermaPassword: confermaPassword,
-            nomeCaregiver: nomeCaregiver,
-            cognomeCaregiver: cognomeCaregiver,
-            emailCaregiver: emailCaregiver
+        fetch('http://localhost:8080/modificaDatiUtente', {
+            method : "POST",
+            headers : config,
+            body : JSON.stringify({
+                nome: nome,
+                cognome: cognome,
+                password: password,
+                numeroTelefono: nTelefono,
+                confermaPassword: confermaPassword,
+                nomeCaregiver: nomeCaregiver,
+                cognomeCaregiver: cognomeCaregiver,
+                emailCaregiver: emailCaregiver
+            })
         })
             .then((response) => {
+                response.json();
                 console.log(ReactSession.set("utenteLoggato"));
                 console.log(response);
             }, (error) => {

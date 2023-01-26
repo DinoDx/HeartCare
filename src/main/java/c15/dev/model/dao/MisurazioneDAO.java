@@ -24,4 +24,7 @@ public interface MisurazioneDAO extends JpaRepository<Misurazione, Long> {
 
     @Query(value = "SELECT m FROM Misurazione m WHERE m.dispositivoMedico.categoria = ?1 and m.paziente.id = ?2")
     public Iterable<Misurazione> findByCategoria(String categoria, Long id);
+
+    @Query(value = "SELECT m.dispositivoMedico.categoria FROM Misurazione m WHERE m.paziente.id = ?1 GROUP BY m.dispositivoMedico.categoria")
+    public Iterable<String> findCategorieByPaziente(Long id);
 }

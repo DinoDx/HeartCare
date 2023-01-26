@@ -1,25 +1,37 @@
 import React from "react";
 import "../css/Fascicolo.css"
 import {useState,useEffect} from "react";
-import axios from "axios";
 
 export function FascicoloBanner(props){
     const [Misurazioni,setMisurazioni] = useState([{}]);
-    console.log(props.categoria);
+    const token = localStorage.getItem("token");
+
+    let config = {
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        withCredentials: true,
+        Authorization: `Bearer ${token}`,
+        "Content-Type" : "application/json"
+    };
     
     useEffect(() => {
         const fetchData = async() => {
-            const response = await axios.post("http://localhost:8080/getMisurazioneCategoria", {
-                categoria : props.categoria,
-                id : 1
-            });
-            response.data.forEach( m=> {
+            const response = await fetch("http://localhost:8080/getMisurazioneCategoria",{
+                method : "POST",
+                headers : config,
+                body : JSON.stringify({
+                    categoria : props.categoria,
+                    id: 1
+                })
+            }).then(response => response.json());
+            response.forEach( m=> {
                 delete m.id;
                 delete m.dataMisurazione;
                 delete m.paziente;
                 delete m.dispositivoMedico;
             })
-            setMisurazioni(response.data);
+            setMisurazioni(response);
         }
         fetchData();
     },[]);

@@ -78,7 +78,6 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
 
     @Override
     public List<Misurazione> getMisurazioneByCategoria(String categoria, Long id) {
-        System.out.println(categoria+" cccdcd "+id);
         return (List<Misurazione>) misurazioneDAO.findByCategoria(categoria, id);
     }
 
@@ -90,5 +89,10 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
     @Override
     public MisurazionePressione save(MisurazionePressione misurazionePressione) {
         return misurazionePressioneDAO.save(misurazionePressione);
+    }
+
+    @Override
+    public List<String> findCategorieByPaziente(Long id) {
+        return (List<String>) misurazioneDAO.findCategorieByPaziente(id);
     }
 }
