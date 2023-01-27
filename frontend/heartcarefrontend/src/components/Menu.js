@@ -16,18 +16,6 @@ function addClassActive(id, nomeClasseMainContent) {
   });
   document.getElementById(id).classList.add("voceMenuActive");
   // nel caso in cui clicco su una voce del menu da telefono poi nascondo il menu
-  if (window.innerWidth < 768) {
-    document.getElementsByClassName("contenitoreMenu")[0].style.display =
-      "none";
-    // caso in cui l'utente riclicca sulla stessa voce del menu
-    if (
-      document.getElementsByClassName(nomeClasseMainContent)[0] != undefined &&
-      document.getElementsByClassName(nomeClasseMainContent)[0].style.display !=
-        "flex"
-    )
-      document.getElementsByClassName(nomeClasseMainContent)[0].style.display =
-        "flex";
-  }
 }
 
 function Menu() {

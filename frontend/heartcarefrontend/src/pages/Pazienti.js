@@ -7,7 +7,6 @@ import { Chart } from "react-google-charts";
 function Pazienti() {
   return (
     <div className="contenitorePazientiContent">
-        <HamburgerMenu className="HamburgerMenu" nomeClasseMainContent="contenitorePazientiContent"/>
         <div className="searchbar">
             <input id="search" type="text" placeholder=" 🔍Cerca Paziente..." />
         </div>

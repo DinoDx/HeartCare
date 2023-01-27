@@ -106,9 +106,49 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 767px) {
+    .contenitorePaginaHomePage{
+        flex-wrap: wrap;
+    }
+
     .contenitoreMenu{
-        display: none;
         width: 90%;
+        height: 8%;
+        align-self: baseline;
+        order: 2;
+    }
+
+    .logoMenu{
+        display: none;
+    }
+
+    .voceMenu > span {
+        display: none;
+    }
+
+    .lineaMenu {
+        display: none;
+    }
+
+    .contenitoreVociMenu{
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .iconaMenu {
+        width: 20px;
+        height: 20px;
+        margin-left: 0px;
+        margin-right: 0px;
+        align-self: center;
+    }
+
+    .voceMenuText{
+        width: 10%;
+    }
+
+    .voceMenu{
+        justify-content: center;
     }
 
     .HamburgerMenu{

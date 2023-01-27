@@ -6,6 +6,7 @@ import "../css/home-main-content.css";
 import "../css/homeMedico_style.css";
 import { useNavigate } from "react-router";
 import { Navigate } from "react-router-dom";
+import ListaVisita from "../components/ListaVisita";
 
 function HomeMedico() {
   //mi occorre:
@@ -77,8 +78,8 @@ function HomeMedico() {
               Le prossime visite in programma
             </span>
 
-            <div className="box-visite">
-              <VisitaCard nome="Gianluigi Buffon" />
+            <div className="box-visite box-visiteHomeMedico">
+              <ListaVisita classe="cardPazienteHomeMedico"/>
             </div>
           </div>
         </div>

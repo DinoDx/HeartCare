@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import VisitaCard from "./VisitaCard";
 
-function ListaVisita() {
+function ListaVisita(props) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const token = localStorage.getItem("token");
@@ -39,14 +39,14 @@ function ListaVisita() {
   }, []);
 
   return (
-    <div className="container-visita">
+    <>
       {/*{data.map(function(visita, idx){
                 return (
                     //key={idx} idVisita={visita.id} dataVisita={visita.data} statoVisita={visita.stato_visita} idIndirizzo={visita.id_indirizzo}/>
                 )
             })}*/}
-      <VisitaCard />
-    </div>
+      <VisitaCard classe={props.classe}/>
+    </>
   );
 }
 

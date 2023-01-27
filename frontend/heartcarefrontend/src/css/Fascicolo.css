@@ -13,7 +13,9 @@
     flex-direction: column;
     justify-content: center;
     background-color: rgb(45, 45, 45);
-    margin: 10px 40px 0px 40px;
+    border: 2px solid #37a69b;
+    margin:0px;
+    margin-left: 5%;
     height: 13%;
     border-radius: 15px 15px;
     flex-wrap: wrap;
@@ -35,4 +37,32 @@
     margin-left: 20px;
     display: flex;
     flex-direction: column;
+}
+
+@media only screen and (max-width: 767px) {
+    .container-sinistra{
+        align-items: center;
+    }
+
+    .banner {
+        width: 90%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0px;
+        height: 150px;
+        padding-bottom: 10px ;
+    }
+
+    .blocco-testo-banner{
+        width: 100%;
+    }
+
+    .testo-banner{
+        font-size: 15px;
+        font-family: "Questrial", sans-serif;
+    }
+
+    .testo-banner-numero{
+        font-size: 15px;font-family: "Questrial", sans-serif;
+    }
 }

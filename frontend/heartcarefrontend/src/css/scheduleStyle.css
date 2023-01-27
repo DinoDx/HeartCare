@@ -53,8 +53,25 @@
         font-size: 23px;
     }
 
+    .contenitoreScheduleContent{
+        width: 90%;
+    }
+
+    .contenitoreScheduleContent > *{
+        margin:5%;
+    }
+
+    .container-visita{
+        margin-top: 0px;
+        margin-left: 5%;
+        width: 90%;
+
+    }
+
     .iTuoiPazienti{
         font-size: 18px;
+        margin-left:5%;
+        margin-bottom: 10px;
         font-family: "Questrial", sans-serif;
     }
 }

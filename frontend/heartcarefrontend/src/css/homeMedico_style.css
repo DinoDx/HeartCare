@@ -14,7 +14,7 @@
   display: flex;
   justify-content: left;
   margin-top: 20px;
-  margin-left: 40px;
+  margin-left: 5%;
 }
 
 /*parte interna della searchbar*/
@@ -35,7 +35,7 @@
 .testo-bentornat {
   margin-top: 30px;
   margin-bottom: 0px;
-  margin-left: 40px;
+  margin-left: 5%;
   font-family: "Questrial", sans-serif;
   font-size: 38px;
 }
@@ -76,14 +76,14 @@
   width:1000px sembra andare bene, ma si sminchia se ho 1 solo elemento dentro
 */
 .visite-container {
-  width: 700px;
-  height: 500px;
+  width: 95%;
 
   background-color: rgba(242, 242, 242, 0.6);
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  margin: 20px 20px;
+  margin-left: 5%;
+  margin-top: 10px;
   border: 2px solid hsl(174, 50%, 44%);
   border-radius: 20px 20px;
 
@@ -106,6 +106,10 @@
   font-size: 40px;
 }
 
+.cardPazienteHomeMedico{
+  width: 100%;
+}
+
 /*è la parte che continene solamente le card visite.*/
 .box-visite {
   display: flex;
@@ -119,9 +123,8 @@
 
 .note-container {
   display: flex;
-  margin-top: 10px;
   color: black;
-  width: 100%;
+  width: 30%;
   flex-direction: row;
 }
 
@@ -134,22 +137,34 @@
   height: 100%;
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) and (max-width: 1250px) {
-
-}
-
 @media only screen and (min-width: 768px) and (max-width: 1250px) {
   .container-sinistra {
     width: 100%;
+    height: 550px;
   }
 
   .banner {
     margin-top: 40px;
     margin-bottom: 0;
-    width: 85%;
+    width: 100%;
     height: 10%;
     align-items: center;
+  }
+
+  .visite-container{
+    width: 100%;
+  }
+
+  .testo-banner{
+    font-size: 15px !important;
+  }
+
+  .blocco-testo-banner{
+    margin:0px !important;
+  }
+
+  .testo-banner-numero{
+    font-size: 15px !important;
   }
 
   .blocco-testo-banner {
@@ -166,8 +181,13 @@
 
   .full-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+  }
+
+  .note-container{
+    width: 60%;
+    height: 500px;
+    margin-left: 2%;
   }
 }
 
@@ -175,6 +195,15 @@
   .header-responsive {
     display: block;
     text-align: center;
+  }
+
+  .box-visiteHomeMedico{
+    margin-bottom: 15px;
+  }
+
+  .cardPazienteHomeMedico{
+    width: 88%;
+    margin-left: 2%;
   }
 
   .logoMenu-main-content {
@@ -226,6 +255,7 @@
     border: none;
     border-radius: 0;
     width: 100%;
+    height: auto;
   }
 
   .container-sinistra {
@@ -234,7 +264,6 @@
   }
 
   .visite-in-programma {
-    margin-left: 0;
     font-size: 27px;
   }
 
@@ -242,6 +271,11 @@
     padding-left: 0;
     flex-wrap: wrap;
     padding-bottom: 0;
+    width: 100%;
+  }
+
+  .testo-bentornat{
+    margin-left: 5%;
   }
 
   .note-header-responsive {
@@ -264,5 +298,6 @@
     flex-direction: column;
     row-gap: 15px;
     margin-top: 0;
+    width: 90%;
   }
 }

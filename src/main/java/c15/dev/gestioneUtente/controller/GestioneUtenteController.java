@@ -156,7 +156,7 @@ public class GestioneUtenteController {
     @GetMapping(value = "/getPazientiByMedico/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getPazientiByMedico(@PathVariable("id") long idMedico) {
         System.out.println(idMedico);
-       List<Paziente> paz = service.getPazientiByMedico(idMedico);
+        List<Paziente> paz = service.getPazientiByMedico(idMedico);
         return new ResponseEntity<>(paz,HttpStatus.OK);
     }
 
@@ -168,19 +168,18 @@ public class GestioneUtenteController {
      */
     //TODO usare optional per vedere solo quali campi modificare
     @PostMapping("/modificaDatiUtente")
-    public boolean modificaDatiPaziente(@Valid @RequestBody
+    public boolean modificaDatiPaziente(@RequestBody
                                         ModificaPazienteDTO pazienteDTO) throws Exception {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
-
-        long id = 1L;//utente.getId();
+        System.out.println(pazienteDTO.toString());
+        long id = 2L;//utente.getId();
         UtenteRegistrato utente = service.findUtenteById(id);
         if (service.isPaziente(id)) {
             if (utente.getPassword().equals(pazienteDTO.getConfermaPassword())) {
                 service.modificaDatiPaziente(pazienteDTO, id);
                 return true;
             }
-
         }
         return false;
     }
@@ -198,7 +197,7 @@ public class GestioneUtenteController {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
 
-        long id = 4L;//utente.getId();
+        long id = 2L;//utente.getId();
         UtenteRegistrato utente = service.findUtenteById(id);
         if (service.isMedico(id)) {
             if (utente.getPassword().equals(pazienteDTO.getConfermaPassword())) {
