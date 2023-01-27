@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 @RestController
-@RequestMapping(path =  "comunicazione")
-@CrossOrigin(originPatterns = "*", allowedHeaders = "*", allowCredentials = "true")
+@RequestMapping(path =  "/comunicazione")
+@CrossOrigin
 public class GestioneComunicazioneController {
     @Autowired
     private GestioneComunicazioneService service;
@@ -33,11 +33,11 @@ public class GestioneComunicazioneController {
     }
 
 
-    @PostMapping(path = "invioNota")
-    public void invioNota(){
+    @GetMapping(path = "/invioNota", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<String>> invioNota(){
         System.out.println("Ciao sono qui");
-        String messaggio = "Ciao";
-        service.invioNota(messaggio,5L,1L);
+        String messaggio = "Zio Leo";
+        return service.invioNota(messaggio,5L,2L);
     }
 
 }

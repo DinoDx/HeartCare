@@ -17,15 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -161,9 +153,11 @@ public class GestioneUtenteController {
      * Metodo che restituisce tutti i pazienti di un medico.
      * @param idMedico id del medico
      */
-    @RequestMapping(value = "/getPazientiByMedico", method = RequestMethod.POST)
-    public List<Paziente> getPazientiByMedico(@RequestParam long idMedico) {
-        return service.getPazientiByMedico(idMedico);
+    @GetMapping(value = "/getPazientiByMedico/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getPazientiByMedico(@PathVariable("id") long idMedico) {
+        System.out.println(idMedico);
+       List<Paziente> paz = service.getPazientiByMedico(idMedico);
+        return new ResponseEntity<>(paz,HttpStatus.OK);
     }
 
 

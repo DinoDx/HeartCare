@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * DAO per la misurazione pressione.
  */
 @Repository
-public interface MisurazionePressioneDAO extends MisurazioneDAO{
+public interface MisurazionePressioneDAO extends MisurazioneDAO {
 }

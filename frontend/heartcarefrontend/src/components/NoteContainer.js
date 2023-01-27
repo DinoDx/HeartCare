@@ -1,8 +1,93 @@
 import React from "react";
-import PropTypes from "prop-types";
+import jwt from "jwt-decode";
+import { useState, useEffect, useNavigate } from "react"
 import { BiPlusCircle, BiPlusMedical } from "react-icons/bi";
+import { fetchEventSource } from "@microsoft/fetch-event-source";
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 import "../css/note-style.css";
 function NoteContainer(props) {
+  const token = localStorage.getItem("token");
+
+
+  const handleSubmit = async (event) => {
+    const eventSource = await new EventSourcePolyfill("http://localhost:8080/comunicazione/invioNota", {
+      method: "GET",// *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        Authorization: `Bearer ${token}`,
+
+        //'Content-Type': 'application/x-www-form-urlencoded',
+      },
+
+      withCredentials: true,
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer",
+
+    });
+
+    eventSource.onmessage = res => {
+      console.log(res.data);
+      eventSource.close();
+    }
+    eventSource.onerror = err => {
+      console.log('EventSource error: ', err);
+    };
+
+  }
+
+  const [pazienti, setPazienti] = useState([]);
+
+  const id = jwt(token).id;
+
+  const fetchPazienti = async () => {
+    return await fetch("http://localhost:8080/getPazientiByMedico/" + id, {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      }, redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      //body: JSON.stringify(data), // body data type must match "Content-Type" header
+    }).then(async (response) => {
+      console.log();
+      response = await response.json()
+      console.log(response)
+
+      return response;
+    }
+    )
+  };
+
+  useState(() => {
+    fetchPazienti().then((data) => setPazienti(data));
+  });
+
+
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+
+  
+let nomi = [];
+
+pazienti.forEach(paziente =>{
+  for (let nome in paziente){
+    nomi = paziente.nome;
+    console.log(`${paziente.nome}`)
+  }
+})
+
+console.log(nomi);
+
   return (
     <div className="container-note">
       <div className="intestazione-note">
@@ -10,7 +95,16 @@ function NoteContainer(props) {
           <span className="testo-intestazione-note">Note</span>
         </div>
         <div className="container-icona">
-          <BiPlusCircle className="icona-aggiunta-nota" />
+          <button onClick={handleSubmit}>ciao</button>
+          <BiPlusCircle className="icona-aggiunta-nota" onClick={onOpenModal} />
+          <Modal open={open} onClose={onCloseModal} center>
+            <h2>Scegli il paziente
+            <select>
+            
+            </select>
+            </h2>
+            <input type="text" placeholder="Inserire qui la nota" />
+          </Modal>
         </div>
       </div>
       <div className="singola-nota-container">

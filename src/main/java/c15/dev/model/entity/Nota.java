@@ -3,6 +3,7 @@ package c15.dev.model.entity;
 import c15.dev.model.entity.enumeration.Autore;
 
 import c15.dev.model.entity.enumeration.StatoNotifica;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +15,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.cglib.core.Local;
 
 import java.io.Serializable;
@@ -32,7 +36,10 @@ import java.util.GregorianCalendar;
  * medico(chiave esterna),
  * paziente(chiave esterna).
 **/
+@Data
 @Entity
+@Setter
+@NoArgsConstructor
 public class Nota implements Serializable {
     /**
      * Campo relativo all'id della nota generato automaticamente.
@@ -72,7 +79,7 @@ public class Nota implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_medico",
             referencedColumnName = "id")
-    @NotBlank
+    @JsonIgnore
     private Medico medico;
     /**
      * Campo (chiave esterna) relativo al paziente che ha scritto/ricevuto la nota
@@ -80,14 +87,12 @@ public class Nota implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_paziente",
             referencedColumnName = "id")
-    @NotBlank
+    @JsonIgnore
     private Paziente paziente;
 
     /**
      * Costruttore vuoto per la classe nota
      **/
-    public Nota() {
-    }
 
     /**
      * @param contenuto rappresenta il contenuto della nota

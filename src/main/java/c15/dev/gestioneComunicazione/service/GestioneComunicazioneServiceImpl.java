@@ -9,6 +9,7 @@ import c15.dev.model.entity.Notifica;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.enumeration.Autore;
 import c15.dev.model.entity.enumeration.StatoNotifica;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.mail.SimpleMailMessage;
@@ -18,6 +19,7 @@ import reactor.core.publisher.Flux;
 import java.time.LocalDate;
 
 @Service
+@Transactional
 public class GestioneComunicazioneServiceImpl
         implements GestioneComunicazioneService {
     @Autowired
@@ -61,12 +63,14 @@ public class GestioneComunicazioneServiceImpl
     public Flux<ServerSentEvent<String>> invioNota(String messaggio, Long idDestinatario, Long idMittente) {
 
         Medico m = (Medico) utenteService.findMedicoById(5L);
-        Paziente p = (Paziente) utenteService.findPazienteById(1L);
+        Paziente p = (Paziente) utenteService.findPazienteById(2L);
 
         Nota nota = new Nota(messaggio, LocalDate.of(2022,11,10),
                     Autore.M,StatoNotifica.NON_LETTA, m,p
                 );
         notaDAO.save(nota);
+        System.out.println("ciao");
+        System.out.println(nota.getContenuto());
         return Flux.just(ServerSentEvent.builder(nota.getContenuto()).build()).take(1);
     }
 }
