@@ -120,3 +120,36 @@
 .marginSotto{
     margin-bottom: 10px;
 }
+
+@media only screen and (min-width: 360px) and (max-width: 1250px) {
+    .contenitoreHomePaziente{
+        width: 400px;
+        overflow: hidden;
+    }
+    .bannerNero{
+        width:300px ;
+        display: revert;
+        margin-left: 10px;
+    }
+
+    .informazioneBannerNero{
+        width: 480px;
+        margin-left: 56px;
+    }
+    .valoreInformazioneBannerNero{
+        margin-left: 90px;
+    }
+
+    .contenitoreGrafico{
+        width: 130%;
+    }
+    .bottoneHomePaziente{
+        width: 150px;
+        font-size: 18px;
+    }
+    .contenitoreDestra{
+        width: 400px;
+    }
+
+
+}

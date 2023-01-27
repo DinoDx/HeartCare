@@ -70,19 +70,20 @@
 }
 
 /*è l'intera sezione in cui ci sono le visite
-  non confondere con box-visite, 
+  non confondere con box-visite,
   questo è il div più esterno.
 
   width:1000px sembra andare bene, ma si sminchia se ho 1 solo elemento dentro
 */
 .visite-container {
-  width: 1000px;
+  width: 700px;
+  height: 500px;
 
   background-color: rgba(242, 242, 242, 0.6);
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  margin: 20px 40px;
+  margin: 20px 20px;
   border: 2px solid hsl(174, 50%, 44%);
   border-radius: 20px 20px;
 
@@ -135,6 +136,7 @@
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) and (max-width: 1250px) {
+
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1250px) {
