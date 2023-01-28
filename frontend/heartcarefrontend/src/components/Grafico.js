@@ -110,11 +110,6 @@ function Grafico(props) {
        console.log(dataGrafico)
     }
 
-   /* useLayoutEffect(() => {
-        //check local token or something
-        data = fetchData();
-    }, []); */
-
     return (
         <div className="contenitoreGrafico">
             <span className="titoloGrafico">Andamento misurazioni passate:</span>
@@ -123,7 +118,7 @@ function Grafico(props) {
                 chartType="Line"
                 width="100%"
                 height="400px"
-                data={data}
+                data={dataGrafico}
             /> }
             <select id = "selectCategoria" className="selectMisurazione" onChange={(e) => handlerOnChange(e)}>
                 {props.categorie.map( c => {
