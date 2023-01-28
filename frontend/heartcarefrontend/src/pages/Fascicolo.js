@@ -47,11 +47,34 @@ function Fascicolo(){
         fetchData();
     }, []);
 
+    const returnByCategoria = (categoria) => {
+        return Misurazioni.filter( mis =>
+            mis["categoria"] == categoria
+        )
+    }
         return (
         <div className="contenitoreFascicoloContent">
             <div className="mainContentFascicolo">
                 <FascicoloBanner categorie={Categorie} misurazioni = {Misurazioni}/>
                 <Grafico categorie={Categorie} misurazioni = {Misurazioni}/>
+                <div>
+                    {Categorie.map( cat => {
+                        return(
+                            <div>
+                                <span>{cat}</span>
+                                <div>
+                                    {returnByCategoria(cat).map( mis => {
+                                        return (
+                                            Object.entries(mis["misurazione"]).map(chiave =>
+                                                <span>{chiave[0]} : {chiave[1]}</span>
+                                            )
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        )
+                    }) }
+                </div>
             </div>
         </div>
     )

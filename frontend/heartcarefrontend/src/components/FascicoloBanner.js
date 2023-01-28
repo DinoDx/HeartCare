@@ -36,5 +36,6 @@ export function FascicoloBanner(props){
             })
             }
         </div>
+
     );
 }
