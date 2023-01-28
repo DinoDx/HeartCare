@@ -2,7 +2,7 @@
 
 .container-note {
     width: 100%;
-    height: 45%;
+    height: 250px;
     display: flex;
     flex-direction: column;
     border: 3px solid #37a69b;
@@ -11,7 +11,7 @@
     padding-left: 10px;
     row-gap: 15px;
     overflow-y: scroll;
-    margin :0px 30px ;
+    margin :0px 0px 0px 20px;
 }
 
 .intestazione-note {
@@ -119,7 +119,6 @@ h2{
 @media only screen and (max-width: 767px) {
     .container-note {
         width: 90%;
-        height: 100%;
         margin-bottom: 30px;
     }
 

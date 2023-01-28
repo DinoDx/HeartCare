@@ -123,6 +123,7 @@
 
 .note-container {
   display: flex;
+  padding-right: 1%;
   color: black;
   width: 30%;
   flex-direction: row;
