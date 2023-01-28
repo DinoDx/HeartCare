@@ -49,12 +49,10 @@ function Fascicolo(){
 
         return (
         <div className="contenitoreFascicoloContent">
-            <div className="searchbar">
-                <input id="search" type="text" placeholder=" 🔍Cerca Paziente..." />
+            <div className="mainContentFascicolo">
+                <FascicoloBanner categorie={Categorie} misurazioni = {Misurazioni}/>
+                <Grafico categorie={Categorie} misurazioni = {Misurazioni}/>
             </div>
-            <span>bentornato, Mario 👋🏻</span>
-            <FascicoloBanner categorie={Categorie} misurazioni = {Misurazioni}/>
-            <Grafico categorie={Categorie} misurazioni = {Misurazioni}/>
         </div>
     )
 }

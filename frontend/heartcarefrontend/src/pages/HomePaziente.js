@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "../css/style.css";
 import "../css/home-main-content.css";
 import "../css/homeMedico_style.css";
@@ -11,6 +11,49 @@ import Grafico from "../components/Grafico";
 import jwt from "jwt-decode"
 
 function HomePaziente() {
+
+
+    const [Categorie,setCategorie] = useState([]);
+    const [Misurazioni,setMisurazioni] = useState([]);
+    const token = localStorage.getItem("token");
+    let config = {
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        withCredentials: true,
+        Authorization: `Bearer ${token}`,
+        "Content-Type" : "application/json"
+    };
+
+    useEffect(() => {
+        const getCategorie = async () =>{
+            const response = await fetch("http://localhost:8080/getCategorie",{
+                method : "POST",
+                headers : config,
+                body : JSON.stringify({
+                    id : 1
+                })
+            }).then(response => {
+                return response.json()
+            })
+            setCategorie(response);
+        }
+
+        const fetchData = async() => {
+            const response = await fetch("http://localhost:8080/getAllMisurazioniByPaziente",{
+                method : "POST",
+                headers : config,
+                body : JSON.stringify({
+                    id: 1
+                })
+            }).then(response => {
+                return response.json()
+            })
+            setMisurazioni(response);
+        }
+        getCategorie();
+        fetchData();
+    }, []);
 
 
     return !localStorage.getItem("token") ? (
@@ -38,7 +81,7 @@ function HomePaziente() {
                         <span className="valoreInformazioneBannerNero">2</span>
                     </div>
                 </div>
-                {/*<Grafico/>*/}
+                <Grafico categorie={Categorie} misurazioni = {Misurazioni}/>
                 <div className="containerBottoni">
                     <button className="bottoneHomePaziente">Avvio Misurazione</button>
                     <button className="bottoneHomePaziente">Avvio Predizione</button>

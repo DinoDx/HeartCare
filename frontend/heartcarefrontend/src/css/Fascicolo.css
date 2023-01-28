@@ -21,6 +21,16 @@
     flex-wrap: wrap;
 }
 
+.bannerFascicolo{
+    width: 90%;
+}
+
+.mainContentFascicolo{
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+}
+
 .testo-banner {
     margin-top: 10px;
     color: rgb(255, 255, 255);
@@ -39,9 +49,17 @@
     flex-direction: column;
 }
 
+.contenitoreFascicoloContent > *{
+    margin-left: 5%;
+}
+
 @media only screen and (max-width: 767px) {
     .container-sinistra{
         align-items: center;
+    }
+
+    .contenitoreFascicoloContent {
+        width: 90%;
     }
 
     .banner {
