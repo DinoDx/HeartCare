@@ -3,12 +3,15 @@ import "../css/scheduleStyle.css";
 import "../css/style.css";
 import "../css/visita-style.css";
 import {Chart} from "react-google-charts";
-import {useForm} from "react-hook-form";
+import Modal from "react-responsive-modal";
 
 function Grafico(props) {
     const [isLoaded,setIsLoaded] = useState(true);
     const [dataGrafico,setDataGrafico] = useState([]);
-    const [isChange,setIsChange] = useState(false);
+    const [isChange,setIsChange] = useState(false);const [open, setOpen] = useState(false);
+
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
 
     const fromJsonToArray = (categorieNonJsonate) => {
         let arr = JSON.stringify(categorieNonJsonate);
@@ -55,17 +58,14 @@ function Grafico(props) {
             filtrate.map((misurazione) =>{
                 misurazione.shift();
             })
-        //filtrate = fromJsonToArray(filtrate);
 
     }
-    //filterByCategoria("Misuratore glicemico");
     let tmpDataGrafico = [];
     const riempiDatiGrafico = () => {
         tmpDataGrafico.push(attributiFiltrati);
         for(let i = 0; i<filtrate.length; i++) {
             tmpDataGrafico.push(filtrate[i])
         }
-        console.log(tmpDataGrafico)
     }
 
     useEffect( () => {
@@ -79,9 +79,6 @@ function Grafico(props) {
         }
     }, [isChange])
 
-
-   //riempiDatiGrafico();
-
    const handlerOnChange = (event) => {
        let cat = event.target.value;
        console.log(cat)
@@ -91,21 +88,21 @@ function Grafico(props) {
     }
 
     return (
-        <div className="contenitoreGrafico">
-            <span className="titoloGrafico">Andamento misurazioni passate:</span>
-            {isLoaded &&  <Chart
-                className="grafico"
-                chartType="Line"
-                width="100%"
-                height="400px"
-                data={dataGrafico}
-            /> }
-            <select id = "selectCategoria" className="selectMisurazione" onChange={(e) => handlerOnChange(e)}>
-                {props.categorie.map( c => {
-                    return <option key ={c.id} value ={c.value} >{c}</option>
-                })}
-            </select>
-        </div>
+            <div className="contenitoreGrafico">
+                <span className="titoloGrafico">Andamento misurazioni passate:</span>
+                {isLoaded &&  <Chart
+                    className="grafico"
+                    chartType="Line"
+                    width="100%"
+                    height="400px"
+                    data={dataGrafico}
+                /> }
+                <select id = "selectCategoria" className="selectMisurazione" onChange={(e) => handlerOnChange(e)}>
+                    {props.categorie.map( c => {
+                        return <option key ={c.id} value ={c.value} >{c}</option>
+                    })}
+                </select>
+            </div>
     );
 }
 
