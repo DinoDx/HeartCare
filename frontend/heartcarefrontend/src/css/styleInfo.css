@@ -23,7 +23,6 @@
     padding: 20px;
     border-radius: 15px;
     border: 2px solid #37a69b;
-    overflow-y: scroll;
 }
 
 .titolo{
@@ -58,5 +57,60 @@
 .footer-element{
     font-family: "Questrial", sans-serif;
     cursor: pointer;
+}
+
+.lineaMenuAbout {
+    width: 97%;
+    border: none;
+    border-top: 1px solid rgba(105, 127, 140, 0.6);
+    border-top-left-radius: 75%;
+    border-top-right-radius: 75%;
+    height: 1px;
+}
+
+.bloccoTestoSystemGoal{
+    overflow-y: scroll;
+}
+
+@media only screen and (max-width: 767px) {
+    .titolo{
+        font-size: 20px;font-family: "Questrial", sans-serif;
+    }
+
+    .footer-element{
+        font-size: 17px;font-family: "Questrial", sans-serif;
+        cursor: pointer;
+    }
+
+    .systemGoal{
+        display: flex;
+        width: 60%;
+    }
+
+    .contenitoreAboutContent{
+        width: 90%;
+        align-content: flex-start;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+    .systemGoal{
+        display: flex;
+        width: 60%;
+    }
+
+    .contenitoreAboutContent{
+        width: 90%;
+        align-content: flex-start;
+    }
+
+    .footer-element{
+        font-size: 22px;font-family: "Questrial", sans-serif;
+        cursor: pointer;
+    }
+
+    .titolo{
+        font-size: 28px;font-family: "Questrial", sans-serif;
+    }
 }
 
