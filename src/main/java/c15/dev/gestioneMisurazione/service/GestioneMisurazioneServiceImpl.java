@@ -1,16 +1,19 @@
 package c15.dev.gestioneMisurazione.service;
 
 
+import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dao.DispositivoMedicoDAO;
 import c15.dev.model.dao.MisurazioneDAO;
 import c15.dev.model.dao.MisurazionePressioneDAO;
 import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.dto.MisurazioneDTO;
 import c15.dev.model.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 /**
@@ -40,6 +43,9 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
 
     @Autowired
     private MisurazionePressioneDAO misurazionePressioneDAO;
+
+    @Autowired
+    private GestioneUtenteService serviceUtente;
 
     @Override
     public boolean registrazioneDispositivo(DispositivoMedico dispositivo,
@@ -86,18 +92,20 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
         return misurazioneDAO.save(misurazione);
     }
 
-    @Override
+   /* @Override
     public MisurazionePressione save(MisurazionePressione misurazionePressione) {
-        /*
-         *  1. controllare che la misurazione sia nei valori limiti
-         *  2. se è oltre il limite -> notify()
-         *  3. il notify chiama update degli observer presenti nel service.
-         */
         return misurazionePressioneDAO.save(misurazionePressione);
-    }
+    } */
 
     @Override
     public List<String> findCategorieByPaziente(Long id) {
         return (List<String>) misurazioneDAO.findCategorieByPaziente(id);
+    }
+
+    @Override
+    public List<MisurazioneDTO> getAllMisurazioniByPaziente(Long id) {
+        List<Misurazione> list = (List<Misurazione>) misurazioneDAO.getAllMisurazioniByPaziente(id);
+        List<MisurazioneDTO> listDTO = list.stream().map( m -> new MisurazioneDTO(m,m.getDispositivoMedico().getCategoria())).toList();
+        return listDTO;
     }
 }

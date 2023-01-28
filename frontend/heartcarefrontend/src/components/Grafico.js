@@ -1,60 +1,88 @@
-import React, {useEffect, useState, useLayoutEffect} from "react";
+import React, {useEffect, useState, useLayoutEffect, cloneElement} from "react";
 import "../css/scheduleStyle.css";
 import "../css/style.css";
 import "../css/visita-style.css";
 import {Chart} from "react-google-charts";
+import {useForm} from "react-hook-form";
 
 function Grafico(props) {
-    const [Categoria,setCategoria] = useState("Misuratore di pressione");
-    const [Misurazioni,setMisurazioni] = useState([{}]);
-    const [Attributi,setAttributi] = useState([]);
-    const [isLoaded,setIsLoaded] = useState(false);
-    const [data, setData] = useState([]);
-    const token = localStorage.getItem("token");
-    let copiaMisurazione;
+    const [isLoaded,setIsLoaded] = useState(true);
+    const [dataGrafico,setDataGrafico] = useState([]);
+    const [isChange,setIsChange] = useState(false);
 
-    let config = {
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        withCredentials: true,
-        Authorization: `Bearer ${token}`,
-        "Content-Type" : "application/json"
-    };
-
-    const aggiornaAttributi = (Att) => {
-        setAttributi(Att);
-    };
-
-    const aggiornaMisurazione = (Mis) => {
-        setMisurazioni(Mis);
-    };
-
-    const aggiornaCategoria = (Cat) => {
-        setCategoria(Cat);
-    };
-
-    const aggiornaIsLoaded = (bool) => {
-        setIsLoaded(bool);
+    const fromJsonToArray = (categorieNonJsonate) => {
+        let arr = JSON.stringify(categorieNonJsonate);
+        arr = arr.replace("[","")
+        arr = arr.replace("]","")
+        arr = arr.replaceAll("\"","")
+        arr = arr.split(",")
+        return arr;
     }
 
-    const aggiornaData = (data) => {
-        setData(data);
+    let arrayCategorie = fromJsonToArray(props.categorie);
+    //let categoriaSelezionata = arrayCategorie[0];
+    let categoria = arrayCategorie[0];
+    const [categoriaSelezionata,setCategoriaSelezionata] = useState(categoria);
+    let arrayAttributi;
+    let arrayValori;
+    let misurazioni = JSON.stringify(props.misurazioni);
+
+    Object.keys(props.misurazioni).map((el) => {
+        // get degli attributi di una misurazione e li mette in un array
+        arrayAttributi = Object.keys(props.misurazioni[el]["misurazione"]);
+        arrayAttributi = fromJsonToArray(arrayAttributi);
+        arrayAttributi = arrayAttributi.filter(attr => attr !== "id");
+
+        // stampo i valori di una misurazione (con le chiavi)
+        // stampo solo i valori della misurazione
+        arrayValori = Object.values(props.misurazioni[el]["misurazione"]);
+        arrayValori.shift();
+    })
+    let misurazioniFiltrate;
+    let attributiFiltrati = [];
+    let filtrate = [];
+    const filterByCategoria = (categoria) => {
+        filtrate = [];
+        attributiFiltrati = [];
+            Object.keys(props.misurazioni).map(index =>{
+                if(props.misurazioni[index]["categoria"] === categoria){
+                    filtrate.push(Object.values(props.misurazioni[index]["misurazione"]));
+                    attributiFiltrati = Object.keys(props.misurazioni[index]["misurazione"])
+                }
+            }
+        )
+        attributiFiltrati.shift();
+            filtrate.map((misurazione) =>{
+                misurazione.shift();
+            })
+        //filtrate = fromJsonToArray(filtrate);
+
+    }
+    //filterByCategoria("Misuratore glicemico");
+    let tmpDataGrafico = [];
+    const riempiDatiGrafico = () => {
+        tmpDataGrafico.push(attributiFiltrati);
+        for(let i = 0; i<filtrate.length; i++) {
+            tmpDataGrafico.push(filtrate[i])
+        }
+        console.log(tmpDataGrafico)
     }
 
     useEffect( () => {
-        copiaMisurazione = structuredClone(Misurazioni) ;
-        copiaMisurazione.forEach( m => {
-            delete m.id;
-            delete m.dataMisurazione;
-            delete m.paziente;
-            delete m.dispositivoMedico;
-        })
-        aggiornaAttributi(Object.keys(copiaMisurazione[0]));
-    },[Misurazioni])
+        if(isChange){
+            console.log(categoriaSelezionata)
+            filterByCategoria(categoriaSelezionata);
+            setDataGrafico(tmpDataGrafico);
+            riempiDatiGrafico();
+            console.log(dataGrafico);
+            setIsChange(false);
+        }
+    }, [isChange])
 
-    useEffect( () => {
-        console.log(Attributi);
+
+   // riempiDatiGrafico();
+
+    /*useEffect( () => {
         aggiornaData(  [
             Attributi,
             [1, 37.8, 80.8, 41.8],
@@ -72,28 +100,14 @@ function Grafico(props) {
             [13, 4.8, 6.3, 3.6],
             [14, 4.2, 6.2, 3.4],
         ]);
-        console.log(Attributi);
-        console.log(data);
-        console.log(isLoaded);
-    },[Attributi])
+    },[Attributi])*/
 
-    const fetchData = async() => {
-        const response = await fetch("http://localhost:8080/getMisurazioneCategoria",{
-            method : "POST",
-            headers : config,
-            body : JSON.stringify({
-                categoria: Categoria,
-                id: 1
-            })
-        }).then(response => response.json());
-        aggiornaMisurazione(response);
-    }
-
-    const handlerOnChange = (event) => {
-        console.log(isLoaded);
-        //aggiornaCategoria(event.target.value);
-        fetchData();
-        aggiornaIsLoaded(true);
+   const handlerOnChange = (event) => {
+       let cat = event.target.value;
+       console.log(cat)
+       setCategoriaSelezionata(cat);
+       setIsChange(true);
+       console.log(dataGrafico)
     }
 
    /* useLayoutEffect(() => {
@@ -115,9 +129,7 @@ function Grafico(props) {
                 {props.categorie.map( c => {
                     return <option key ={c.id} value ={c.value} >{c}</option>
                 })}
-                <option>ciao</option>
             </select>
-            {Object.keys(Misurazioni[0]).length}
         </div>
     );
 }

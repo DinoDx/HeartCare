@@ -1,11 +1,13 @@
 package c15.dev.gestioneMisurazione.service;
 
 
+import c15.dev.model.dto.MisurazioneDTO;
 import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.Misurazione;
 import c15.dev.model.entity.MisurazionePressione;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Paolo Carmine Valletta, Alessandro Zoccola.
@@ -21,7 +23,7 @@ public interface GestioneMisurazioneService {
      *                   il dispositivo.
      * @return true o false.
      */
-    boolean registrazioneDispositivo(DispositivoMedico dispositivo,
+    public boolean registrazioneDispositivo(DispositivoMedico dispositivo,
                                             long idPaziente);
 
     /**
@@ -32,7 +34,7 @@ public interface GestioneMisurazioneService {
      *                   il dispositivo.
      * @return true o false.
      */
-    boolean rimozioneDispositivo(DispositivoMedico dispositivo,
+    public boolean rimozioneDispositivo(DispositivoMedico dispositivo,
                                         long idPaziente);
 
     /**
@@ -40,12 +42,12 @@ public interface GestioneMisurazioneService {
      * @return List<Misurazione>
      * Metodo che restituisce tutte le misurazioni presenti nel database
      */
-    List<Misurazione> getMisurazioniByPaziente(Long id);
-    DispositivoMedico getById(Long id);
+    public List<Misurazione> getMisurazioniByPaziente(Long id);
+    public DispositivoMedico getById(Long id);
 
-    List<Misurazione> getMisurazioneByCategoria(String categoria,
+    public List<Misurazione> getMisurazioneByCategoria(String categoria,
                                                        Long id);
-    Misurazione save(Misurazione misurazione);
-    MisurazionePressione save(MisurazionePressione misurazionePressione);
-    List<String> findCategorieByPaziente(Long id);
+    public Misurazione save(Misurazione misurazione);
+    public List<String> findCategorieByPaziente(Long id);
+    public List<MisurazioneDTO> getAllMisurazioniByPaziente(Long id);
 }

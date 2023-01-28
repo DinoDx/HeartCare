@@ -138,13 +138,12 @@ public class DBPopulator {
                 "Misuratore di pressione",
                 paz1
         );
-
-        DispositivoMedico d2 = new DispositivoMedico(LocalDate.of(2021,2, 15),
-                "pulsossimetro da dito",
-                "ccbZMA4xU62ftxsv3FCA8qbFS2Sbkh",
+        DispositivoMedico d2 = new DispositivoMedico(LocalDate.of(2023, 1, 22),
+                "funziona ti prego",
+                "hbdsdsdhjsdfhjgsdsdfhjdfhsdfsd",
                 true,
                 "Misuratore di pressione",
-                paz2
+                paz1
         );
 
         DispositivoMedico d3 = new DispositivoMedico(LocalDate.of(2021,5,5),
@@ -304,6 +303,7 @@ public class DBPopulator {
         gestioneMisurazioneService.registrazioneDispositivo(d17,2);
         gestioneMisurazioneService.registrazioneDispositivo(d18,3);
 
+        gestioneMisurazioneService.registrazioneDispositivo(d2, 1);
         LocalDate data2 = LocalDate.of(2023, 01, 18);
         LocalDate data3 = LocalDate.of(2022, 02, 18);
         LocalDate data4 = LocalDate.of(2022, 03, 18);
@@ -337,6 +337,15 @@ public class DBPopulator {
                 99.0,
                 89.0,
                 85.5
+        );
+
+        MisurazionePressione mis20 = new MisurazionePressione(data2,
+                paz1,
+                d1,
+                85,
+                95.0,
+                86.0,
+                82.5
         );
 
         //Misurazioni per gli enzimi cardiaci
@@ -468,8 +477,16 @@ public class DBPopulator {
                 400
         );
 
+        MisurazioneGlicemica mis19 = new MisurazioneGlicemica(data7,
+                paz1,
+                d16,
+                101,
+                230,
+                399
+        );
+
         misurazioniList.addAll(List.of(mis1,mis2,mis3,mis4,mis5,mis6,mis7,mis8,mis9,mis10,
-                mis11,mis12,mis13,mis14,mis15,mis16,mis17,mis18));
+                mis11,mis12,mis13,mis14,mis15,mis16,mis17,mis18,mis19,mis20));
         misurazioniList.stream().forEach(mis -> gestioneMisurazioneService.save(mis));
 
 
@@ -483,7 +500,7 @@ public class DBPopulator {
                 "SA",
                 "Via roma"
         );
-
+        System.out.println("ci arrivo2");
         Indirizzo ind2 = new Indirizzo("Caserta",
                 1,
                 80056,
@@ -518,25 +535,25 @@ public class DBPopulator {
                 "NA",
                 "Via del vesuvio"
         );
-
+        System.out.println("ci arrivo3");
         indirizzoList.addAll(List.of(ind1,ind2,ind3,
                 ind4,ind5,ind6));
         indirizzoList.stream().forEach(i -> userService.registraIndirizzo(i));
-
+        System.out.println("ci arrivo4");
         userService.assegnaIndirizzoAdUtente(1,ind1);
         userService.assegnaIndirizzoAdUtente(2,ind2);
         userService.assegnaIndirizzoAdUtente(3,ind3);
         userService.assegnaIndirizzoAdUtente(4,ind4);
         userService.assegnaIndirizzoAdUtente(5,ind5);
         userService.assegnaIndirizzoAdUtente(6,ind6);
-
+        System.out.println("ci arrivo5");
         /*
             In questa sezione si assegnano i medici ai pazienti
          */
         userService.assegnaMedicoAPaziente(4,1);
         userService.assegnaMedicoAPaziente(5,2);
         userService.assegnaMedicoAPaziente(6,3);
-
+        System.out.println("ci arrivo6");
         /*
             In questa sezione si assegnano i caregiver ai pazienti
          */
@@ -640,5 +657,4 @@ public class DBPopulator {
 
 
     }
-
 }
