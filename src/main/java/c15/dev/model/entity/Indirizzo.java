@@ -1,5 +1,7 @@
 package c15.dev.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -75,12 +77,14 @@ public final class Indirizzo implements Serializable {
      * in un determinato indirizzo.
      */
     @OneToMany(mappedBy = "indirizzoResidenza")
+    @JsonManagedReference
     private List<UtenteRegistrato> elencoUtenti;
 
     /**
      * Lista di tutte le visite che hanno luogo in un determinato indirizzo.
      */
     @OneToMany(mappedBy = "indirizzoVisita")
+    @JsonManagedReference
     private List<Visita> elencoVisite;
 
     /**

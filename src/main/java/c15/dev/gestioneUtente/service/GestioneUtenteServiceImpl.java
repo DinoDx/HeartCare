@@ -18,6 +18,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -30,6 +31,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private DispositivoMedicoDAO daoM;
 
     /**
      * Provvede ad accedere al db per il paziente.
@@ -136,8 +139,13 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     @Override
     public Set<DispositivoMedico> getDispositiviByPaziente(long idPaziente) {
-        Paziente pz = this.findPazienteById(idPaziente);
-        return pz.getDispositivoMedico();
+        //Paziente pz = this.findPazienteById(idPaziente);
+        Set<DispositivoMedico> res = new HashSet<>();
+        res.addAll(daoM.findByPaziente(idPaziente));
+
+
+        res.forEach(s->System.out.println(s.getId()));
+        return res;
     }
 
 

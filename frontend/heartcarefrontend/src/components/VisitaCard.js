@@ -90,7 +90,7 @@ function VisitaCard(props) {
             <hr className="linea-visita"  ref={linea} ></hr>
             <div className="contenitoreInformazioniPazienteCard" ref={informazioniPaziente}>
                 <div className="informazionePaziente">
-                    <BsCalendarEvent/> <span>{props.dataNascita}</span>
+                    <BsCalendarEvent/> <span>{props.dataVisita}</span>
                 </div>
                 <div className="informazionePaziente">
                     {iconaGenere} <span>{props.genere}</span>

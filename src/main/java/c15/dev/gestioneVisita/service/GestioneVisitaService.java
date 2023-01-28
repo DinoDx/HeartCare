@@ -2,6 +2,8 @@ package c15.dev.gestioneVisita.service;
 
 import c15.dev.model.entity.Visita;
 
+import java.util.List;
+
 
 /**
  * @author Leopoldo Todisco.
@@ -11,4 +13,6 @@ import c15.dev.model.entity.Visita;
  */
 public interface GestioneVisitaService {
     void aggiuntaVisita(final Visita visita);
+
+    List<Visita> findVisiteProgrammateByUser(final String email);
 }

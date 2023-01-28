@@ -20,32 +20,46 @@ function ListaVisita(props) {
     "Content-Type" : "application/json"
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch("http://localhost:8080/Schedule",{
-          method : "POST",
-          headers : config,
-        }).then(response => response.json());
-        setData(response);
-        console.log(data);
-      } catch (error) {
-        console.error(error.message);
-      }
-      setLoading(false);
-    };
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("http://localhost:8080/visite/ottieni", {
+        method : "POST",
+        headers : config,
+      }).then(response => response.json());
+      setData(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+    setLoading(false);
+  };
+
+  useEffect( () => {
     fetchData();
-  }, []);
+  }, [])
+
+  useEffect(() => {
+    if(data.length > 0) {
+      console.log(data)
+    }
+  }, [data])
+
 
   return (
     <>
-      {/*{data.map(function(visita, idx){
+    {Object.keys(data).map(function(el, index){
                 return (
-                    //key={idx} idVisita={visita.id} dataVisita={visita.data} statoVisita={visita.stato_visita} idIndirizzo={visita.id_indirizzo}/>
+                  <VisitaCard classe={props.classe}
+                              key={index} 
+                              dataVisita={data[el]["data"]} 
+                              statoVisita={data[el]["statoVisita"]}
+                              nomePaziente={data[el]["nomePaziente"]}
+                              cognomePaziente={data[el]["cognomePaziente"]}
+                              numero={data[el]["numeroTelefono"]}
+                              genere={data[el]["genere"]}
+                  />
                 )
-            })}*/}
-      <VisitaCard classe={props.classe}/>
+    })}
     </>
   );
 }

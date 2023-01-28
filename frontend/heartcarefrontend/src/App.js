@@ -24,6 +24,7 @@ import Registrazione from "./pages/Registrazione"
 import HomePaziente from "./pages/HomePaziente"
 
 import jwt from "jwt-decode"
+import Error404 from "./pages/Error404";
 
 function App() {
   const AuthenticatedRoutePaziente = () => {
@@ -57,6 +58,7 @@ function App() {
     );
   };
 }
+
 
   const AppRoutes = () => {
     return (
@@ -150,6 +152,7 @@ function App() {
             }
           />
         </Route>
+        <Route path="*" element={<Error404/>} />
       </Routes>
     );
   };

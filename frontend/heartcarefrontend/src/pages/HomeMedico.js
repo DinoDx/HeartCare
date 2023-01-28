@@ -40,9 +40,7 @@ function HomeMedico() {
     return () => {
       eventSource.close();
     };
-  }, []);
-
-  
+  }, []); 
 
   return !localStorage.getItem("token") ? (
     <Navigate to={"/Login"} />

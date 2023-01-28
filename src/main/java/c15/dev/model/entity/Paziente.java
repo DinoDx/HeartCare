@@ -2,7 +2,10 @@ package c15.dev.model.entity;
 
 
 import c15.dev.utils.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -11,10 +14,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.LazyGroup;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -23,6 +23,7 @@ import java.util.Set;
  * Questa è la classe relativa a un Paziente.
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Setter
 @Getter
 @SuperBuilder
@@ -48,6 +49,7 @@ public class Paziente extends UtenteRegistrato {
      * Questo campo indica il Medico che viene assegnato al paziente.
      */
     @JsonIgnore
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_medico",
                 referencedColumnName = "id",
@@ -59,31 +61,34 @@ public class Paziente extends UtenteRegistrato {
      */
     @JsonIgnore
     @OneToMany(mappedBy = "paziente",
-                fetch = FetchType.EAGER)
+                fetch = FetchType.LAZY)
     private Set<Nota> note;
 
     /**
      * Questo campo indica l'insieme dei dispositivi medici che un paziente si
      * assegna.
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "paziente",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @JsonIgnore
     private Set<DispositivoMedico> dispositivoMedico;
 
     /**
      * Campo che indica l'insieme delle misurazioni che un paziente esegue.
      */
-    @JsonIgnore
-    @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY)
     private Set<Misurazione> misurazione;
 
     /**
      * Campo che inidica l'insieme delle visite a cui un paziente è stato.
      */
+
     @JsonIgnore
-    @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
-    private Set<Visita> elencoVisite = new HashSet<>();
+    @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Set<Visita> elencoVisite;
 
 
     /**
@@ -128,13 +133,15 @@ public class Paziente extends UtenteRegistrato {
     }
 
 
-    /**
-     * Metodo che permette di aggiungere una singola elencoVisite al set.
-     * @param visita
-     */
-    public void addSingolaVisita(Visita visita){
-        this.elencoVisite.add(visita);
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Paziente paziente)) return false;
+        return Objects.equals(getNomeCaregiver(), paziente.getNomeCaregiver()) && Objects.equals(getCognomeCaregiver(), paziente.getCognomeCaregiver()) && Objects.equals(getEmailCaregiver(), paziente.getEmailCaregiver()) && Objects.equals(getMedico(), paziente.getMedico()) && Objects.equals(getNote(), paziente.getNote()) && Objects.equals(getDispositivoMedico(), paziente.getDispositivoMedico()) && Objects.equals(getMisurazione(), paziente.getMisurazione()) && Objects.equals(getElencoVisite(), paziente.getElencoVisite());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNomeCaregiver(), getCognomeCaregiver(), getEmailCaregiver(), getMedico(), getNote(), getDispositivoMedico(), getMisurazione(), getElencoVisite());
+    }
 }

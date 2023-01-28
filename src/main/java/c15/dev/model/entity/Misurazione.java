@@ -1,5 +1,6 @@
 package c15.dev.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
@@ -47,6 +48,7 @@ public class Misurazione implements Serializable {
      * Campo relativo alla relazione tra pazienti e misurazioni.
      */
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_paziente",
             referencedColumnName = "id", nullable = false)
     private Paziente paziente;
@@ -57,6 +59,7 @@ public class Misurazione implements Serializable {
     @JoinColumn(name = "id_dispositivo_medico",
             referencedColumnName = "id", nullable = false)
     @JsonIgnore
+    @JsonBackReference
     private DispositivoMedico dispositivoMedico;
 
     /**

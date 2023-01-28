@@ -2,20 +2,18 @@ package c15.dev.model.entity;
 
 import c15.dev.utils.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author carlo.
@@ -25,27 +23,31 @@ import java.util.Set;
 @Entity
 @Setter
 @SuperBuilder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
 public class Medico extends UtenteRegistrato {
     /**
      * Lista che contiene l'elenco dei pazienti che sono stati
      * assegnati al medico in questione
      */
-    @OneToMany(mappedBy = "medico")
-    @JsonIgnore
+    @OneToMany(mappedBy = "medico", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Paziente> elencoPazienti = new ArrayList<>();
 
     /**
      * Insieme delle note destinate al medico in questione.
      */
-    @OneToMany(mappedBy = "medico", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "medico", fetch = FetchType.LAZY)
     private Set<Nota> note;
 
     /**
      * Questo campo indica la lista di visite in cui un medico è coinvolto.
      */
-    @OneToMany(mappedBy = "medico", fetch = FetchType.EAGER)
-    private List<Visita> elencoVisite;
+
+    @JsonManagedReference
+    @JsonIgnore
+    @OneToMany(mappedBy = "medico", fetch = FetchType.LAZY)
+    private Set<Visita> elencoVisite;
 
     /**
      * costruttore vuoto.
@@ -86,12 +88,15 @@ public class Medico extends UtenteRegistrato {
                 Role.MEDICO);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Medico medico)) return false;
+        return Objects.equals(getElencoPazienti(), medico.getElencoPazienti()) && Objects.equals(getNote(), medico.getNote()) && Objects.equals(getElencoVisite(), medico.getElencoVisite());
+    }
 
-    /**
-     * Metodo per inserire una singola elencoVisite alla lista.
-     * @param visita
-     */
-    public void addSingolaVisita(Visita visita){
-        this.elencoVisite.add(visita);
+    @Override
+    public int hashCode() {
+        return Objects.hash(getElencoPazienti(), getNote(), getElencoVisite());
     }
 }

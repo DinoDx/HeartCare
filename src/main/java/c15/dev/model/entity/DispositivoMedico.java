@@ -1,6 +1,10 @@
 package c15.dev.model.entity;
 
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,8 +15,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -23,6 +25,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -36,8 +39,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "Dispositivo_medico")
-public class DispositivoMedico implements Serializable {
+public class DispositivoMedico {
     /**
      * Costante il cui valore è 30.
      * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
@@ -95,15 +99,17 @@ public class DispositivoMedico implements Serializable {
      * il paziente
      */
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_paziente",
-            referencedColumnName = "id",
-            nullable = true)
+            referencedColumnName = "id")
+    @JsonBackReference
     private Paziente paziente;
 
     /**
      * Campo che indica l'insieme delle misurazioni generate da un dispositivo.
      */
-    @OneToMany(mappedBy = "dispositivoMedico", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dispositivoMedico", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Misurazione> misurazione;
 
     /**
@@ -175,4 +181,15 @@ public class DispositivoMedico implements Serializable {
         return misurazione;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DispositivoMedico that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getDataRegistrazione(), that.getDataRegistrazione()) && Objects.equals(getDescrizione(), that.getDescrizione()) && Objects.equals(getNumeroSeriale(), that.getNumeroSeriale()) && Objects.equals(getDisponibile(), that.getDisponibile()) && Objects.equals(getCategoria(), that.getCategoria()) && Objects.equals(getPaziente(), that.getPaziente()) && Objects.equals(getMisurazione(), that.getMisurazione());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getDataRegistrazione(), getDescrizione(), getNumeroSeriale(), getDisponibile(), getCategoria(), getPaziente(), getMisurazione());
+    }
 }

@@ -1,6 +1,7 @@
 package c15.dev.model.entity;
 
 import c15.dev.model.entity.enumeration.StatoVisita;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -10,6 +11,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -20,6 +23,7 @@ import java.util.Objects;
  * Questa è la classe che rappresenta le visite.
  */
 @Entity
+@ToString
 public class Visita implements Serializable {
     /**
      * Campo relativo all'id della nota generato automaticamente.
@@ -47,6 +51,7 @@ public class Visita implements Serializable {
      * Chiave esterna che fa riferimento alla classe Medico.
      **/
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_medico",
                 referencedColumnName = "id",
                 nullable = false)
@@ -58,6 +63,7 @@ public class Visita implements Serializable {
      * Chiave esterna che fa riferimento alla classe Paziente
      **/
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_paziente",
                 referencedColumnName = "id",
                 nullable = true)
@@ -69,6 +75,7 @@ public class Visita implements Serializable {
      **/
     @ManyToOne
     @JoinColumn(name="id_indirizzo", referencedColumnName = "id")
+    @JsonBackReference
     @NotNull
     private Indirizzo indirizzoVisita;
 

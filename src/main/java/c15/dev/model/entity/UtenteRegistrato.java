@@ -1,6 +1,7 @@
 package c15.dev.model.entity;
 
 import c15.dev.utils.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -39,7 +40,6 @@ import java.util.*;
 @Entity
 @SuperBuilder
 @Setter
-@Data
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "utente_registrato")
@@ -169,6 +169,7 @@ public class UtenteRegistrato implements Serializable, UserDetails {
     @ManyToOne
     @JoinColumn(name = "id_indirizzo",
                 referencedColumnName = "id")
+    @JsonBackReference
     private Indirizzo indirizzoResidenza;
 
     /**

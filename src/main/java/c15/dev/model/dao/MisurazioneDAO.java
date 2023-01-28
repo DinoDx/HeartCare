@@ -1,10 +1,8 @@
 package c15.dev.model.dao;
 
 import c15.dev.model.entity.Misurazione;
-import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 
 

@@ -3,10 +3,7 @@ package c15.dev.gestioneUtente.controller;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
-import c15.dev.model.entity.DispositivoMedico;
-import c15.dev.model.entity.Medico;
-import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.model.entity.*;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import c15.dev.model.entity.enumeration.StatoVisita;
 import jakarta.servlet.http.HttpServletRequest;
@@ -332,8 +329,10 @@ public class GestioneUtenteController {
      * @return
      */
     @PostMapping(value = "/getDispositiviByUtente/{id}")
-    public ResponseEntity<Object> getDispositiviByUtente(@PathVariable("id") final long idPaziente) {
-        Set<DispositivoMedico> set = service.getDispositiviByPaziente(idPaziente);
+    public ResponseEntity<Object>
+    getDispositiviByUtente(@PathVariable("id") final long idPaziente) {
+        Set<DispositivoMedico> set = service.
+                                        getDispositiviByPaziente(idPaziente);
         return new ResponseEntity<>(set, HttpStatus.OK);
     }
 
