@@ -3,13 +3,12 @@ package c15.dev.gestioneUtente.controller;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
+import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import c15.dev.model.entity.enumeration.StatoVisita;
-import c15.dev.utils.AuthenticationRequest;
-import c15.dev.utils.AuthenticationResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -17,16 +16,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.List;
-import java.util.GregorianCalendar;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * @author Leopoldo Todisco, Carlo Venditto.
@@ -48,16 +51,6 @@ public class GestioneUtenteController {
     @Autowired
     private HttpSession session;
 
-
-
-    /**
-     * Metodo di logout.
-     */
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public void logout() {
-        System.out.println(((UtenteRegistrato) session.getAttribute("utenteLoggato")));
-        session.invalidate();
-    }
 
     /**
      * Metodo per assegnare un caregiver.
@@ -160,7 +153,6 @@ public class GestioneUtenteController {
         return new ResponseEntity<>(paz,HttpStatus.OK);
     }
 
-
     /**
      * Metodo per modificare i dati di un utente.
      * @param pazienteDTO
@@ -168,18 +160,19 @@ public class GestioneUtenteController {
      */
     //TODO usare optional per vedere solo quali campi modificare
     @PostMapping("/modificaDatiUtente")
-    public boolean modificaDatiPaziente(@RequestBody
+    public boolean modificaDatiPaziente(@Valid @RequestBody
                                         ModificaPazienteDTO pazienteDTO) throws Exception {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
-        System.out.println(pazienteDTO.toString());
-        long id = 2L;//utente.getId();
+
+        long id = 1L;//utente.getId();
         UtenteRegistrato utente = service.findUtenteById(id);
         if (service.isPaziente(id)) {
             if (utente.getPassword().equals(pazienteDTO.getConfermaPassword())) {
                 service.modificaDatiPaziente(pazienteDTO, id);
                 return true;
             }
+
         }
         return false;
     }
@@ -197,7 +190,7 @@ public class GestioneUtenteController {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
 
-        long id = 2L;//utente.getId();
+        long id = 4L;//utente.getId();
         UtenteRegistrato utente = service.findUtenteById(id);
         if (service.isMedico(id)) {
             if (utente.getPassword().equals(pazienteDTO.getConfermaPassword())) {
@@ -301,6 +294,11 @@ public class GestioneUtenteController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    /**
+     * Metodo che permette di ottenere un utente conoscendo il codice fiscale.
+     * @param codiceFiscale
+     * @return
+     */
     @PostMapping(value = "/getByCodice")
     public ResponseEntity<Object> getByCodice(@RequestBody String codiceFiscale){
         HashMap<String, Object> map = new HashMap<>();
@@ -311,7 +309,11 @@ public class GestioneUtenteController {
 
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
-
+    /**
+     * Metodo per ottenere un utente avendo la sua email.
+     * @param email è l'email dell'utente
+     * @return
+     */
     @PostMapping(value = "/getByEmail")
     public ResponseEntity<Object> getByEmail(@RequestBody String email){
         HashMap<String, Object> map = new HashMap<>();
@@ -323,6 +325,32 @@ public class GestioneUtenteController {
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
+    /**
+     * Metodo che permette di ottenere tutti i dispositivi
+     * associati a un paziente.
+     * @param idPaziente
+     * @return
+     */
+    @PostMapping(value = "/getDispositiviByUtente/{id}")
+    public ResponseEntity<Object> getDispositiviByUtente(@PathVariable("id") final long idPaziente) {
+        Set<DispositivoMedico> set = service.getDispositiviByPaziente(idPaziente);
+        return new ResponseEntity<>(set, HttpStatus.OK);
+    }
+
+    /**
+     * Metodo che permtte di ottenere un elenco di utenti a partire
+     * da nome e cognome passati nella searchbar.
+     * @param txt è il testo che viene passato.
+     * @return
+     */
+    @PostMapping(value = "/searchbar")
+    public ResponseEntity<Object> utentiSearch(@RequestBody final String txt) {
+        var list = service.getTuttiPazienti().stream().toList();
+        var listPaz = list.stream()
+                .filter(pz -> (pz.getNome() + pz.getCognome()).contains(txt))
+                .toList();
+        return new ResponseEntity<>(listPaz, HttpStatus.OK);
+    }
 
 }
 

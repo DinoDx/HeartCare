@@ -17,7 +17,8 @@ import java.util.GregorianCalendar;
  *
  */
 @Entity
-public class MisurazioneCoagulazione extends Misurazione implements Serializable {
+public class MisurazioneCoagulazione
+        extends Misurazione implements Serializable {
     /**
      * Questo campo indica il tempo di protrombina.
      */

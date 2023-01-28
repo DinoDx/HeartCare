@@ -6,8 +6,9 @@ import c15.dev.model.entity.*;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author Leopoldo Todisco, Carlo Venditto.
@@ -22,7 +23,7 @@ public interface GestioneUtenteService {
      *
      * @return UtenteRegistrato loggato
      */
-    public AuthenticationResponse login(AuthenticationRequest request);
+    AuthenticationResponse login(AuthenticationRequest request);
 
     /**
      * Firma del metodo di assegnaCaregiver.
@@ -137,12 +138,15 @@ public interface GestioneUtenteService {
      * @param pazienteDTO
      * @param idUtente
      */
-    void modificaDatiPaziente(ModificaPazienteDTO pazienteDTO, long idUtente) throws Exception;
-    void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente) throws Exception;
+    void modificaDatiPaziente(final ModificaPazienteDTO pazienteDTO,
+                              final long idUtente)
+                                    throws Exception;
+    void modificaDatiMedico(final UtenteRegistratoDTO dto, final long idUtente)
+            throws Exception;
 
-    public UtenteRegistrato findUtenteById(Long id);
+    UtenteRegistrato findUtenteById(Long id);
 
-    public UtenteRegistrato findUtenteByEmail(String email);
+    UtenteRegistrato findUtenteByEmail(String email);
 
     boolean checkByEmail(String email);
 
@@ -153,7 +157,10 @@ public interface GestioneUtenteService {
     boolean registraIndirizzo(Indirizzo ind);
 
 
-    boolean assegnaIndirizzoAdUtente(long idUtente, Indirizzo ind);
+    boolean assegnaIndirizzoAdUtente(final long idUtente, final Indirizzo ind);
 
-    boolean assegnaMedicoAPaziente(long idMedico, long idUtente);
+    boolean assegnaMedicoAPaziente(final long idMedico, final long idUtente);
+
+    Set<DispositivoMedico> getDispositiviByPaziente(final long idPaziente);
+
 }

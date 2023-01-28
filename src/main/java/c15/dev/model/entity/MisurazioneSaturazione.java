@@ -18,7 +18,8 @@ import java.util.GregorianCalendar;
  *  valore percentuale saturazione
  */
 @Entity
-public class MisurazioneSaturazione extends Misurazione implements Serializable {
+public class MisurazioneSaturazione
+        extends Misurazione implements Serializable {
     /**
      * Questo campo numerico indica il numero di battiti per minuto.
      */

@@ -2,7 +2,6 @@ package c15.dev.model.dao;
 
 
 import c15.dev.model.entity.Medico;
-import c15.dev.model.entity.UtenteRegistrato;
 import org.springframework.stereotype.Repository;
 
 

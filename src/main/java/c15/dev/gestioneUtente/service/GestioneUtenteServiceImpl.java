@@ -3,27 +3,24 @@ package c15.dev.gestioneUtente.service;
 import c15.dev.model.dao.*;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
-import c15.dev.model.entity.*;
+import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.Medico;
+import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.model.entity.Indirizzo;
+import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 import c15.dev.utils.JwtService;
-import c15.dev.utils.SecurityConfig;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.Authenticator;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -63,7 +60,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return
      */
     @Override
-    public AuthenticationResponse login(AuthenticationRequest request) {
+    public AuthenticationResponse login(final AuthenticationRequest request) {
         authenticationManager.authenticate
                 (new UsernamePasswordAuthenticationToken(
                         request.getEmail(), request.getPassword()));
@@ -84,10 +81,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param cognomeCaregiver nome del caregiver
      */
     @Override
-    public void assegnaCaregiver(Long idPaziente,
-                                 String emailCaregiver,
-                                 String nomeCaregiver,
-                                 String cognomeCaregiver) {
+    public void assegnaCaregiver(final Long idPaziente,
+                                 final String emailCaregiver,
+                                 final String nomeCaregiver,
+                                 final String cognomeCaregiver) {
 
         Optional<UtenteRegistrato> pz =  paziente.findById(idPaziente);
         if(pz.isEmpty()) {
@@ -107,7 +104,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param ind
      */
     @Override
-    public boolean assegnaIndirizzoAdUtente(long idUtente, Indirizzo ind){
+    public boolean assegnaIndirizzoAdUtente(final long idUtente,
+                                            final Indirizzo ind) {
         Optional<UtenteRegistrato> user = utente.findById(idUtente);
         if(user.isEmpty()){
             return false;
@@ -125,7 +123,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      */
 
     @Override
-    public boolean assegnaMedicoAPaziente(long idMedico, long idPaziente){
+    public boolean assegnaMedicoAPaziente(final long idMedico,
+                                          final long idPaziente) {
         Medico med = findMedicoById(idMedico);
         Paziente paz = findPazienteById(idPaziente);
 
@@ -135,13 +134,20 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return true;
     }
 
+    @Override
+    public Set<DispositivoMedico> getDispositiviByPaziente(long idPaziente) {
+        Paziente pz = this.findPazienteById(idPaziente);
+        return pz.getDispositivoMedico();
+    }
+
+
     /**
      * Metodo che elimina un paziente.
      * @param idUtente
      */
     @Override
-    public void rimuoviPaziente(Long idUtente) {
-        Optional<UtenteRegistrato> u =paziente.findById(idUtente);
+    public void rimuoviPaziente(final Long idUtente) {
+        Optional<UtenteRegistrato> u = paziente.findById(idUtente);
         paziente.delete(u.get());
     }
 
@@ -150,7 +156,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param idUtente
      */
     @Override
-    public void rimuoviMedico(Long idUtente) {
+    public void rimuoviMedico(final Long idUtente) {
         Optional<UtenteRegistrato> u = medico.findById(idUtente);
         medico.delete(u.get());
     }
@@ -162,7 +168,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return
      */
     @Override
-    public boolean isPaziente(long idUtente) {
+    public boolean isPaziente(final long idUtente) {
         Optional<UtenteRegistrato> u = paziente.findById(idUtente);
 
         if (u.isEmpty()){
@@ -180,7 +186,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return
      */
     @Override
-    public boolean isMedico(long idUtente) {
+    public boolean isMedico(final long idUtente) {
         Optional<UtenteRegistrato> u = medico.findById(idUtente);
 
         if (u.isEmpty()){
@@ -197,7 +203,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return
      */
     @Override
-    public boolean isAdmin(long idUtente){
+    public boolean isAdmin(final long idUtente){
         Optional<UtenteRegistrato> u = admin.findById(idUtente);
 
         if (u.isEmpty()){
@@ -215,7 +221,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return
      */
     @Override
-    public boolean assegnaPaziente(long idMedico, long idPaziente) {
+    public boolean assegnaPaziente(final long idMedico,
+                                   final long idPaziente) {
         Optional<UtenteRegistrato> med = medico.findById(idMedico);
         if(med.isEmpty()) {
             return false;
@@ -238,7 +245,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return
      */
     @Override
-    public Paziente findPazienteById(Long id) {
+    public Paziente findPazienteById(final Long id) {
         Optional<UtenteRegistrato> paz = paziente.findById(id);
         if(paz.isEmpty()){
             return null;
@@ -253,7 +260,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return
      */
     @Override
-    public Medico findMedicoById(Long id) {
+    public Medico findMedicoById(final Long id) {
         Optional<UtenteRegistrato> paz = medico.findById(id);
         if(paz.isEmpty()){
             return null;
@@ -263,7 +270,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     @Override
-    public boolean findUtenteByCf(String codiceFiscale) {
+    public boolean findUtenteByCf(final String codiceFiscale) {
             Paziente u = paziente.findBycodiceFiscale(codiceFiscale);
 
         if (u == null){
@@ -273,7 +280,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     @Override
-    public boolean checkByEmail(String email) {
+    public boolean checkByEmail(final String email) {
         Paziente u = paziente.findByEmail(email);
         if (u == null){
             return false;
@@ -286,14 +293,14 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param ind è l'indirizzo da aggiungere.
      */
     @Override
-    public boolean registraIndirizzo(Indirizzo ind) {
+    public boolean registraIndirizzo(final Indirizzo ind) {
         indirizzo.save(ind);
         return true;
     }
 
 
     @Override
-    public UtenteRegistrato findUtenteById(Long id) {
+    public UtenteRegistrato findUtenteById(final Long id) {
         Optional<UtenteRegistrato> u = utente.findById(id);
         if (u.isEmpty()){
             return null;
@@ -302,7 +309,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     @Override
-    public UtenteRegistrato findUtenteByEmail(String email) {
+    public UtenteRegistrato findUtenteByEmail(final String email) {
         UtenteRegistrato result;
 
         if((result = paziente.findByEmail(email)) != null) {
@@ -326,7 +333,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param paz è il paziente da aggiornare.
      */
     @Override
-    public void updatePaziente(Paziente paz) {
+    public void updatePaziente(final Paziente paz) {
         this.paziente.save(paz);
     }
 
@@ -335,7 +342,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param med è il medico da aggiornare.
      */
     @Override
-    public void updateMedico(Medico med) {
+    public void updateMedico(final Medico med) {
         this.medico.save(med);
     }
 
@@ -361,7 +368,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * Metodo per ottenere tutti i pazienti del db di un medico.
      */
     @Override
-    public List<Paziente> getPazientiByMedico(long idMedico) {
+    public List<Paziente> getPazientiByMedico(final long idMedico) {
 
         paziente.findAll().stream().filter((p) -> p.getClass()
                         .getSimpleName().equals("Paziente"))
@@ -381,7 +388,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param idUtente
      */
     @Override
-    public void modificaDatiPaziente(ModificaPazienteDTO dto, long idUtente) throws Exception {
+    public void modificaDatiPaziente(ModificaPazienteDTO dto,
+                                     long idUtente) throws Exception {
         Paziente daModificare = findPazienteById(idUtente);
 
         daModificare.setNome(dto.getNome());
@@ -396,7 +404,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     @Override
-    public void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente) throws Exception {
+    public void modificaDatiMedico(final UtenteRegistratoDTO dto,
+                                   final long idUtente) throws Exception {
         Medico daModificare = findMedicoById(idUtente);
 
         daModificare.setNome(dto.getNome());

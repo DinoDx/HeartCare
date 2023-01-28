@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
  * Questa classe rappresenta il DAO della classe DispositivoMedico.
  */
 @Repository
-public interface DispositivoMedicoDAO extends JpaRepository<DispositivoMedico, Long> {
+public interface DispositivoMedicoDAO
+                            extends JpaRepository<DispositivoMedico, Long> {
 
 
 }

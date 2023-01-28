@@ -10,5 +10,5 @@ import c15.dev.model.entity.Visita;
  *
  */
 public interface GestioneVisitaService {
-    void aggiuntaVisita(Visita visita);
+    void aggiuntaVisita(final Visita visita);
 }

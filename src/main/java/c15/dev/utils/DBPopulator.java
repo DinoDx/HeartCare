@@ -136,7 +136,15 @@ public class DBPopulator {
                 "Misuratore di pressione",
                 paz1
         );
+        DispositivoMedico d2 = new DispositivoMedico(LocalDate.of(2023, 1, 22),
+                "funziona ti prego",
+                "hbdsdsdhjsdfhjgsdsdfhjdfhsdfsd",
+                true,
+                "Misuratore di pressione",
+                paz1
+        );
         gestioneMisurazioneService.registrazioneDispositivo(d1, 1);
+        gestioneMisurazioneService.registrazioneDispositivo(d2, 1);
         LocalDate data2 = LocalDate.of(2023, 01, 18);
 
         MisurazionePressione mis1 = new MisurazionePressione(data2,

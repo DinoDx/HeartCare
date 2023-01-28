@@ -16,6 +16,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * @author: Leopoldo Todisco, Carlo Venditto.
+ * Creato il: 24/01/2023.
+ * Questa classe indica un filtro per l'autenticazione via Token.
+ * Si estende OncePerRequestFilter,
+ * dunque a ogni Request si entra in questo filtro.
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -65,14 +72,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         response.setHeader("Access-Control-Allow-Headers",
-                "Authorization, " +
-                        "OPTIONS, " +
-                        "Origin, " +
-                        "X-Requested-With," +
-                        "Content-Type," +
-                        "Access-Control-Request-Headers, " +
-                        "Accept, " +
-                        "Access-Control-Request-Method");
+                "Authorization, "
+                        + "OPTIONS, "
+                        + "Origin, "
+                        + "X-Requested-With,"
+                        + "Content-Type,"
+                        + "Access-Control-Request-Headers, "
+                        + "Accept, "
+                        + "Access-Control-Request-Method");
 
         filterChain.doFilter(request, response);
     }

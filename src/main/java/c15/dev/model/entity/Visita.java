@@ -8,13 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
-
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.GregorianCalendar;
 import java.util.Objects;
 
 /**

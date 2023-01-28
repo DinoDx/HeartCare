@@ -88,6 +88,11 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
 
     @Override
     public MisurazionePressione save(MisurazionePressione misurazionePressione) {
+        /*
+         *  1. controllare che la misurazione sia nei valori limiti
+         *  2. se è oltre il limite -> notify()
+         *  3. il notify chiama update degli observer presenti nel service.
+         */
         return misurazionePressioneDAO.save(misurazionePressione);
     }
 

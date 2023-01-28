@@ -2,10 +2,8 @@ package c15.dev.registrazione.service;
 
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
-import c15.dev.model.dao.UtenteRegistratoDAO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 import c15.dev.utils.JwtService;
@@ -15,8 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.Optional;
 
 /**
  * @author Mario Cicalese.
@@ -41,7 +37,8 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
 
 
     @Override
-    public AuthenticationResponse registraPaziente(Paziente paz) throws Exception {
+    public AuthenticationResponse registraPaziente(final Paziente paz)
+                                                    throws Exception {
 
         paz.setPassword(pwdEncoder.encode(paz.getPassword()));
         Long id = pazienteDAO.save(paz).getId();
@@ -53,7 +50,8 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     }
 
     @Override
-    public AuthenticationResponse registraMedico(Medico med) throws Exception {
+    public AuthenticationResponse registraMedico(final Medico med)
+                                                    throws Exception {
         med.setPassword(pwdEncoder.encode(med.getPassword()));
         Long id = pazienteDAO.save(med).getId();
 
@@ -64,8 +62,10 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     }
 
     @Override
-    public AuthenticationResponse login(AuthenticationRequest request) throws Exception {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+    public AuthenticationResponse login(final AuthenticationRequest request)
+                                                            throws Exception {
+        authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
                 request.getEmail(),
                 request.getPassword()
         ));
@@ -88,12 +88,12 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     }
 
     @Override
-    public Paziente findByemail(String email) {
+    public Paziente findByemail(final String email) {
         return pazienteDAO.findByEmail(email);
     }
 
     @Override
-    public Paziente findBycodiceFiscale(String codiceFiscale) {
+    public Paziente findBycodiceFiscale(final String codiceFiscale) {
         return pazienteDAO.findBycodiceFiscale(codiceFiscale);
     }
 

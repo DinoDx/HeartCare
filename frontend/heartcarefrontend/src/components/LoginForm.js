@@ -3,6 +3,8 @@ import '../css/style.css';
 import { useState } from "react";
 import axios from "axios";
 import { ReactSession }  from 'react-client-session';
+import jwt from "jwt-decode"
+
 
 import {useNavigate} from "react-router";
 
@@ -10,10 +12,30 @@ import {useNavigate} from "react-router";
 function LoginForm(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const nav = useNavigate();
+    
+    const rimanda = () => {
+        let tokenInizio = localStorage.getItem("token");
+        if(tokenInizio == null) {
+            return;
+        }
 
-    const [user, setUser] = useState();
+        let ruolo = jwt(tokenInizio).ruolo;
+        if(ruolo == "PAZIENTE") {
+            nav("/HomePaziente")
+        }
+        else if(ruolo == "MEDICO") {
+            nav("/HomeMedico");
+        }
+
+    }
+
+    useEffect( () => {
+        rimanda();
+    })
+
+    
+
 
 
     const aggiornaEmail = (event) => {
@@ -34,7 +56,12 @@ function LoginForm(){
             .then((response) => {
                 console.log(response);
                 localStorage.setItem('token', response.data.token);
-                nav("/HomeMedico");
+                if(jwt(response.data.token).ruolo == "PAZIENTE"){
+                    nav("/HomePaziente")
+                }
+                else{
+                    nav("/HomeMedico");
+                }
             }, (error) => {
                 console.log(error);
             });

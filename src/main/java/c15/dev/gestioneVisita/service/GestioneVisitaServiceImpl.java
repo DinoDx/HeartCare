@@ -12,7 +12,7 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
 
 
     @Override
-    public void aggiuntaVisita(Visita visita) {
+    public void aggiuntaVisita(final Visita visita) {
         visitaDAO.save(visita);
     }
 }

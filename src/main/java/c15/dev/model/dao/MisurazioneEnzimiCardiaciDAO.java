@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * DAO per la misurazione enzimi cardiaci.
  */
 @Repository
-public interface MisurazioneEnzimiCardiaciDAO extends MisurazioneDAO{
+public interface MisurazioneEnzimiCardiaciDAO extends MisurazioneDAO {
 
 }

@@ -3,15 +3,17 @@ import "../css/style.css";
 import "../css/home-main-content.css";
 import "../css/homeMedico_style.css";
 import "../css/HomePaziente.css";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {Chart} from "react-google-charts";
 import NoteContainer from "../components/NoteContainer";
 import VisitePazienteContainer from "../components/VisitePazienteContainer";
 import Grafico from "../components/Grafico";
+import jwt from "jwt-decode"
 
 function HomePaziente() {
 
-    return !localStorage.getItem("utente") ? (
+
+    return !localStorage.getItem("token") ? (
         <Navigate to={"/Login"} />
     ) : (
         <div className="contenitorePazientiContent contenitoreHomePaziente">
@@ -36,7 +38,7 @@ function HomePaziente() {
                         <span className="valoreInformazioneBannerNero">2</span>
                     </div>
                 </div>
-                <Grafico/>
+                {/*<Grafico/>*/}
                 <div className="containerBottoni">
                     <button className="bottoneHomePaziente">Avvio Misurazione</button>
                     <button className="bottoneHomePaziente">Avvio Predizione</button>

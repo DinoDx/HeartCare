@@ -1,12 +1,6 @@
 package c15.dev.utils;
 
-import c15.dev.model.dao.AdminDAO;
-import c15.dev.model.dao.MedicoDAO;
-import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.dao.UtenteRegistratoDAO;
-import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.UtenteRegistrato;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -19,21 +13,40 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * @author Leopoldo Todisco, Carlo Venditto.
+ * Creato il: 24/01/2023.
+ * Classe di configurazione di Applicazione.
+ * Allo startup Spring risolverà tutte le dipendenze
+ * specificate in questa classe.
+ */
 @Configuration
 public class ApplicationConfig {
     @Autowired  @Qualifier("utenteRegistratoDAO")
     private UtenteRegistratoDAO usrdao;
 
+    /**
+     * Estrae il bean relativo al service.
+     * @return
+     */
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> usrdao.findByEmail(username);
     }
 
+    /**
+     * Dependency Injection per il password encoder.
+     * @return
+     */
     @Bean
     public PasswordEncoder pwdEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Dependency Injection per il provider di autenticazione.
+     * @return
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         var authenticationProvider = new DaoAuthenticationProvider();
@@ -42,6 +55,10 @@ public class ApplicationConfig {
         return authenticationProvider;
     }
 
+    /**
+     * Dependency Injection per il manager di autenticazione.
+     * @return
+     */
     @Bean
     public AuthenticationManager
     authenticationManager(AuthenticationConfiguration config)

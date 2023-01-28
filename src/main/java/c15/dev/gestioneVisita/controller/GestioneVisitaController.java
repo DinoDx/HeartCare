@@ -26,7 +26,7 @@ import java.util.Map;
  *
  */
 @RestController
-@RequestMapping("/elencoVisite")
+@RequestMapping("/visite")
 public class GestioneVisitaController {
     @Autowired
     private GestioneUtenteService utenteService;
@@ -35,8 +35,12 @@ public class GestioneVisitaController {
     @Autowired
     private HttpSession session;
 
+    /**
+     * Metodo che consente di aggiungere una visita.
+     * @param body
+     */
     @PostMapping("/crea")
-    public void aggiungiVisita(@RequestBody Map<String, Object> body) {
+    public void aggiungiVisita(@RequestBody final Map<String, Object> body) {
         Date dataVisita = (Date) body.get("data");
         Long idPaziente = (Long) body.get("paziente");
         Paziente paziente = utenteService.findPazienteById(idPaziente);
@@ -66,9 +70,6 @@ public class GestioneVisitaController {
         medicoVisita.addSingolaVisita(visita);
         utenteService.updateMedico(medicoVisita);
         utenteService.updatePaziente(paziente);
-
-
-
 
     }
 }

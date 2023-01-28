@@ -33,13 +33,15 @@ public class RegistrazioneController {
 
     @PostMapping(value = "/registrazione")
         public AuthenticationResponse
-            registrazione(@RequestBody @Valid Paziente paz) throws Exception {
+            registrazione(@RequestBody @Valid final Paziente paz)
+                                                    throws Exception {
         return registrazioneService.registraPaziente(paz);
     }
 
     @PostMapping(value = "/login")
-    public AuthenticationResponse login(@RequestBody AuthenticationRequest req)
-            throws Exception {
+    public AuthenticationResponse login(@RequestBody
+                                            final AuthenticationRequest req)
+                                                            throws Exception {
         return registrazioneService.login(req);
     }
 
@@ -48,7 +50,8 @@ public class RegistrazioneController {
      * @param med
      */
     @RequestMapping(value = "/registraMedico", method = RequestMethod.POST)
-    public void registraMedico(@Valid @RequestBody Medico med) throws Exception {
+    public void
+    registraMedico(@Valid @RequestBody final Medico med) throws Exception {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
         if(!utenteService.isAdmin(u.getId())){

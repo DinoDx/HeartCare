@@ -21,7 +21,7 @@ public interface GestioneMisurazioneService {
      *                   il dispositivo.
      * @return true o false.
      */
-    public boolean registrazioneDispositivo(DispositivoMedico dispositivo,
+    boolean registrazioneDispositivo(DispositivoMedico dispositivo,
                                             long idPaziente);
 
     /**
@@ -32,7 +32,7 @@ public interface GestioneMisurazioneService {
      *                   il dispositivo.
      * @return true o false.
      */
-    public boolean rimozioneDispositivo(DispositivoMedico dispositivo,
+    boolean rimozioneDispositivo(DispositivoMedico dispositivo,
                                         long idPaziente);
 
     /**
@@ -40,12 +40,12 @@ public interface GestioneMisurazioneService {
      * @return List<Misurazione>
      * Metodo che restituisce tutte le misurazioni presenti nel database
      */
-    public List<Misurazione> getMisurazioniByPaziente(Long id);
-    public DispositivoMedico getById(Long id);
+    List<Misurazione> getMisurazioniByPaziente(Long id);
+    DispositivoMedico getById(Long id);
 
-    public List<Misurazione> getMisurazioneByCategoria(String categoria,
+    List<Misurazione> getMisurazioneByCategoria(String categoria,
                                                        Long id);
-    public Misurazione save(Misurazione misurazione);
-    public MisurazionePressione save(MisurazionePressione misurazionePressione);
-    public List<String> findCategorieByPaziente(Long id);
+    Misurazione save(Misurazione misurazione);
+    MisurazionePressione save(MisurazionePressione misurazionePressione);
+    List<String> findCategorieByPaziente(Long id);
 }

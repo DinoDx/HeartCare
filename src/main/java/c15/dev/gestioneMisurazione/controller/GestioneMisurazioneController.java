@@ -9,7 +9,13 @@ import c15.dev.model.entity.Misurazione;
 import c15.dev.model.entity.UtenteRegistrato;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,23 +34,22 @@ public class GestioneMisurazioneController {
     private GestioneMisurazioneService misurazioneService;
     @Autowired
     private GestioneUtenteService utenteService;
-    private DispositivoMedicoStub dispositivoMedicoStub
-            = new DispositivoMedicoStub();
+    private DispositivoMedicoStub stub = new DispositivoMedicoStub();
 
     /**
      * Metodo per la registrazione del dispositivo.
-     * @param dispositivo
+     * @param disp
      */
-    @RequestMapping(value = "/aggiungiDispositivo", method = RequestMethod.POST)
-    public boolean registrazioneDispositivo(
-            @RequestParam DispositivoMedico dispositivo){
-        UtenteRegistrato u = (UtenteRegistrato)
-                session.getAttribute("utenteLoggato");
-        if(!utenteService.isPaziente(u.getId())){
+    @RequestMapping(value = "/aggiungiDispositivo",
+                    method = RequestMethod.POST)
+    public boolean
+    registraDispositivo(@RequestParam final DispositivoMedico disp) {
+        UtenteRegistrato u = (UtenteRegistrato) session.getAttribute("utenteLoggato");
+        if(!utenteService.isPaziente(u.getId())) {
             return false;
         }
-        return misurazioneService.registrazioneDispositivo(dispositivo,
-                u.getId());
+        return misurazioneService
+                .registrazioneDispositivo(disp, u.getId());
     }
 
     /**
@@ -86,21 +91,36 @@ public class GestioneMisurazioneController {
      *
      */
     @PostMapping(value = "/avvioMisurazione")
-    public Misurazione avvioMisurazione(@RequestParam Long idDispositivo) {
+    public Misurazione
+            avvioMisurazione(@RequestParam final Long idDispositivo) {
         var dispositivoMedico = misurazioneService.getById(idDispositivo);
         var dispositivoAdapter = new DispositivoMedicoAdapter(dispositivoMedico);
         return dispositivoAdapter.avvioMisurazione();
     }
 
+    /**
+     * Metodo che consente di ottenere tutte le misurazioni p
+     * effettuate da un paziente di una determinata categoria.
+     * @param body
+     * @return
+     */
     @PostMapping(value = "/getMisurazioneCategoria")
-    public List<Misurazione> getMisurazioniByCategoria(@RequestBody HashMap<String,Object> body){
+    public List<Misurazione>
+    getMisurazioniByCategoria(@RequestBody final HashMap<String,Object> body) {
         String cat = body.get("categoria").toString() ;
         Long idPaz = Long.parseLong(body.get("id").toString());
         return misurazioneService.getMisurazioneByCategoria(cat, idPaz);
     }
 
+    /**
+     * Metodo che restitusice un elenco di categorie delle misurazioni di
+     * un paziente.
+     * @param body
+     * @return
+     */
     @PostMapping(value = "/getCategorie")
-    public List<String> getCategorieByPaziente(@RequestBody HashMap<String,Object> body){
+    public List<String>
+    getCategorieByPaziente(@RequestBody final HashMap<String,Object> body) {
         Long idPaz = Long.parseLong(body.get("id").toString());
         System.out.println("aoooo");
         return misurazioneService.findCategorieByPaziente(idPaz);

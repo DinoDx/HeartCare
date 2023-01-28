@@ -31,9 +31,15 @@ public class GestioneComunicazioneServiceImpl
     @Autowired
     private JavaMailSender mailSender;
 
+    /**
+     * Metodo per inviare una notifica.
+     * @param messaggio
+     * @param idDest
+     * @return
+     */
     @Override
-    public Flux<ServerSentEvent<String>> invioNotifica(String messaggio,
-                                                       Long idDestinatario) {
+    public Flux<ServerSentEvent<String>> invioNotifica(final String messaggio,
+                                                       final Long idDest) {
         Notifica n = new Notifica(
                 LocalDate.of(2023, 11, 12),
                 "Notifica Prova",
@@ -43,9 +49,16 @@ public class GestioneComunicazioneServiceImpl
         );
         daoNotifica.save(n);
 
-        return Flux.just(ServerSentEvent.builder(n.getTesto()).build()).take(1);
+        return Flux
+                .just(ServerSentEvent.builder(n.getTesto()).build())
+                .take(1);
     }
 
+    /**
+     * Metodo per inviare una email.
+     * @param messaggio
+     * @param emailDestinatario
+     */
     @Override
     public void invioEmail(String messaggio, String emailDestinatario) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -59,18 +72,29 @@ public class GestioneComunicazioneServiceImpl
         //jujdhvttecwbdgdn
     }
 
+    /**
+     * Metodo per inviare una nota.
+     * @param messaggio
+     * @param idDestinatario
+     * @param idMittente
+     * @return
+     */
     @Override
-    public Flux<ServerSentEvent<String>> invioNota(String messaggio, Long idDestinatario, Long idMittente) {
+    public Flux<ServerSentEvent<String>> invioNota(final String messaggio,
+                                                   final Long idDestinatario,
+                                                   final Long idMittente) {
 
         Medico m = (Medico) utenteService.findMedicoById(5L);
         Paziente p = (Paziente) utenteService.findPazienteById(2L);
 
         Nota nota = new Nota(messaggio, LocalDate.of(2022,11,10),
-                    Autore.M,StatoNotifica.NON_LETTA, m,p
+                    Autore.M, StatoNotifica.NON_LETTA, m, p
                 );
         notaDAO.save(nota);
         System.out.println("ciao");
         System.out.println(nota.getContenuto());
-        return Flux.just(ServerSentEvent.builder(nota.getContenuto()).build()).take(1);
+        return Flux
+                .just(ServerSentEvent.builder(nota.getContenuto()).build())
+                .take(1);
     }
 }

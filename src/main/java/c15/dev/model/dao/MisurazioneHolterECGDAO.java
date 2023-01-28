@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface MisurazioneHolterECGDAO extends MisurazioneDAO{
+public interface MisurazioneHolterECGDAO extends MisurazioneDAO {
 }

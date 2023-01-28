@@ -8,21 +8,20 @@ import { CiLogout } from "react-icons/ci";
 import { SlHome } from "react-icons/sl";
 import { BsCalendarEvent } from "react-icons/bs";
 import { AiOutlineQuestion, AiOutlineUser } from "react-icons/ai";
-import jwt from "jwt-decode";
+
+
 
 function addClassActive(id, nomeClasseMainContent) {
-  let attualmenteSelezionato = document.querySelectorAll(".voceMenuActive");
-  [].forEach.call(attualmenteSelezionato, function (el) {
-    el.classList.remove("voceMenuActive");
-  });
-  document.getElementById(id).classList.add("voceMenuActive");
-  // nel caso in cui clicco su una voce del menu da telefono poi nascondo il menu
-}
+    let attualmenteSelezionato = document.querySelectorAll(".voceMenuActive");
+    [].forEach.call(attualmenteSelezionato, function (el) {
+      el.classList.remove("voceMenuActive");
+    });
+    document.getElementById(id).classList.add("voceMenuActive");
+    // nel caso in cui clicco su una voce del menu da telefono poi nascondo il menu
+  }
 
-function Menu() {
-  let nav = useNavigate();
-  const token = localStorage.getItem("token")
-
+function MenuPaziente() {
+const nav = useNavigate();
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -33,10 +32,9 @@ function Menu() {
     <div className="contenitoreMenu">
       <img src={logoPath} className="logoMenu" />
 
-
-      <div className="contenitoreVociMenu" id="menu-medico">
+      <div className="contenitoreVociMenu" id="menu-paziente">
         <Link
-          to={"/HomeMedico"}
+          to={"/HomePaziente"}
           className="voceMenuText"
           onClick={() => addClassActive(1, "contenitoreMainContent")}
         >
@@ -47,24 +45,24 @@ function Menu() {
         </Link>
 
         <Link
-          to={"/Schedules"}
+          to={"/Fascicolo"}
           className="voceMenuText"
           onClick={() => addClassActive(2, "contenitoreScheduleContent")}
         >
           <div className="voceMenu" id="2">
             <BsCalendarEvent className="iconaMenu" />
-            <span>Schedule</span>
+            <span>Fascicolo</span>
           </div>
         </Link>
 
         <Link
-          to={"/Pazienti"}
+          to={"/Dispositivi"}
           className="voceMenuText"
           onClick={() => addClassActive(3, "contenitorePazientiContent")}
         >
           <div className="voceMenu" id="3">
             <FaHospital className="iconaMenu" />
-            <span>Pazienti</span>
+            <span>Dispositivi</span>
           </div>
         </Link>
 
@@ -99,7 +97,9 @@ function Menu() {
           </div>
         </div>
       </div>
-    </div>
-  );
+
+</div>
+  )
 }
-export default Menu;
+
+export default MenuPaziente

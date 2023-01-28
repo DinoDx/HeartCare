@@ -1,15 +1,9 @@
 package c15.dev.registrazione.service;
 
-import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * @author Mario Cicalese.

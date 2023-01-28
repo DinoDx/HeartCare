@@ -16,7 +16,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * @author Leopoldo Todisco, Carlo Venditto.
+ * Creato il: 24/01/2023.
+ * Classe di configurazione, viene richiamata da Spring automaticamente.
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -24,6 +28,12 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter authFilter;
     private final AuthenticationProvider provider;
 
+    /**
+     * Mertodo che permette di aggiungere filtri a una request.
+     * @param http
+     * @return
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
@@ -45,6 +55,10 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Configurazione delle richieste CORS.
+     * @return
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
