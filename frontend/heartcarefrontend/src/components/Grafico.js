@@ -37,8 +37,8 @@ function Grafico(props) {
             filtrate.map((misurazione) =>{
                 misurazione.shift();
             })
-
     }
+
     let tmpDataGrafico = [];
     const riempiDatiGrafico = () => {
         tmpDataGrafico.push(attributiFiltrati);
@@ -73,6 +73,7 @@ function Grafico(props) {
                     data={dataGrafico}
                 />
                 <select id = "selectCategoria" className="selectMisurazione" onChange={(e) => handlerOnChange(e)}>
+                    <option value="" disabled selected>Scegli una categoria</option>
                     {props.categorie.map( c => {
                         return <option key ={c.id} value ={c.value} >{c}</option>
                     })}
