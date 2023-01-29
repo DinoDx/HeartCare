@@ -32,9 +32,7 @@ function NoteContainer() {
             }),
         }).then(async response => {
             response = await response.json();
-            console.log(response);
             setNote(response);
-            console.log(note);
         })
     }
 
@@ -63,7 +61,6 @@ function NoteContainer() {
             referrerPolicy: "no-referrer",
         }).then(async response => {
             response = await response.json();
-            console.log(response);
         })
     }
 
@@ -84,8 +81,6 @@ function NoteContainer() {
             //body: JSON.stringify(data), // body data type must match "Content-Type" header
         }).then(async (response) => {
             response = await response.json()
-            console.log(response)
-
             return response;
         }
         )
@@ -116,7 +111,6 @@ function NoteContainer() {
         setNota(event.target.value);
     }
 
-    console.log(idDestinatario);
     return (
         <div className="container-note">
             <div className="intestazione-note">

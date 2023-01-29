@@ -3,6 +3,7 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ import java.util.GregorianCalendar;
  */
 
 @Entity
+@SuperBuilder
 public class MisurazioneHolterECG extends Misurazione implements Serializable {
     /**
      * Campo che rappresenta la durata dell'onda p di un elettrocardiogramma.

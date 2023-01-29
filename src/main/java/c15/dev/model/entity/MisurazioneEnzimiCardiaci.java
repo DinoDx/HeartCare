@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@SuperBuilder
 public class MisurazioneEnzimiCardiaci
         extends Misurazione implements Serializable {
     /**

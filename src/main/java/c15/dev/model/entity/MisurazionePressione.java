@@ -3,6 +3,7 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ import java.util.GregorianCalendar;
  *  valore pressione minima.
  */
 @Entity
+@SuperBuilder
 public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      * Questo campo indica il numero di battiti per minuto.
