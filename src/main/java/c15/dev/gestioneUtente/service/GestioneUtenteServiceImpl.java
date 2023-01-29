@@ -425,4 +425,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     }
 
+    @Override
+    public  Long findMedicoByPaziente(final long idPaziente){
+        Medico m = findPazienteById(idPaziente).getMedico();
+        return m.getId();
+    }
+
 }

@@ -163,4 +163,6 @@ public interface GestioneUtenteService {
 
     Set<DispositivoMedico> getDispositiviByPaziente(final long idPaziente);
 
+    public  Long findMedicoByPaziente(final long idPaziente);
+
 }

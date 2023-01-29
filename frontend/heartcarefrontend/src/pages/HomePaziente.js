@@ -13,6 +13,7 @@ import {BiPlusCircle} from "react-icons/bi";
 import {Modal} from "react-responsive-modal";
 import CardDispositivo from "../components/CardDispositivo";
 import { CiMedicalCase } from "react-icons/ci";
+import NoteContainerPaziente from "../components/NoteContainerPaziente";
 
 function HomePaziente() {
 
@@ -164,7 +165,7 @@ function HomePaziente() {
 
             </div>
             <div className="contenitoreDestra">
-                <NoteContainer/>
+                <NoteContainerPaziente/>
                 <VisitePazienteContainer/>
             </div>
         </div>

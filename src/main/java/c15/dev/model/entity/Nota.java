@@ -3,6 +3,8 @@ package c15.dev.model.entity;
 import c15.dev.model.entity.enumeration.Autore;
 
 import c15.dev.model.entity.enumeration.StatoNotifica;
+import c15.dev.model.entity.UtenteRegistrato;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
@@ -63,7 +66,7 @@ public class Nota implements Serializable {
      * Campo relativo all'autore della nota
      **/
     @NotNull
-    private Autore autore;
+    private long autore;
 
     /**
      * Campo relativo allo stato della nota
@@ -79,7 +82,7 @@ public class Nota implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_medico",
             referencedColumnName = "id")
-    @JsonIgnore
+    @JsonBackReference
     private Medico medico;
     /**
      * Campo (chiave esterna) relativo al paziente che ha scritto/ricevuto la nota
@@ -87,7 +90,7 @@ public class Nota implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_paziente",
             referencedColumnName = "id")
-    @JsonIgnore
+    @JsonBackReference
     private Paziente paziente;
 
     /**
@@ -104,7 +107,7 @@ public class Nota implements Serializable {
      **/
     public Nota(final String contenuto,
                 final LocalDate dataPubblicazione,
-                final Autore autore,
+                final long autore,
                 final StatoNotifica stato,
                 final Medico medico,
                 final Paziente paziente) {
@@ -175,7 +178,7 @@ public class Nota implements Serializable {
      * @return autore
      * metodo che permette di restituire l'autore della nota
      */
-    public Autore getAutore() {
+    public long getAutore() {
         return autore;
     }
 
@@ -184,7 +187,7 @@ public class Nota implements Serializable {
      * @param autore
      * metodo che permette di definire l'autore della nota
      */
-    public void setAutore(final Autore autore) {
+    public void setAutore(final long autore) {
         this.autore = autore;
     }
 

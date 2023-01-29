@@ -2,6 +2,7 @@ package c15.dev.model.dao;
 
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,4 +21,5 @@ public interface PazienteDAO extends UtenteRegistratoDAO {
     Paziente findByEmailAndPassword(String email, byte[] password);
     public Paziente findByEmail(String email);
     public Paziente findBycodiceFiscale(String codiceFiscale);
+
 }

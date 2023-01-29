@@ -3,11 +3,8 @@ package c15.dev.gestioneComunicazione.service;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dao.NotaDAO;
 import c15.dev.model.dao.NotificaDAO;
-import c15.dev.model.entity.Medico;
-import c15.dev.model.entity.Nota;
-import c15.dev.model.entity.Notifica;
-import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.enumeration.Autore;
+import c15.dev.model.dto.NotaDTO;
+import c15.dev.model.entity.*;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional
@@ -49,6 +47,10 @@ public class GestioneComunicazioneServiceImpl
         );
         daoNotifica.save(n);
 
+        System.out.println(Flux
+                .just(ServerSentEvent.builder(n.getTesto()).build())
+                .take(1));
+
         return Flux
                 .just(ServerSentEvent.builder(n.getTesto()).build())
                 .take(1);
@@ -74,27 +76,49 @@ public class GestioneComunicazioneServiceImpl
 
     /**
      * Metodo per inviare una nota.
+     *
      * @param messaggio
      * @param idDestinatario
      * @param idMittente
      * @return
      */
     @Override
-    public Flux<ServerSentEvent<String>> invioNota(final String messaggio,
+    public void invioNota(final String messaggio,
                                                    final Long idDestinatario,
                                                    final Long idMittente) {
 
-        Medico m = (Medico) utenteService.findMedicoById(5L);
-        Paziente p = (Paziente) utenteService.findPazienteById(2L);
+        if(utenteService.isMedico(idMittente)){
+            Medico m =  utenteService.findMedicoById(idMittente);
+            Paziente p = utenteService.findPazienteById(idDestinatario);
+            Nota nota = new Nota(messaggio, LocalDate.of(2022,11,10),
+                    idMittente, StatoNotifica.NON_LETTA, m, p
+            );
+            notaDAO.save(nota);
+            return;
+        }
+
+        Medico m = (Medico) utenteService.findMedicoById(idDestinatario);
+        Paziente p = (Paziente) utenteService.findPazienteById(idMittente);
 
         Nota nota = new Nota(messaggio, LocalDate.of(2022,11,10),
-                    Autore.M, StatoNotifica.NON_LETTA, m, p
+                    idMittente, StatoNotifica.NON_LETTA, m, p
                 );
         notaDAO.save(nota);
-        System.out.println("ciao");
-        System.out.println(nota.getContenuto());
-        return Flux
-                .just(ServerSentEvent.builder(nota.getContenuto()).build())
-                .take(1);
+        return;
     }
+
+    public List<Nota> findAllNote(){
+        return notaDAO.findAll();
+    }
+
+    @Override
+    public List<NotaDTO> findNoteByIdUtente(long id) {
+        System.out.println(id);
+        List<Nota>  note = notaDAO.findNoteByIdUtente(id);
+        List<NotaDTO> dto = note.stream().map(e-> new NotaDTO(utenteService.findUtenteById(e.getAutore()).getNome()+" "+
+                utenteService.findUtenteById(e.getAutore()).getCognome(),e.getContenuto())).toList();
+
+        return dto;
+    }
+
 }
