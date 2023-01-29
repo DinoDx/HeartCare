@@ -103,6 +103,7 @@
     height: 13%;
     border-radius: 15px 15px;
     flex-wrap: wrap;
+    overflow-x: auto;
 }
 
 .testo-banner-profilo {
@@ -130,4 +131,95 @@
     border-top-left-radius: 75%;
     border-top-right-radius: 75%;
     height: 1px;
+}
+
+@media only screen and (max-width: 767px) {
+    .bannerProfilo{
+        display: flex;
+        flex-wrap: wrap;
+        height: 35%;
+        gap: revert;
+        width: 80%;
+        overflow-x: auto;
+    }
+
+    .testo-banner-profilo {
+        margin-top: 10px;
+        color: rgb(255, 255, 255);
+        font-size: 19px;
+    }
+
+    .testo-banner-numero-profilo {
+        margin-top: 5px;
+        color: hsl(174, 50%, 44%);
+        font-size: 20px;
+    }
+
+    .contenitoreForm-infoPersonali{
+        width: 70%;
+        margin: 20px 20px 10px 20px;
+    }
+
+    .contenitoreForm-Secondario{
+        width: 80%;
+        margin: 5px 20px 10px 20px;
+        gap: 10px;
+    }
+
+    .contenitoreForm-Indirizzo{
+        margin-right: 0px;
+        width: initial;
+    }
+
+    .contenitoreForm-infoCaregiver{
+        margin-right: 0px;
+        width: initial;
+    }
+
+    .contenitoreFormGenerale{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .userImg{
+        width: 45%;
+        height: 29%;
+        align-self: center;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+    .testo-banner-profilo {
+        margin-top: 10px;
+        color: rgb(255, 255, 255);
+        font-size: 19px;
+    }
+
+    .testo-banner-numero-profilo {
+        margin-top: 5px;
+        color: hsl(174, 50%, 44%);
+        font-size: 20px;
+    }
+
+    .contenitoreForm-infoPersonali{
+        width: 75%;
+        margin-top: 10px;
+    }
+
+    .contenitoreForm-Secondario{
+        width: 80%;
+        margin: 5px 20px 10px 20px;
+        gap: 10px;
+    }
+
+    .contenitoreForm-Indirizzo{
+        margin-right: 0px;
+        width: initial;
+    }
+
+    .contenitoreForm-infoCaregiver{
+        margin-right: 0px;
+        width: initial;
+    }
 }
