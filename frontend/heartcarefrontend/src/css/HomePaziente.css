@@ -82,6 +82,24 @@
     margin: 0px;
 }
 
+.contenitoreDatiMisurazione{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.singoloCampo{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.nomeValoreMisurazione {
+    font-weight: bolder;
+    font-family: "Questrial", sans-serif;
+    font-size: 18px;
+}
+
 .selectDispositivo{
     height: 30px;
     border-radius: 15px;

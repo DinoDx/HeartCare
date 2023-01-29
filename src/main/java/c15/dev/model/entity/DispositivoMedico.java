@@ -176,7 +176,7 @@ public class DispositivoMedico {
                                 .getYears());
             }
                 break;
-            case "Enzimi cardiaci" : dispositivoMedicoStub
+            case "Enzimi cardiaci" : misurazione = dispositivoMedicoStub
                     .MisurazioneEnzimiCardiaciStub(paziente.getGenere());
                 break;
         }

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 
 /**
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@SuperBuilder
 public class MisurazioneGlicemica extends Misurazione implements Serializable {
     /**
      * Questo campo intero indica la quantità di zuccheri nel sangue.

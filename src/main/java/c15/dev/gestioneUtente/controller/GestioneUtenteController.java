@@ -1,10 +1,10 @@
 package c15.dev.gestioneUtente.controller;
 
+import c15.dev.gestioneComunicazione.service.GestioneComunicazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
 import c15.dev.model.entity.*;
-import c15.dev.model.entity.enumeration.StatoNotifica;
 import c15.dev.model.entity.enumeration.StatoVisita;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -42,6 +42,9 @@ public class GestioneUtenteController {
      */
     @Autowired
     private GestioneUtenteService service;
+
+    @Autowired
+    private GestioneComunicazioneService gestioneComunicazioneService;
     /**
      * Sessione
      */
@@ -280,6 +283,8 @@ public class GestioneUtenteController {
             map.put("sesso", med.getGenere());
         }
 
+
+        gestioneComunicazioneService.sendNotifica("CAZZONI DURI");
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

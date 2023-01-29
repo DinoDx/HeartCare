@@ -14,6 +14,7 @@ import {Modal} from "react-responsive-modal";
 import CardDispositivo from "../components/CardDispositivo";
 import { CiMedicalCase } from "react-icons/ci";
 import NoteContainerPaziente from "../components/NoteContainerPaziente";
+import gifPath from "../images/Bars-1s-200px.gif";
 
 function HomePaziente() {
 
@@ -110,11 +111,32 @@ function HomePaziente() {
 
     const aggiornaDispositivoMisurazione = (event) => {
         setDispositivoMisurazione(event.target.value);
+        console.log(dispositivoMisurazione);
     }
-    const avviaMisurazione = () =>{
+
+    const [datiMisurazione, setDatiMisurazione] = useState({});
+    const avviaMisurazione = async () =>{
         // fare la fetch per inviare dati
         console.log("stai avviando la misurazione con il dispositivo: "+dispositivoMisurazione)
-
+        return await fetch("http://localhost:8080/avvioMisurazione", {
+            method: "POST",// *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idDispositivo: dispositivoMisurazione
+            }),
+            withCredentials: true,
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer",
+        }).then(async response => {
+            response = await response.json();
+            setDatiMisurazione(response);
+        })
     }
 
     return !localStorage.getItem("token") ? (
@@ -139,6 +161,32 @@ function HomePaziente() {
 
             <Modal open={openRisultati} onClose={onCloseModalRisultati} center>
                 <h2>Risultati della tua misurazione:</h2>
+                <div className="contenitoreDatiMisurazione">
+                    <img src={gifPath}  id="img"/>
+                    <div id="dati" style={{display: "none"}}>
+                    {Object.entries(datiMisurazione).map((dato) => {
+                        // dato[0] contiene il nome della categoria, dato[1] il valore
+                        const result = dato[0].replace(/([A-Z])/g, " $1");
+                        const finalResult = result.charAt(0).toUpperCase() + result.slice(1);
+                        if (finalResult != "Id")
+                            return (
+                                <div className="singoloCampo">
+                                    <span className="nomeValoreMisurazione">{finalResult}: </span>
+                                    <span>{dato[1]}</span>
+                                </div>
+                            )
+                    })}
+                    </div>
+                    <span style={{display:"none"}}>
+                    {
+
+                        setTimeout(() => {
+                            document.getElementById("img").style.display = "none";
+                            document.getElementById("dati").style.display = "block";
+                        }, 2000)
+                    }
+                    </span>
+                </div>
             </Modal>
 
 

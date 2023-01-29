@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/login", "/auth/registrazione","/auth/getByEmail",
-                        "/auth/getByCodice",
+                        "/auth/getByCodice","/ws/**",
                         "/comunicazione/invioNota", "/comunicazione/invioNotifica")
                 .permitAll()
                 .anyRequest().authenticated() //c'era authenticated
@@ -53,7 +53,8 @@ public class SecurityConfig {
                 .authenticationProvider(provider)
                 .addFilterBefore(authFilter,
                         UsernamePasswordAuthenticationFilter.class);
-
+        http.headers().frameOptions().disable();
+        http.headers().contentTypeOptions().disable();
         return http.build();
     }
 
