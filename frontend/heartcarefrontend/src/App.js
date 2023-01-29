@@ -22,6 +22,7 @@ import MenuPaziente from "./components/MenuPaziente";
 import Fascicolo from "./pages/Fascicolo"
 import Registrazione from "./pages/Registrazione"
 import HomePaziente from "./pages/HomePaziente"
+import Norme from "./pages/Norme";
 
 import jwt from "jwt-decode"
 import Error404 from "./pages/Error404";
@@ -99,10 +100,10 @@ function App() {
             }
           />
           <Route
-            path="About"
+            path="Norme"
             element={
               <AppShell>
-                <About />
+                <Norme />
               </AppShell>
             }
           />
