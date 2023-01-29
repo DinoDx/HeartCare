@@ -31,7 +31,7 @@ public class Medico extends UtenteRegistrato {
      * assegnati al medico in questione
      */
     @OneToMany(mappedBy = "medico", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("paziente-medico")
     private List<Paziente> elencoPazienti = new ArrayList<>();
 
     /**

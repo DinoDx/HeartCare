@@ -49,7 +49,7 @@ public final class Indirizzo implements Serializable {
      * Numero Intero che rappresenta il numero civico dell'indirizzo.
      */
     @NotNull
-    private Integer nCivico;
+    private String nCivico;
 
     /**
      * Numero Intero che rappresenta il cap dell'indirizzo
@@ -103,7 +103,7 @@ public final class Indirizzo implements Serializable {
      * Costruttore comprensivo di tutti i campi.
      */
     public Indirizzo(final String cit,
-                     final Integer numeroCivico,
+                     final String numeroCivico,
                      final Integer codiceAvviamentoPostale,
                      final String prov,
                      final String via) {
@@ -137,7 +137,7 @@ public final class Indirizzo implements Serializable {
      * @return nCivico
      * Metodo che restituisce il numero civico di un Indirizzo.
      */
-    public Integer getnCivico() {
+    public String getnCivico() {
         return nCivico;
     }
 
@@ -146,7 +146,7 @@ public final class Indirizzo implements Serializable {
      * @param numeroCivico
      * Metodo che permette di inserire il numero civico di un Indirizzo.
      */
-    public void setnCivico(final Integer numeroCivico) {
+    public void setnCivico(final String numeroCivico) {
         this.nCivico = numeroCivico;
     }
 

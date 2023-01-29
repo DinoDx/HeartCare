@@ -41,7 +41,8 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/login", "/auth/registrazione",
+                .requestMatchers("/auth/login", "/auth/registrazione","/auth/getByEmail",
+                        "/auth/getByCodice",
                         "/comunicazione/invioNota", "/comunicazione/invioNotifica")
                 .permitAll()
                 .anyRequest().authenticated() //c'era authenticated

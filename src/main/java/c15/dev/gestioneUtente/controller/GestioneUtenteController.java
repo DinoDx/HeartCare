@@ -284,37 +284,6 @@ public class GestioneUtenteController {
     }
 
     /**
-     * Metodo che permette di ottenere un utente conoscendo il codice fiscale.
-     * @param codiceFiscale
-     * @return
-     */
-    @PostMapping(value = "/getByCodice")
-    public ResponseEntity<Object> getByCodice(@RequestBody String codiceFiscale){
-        HashMap<String, Object> map = new HashMap<>();
-        System.out.println(codiceFiscale);
-
-        System.out.println(service.findUtenteByCf(codiceFiscale));
-        map.put("codiceFiscale", service.findUtenteByCf(codiceFiscale));
-
-        return new ResponseEntity<>(map,HttpStatus.OK);
-    }
-    /**
-     * Metodo per ottenere un utente avendo la sua email.
-     * @param email è l'email dell'utente
-     * @return
-     */
-    @PostMapping(value = "/getByEmail")
-    public ResponseEntity<Object> getByEmail(@RequestBody String email){
-        HashMap<String, Object> map = new HashMap<>();
-        System.out.println(email);
-
-        System.out.println(service.checkByEmail(email));
-        map.put("email", service.checkByEmail(email));
-
-        return new ResponseEntity<>(map,HttpStatus.OK);
-    }
-
-    /**
      * Metodo che permette di ottenere tutti i dispositivi
      * associati a un paziente.
      * @param idPaziente

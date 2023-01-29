@@ -1,5 +1,6 @@
 package c15.dev.registrazione.service;
 
+import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.utils.AuthenticationRequest;
@@ -13,6 +14,8 @@ import c15.dev.utils.AuthenticationResponse;
 public interface RegistrazioneService {
     public AuthenticationResponse registraPaziente(Paziente paziente)
             throws Exception;
+
+    public void saveIndirizzo(Indirizzo ind);
 
     public AuthenticationResponse registraMedico(Medico medico) throws Exception;
     public AuthenticationResponse login(AuthenticationRequest req)

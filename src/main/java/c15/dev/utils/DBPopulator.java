@@ -495,42 +495,42 @@ public class DBPopulator {
          **/
 
         Indirizzo ind1 = new Indirizzo("Salerno",
-                12,
+                "12",
                 81043,
                 "SA",
                 "Via roma"
         );
         System.out.println("ci arrivo2");
         Indirizzo ind2 = new Indirizzo("Caserta",
-                1,
+                "1",
                 80056,
                 "CE",
                 "Via nazionale appia"
         );
 
         Indirizzo ind3 = new Indirizzo("Napoli",
-                5,
+                "5",
                 80017,
                 "NA",
                 "Via campi flegrei"
         );
 
         Indirizzo ind4 = new Indirizzo("Nocera Inferiore",
-                2,
+                "2",
                 80069,
                 "SA",
                 "Via 4 novembre"
         );
 
         Indirizzo ind5 = new Indirizzo("Capua",
-                7,
+                "7",
                 81043,
                 "CE",
                 "Via ponte barbieri"
         );
 
         Indirizzo ind6 = new Indirizzo("Pompei",
-                56,
+                "56",
                 80017,
                 "NA",
                 "Via del vesuvio"

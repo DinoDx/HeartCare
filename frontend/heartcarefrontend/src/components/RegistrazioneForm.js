@@ -11,7 +11,7 @@ import moment from 'moment';
 function RegistrazioneForm() {
     const [nome, setNome] = useState("");
     const [cognome, setCognome] = useState("");
-    const [nTelefono, setNtelefono] = useState("") ;
+    const [nTelefono, setNtelefono] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [confermaPassword, setConfermaPassword] = useState("");
@@ -54,51 +54,19 @@ function RegistrazioneForm() {
     const aggiornaCodiceFiscale = (event) => {
 
         setCodiceFiscale(event.target.value);
-        console.log(event.target.value)
     }
-    const [data, setData] = useState({})
-    const [speriamo, setSperiamo] = useState({})
-   /* const fetchCf = async (value) => {
-
-        try {
-            const data = await axios.post('http://localhost:8080/getByCodice', value, {
-                headers: { "Content-Type": "text/plain" }
-            })
-            console.log(data.data.codiceFiscale)
-            setData(data.data.codiceFiscale)
-        } catch (error) {
-            console.error(error.message);
-        }
-
-    }*/
-
-    /*const fetchEmail = async (val) => {
-        try {
-            const pippo = await axios.post('http://localhost:8080/getByEmail', val, {
-                headers: { "Content-Type": "text/plain" }
-
-            })
-            console.log(pippo.data.email)
-            setSperiamo(pippo.data.email)
-        } catch (er) {
-            console.error(er.message);
-        }
-
-    }*/
-
-    /*const fetchCf = async (value) => {
-       const response = await axios.post("http://localhost:8080/getByCodice",{
-            codiceFiscale: value
-        })
-        console.log(response.data);
-         const data = response.data;
-        console.log(JSON.parse(data.codiceFiscale)) 
-        return JSON.parse(data.codiceFiscale);
-    }*/
-
-
+  
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = (data) => axios.post('http://localhost:8080/registrazione', {
+
+    const onSubmit = (data) => fetch('http://localhost:8080/auth/registrazione', {
+        method: "POST",// *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify({ 
         nome: data.nome,
         cognome: data.cognome,
         password: data.password,
@@ -113,6 +81,7 @@ function RegistrazioneForm() {
         cap: data.cap,
         via: data.via,
         nCivico: data.nCivico
+    })
     })
 
     return (
@@ -178,12 +147,26 @@ function RegistrazioneForm() {
                 <input id="codiceFiscale" type="text" placeholder="Codice Fiscale" className="registrazioneEditText" onChange={aggiornaCodiceFiscale}{...register("codiceFiscale", {
                     required: true,
                     pattern: /^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$/,
-                    validate:  async (value) => {
-                        const data =await  axios.post('http://localhost:8080/getByCodice', value, {
-                    headers: { "Content-Type": "text/plain" }
-             })
-                    console.log((!data.data.codiceFiscale))
-                     return !data.data.codiceFiscale
+                    validate: async (value) => {
+                        let approva = undefined;
+                        const data = await fetch('http://localhost:8080/auth/getByCodice', {
+                            method: "POST",// *GET, POST, PUT, DELETE, etc.
+                            mode: "cors", // no-cors, *cors, same-origin
+                            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                            credentials: "same-origin", // include, *same-origin, omit
+                            headers: {
+                                
+                                "Content-Type": "application/json"
+                            },
+                            body:JSON.stringify({
+                                codiceFiscale:value
+                            })
+                            
+                        }).then(async response =>{
+                            approva = await response.json();
+                            
+                        })
+                        return !approva
                     }
                 })} />
                 <error className="errore">
@@ -198,13 +181,26 @@ function RegistrazioneForm() {
                 <input type="text" placeholder="email@example.ti" className="registrazioneEditText" onChange={aggiornaEmail}{...register("email", {
                     required: true,
                     pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
-                    validate:  async (val) => {
-                        const pippo =await axios.post('http://localhost:8080/getByEmail', val, {
-                    headers: { "Content-Type": "text/plain" }
-
-             })
-                    console.log(pippo.data.email)
-                     return !pippo.data.email
+                    validate: async (val) => {
+                        let approva = undefined;
+                        const pippo = await fetch('http://localhost:8080/auth/getByEmail',{
+                            method: "POST",// *GET, POST, PUT, DELETE, etc.
+                            mode: "cors", // no-cors, *cors, same-origin
+                            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                            credentials: "same-origin", // include, *same-origin, omit
+                            headers: {
+                                
+                                "Content-Type": "application/json"
+                            },
+                            body:JSON.stringify({
+                                email:val
+                            })
+                            
+                        }).then(async response =>{
+                            approva = await response.json();
+                            
+                        })
+                        return !approva
                     }
                 })} />
                 <error className="errore">
@@ -250,19 +246,19 @@ function RegistrazioneForm() {
                 <div className="contenitoreEditTextCorta">
                     <span className="labelEditText">Città</span>
                     <input type="text" placeholder="Città" className="registrazioneEditText"
-                           {...register("citta", {
-                               required: true
-                           })} />
+                        {...register("citta", {
+                            required: true
+                        })} />
                     <error className="errore">
                         {errors.citta?.type === "required" && "Inserire una città"}
                     </error>
                 </div>
                 <div className="contenitoreEditTextCorta">
                     <span className="labelEditText">Provincia</span>
-                    <input type="text" placeholder="Provincia" className="registrazioneEditText"
-                           {...register("provincia", {
-                               required: true
-                           })} />
+                    <input type="text" placeholder="Provincia" className="registrazioneEditText" max = "2"
+                        {...register("provincia", {
+                            required: true
+                        })} />
                     <error className="errore">
                         {errors.citta?.type === "required" && "Inserire una provincia"}
                     </error>
@@ -270,9 +266,9 @@ function RegistrazioneForm() {
                 <div className="contenitoreEditTextCortissima">
                     <span className="labelEditText">Via</span>
                     <input type="text" placeholder="Via" className="registrazioneEditText"
-                           {...register("via", {
-                               required: true
-                           })} />
+                        {...register("via", {
+                            required: true
+                        })} />
                     <error className="errore">
                         {errors.citta?.type === "required" && "Inserire una via"}
                     </error>
@@ -280,19 +276,19 @@ function RegistrazioneForm() {
                 <div className="contenitoreEditTextCortissima">
                     <span className="labelEditText">Numero civico</span>
                     <input type="text" placeholder="Numero civico" className="registrazioneEditText"
-                           {...register("nCivico", {
-                               required: true
-                           })} />
+                        {...register("nCivico", {
+                            required: true
+                        })} />
                     <error className="errore">
                         {errors.citta?.type === "required" && "Inserire un numero civico"}
                     </error>
                 </div>
                 <div className="contenitoreEditTextCortissima">
                     <span className="labelEditText">CAP</span>
-                    <input type="number" placeholder="CAP" className="registrazioneEditText"
-                           {...register("cap", {
-                               required: true
-                           })} />
+                    <input type="number" placeholder="CAP" className="registrazioneEditText" max="5"
+                        {...register("cap", {
+                            required: true
+                        })} />
                     <error className="errore">
                         {errors.citta?.type === "required" && "Inserire un cap"}
                     </error>

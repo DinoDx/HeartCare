@@ -1,7 +1,9 @@
 package c15.dev.registrazione.service;
 
+import c15.dev.model.dao.IndirizzoDAO;
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.utils.AuthenticationRequest;
@@ -22,9 +24,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegistrazioneServiceImpl implements RegistrazioneService {
     @Autowired
-    public PazienteDAO pazienteDAO;
+    private PazienteDAO pazienteDAO;
     @Autowired
-    public MedicoDAO medicoDAO;
+    private IndirizzoDAO indirizzoDAO;
+    @Autowired
+    private MedicoDAO medicoDAO;
     @Autowired
     private JwtService jwtService;
 
@@ -41,12 +45,17 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
                                                     throws Exception {
 
         paz.setPassword(pwdEncoder.encode(paz.getPassword()));
+
         Long id = pazienteDAO.save(paz).getId();
 
         var jwtToken = jwtService.generateToken(paz);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public void saveIndirizzo(Indirizzo ind){
+        indirizzoDAO.save(ind);
     }
 
     @Override
