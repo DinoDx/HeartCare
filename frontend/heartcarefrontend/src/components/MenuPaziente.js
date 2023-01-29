@@ -8,6 +8,7 @@ import { CiLogout } from "react-icons/ci";
 import { SlHome } from "react-icons/sl";
 import { BsCalendarEvent } from "react-icons/bs";
 import { AiOutlineQuestion, AiOutlineUser } from "react-icons/ai";
+import {MdOutlineRule} from "react-icons/md";
 
 
 
@@ -80,13 +81,13 @@ const nav = useNavigate();
         <hr className="lineaMenu" />
 
         <Link
-          to={"/About"}
+          to={"/Norme"}
           className="voceMenuText"
           onClick={() => addClassActive(5, "contenitoreMainContent")}
         >
           <div className="voceMenu" id="5">
-            <AiOutlineQuestion className="iconaMenu" />
-            <span>Chi siamo?</span>
+            <MdOutlineRule className="iconaMenu" />
+            <span>Buone norme</span>
           </div>
         </Link>
 
