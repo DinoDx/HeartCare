@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "@microsoft/fetch-event-source": "^2.0.1",
+    "@stomp/stompjs": "^6.1.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.2",
+    "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-client-session": "^0.0.8",
@@ -16,10 +18,15 @@
     "react-hook-form": "^7.42.1",
     "react-icons": "^4.7.1",
     "react-native-ionicons": "^4.6.5",
+    "react-push-notification": "^1.3.0",
     "react-router": "^6.6.2",
     "react-router-dom": "^6.6.2",
     "react-scripts": "^5.0.1",
     "react-scrollbars-custom": "^4.1.1",
+    "react-stomp": "^5.1.0",
+    "sockjs": "^0.3.24",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

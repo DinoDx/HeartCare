@@ -42,7 +42,8 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/login", "/auth/registrazione",
-                        "/comunicazione/invioNota", "/comunicazione/invioNotifica")
+                        "/comunicazione/invioNota", "/comunicazione/invioNotifica",
+                        "/ws/**")
                 .permitAll()
                 .anyRequest().authenticated() //c'era authenticated
                 .and()
@@ -53,6 +54,8 @@ public class SecurityConfig {
                 .addFilterBefore(authFilter,
                         UsernamePasswordAuthenticationFilter.class);
 
+        http.headers().frameOptions().disable();
+        http.headers().contentTypeOptions().disable();
         return http.build();
     }
 
@@ -74,9 +77,9 @@ public class SecurityConfig {
         configuration.addAllowedMethod("PATCH");
         configuration.addAllowedHeader("Authorization");
         configuration.addExposedHeader("Authorization");
-        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("http://localhost:3000/");
         configuration
-                .setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+                .setAllowedOrigins(Arrays.asList("http://localhost:3000/"));
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
         configuration.setAllowCredentials(true);
         var source = new UrlBasedCorsConfigurationSource();
