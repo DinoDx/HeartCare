@@ -6,6 +6,7 @@ import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.Misurazione;
 import c15.dev.model.entity.MisurazionePressione;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +25,9 @@ public interface GestioneMisurazioneService {
      * @return true o false.
      */
     public boolean registrazioneDispositivo(DispositivoMedico dispositivo,
+                                            long idPaziente);
+
+    public boolean registrazioneDispositivo(HashMap<String, String> dispositivo,
                                             long idPaziente);
 
     /**

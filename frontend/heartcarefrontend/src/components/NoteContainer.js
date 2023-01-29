@@ -11,6 +11,9 @@ function NoteContainer(props) {
     const token = localStorage.getItem("token");
 
 
+
+
+
     const handleSubmit = async (event) => {
         const eventSource = await new EventSourcePolyfill("http://localhost:8080/comunicazione/invioNota", {
             method: "GET",// *GET, POST, PUT, DELETE, etc.
@@ -52,14 +55,11 @@ function NoteContainer(props) {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             }, redirect: "follow", // manual, *follow, error
-            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            referrerPolicy: "no-referrer", 
             //body: JSON.stringify(data), // body data type must match "Content-Type" header
         }).then(async (response) => {
                 response = await response.json()
-                console.log(response)
-
                 return response;
             }
         )

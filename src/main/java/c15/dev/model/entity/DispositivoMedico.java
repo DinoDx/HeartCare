@@ -17,10 +17,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -38,6 +39,8 @@ import java.util.Set;
  */
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "Dispositivo_medico")
@@ -102,14 +105,14 @@ public class DispositivoMedico {
     @JsonIgnore
     @JoinColumn(name = "id_paziente",
             referencedColumnName = "id")
-    @JsonBackReference
+    @JsonBackReference("misurazione-paziente")
     private Paziente paziente;
 
     /**
      * Campo che indica l'insieme delle misurazioni generate da un dispositivo.
      */
     @OneToMany(mappedBy = "dispositivoMedico", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("dispositivo-misurazione")
     private Set<Misurazione> misurazione;
 
     /**
@@ -140,7 +143,7 @@ public class DispositivoMedico {
         this.dataRegistrazione = dataRegistrazione;
         this.descrizione = descrizione;
         this.numeroSeriale = numeroSeriale;
-        this.disponibile = disponibile;
+        this.disponibile = true;
         this.categoria = categoria;
         this.paziente = paziente;
     }
@@ -156,8 +159,7 @@ public class DispositivoMedico {
             case "Saturimetro" : misurazione = dispositivoMedicoStub
                     .MisurazioneSaturazioneStub() ;
                 break;
-            case "Coagulometro" : misurazione = dispositivoMedicoStub
-                    .MisurazioneCoagulazioneStub();
+            case "Coagulometro" : misurazione = dispositivoMedicoStub.MisurazioneCoagulazioneStub();
                 break;
             case "Misuratore glicemico" : misurazione = dispositivoMedicoStub
                     .MisurazioneGlicemicaStub();

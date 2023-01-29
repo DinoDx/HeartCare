@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import '../css/style.css';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { ReactSession }  from 'react-client-session';
 import jwt from "jwt-decode"
@@ -13,6 +13,7 @@ function LoginForm(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const nav = useNavigate();
+    const ref = useRef(0);
     
     const rimanda = () => {
         let tokenInizio = localStorage.getItem("token");
@@ -31,12 +32,9 @@ function LoginForm(){
     }
 
     useEffect( () => {
+        document.getElementById("spanErrore").style.display = "none";
         rimanda();
     })
-
-    
-
-
 
     const aggiornaEmail = (event) => {
         setEmail(event.target.value);
@@ -54,7 +52,6 @@ function LoginForm(){
             password: password
         })
             .then((response) => {
-                console.log(response);
                 localStorage.setItem('token', response.data.token);
                 if(jwt(response.data.token).ruolo == "PAZIENTE"){
                     nav("/HomePaziente")
@@ -63,19 +60,24 @@ function LoginForm(){
                     nav("/HomeMedico");
                 }
             }, (error) => {
+                document.getElementById("spanErrore").style.display = "block";
                 console.log(error);
             });
     }
 
 
+    const sendToRegistrazione = () => {
+        nav("/Registrazione")
+    }
+
     return (
         <div className="contenitoreForm">
             <input type="text" placeholder=" E-mail" className="formEditText" onChange={aggiornaEmail}/>
             <input type="password" placeholder=" Password" className="formEditText" onChange={aggiornaPassword}/>
+            <span className="errore" id="spanErrore" >Controlla i dati inseriti</span>
             <span className="formLink">Ho dimenticato la password</span>
             <button className="formButton" onClick={handleSubmit}>Accedi</button>
-            <span className="formLink centerFlexItem">Non hai un account? Registrati</span>
-            <a href = "/Registrazione">Non hai un account? Registrati</a>
+            <span onClick={sendToRegistrazione} className="formLink centerFlexItem">Non hai un account? Registrati</span>
         </div>
     );
 }

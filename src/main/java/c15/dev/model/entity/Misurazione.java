@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.checkerframework.checker.optional.qual.Present;
 
@@ -22,6 +23,7 @@ import java.util.Date;
  */
 
 @Entity
+@ToString
 @Inheritance(strategy = InheritanceType.JOINED)
 @SuperBuilder
 @Getter
@@ -48,7 +50,8 @@ public class Misurazione implements Serializable {
      * Campo relativo alla relazione tra pazienti e misurazioni.
      */
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnore
+    @JsonBackReference("misurazione-paziente")
     @JoinColumn(name = "id_paziente",
             referencedColumnName = "id", nullable = false)
     private Paziente paziente;
@@ -59,7 +62,7 @@ public class Misurazione implements Serializable {
     @JoinColumn(name = "id_dispositivo_medico",
             referencedColumnName = "id", nullable = false)
     @JsonIgnore
-    @JsonBackReference
+    @JsonBackReference("dispositivo-misurazione")
     private DispositivoMedico dispositivoMedico;
 
     /**

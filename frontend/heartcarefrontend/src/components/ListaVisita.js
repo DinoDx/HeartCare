@@ -40,10 +40,9 @@ function ListaVisita(props) {
 
   useEffect(() => {
     if(data.length > 0) {
-      console.log(data)
+      
     }
   }, [data])
-
 
   return (
     <>

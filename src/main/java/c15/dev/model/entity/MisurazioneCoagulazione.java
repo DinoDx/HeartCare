@@ -3,6 +3,11 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -17,6 +22,8 @@ import java.util.GregorianCalendar;
  *
  */
 @Entity
+@SuperBuilder
+@AllArgsConstructor
 public class MisurazioneCoagulazione
         extends Misurazione implements Serializable {
     /**
@@ -31,7 +38,7 @@ public class MisurazioneCoagulazione
      */
     @Column(name = "inr", nullable = false)
     @NotNull
-    private int inr;
+    private Double inr;
 
     /**
      *
@@ -54,8 +61,8 @@ public class MisurazioneCoagulazione
     public MisurazioneCoagulazione(final LocalDate dataMisurazione,
                                    final Paziente paziente,
                                    final DispositivoMedico dispositivoMedico,
-                                   final double tempoDiProtrobina,
-                                   final int inr) {
+                                   final Double tempoDiProtrobina,
+                                   final Double inr) {
         super(dataMisurazione, paziente, dispositivoMedico);
         this.tempoDiProtrobina = tempoDiProtrobina;
         this.inr = inr;
@@ -75,7 +82,7 @@ public class MisurazioneCoagulazione
      * @return inr
      * metodo che restituisce il valore dell'inr.
      */
-    public int getInr() {
+    public double getInr() {
         return inr;
     }
 
@@ -95,7 +102,7 @@ public class MisurazioneCoagulazione
      * metodo che permette di impostare il valore dell'inr
      * della misurazione coagulazione.
      */
-    public void setInr(final int inr) {
+    public void setInr(final double inr) {
         this.inr = inr;
     }
 }

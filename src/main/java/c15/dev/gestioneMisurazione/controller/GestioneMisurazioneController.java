@@ -8,6 +8,7 @@ import c15.dev.model.dto.MisurazioneDTO;
 import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.Misurazione;
 import c15.dev.model.entity.UtenteRegistrato;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,18 +38,28 @@ public class GestioneMisurazioneController {
 
     /**
      * Metodo per la registrazione del dispositivo.
-     * @param dispositivo
+     * @param dis
      */
-    @RequestMapping(value = "/aggiungiDispositivo", method = RequestMethod.POST)
-    public boolean registrazioneDispositivo(
-            @RequestParam DispositivoMedico dispositivo){
-        UtenteRegistrato u = (UtenteRegistrato)
-                session.getAttribute("utenteLoggato");
-        if(!utenteService.isPaziente(u.getId())){
-            return false;
+    @PostMapping(value = "/dispositivo/registra")
+    public ResponseEntity<Object>
+    registraDispositivo(@RequestBody final HashMap<String, String> requestMap,
+                        final HttpServletRequest request) {
+        var email = request.getUserPrincipal().getName();
+        var user = utenteService.findUtenteByEmail(email);
+        var idUser = user.getId();
+
+        if(!utenteService.isPaziente(user.getId())) {
+            System.out.println("non sono un paziente...");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return misurazioneService.registrazioneDispositivo(dispositivo,
-                u.getId());
+
+        var result = misurazioneService
+                .registrazioneDispositivo(requestMap, idUser);
+        if (!result) {
+            System.out.println("sono nel not result, non va a buon fine la registrazione");
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -90,10 +101,22 @@ public class GestioneMisurazioneController {
      *
      */
     @PostMapping(value = "/avvioMisurazione")
-    public Misurazione avvioMisurazione(@RequestParam Long idDispositivo) {
+    public Misurazione avvioMisurazione(@RequestBody final HashMap<String, Object> map,
+                                            final HttpServletRequest request) {
+
+        var email = request.getUserPrincipal().getName();
+        var u = utenteService.findUtenteByEmail(email);
+        if(u == null || !utenteService.isPaziente(u.getId())) {
+            System.out.println("DEVI ESSERE PAZIENTE");
+            return null;
+        }
+
+        Long idDispositivo = Long.parseLong(map.get("idDispositivo").toString());
         var dispositivoMedico = misurazioneService.getById(idDispositivo);
         var dispositivoAdapter = new DispositivoMedicoAdapter(dispositivoMedico);
-        return dispositivoAdapter.avvioMisurazione();
+        var m =  dispositivoAdapter.avvioMisurazione();
+        misurazioneService.save(m);
+        return m;
     }
 
     @PostMapping(value = "/getMisurazioneCategoria")

@@ -3,16 +3,49 @@ import jwt from "jwt-decode";
 import CardDispositivo from "../components/CardDispositivo";
 import NoteContainer from "../components/NoteContainer";
 import "../css/home-main-content.css";
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
 import CardPaziente from "../components/CardPaziente";
 
 export default function Dispositivi() {
   const [dispositivi, setDispositivi] = useState([]);
   const token = localStorage.getItem("token");
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+  const [descrizione, setDescrizione] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [numeroSeriale, setNumeroSeriale] = useState("");
 
   //const [loading, setLoading] = useState(false);
 
   const aggiornaDispositivi = (disp) => {
     setDispositivi(disp);
+  }
+
+  const registraDispositivo = async () => {
+    console.log(categoria)
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json");
+    
+    const raw = JSON.stringify({
+      "categoria": categoria,
+      "numeroSeriale": numeroSeriale,
+      "descrizione": descrizione
+    });
+    
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    
+    fetch("http://localhost:8080/dispositivo/registra", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   }
 
   const fetchDispositivi = async () => {
@@ -93,6 +126,28 @@ export default function Dispositivi() {
                 )
             })}
             </div>
+          </div>
+          
+          <div className="containerBottoni">
+            <button className="bottoneHomePaziente" onClick={onOpenModal}>Aggiungi Dispositivo</button>
+            <Modal open={open} onClose={onCloseModal} center>
+              <h2>Aggiungi Dispositivo</h2>
+              <select name="categoria" onChange={e => setCategoria(e.target.value)}>
+                <option value="" disabled selected>Seleziona categoria</option>
+                <option value="Coagulometro">Coagulometro</option>
+                <option value="Misuratore di pressione">Misuratore di pressione</option>
+                <option value="ECG">ECG</option>
+                <option value="Saturimetro">Saturimetro</option>
+                <option value="Misuratore glicemico">Misuratore Glicemico</option>
+                <option value="Enzimi Cardiaci">Misuratore Enzimi Cardiaci</option>
+              </select>
+              <br/>
+              <h2></h2>
+              <textarea className="textAreaTestoNote" name="desc" type="text" placeholder=" Inserire una breve descrizione" cols={40} rows={8} onChange={e => setDescrizione(e.target.value)}></textarea>
+              <h2></h2>
+              <textarea className="textAreaTestoNote" name="nSeriale" type="text" placeholder=" Inserire numero seriale dispositivo" cols={40} rows={8} onChange={e => setNumeroSeriale(e.target.value)} ></textarea>
+              <button className="bottoneInviaNota" onClick={registraDispositivo}>Aggiungi</button>
+          </Modal>
           </div>
         </div>
         <div className="note-container">

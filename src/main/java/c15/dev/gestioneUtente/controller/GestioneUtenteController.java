@@ -252,40 +252,32 @@ public class GestioneUtenteController {
 
         if(service.isPaziente(idUtente)){
             Paziente paz = service.findPazienteById(idUtente);
+            int nVisite = paz.getElencoVisite().stream()
+                    .filter(v->
+                            v.getStatoVisita().equals(StatoVisita.PROGRAMMATA))
+                    .toList()
+                    .size();
             map.put("numeroMisurazioni", paz.getMisurazione().size());
-            map.put("appuntamentiInProgramma", paz.getElencoVisite()
-                    .stream()
-                    .filter(visita -> visita.getStatoVisita()
-                            .equals(StatoVisita.PROGRAMMATA))
-                    .toList().size());
-            map.put("nuoveNote", paz.getNote()
-                    .stream()
-                    .filter(nota -> nota.getStatoNota()
-                            .equals(StatoNotifica.NON_LETTA))
-                    .toList().size());
-            map.put("listaNote", paz.getNote());
-            map.put("listaVisite", paz.getElencoVisite());
-            map.put("listaMisurazioni", paz.getMisurazione());
+            map.put("appuntamentiInProgramma", nVisite);
+            map.put("nome", paz.getNome());
+            map.put("cognome", paz.getCognome());
+            map.put("numeroNote", paz.getNote().size());
+            map.put("sesso", paz.getGenere());
         }
         else if (service.isMedico(idUtente)) {
             Medico med = service.findMedicoById(idUtente);
-            map.put("pazientiTotali", med.getElencoPazienti());
-            map.put("appuntamentiInProgramma", med.getElencoVisite()
+            map.put("pazientiTotali", med.getElencoPazienti().size());
+            int nVisite = med.getElencoVisite()
                     .stream()
-                    .filter(visita -> visita.getStatoVisita()
-                            .equals(StatoVisita.PROGRAMMATA))
-                    .toList().size());
-            map.put("nuoveNote", med.getNote()
-                    .stream()
-                    .filter(note -> note.getStatoNota()
-                            .equals(StatoNotifica.NON_LETTA))
-                    .toList().size());
-            map.put("listaNote", med.getNote());
-            map.put("visiteInProgrammaOggi", med.getElencoVisite()
-                    .stream()
-                    .filter(visita -> visita.getData()
-                            .equals(new GregorianCalendar()))
-                    .toList());
+                    .filter(v ->
+                            v.getStatoVisita().equals(StatoVisita.PROGRAMMATA))
+                    .toList()
+                    .size();
+            map.put("appuntamentiInProgramma", nVisite);
+            map.put("numeroNote", med.getNote().size());
+            map.put("nome", med.getNome());
+            map.put("cognome", med.getCognome());
+            map.put("sesso", med.getGenere());
         }
 
         return new ResponseEntity<>(map, HttpStatus.OK);

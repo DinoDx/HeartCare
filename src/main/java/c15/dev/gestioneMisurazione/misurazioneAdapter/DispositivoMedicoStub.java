@@ -1,9 +1,16 @@
 package c15.dev.gestioneMisurazione.misurazioneAdapter;
 
 
+import c15.dev.model.entity.MisurazioneCoagulazione;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -168,12 +175,27 @@ public class DispositivoMedicoStub {
      */
     public String MisurazioneCoagulazioneStub(){
         var tempoDiProtrombina = ThreadLocalRandom.current().nextInt(8, 14);
-        Double inr = ThreadLocalRandom.current().nextDouble(0.9, 1.3);
+        var inr = ThreadLocalRandom.current().nextDouble(0.9, 1.3);
 
         mappa.put("tempoDiProtrombina", tempoDiProtrombina);
         mappa.put("INR", inr);
 
-        String json = gson.toJson(mappa);
-        return json;
+        var misurazioneC = MisurazioneCoagulazione.builder()
+                .inr(inr)
+                .dataMisurazione(LocalDate.now())
+                .tempoDiProtrobina(tempoDiProtrombina).build();
+
+
+        ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+
+        try {
+            /*Stringa che viene restituita.*/
+            String result = mapper.writeValueAsString(misurazioneC);
+            return result;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

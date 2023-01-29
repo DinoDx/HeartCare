@@ -77,7 +77,7 @@ public class Paziente extends UtenteRegistrato {
     /**
      * Campo che indica l'insieme delle misurazioni che un paziente esegue.
      */
-    @JsonManagedReference
+    @JsonManagedReference("misurazione-paziente")
     @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY)
     private Set<Misurazione> misurazione;
 

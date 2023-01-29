@@ -8,6 +8,10 @@ import c15.dev.model.entity.MisurazioneGlicemica;
 import c15.dev.model.entity.MisurazioneCoagulazione;
 import c15.dev.model.entity.MisurazioneSaturazione;
 import c15.dev.model.entity.MisurazioneHolterECG;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 
 /**
@@ -18,6 +22,7 @@ import com.google.gson.Gson;
  *
  */
 public class DispositivoMedicoAdapter implements IDispositivoMedico {
+    /**adaptee è il dispositivo la cui misurazione va adattata*/
     private DispositivoMedico adaptee;
     private Gson gson;
 
@@ -39,10 +44,22 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico {
     @Override
     public Misurazione avvioMisurazione() {
         String misurazioneJSON = adaptee.avvioMisurazione();
-        Misurazione misurazione = gson
-                .fromJson(misurazioneJSON,
-                        misurazioneFactory(misurazioneJSON).getClass());
-        return misurazione;
+        //Misurazione misurazione = gson.fromJson(misurazioneJSON, misurazioneFactory(misurazioneJSON).getClass());
+
+        ObjectMapper om = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+        try {
+            System.out.println("MISURAZIONE  JSON = " + misurazioneJSON);
+            Misurazione result = om.readValue(misurazioneJSON, misurazioneFactory(misurazioneJSON).getClass());
+            result.setPaziente(adaptee.getPaziente());
+            result.setDispositivoMedico(adaptee);
+            System.out.println("FUNZIONA?\n");
+            System.out.println(result);
+            return result;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

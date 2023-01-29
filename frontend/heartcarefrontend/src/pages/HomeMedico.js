@@ -7,6 +7,7 @@ import "../css/homeMedico_style.css";
 import { useNavigate } from "react-router";
 import { Navigate } from "react-router-dom";
 import ListaVisita from "../components/ListaVisita";
+import jwt from "jwt-decode"
 
 function HomeMedico() {
   //mi occorre:
@@ -20,9 +21,42 @@ function HomeMedico() {
   7. tutte le visite
   8. tutte le note
   */
-  const [{}] = useState([{}]);
-
+  const [utente, setUtente] = useState([]);
   let nav = useNavigate();
+  const token = localStorage.getItem("token");
+
+  let config = {
+    Accept: "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    withCredentials: true,
+    Authorization: `Bearer ${token}`,
+    "Content-Type" : "application/json"
+  };
+
+  const fetchHome = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/Home/"+jwt(token).id, {
+        method : "POST",
+        headers : config,
+      }).then(response => response.json());
+      setUtente(response);
+      console.log(utente)
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect( () => {
+    fetchHome();
+  }, [])
+
+  useEffect(() => {
+    if(utente.length > 0) {
+      console.log(utente)
+    }
+  }, [utente])
+
   useEffect(() => {
     const eventSource = new EventSource(
       "http://localhost:8080/comunicazione/invioNotifica"
@@ -42,32 +76,30 @@ function HomeMedico() {
     };
   }, []); 
 
-  return !localStorage.getItem("token") ? (
-    <Navigate to={"/Login"} />
-  ) : (
+  return  (
     <div className="contenitoreMainContent-Home">
       <div className="searchbar">
         <input id="search" type="text" placeholder=" 🔍 Cerca paziente..." />
       </div>
 
-      <span className="testo-bentornat">Bentornato, Dr. Lambiase 👋🏻</span>
+      <span className="testo-bentornat">Bentornato, Dr. {utente.cognome}👋🏻</span>
 
       <div className="full-container">
         <div className="container-sinistra">
           <div className="banner">
             <div className="blocco-testo-banner">
               <span className="testo-banner">Pazienti totali</span>
-              <span className="testo-banner-numero">120</span>
+              <span className="testo-banner-numero">{utente.pazientiTotali}</span>
             </div>
 
             <div className="blocco-testo-banner">
               <span className="testo-banner">Appuntamenti in programma</span>
-              <span className="testo-banner-numero">12</span>
+              <span className="testo-banner-numero">{utente.appuntamentiInProgramma}</span>
             </div>
 
             <div className="blocco-testo-banner">
               <span className="testo-banner">Nuove note</span>
-              <span className="testo-banner-numero">21</span>
+              <span className="testo-banner-numero">{utente.numeroNote}</span>
             </div>
           </div>
 

@@ -401,21 +401,21 @@ public class DBPopulator {
                 paz1,
                 d10,
                 8.5,
-                1
+                1.0
         );
 
         MisurazioneCoagulazione mis11 = new MisurazioneCoagulazione(data5,
                 paz2,
                 d11,
                 11.3,
-                1
+                1.0
         );
 
         MisurazioneCoagulazione mis12 = new MisurazioneCoagulazione(data5,
                 paz3,
                 d12,
                 13.6,
-                1
+                1.0
         );
 
         //Misurazioni per ElettroCardioGramma

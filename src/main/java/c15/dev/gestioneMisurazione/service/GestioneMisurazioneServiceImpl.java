@@ -9,8 +9,11 @@ import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.dto.MisurazioneDTO;
 import c15.dev.model.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -47,6 +50,33 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
     @Autowired
     private GestioneUtenteService serviceUtente;
 
+    /**
+     * Questo metodo ha il compito di controllare che la categoria
+     * passata dal frontend sia una categoria contemplata.
+     * @param categoria
+     * @return true or false.
+     */
+    private boolean checkCategorie(String categoria) {
+        System.out.println("la categoria da verificare " + categoria);
+        if((categoria.equalsIgnoreCase("Saturimetro"))
+                || (categoria.equalsIgnoreCase("Coagulometro"))
+                || (categoria.equalsIgnoreCase("Misuratore di pressione"))
+                || (categoria.equalsIgnoreCase("ECG"))
+                || (categoria.equalsIgnoreCase("Misuratore glicemico"))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Metodo di registrazione del dispositivo che viene usato solo nel
+     * DBPopulator.
+     * @param dispositivo che vogliamo assegnare ad un utente.
+     * @param idPaziente id del paziente a cui vogliamo assegnare
+     *                   il dispositivo.
+     * @return
+     */
     @Override
     public boolean registrazioneDispositivo(DispositivoMedico dispositivo,
                                             long idPaziente) {
@@ -59,9 +89,56 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
         return true;
     }
 
+    /**
+     * Metodo che consente di registrare un dispositivo.
+     * @param map
+     * @param idPaziente
+     * @return
+     */
     @Override
-    public boolean rimozioneDispositivo(DispositivoMedico dispositivo,
-                                        long idPaziente) {
+    public boolean registrazioneDispositivo(final HashMap<String, String> map,
+                                            final long idPaziente) {
+
+        Optional<UtenteRegistrato> paziente = pazienteDao.findById(idPaziente);
+        if(paziente.isEmpty()){
+            return false;
+        }
+        var descrizione = map.get("descrizione");
+        var numSeriale = map.get("numeroSeriale");
+        var categoria = map.get("categoria");
+
+        System.out.println("il mio disp che sto mettendo ha: " + descrizione);
+
+        //fai controllo per vedere le categorie
+        if(!checkCategorie(categoria)) {
+            System.out.println("LA CATEGORIA NON VALE.");
+            return false;
+        }
+
+        DispositivoMedico dispositivo = DispositivoMedico.builder()
+                .dataRegistrazione(LocalDate.now())
+                .disponibile(false)
+                .categoria(categoria)
+                .descrizione(descrizione)
+                .numeroSeriale(numSeriale)
+                .paziente((Paziente) paziente.get())
+                .build();
+
+        dispositivoDao.save(dispositivo);
+        System.out.println("sono nel serice impl di registrazione dispo");
+        return true;
+    }
+
+    /**
+     * Questo metodo consente di eliminare un dispositivo dal database.
+     * @param dispositivo che vogliamo rimuovere ad un utente.
+     * @param idPaziente id del paziente a cui vogliamo rimuovere
+     *                   il dispositivo.
+     * @return
+     */
+    @Override
+    public boolean rimozioneDispositivo(final DispositivoMedico dispositivo,
+                                        final long idPaziente) {
         Optional<UtenteRegistrato> paziente = pazienteDao.findById(idPaziente);
         if(paziente.isEmpty()){
             return false;
