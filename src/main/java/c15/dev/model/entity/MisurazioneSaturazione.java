@@ -3,6 +3,7 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.util.GregorianCalendar;
  *  valore percentuale saturazione
  */
 @Entity
+@SuperBuilder
 public class MisurazioneSaturazione
         extends Misurazione implements Serializable {
     /**

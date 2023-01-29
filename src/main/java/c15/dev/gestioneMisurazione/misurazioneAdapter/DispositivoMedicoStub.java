@@ -1,7 +1,7 @@
 package c15.dev.gestioneMisurazione.misurazioneAdapter;
 
 
-import c15.dev.model.entity.MisurazioneCoagulazione;
+import c15.dev.model.entity.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -43,6 +43,7 @@ public class DispositivoMedicoStub {
 
         Integer mioglobina = ThreadLocalRandom.current().nextInt(0,85);
         Integer creatinKenasi;
+        System.out.println(genere);
         if(genere.toUpperCase().equals("M"))
             creatinKenasi = ThreadLocalRandom.current().nextInt(30, 200);
         else
@@ -50,13 +51,30 @@ public class DispositivoMedicoStub {
         Double troponinaCardiaca = ThreadLocalRandom
                                     .current()
                                     .nextDouble(0.1, 10);
-
+        System.out.println(creatinKenasi);
         mappa.put("mioglobina",mioglobina);
         mappa.put("creatinKenasi",creatinKenasi);
         mappa.put("troponinaCardiaca",troponinaCardiaca);
 
-        String json = gson.toJson(mappa);
-        return json;
+        var misurazioneH = MisurazioneEnzimiCardiaci.builder()
+                .mioglobina(mioglobina)
+                .creatinKinasi(creatinKenasi)
+                .troponinaCardiaca(troponinaCardiaca)
+                .dataMisurazione(LocalDate.now())
+                .build();
+
+
+        ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+
+        try {
+            String result = mapper.writeValueAsString(misurazioneH);
+            System.out.println("Sono dentro disp medico stub "+result);
+            return result;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -72,8 +90,23 @@ public class DispositivoMedicoStub {
         mappa.put("battitiPerMinuto",battitiPerMinuto);
         mappa.put("percentualeSaturazione",percentualeSaturazione);
 
-        String json = gson.toJson(mappa);
-        return json;
+        var misurazioneH = MisurazioneSaturazione.builder()
+                .battitiPerMinuto(battitiPerMinuto)
+                .percentualeSaturazione(percentualeSaturazione)
+                .dataMisurazione(LocalDate.now()).build();
+
+
+        ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+
+        try {
+            /*Stringa che viene restituita.*/
+            String result = mapper.writeValueAsString(misurazioneH);
+            return result;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -120,8 +153,26 @@ public class DispositivoMedicoStub {
         mappa.put("pressioneMinima",pressioneMinima);
         mappa.put("pressioneMassima",pressioneMassima);
         mappa.put("pressioneMedia",pressioneMedia);
-        String json = gson.toJson(mappa);
-        return json;
+
+        var misurazioneH = MisurazionePressione.builder()
+                .battitiPerMinuto(battitiPerMinuto)
+                .pressioneMinima(pressioneMinima)
+                .pressioneMassima(pressioneMassima)
+                .pressioneMedia(pressioneMedia)
+                .dataMisurazione(LocalDate.now()).build();
+
+
+        ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+
+        try {
+            /*Stringa che viene restituita.*/
+            String result = mapper.writeValueAsString(misurazioneH);
+            return result;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -139,8 +190,25 @@ public class DispositivoMedicoStub {
         mappa.put("zuccheriNelSangue", zuccheriNelSangue);
         mappa.put("colesterolo", colesterolo);
         mappa.put("trigliceridi", trigliceridi);
-        String json = gson.toJson(mappa);
-        return json;
+
+        var misurazioneH = MisurazioneGlicemica.builder()
+                .zuccheriNelSangue(zuccheriNelSangue)
+                .colesterolo(colesterolo)
+                .trigliceridi(trigliceridi)
+                .dataMisurazione(LocalDate.now()).build();
+
+
+        ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+
+        try {
+            /*Stringa che viene restituita.*/
+            String result = mapper.writeValueAsString(misurazioneH);
+            return result;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -164,8 +232,29 @@ public class DispositivoMedicoStub {
         mappa.put("durataComplessoQRS",durataComplessoQRS);
         mappa.put("intervalloPR",intervalloPR);
         mappa.put("ondaT",ondaT);
-        String json = gson.toJson(mappa);
-        return json;
+
+        var misurazioneH = MisurazioneHolterECG.builder()
+                .durataOndaP(durataOndaP)
+                .battitiPerMinuto(battitiPerMinuto)
+                .durataComplessoQRS(durataComplessoQRS)
+                .intervalloPR(intervalloPR)
+                .ondaT(ondaT)
+                .dataMisurazione(LocalDate.now()).build();
+
+
+        ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+
+        try {
+            /*Stringa che viene restituita.*/
+            String result = mapper.writeValueAsString(misurazioneH);
+            return result;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     /**

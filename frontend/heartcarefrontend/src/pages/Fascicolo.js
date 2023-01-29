@@ -73,7 +73,7 @@ function Fascicolo(){
                                 </div>
                             </div>
                         )
-                    }) }
+                    })}
                 </div>
             </div>
         </div>

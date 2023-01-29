@@ -30,9 +30,7 @@ function NoteContainerPaziente() {
             }),
         }).then(async response => {
             response = await response.json();
-            console.log(response);
             setNote(response);
-            console.log(note);
         })
     }
 
@@ -56,8 +54,7 @@ function NoteContainerPaziente() {
                 idMittente: idMittente
             }),
         }).then( async response =>{
-            response = await response.json(); 
-            console.log(response);
+            response = await response.json();
             setIdDestinatario(response);
         })
        }
@@ -112,7 +109,6 @@ function NoteContainerPaziente() {
         setNota(event.target.value);
     }
 
-    console.log(idDestinatario,"SUCAAAAAAAAA");
     return (
         <div className="container-note">
             <div className="intestazione-note">
