@@ -49,7 +49,7 @@ function HomePaziente() {
                 method : "POST",
                 headers : config,
                 body : JSON.stringify({
-                    id: 1
+                    id: jwt(token).id
                 })
             }).then(response => {
                 return response.json()
@@ -107,7 +107,10 @@ function HomePaziente() {
     const onOpenModal = () => setOpen(true);
     const onOpenModalRisultati = () => setOpenModalRisultati(true);
     const onCloseModal = () => setOpen(false);
-    const onCloseModalRisultati = () => setOpenModalRisultati(false);
+    const onCloseModalRisultati = () => {
+        setOpenModalRisultati(false)
+        document.location.reload();
+    };
 
     const aggiornaDispositivoMisurazione = (event) => {
         setDispositivoMisurazione(event.target.value);

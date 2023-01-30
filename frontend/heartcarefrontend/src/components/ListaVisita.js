@@ -47,9 +47,11 @@ function ListaVisita(props) {
   return (
     <>
     {Object.keys(data).map(function(el, index){
+                console.log(data[el]);
                 return (
                   <VisitaCard classe={props.classe}
-                              key={index} 
+                              key={index}
+                              id={data[el]["idPaziente"]}
                               dataVisita={data[el]["data"]} 
                               statoVisita={data[el]["statoVisita"]}
                               nomePaziente={data[el]["nomePaziente"]}

@@ -92,6 +92,7 @@ public class GestioneVisitaController {
 
         var resultList = (List<VisitaDTO>) list.stream()
                 .map(v -> VisitaDTO.builder()
+                        .idPaziente(v.getPaziente().getId())
                         .data(v.getData())
                         .nomePaziente(v.getPaziente().getNome())
                         .cognomePaziente(v.getPaziente().getCognome())
