@@ -20,9 +20,9 @@ import java.util.HashMap;
 
 
 /**
- * @author Mario Cicalese
- * Creato il : 03/01/2023
- * Questa classe rappresenta il Service utilizzato per la registrazione
+ * @author Mario Cicalese.
+ * Creato il : 03/01/2023.
+ * Questa classe rappresenta il Service utilizzato per la registrazione.
  */
 @RestController
 @CrossOrigin
@@ -37,6 +37,10 @@ public class RegistrazioneController {
     @Autowired
     public HttpSession session;
 
+    /**
+     * Metodo per la registrazione di un paziente.
+     * @param paziente paziente da registrare.
+     */
     @PostMapping(value = "/registrazione")
         public AuthenticationResponse
             registrazione(@RequestBody @Valid final HashMap<String,String> paziente)
@@ -64,6 +68,10 @@ public class RegistrazioneController {
         return registrazioneService.registraPaziente(p);
     }
 
+    /**
+     * Metodo per il login.
+     * @param req richiesta per il login.
+     */
     @PostMapping(value = "/login")
     public AuthenticationResponse login(@RequestBody
                                             final AuthenticationRequest req)
@@ -73,7 +81,7 @@ public class RegistrazioneController {
 
     /**
      * Metodo che permette all'admin di registrare un medico.
-     * @param med
+     * @param med medico da registrare.
      */
     @RequestMapping(value = "/registraMedico", method = RequestMethod.POST)
     public void

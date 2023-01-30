@@ -52,7 +52,7 @@ public final class Indirizzo implements Serializable {
     private String nCivico;
 
     /**
-     * Numero Intero che rappresenta il cap dell'indirizzo
+     * Numero Intero che rappresenta il cap dell'indirizzo.
      * deve essere un numero intero di 5 cifre.
      */
     @NotNull
@@ -73,7 +73,7 @@ public final class Indirizzo implements Serializable {
     private String via;
 
     /**
-     * Lista di tutti gli Utenti Registrati che hanno residenza
+     * Lista di tutti gli Utenti Registrati che hanno residenza.
      * in un determinato indirizzo.
      */
     @OneToMany(mappedBy = "indirizzoResidenza")
@@ -116,7 +116,7 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @return citta
+     * @return citta.
      * Metodo che restituisce la citta di un Indirizzo.
      */
     public String getCitta() {
@@ -134,7 +134,7 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @return nCivico
+     * @return nCivico.
      * Metodo che restituisce il numero civico di un Indirizzo.
      */
     public String getnCivico() {
@@ -152,7 +152,7 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @return cap
+     * @return cap.
      * Metodo che restituisce il cap di un Indirizzo.
      */
     public Integer getCap() {
@@ -170,7 +170,7 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @return provincia
+     * @return provincia.
      * Metodo che restitusice la provincia di un indirizzo.
      */
     public String getProvincia() {
@@ -188,7 +188,7 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @return via
+     * @return via.
      * Metodo che restituisce la via di un indirizzo.
      */
     public String getVia() {
@@ -206,8 +206,8 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @return elencoUtenti
-     * Metodo per ottenere l'elenco di tutti gli utenti che vivono
+     * @return elencoUtenti.
+     * Metodo per ottenere l'elenco di tutti gli utenti che vivono.
      * in un determinato indirizzo.
      */
     public List<UtenteRegistrato> getElencoUtenti() {
@@ -217,7 +217,7 @@ public final class Indirizzo implements Serializable {
     /**
      *
      * @param ListaUtenti
-     * Metodo per aggiungere l'elenco di utenti che hanno residenza
+     * Metodo per aggiungere l'elenco di utenti che hanno residenza.
      * in un determinato indirizzo.
      */
     public void setElencoUtenti(List<UtenteRegistrato> ListaUtenti) {
@@ -226,8 +226,8 @@ public final class Indirizzo implements Serializable {
 
     /**
      *
-     * @return Visista
-     * Metodo per ottenere l'elenco di tutte le visite che si effettuano
+     * @return Visista.
+     * Metodo per ottenere l'elenco di tutte le visite che si effettuano.
      * in un determinato indirizzo.
      */
     public List<Visita> getElencoVisite() {
@@ -237,13 +237,18 @@ public final class Indirizzo implements Serializable {
     /**
      *
      * @param ListaVisite
-     * Metodo per aggiungere l'elenco delle visite che si effettuano
+     * Metodo per aggiungere l'elenco delle visite che si effettuano.
      * in un determinato indirizzo.
      */
     public void setElencoVisite(List<Visita> ListaVisite) {
         this.elencoVisite = ListaVisite;
     }
 
+    /**
+     * Metodo equals.
+     * @param o oggetto da confrontare.
+     * @return booleano.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -253,15 +258,20 @@ public final class Indirizzo implements Serializable {
             return false;
         }
         return Objects.equals(id, indirizzo.id)
-                && Objects.equals(getCitta(), indirizzo.getCitta())
-                && Objects.equals(getnCivico(), indirizzo.getnCivico())
-                && Objects.equals(getCap(), indirizzo.getCap())
-                && Objects.equals(getProvincia(), indirizzo.getProvincia())
-                && Objects.equals(getVia(), indirizzo.getVia())
-                && Objects.equals(getElencoUtenti(), indirizzo.getElencoUtenti())
-                && Objects.equals(getElencoVisite(), indirizzo.getElencoVisite());
+                && Objects.equals(getCitta(),
+                indirizzo.getCitta()) && Objects.equals(getnCivico(),
+                indirizzo.getnCivico()) && Objects.equals(getCap(),
+                indirizzo.getCap()) && Objects.equals(getProvincia(),
+                indirizzo.getProvincia()) && Objects.equals(getVia(),
+                indirizzo.getVia()) && Objects.equals(getElencoUtenti(),
+                indirizzo.getElencoUtenti())
+                && Objects.equals(getElencoVisite(),
+                indirizzo.getElencoVisite());
     }
 
+    /**
+     * Metodo hashCode.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id,

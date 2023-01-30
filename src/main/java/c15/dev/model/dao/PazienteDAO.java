@@ -13,13 +13,27 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PazienteDAO extends UtenteRegistratoDAO {
     /**
-     *
-     * @param email
-     * @param password
-     * @return Paziente trovato nel db
+     * Query che ci permette di ricercare un paziente.
+     * tramite la sua email e la sua password.
+     * @param email email del paziente.
+     * @param password password del paziente.
+     * @return Paziente trovato nel db.
      */
     Paziente findByEmailAndPassword(String email, byte[] password);
+
+    /**
+     * Query che ci permette di ricercare un paziente tramite la sua email.
+     * @param email email del paziente.
+     * @return Paziente trovato nel db.
+     */
     public Paziente findByEmail(String email);
+
+    /**
+     * Query che ci permette di ricercare un paziente.
+     * tramite il suo codiceFiscale.
+     * @param codiceFiscale del paziente.
+     * @return Paziente trovato nel db.
+     */
     public Paziente findBycodiceFiscale(String codiceFiscale);
 
 }

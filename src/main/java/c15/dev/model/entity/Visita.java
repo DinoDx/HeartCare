@@ -60,7 +60,7 @@ public class Visita implements Serializable {
 
 
     /**
-     * Chiave esterna che fa riferimento alla classe Paziente
+     * Chiave esterna che fa riferimento alla classe Paziente.
      **/
     @ManyToOne
     @JsonBackReference("paziente-visite")
@@ -71,7 +71,7 @@ public class Visita implements Serializable {
 
 
     /**
-     * Chiave esterna che fa riferimento alla classe Indirizzo
+     * Chiave esterna che fa riferimento alla classe Indirizzo.
      **/
     @ManyToOne
     @JoinColumn(name="id_indirizzo", referencedColumnName = "id")
@@ -87,11 +87,11 @@ public class Visita implements Serializable {
     }
 
     /**
-     * @param dataVisita rappresenta la data della elencoVisite
-     * @param stato rappresenta lo stato della elencoVisite
-     * @param med rappresenta il medico con cui si fa la elencoVisite
-     * @param paz rappresenta il paziente che è coinvolto nella elencoVisite
-     * @param indirizzo rappresenta l'indirizzo in cui si effettuerà la elencoVisite
+     * @param dataVisita rappresenta la data della elencoVisite.
+     * @param stato rappresenta lo stato della elencoVisite.
+     * @param med rappresenta il medico con cui si fa la elencoVisite.
+     * @param paz rappresenta il paziente che è coinvolto nella elencoVisite.
+     * @param indirizzo rappresenta l'indirizzo in cui si effettuerà la elencoVisite.
      */
     public Visita(final LocalDate dataVisita,
                   final StatoVisita stato,
@@ -107,7 +107,7 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return id
+     * @return id.
      * metodo che restituisce l'id della notifica.
      */
     public Long getId() {
@@ -116,7 +116,7 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return data
+     * @return data.
      * metodo che restituisce la data della elencoVisite.
      */
     public LocalDate getData() {
@@ -134,7 +134,7 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return stato
+     * @return stato.
      * metodo che restituisce lo stato della elencoVisite.
      */
     public StatoVisita getStatoVisita() {
@@ -152,7 +152,7 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return medico
+     * @return medico.
      * metodo che restituisce il medico che effettua la elencoVisite.
      */
     public Medico getMedico() {
@@ -162,7 +162,7 @@ public class Visita implements Serializable {
     /**
      *
      * @param medico
-     * metodo che permette di definire il medico che effettua la elencoVisite
+     * metodo che permette di definire il medico che effettua la elencoVisite.
      */
     public void setMedico(final Medico medico) {
         this.medico = medico;
@@ -170,8 +170,8 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return paziente
-     * metodo che restituisce il paziente che effettua la elencoVisite
+     * @return paziente.
+     * metodo che restituisce il paziente che effettua la elencoVisite.
      */
     public Paziente getPaziente() {
         return paziente;
@@ -180,7 +180,8 @@ public class Visita implements Serializable {
     /**
      *
      * @param paziente
-     * metodo che permette di definire il paziente coinvolto nella elencoVisite
+     * metodo che permette di definire il paziente coinvolto
+     *                          nella elencoVisite.
      */
     public void setPaziente(final Paziente paziente) {
         this.paziente = paziente;
@@ -188,8 +189,8 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return indirizzoVisita
-     * metodo che restituisce l' indirizzo della elencoVisite
+     * @return indirizzoVisita.
+     * metodo che restituisce l' indirizzo della elencoVisite.
      */
     public Indirizzo getIndirizzoVisita() {
         return indirizzoVisita;
@@ -205,7 +206,7 @@ public class Visita implements Serializable {
     }
 
     /**
-     * metodo equals
+     * metodo equals.
      * @param o
      * @return
      */
@@ -222,7 +223,8 @@ public class Visita implements Serializable {
                 && getStatoVisita() == visita.getStatoVisita()
                 && Objects.equals(getMedico(), visita.getMedico())
                 && Objects.equals(getPaziente(), visita.getPaziente())
-                && Objects.equals(getIndirizzoVisita(), visita.getIndirizzoVisita());
+                && Objects.equals(getIndirizzoVisita(),
+                visita.getIndirizzoVisita());
     }
 
     /**

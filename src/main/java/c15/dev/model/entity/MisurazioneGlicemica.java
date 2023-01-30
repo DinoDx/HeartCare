@@ -11,8 +11,8 @@ import lombok.experimental.SuperBuilder;
 
 
 /**
- * @author Paolo Carmine Valletta
- * Creato il: 30/12/2022
+ * @author Paolo Carmine Valletta.
+ * Creato il: 30/12/2022.
  * Questa è la classe relativa ad una Misurazione Glicemica.
  * I campi sono: zuccheri nel sangue, colesterolo, trigliceridi.
  *
@@ -53,16 +53,16 @@ public class MisurazioneGlicemica extends Misurazione implements Serializable {
     }
 
     /**
-     * @param dataMisurazione rappresenta la data della misurazione glicemica
-     * @param paziente rappresenta il paziente della misurazione glicemica
-     * @param dispositivoMedico rappresenta il dispositivo medico
-     *                          della misurazione glicemica
-     * @param zuccheriNelSangue rappresenta il valore degli zuccheri nel sangue
-     *                          della misurazione glicemica
-     * @param colesterolo rappresenta il valore del colesterolo
-     *                    della misurazione glicemica
-     * @param trigliceridi rappresenta il valore dei trigliceridi
-     *                     della misurazione glicemica
+     * @param dataMisurazione rappresenta la data della misurazione glicemica.
+     * @param paziente rappresenta il paziente della misurazione glicemica.
+     * @param dispositivoMedico rappresenta il dispositivo medico.
+     *                          della misurazione glicemica.
+     * @param zuccheriNelSangue rappresenta il valore degli zuccheri nel sangue.
+     *                          della misurazione glicemica.
+     * @param colesterolo rappresenta il valore del colesterolo.
+     *                    della misurazione glicemica.
+     * @param trigliceridi rappresenta il valore dei trigliceridi.
+     *                     della misurazione glicemica.
      *
      */
     public MisurazioneGlicemica(final LocalDate dataMisurazione,

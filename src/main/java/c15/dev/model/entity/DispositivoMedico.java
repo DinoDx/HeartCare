@@ -32,9 +32,9 @@ import java.util.Set;
 /**
  * @author Mario Cicalese.
  * Creato il 30/12/2022.
- * Questa è la classe relativa al dispositivo medico utilizzato da un paziente
+ * Questa è la classe relativa al dispositivo medico utilizzato da un paziente.
  * per effettuare delle misurazioni.
- * I campi sono id (auto generato), dataRegistrazione,
+ * I campi sono id (auto generato), dataRegistrazione.
  * descrizione, numeroSeriale, disponibile, categoria,paziente.
  */
 @Getter
@@ -87,7 +87,7 @@ public class DispositivoMedico {
     private String numeroSeriale;
 
     /**
-     * Campo relativo a se il dispositivo medico è disponibile
+     * Campo relativo a se il dispositivo medico è disponibile.
      * per essere assegnato a un paziente.
      */
     @NotNull
@@ -98,8 +98,8 @@ public class DispositivoMedico {
     @NotNull
     private String categoria;
     /**
-     * Campo (chiave esterna) relativo al paziente a cui è assegnato
-     * il paziente
+     * Campo (chiave esterna) relativo al paziente a cui è assegnato.
+     * il paziente.
      */
     @ManyToOne
     @JsonIgnore
@@ -124,14 +124,14 @@ public class DispositivoMedico {
     /**
      *
      * @param dataRegistrazione rappresenta la data di registrazione.
-     * @param descrizione rappresenta la descrizione
+     * @param descrizione rappresenta la descrizione.
      *                      del dispositivo medico.
-     * @param numeroSeriale rappresenta il numero seriale
+     * @param numeroSeriale rappresenta il numero seriale.
      *                      del dispositivo medico.
-     * @param disponibile indica se il dispositivo medico è disponibile o no
-     * @param categoria rappresenta la categoria di appartenenza
+     * @param disponibile indica se il dispositivo medico è disponibile o no.
+     * @param categoria rappresenta la categoria di appartenenza.
      *                  del dispositivo medico.
-     * @param paziente rappresenta il paziente a cui è assegnato
+     * @param paziente rappresenta il paziente a cui è assegnato.
      *                 il dispositivo medico.
      */
     public DispositivoMedico(final LocalDate dataRegistrazione,
@@ -148,7 +148,12 @@ public class DispositivoMedico {
         this.paziente = paziente;
     }
 
-    public String avvioMisurazione(){
+    /**
+     * Metodo per l'avvio di una misurazione.
+     * @return stringa che contiene la misurazione.
+     */
+
+    public String avvioMisurazione() {
         var dispositivoMedicoStub = new DispositivoMedicoStub();
         String misurazione = " ";
 
@@ -159,7 +164,8 @@ public class DispositivoMedico {
             case "Saturimetro" : misurazione = dispositivoMedicoStub
                     .MisurazioneSaturazioneStub() ;
                 break;
-            case "Coagulometro" : misurazione = dispositivoMedicoStub.MisurazioneCoagulazioneStub();
+            case "Coagulometro" : misurazione =
+                    dispositivoMedicoStub.MisurazioneCoagulazioneStub();
                 break;
             case "Misuratore glicemico" : misurazione = dispositivoMedicoStub
                     .MisurazioneGlicemicaStub();
@@ -183,15 +189,38 @@ public class DispositivoMedico {
         return misurazione;
     }
 
+    /**
+     * Metodo equals.
+     * @param o oggetto da confrontare.
+     * @return booleano.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof DispositivoMedico that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getDataRegistrazione(), that.getDataRegistrazione()) && Objects.equals(getDescrizione(), that.getDescrizione()) && Objects.equals(getNumeroSeriale(), that.getNumeroSeriale()) && Objects.equals(getDisponibile(), that.getDisponibile()) && Objects.equals(getCategoria(), that.getCategoria()) && Objects.equals(getPaziente(), that.getPaziente()) && Objects.equals(getMisurazione(), that.getMisurazione());
+        return Objects.equals(getId(),
+                that.getId()) && Objects.equals(getDataRegistrazione(),
+                that.getDataRegistrazione()) && Objects.equals(getDescrizione(),
+                that.getDescrizione()) && Objects.equals(getNumeroSeriale(),
+                that.getNumeroSeriale()) && Objects.equals(getDisponibile(),
+                that.getDisponibile()) && Objects.equals(getCategoria(),
+                that.getCategoria()) && Objects.equals(getPaziente(),
+                that.getPaziente()) && Objects.equals(getMisurazione(),
+                that.getMisurazione());
     }
 
+    /**
+     * Metodo hashCode.
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getDataRegistrazione(), getDescrizione(), getNumeroSeriale(), getDisponibile(), getCategoria(), getPaziente(), getMisurazione());
+        return Objects.hash(getId(),
+                getDataRegistrazione(),
+                getDescrizione(),
+                getNumeroSeriale(),
+                getDisponibile(),
+                getCategoria(),
+                getPaziente(),
+                getMisurazione());
     }
 }

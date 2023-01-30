@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
  * Questa è la classe relativa ad una Misurazione Saturazione.
  * I campi sono: data della misurazione,
  *  valore battiti per minuto,
- *  valore percentuale saturazione
+ *  valore percentuale saturazione.
  */
 @Entity
 @SuperBuilder
@@ -44,13 +44,13 @@ public class MisurazioneSaturazione
     }
 
     /**
-     * @param data rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivo rappresenta il dispositivo medico con cui
-     *                          è stata effettuata la misurazione
-     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto
-     * @param percentualeSaturazione rappresenta il valore della
-     *                               percentuale di saturazione
+     * @param data rappresenta la data della misurazione.
+     * @param paziente rappresenta il paziente coinvolto nella misurazione.
+     * @param dispositivo rappresenta il dispositivo medico con cui.
+     *                          è stata effettuata la misurazione.
+     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto.
+     * @param percentualeSaturazione rappresenta il valore della.
+     *                               percentuale di saturazione.
      */
     public MisurazioneSaturazione(final LocalDate data,
                                   final Paziente paziente,
@@ -65,8 +65,8 @@ public class MisurazioneSaturazione
 
     /**
      *
-     * @return battitiPerMinuto
-     * metodo che restituisce il valore dei battiti per minuto
+     * @return battitiPerMinuto.
+     * metodo che restituisce il valore dei battiti per minuto.
      */
     public int getBattitiPerMinuto() {
         return battitiPerMinuto;
@@ -75,7 +75,7 @@ public class MisurazioneSaturazione
     /**
      *
      * @param battitiPerMinuto
-     * metodo che permette settare i battiti per minuto di una misurazione
+     * metodo che permette settare i battiti per minuto di una misurazione.
      *
      */
     public void setBattitiPerMinuto(final int battitiPerMinuto) {
@@ -85,8 +85,8 @@ public class MisurazioneSaturazione
 
     /**
      *
-     * @return percentualeSaturazione
-     * metodo che restituisce il valore della percentuale della saturazione
+     * @return percentualeSaturazione.
+     * metodo che restituisce il valore della percentuale della saturazione.
      */
     public double getPercentualeSaturazione() {
         return percentualeSaturazione;
@@ -95,7 +95,8 @@ public class MisurazioneSaturazione
     /**
      *
      * @param percentualeSaturazione
-     * metodo che permette settare la percentuale di saturazione di una misurazione
+     * metodo che permette settare la percentuale
+     *                              di saturazione di una misurazione.
      *
      */
     public void setPercentualeSaturazione(final double percentualeSaturazione) {
