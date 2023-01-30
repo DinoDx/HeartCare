@@ -284,7 +284,7 @@ public class GestioneUtenteController {
         }
 
 
-        gestioneComunicazioneService.sendNotifica("CAZZONI DURI");
+        //gestioneComunicazioneService.sendNotifica("CAZZONI DURI");
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

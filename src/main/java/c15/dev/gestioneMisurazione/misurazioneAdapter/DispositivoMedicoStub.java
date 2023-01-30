@@ -47,7 +47,7 @@ public class DispositivoMedicoStub {
         if(genere.toUpperCase().equals("M"))
             creatinKenasi = ThreadLocalRandom.current().nextInt(30, 200);
         else
-            creatinKenasi = ThreadLocalRandom.current().nextInt(30, 150);
+            creatinKenasi = ThreadLocalRandom.current().nextInt(30, 170);
         Double troponinaCardiaca = ThreadLocalRandom
                                     .current()
                                     .nextDouble(0.1, 10);

@@ -56,6 +56,12 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico {
             result.setDispositivoMedico(adaptee);
             System.out.println("FUNZIONA?\n");
             System.out.println(result);
+
+
+
+
+
+
             return result;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
