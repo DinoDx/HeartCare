@@ -4,6 +4,7 @@ import "../css/PazientiCss.css";
 import axios from "axios";
 import {useState, useEffect} from "react";
 import CardPaziente from "./CardPaziente";
+import jwt from "jwt-decode";
 
 function ListaPazienti(){
     const [loading, setLoading] = useState(true);
@@ -22,8 +23,8 @@ function ListaPazienti(){
     const fetchData = async () =>{
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:8080/getTuttiPazienti",{
-                method : "POST",
+            const response = await fetch("http://localhost:8080/getPazientiByMedico/" + jwt(token).id,{
+                method : "GET",
                 headers : config,
             }).then(response => response.json());
             setData(response);

@@ -107,7 +107,10 @@ function HomePaziente() {
     const onOpenModal = () => setOpen(true);
     const onOpenModalRisultati = () => setOpenModalRisultati(true);
     const onCloseModal = () => setOpen(false);
-    const onCloseModalRisultati = () => setOpenModalRisultati(false);
+    const onCloseModalRisultati = () => {
+        setOpenModalRisultati(false)
+        document.location.reload();
+    };
 
     const aggiornaDispositivoMisurazione = (event) => {
         setDispositivoMisurazione(event.target.value);

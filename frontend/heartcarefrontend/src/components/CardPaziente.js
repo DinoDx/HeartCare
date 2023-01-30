@@ -10,7 +10,7 @@ import {FaNotesMedical} from "react-icons/fa";
 import Modal from "react-responsive-modal";
 
 function CardPaziente(props) {
-
+    const [open, setOpen] = useState(false);
     const container = useRef();
     const linea = useRef();
     const informazioniPaziente = useRef();
