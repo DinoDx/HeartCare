@@ -200,6 +200,9 @@ function VisitaCard(props) {
                 <button className="buttonVisualizzaFascicolo" onClick={onOpenModal}>
                     Fascicolo Paziente
                 </button>
+                <button className="buttonVisualizzaFascicolo" onClick={onOpenModal}>
+                    Modifica data visita
+                </button>
             </div>
         </div>
     );

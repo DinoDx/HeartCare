@@ -118,12 +118,20 @@
 
     .divNorme{
         display: flex;
-        width: 60%;
+        width: 90%;
+    }
+
+    .divNormeFattori{
+        width: 90%;
     }
 
     .footer-element-norme{
         font-family: "Questrial", sans-serif;
         font-size: 20px;
+    }
+
+    .contenitoreNormeContent{
+        width: 90%;
     }
 }
 

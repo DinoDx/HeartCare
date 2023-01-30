@@ -15,7 +15,7 @@
     background-color: rgb(45, 45, 45);
     border: 2px solid #37a69b;
     margin:0px;
-    margin-left: 5%;
+    margin-left: 2%;
     height: 13%;
     border-radius: 15px 15px;
     flex-wrap: wrap;
@@ -203,7 +203,7 @@
     }
 
     .contenitoreMisurazione{
-        min-height: 150px;
+        min-height: 200px;
         flex-wrap: nowrap;
     }
 
@@ -228,5 +228,12 @@
 
     .testo-banner-numero{
         font-size: 15px;font-family: "Questrial", sans-serif;
+    }
+}
+
+
+@media screen and (max-width: 767px){
+    .TwoPercentMargin{
+        margin-left: 6% !important;
     }
 }

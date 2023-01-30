@@ -16,6 +16,88 @@
     display: none;
 }
 
+.containerInputAggiungiVisita{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.containerSingoloInputAggiungiVisita{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dataPicker{
+    height: 30px;
+    border-radius: 5px;
+    background-color: #d9d9d9;
+    color: #282c34;
+    width: 80%;
+    font-weight: bolder;
+    font-family: "Questrial", sans-serif;
+    border: none;
+    padding: 5px;
+}
+
+.aggiungiBottoneVisita{
+    width: 200px;
+    height: 45px;
+    font-family: "Questrial", sans-serif;
+    cursor: pointer;
+    background-color: transparent;
+    border: 2px solid #37a69b;
+    border-radius: 5px;
+}
+
+.contenitoreDatiVisita{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.centerItem{
+    display: flex;
+    justify-content: center;
+}
+
+.iconaVisita{
+    font-size: 30px;
+}
+
+.divContieneIDati{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.datoVisita{
+    font-family: "Questrial", sans-serif;
+}
+
+.grassetto{
+    font-family: "Questrial", sans-serif;
+    font-weight: bolder;
+}
+
+.labelInputAggiungiVisita{
+    font-family: "Questrial", sans-serif;
+}
+
+.bottoneAggiungiVisita{
+    height: 50px;
+    line-height: 50px;
+    width: 50px;
+    font-size: 2em;
+    font-weight: bold;
+    border: 1px solid #37a69b ;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    color: #37a69b;
+    text-align: center;
+    cursor: pointer;
+}
+
 .logoMenu {
     width: 80%;
     height: auto;

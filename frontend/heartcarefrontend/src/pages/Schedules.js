@@ -6,6 +6,7 @@ import Modal from "react-responsive-modal";
 import { BiPlusCircle, BiPlusMedical } from "react-icons/bi";
 import jwt from "jwt-decode";
 import pathGif from "../images/Ripple-1s-200px_1.gif";
+import { FaRegHospital } from "react-icons/fa";
 
 function Schedules() {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,10 @@ function Schedules() {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
   const onOpenModalRiepilogo = () => setOpenRiepilogoVisita(true);
-  const onCloseModalRiepilogo = () => setOpenRiepilogoVisita(false);
+  const onCloseModalRiepilogo = () => {
+    setOpenRiepilogoVisita(false)
+    document.location.reload();
+  };
   const token = localStorage.getItem("token");
 
   let config = {
@@ -101,6 +105,7 @@ function Schedules() {
         })
       }).then(response => response.json());
       setUtente(response);
+
     }catch (error) {
       console.error(error.message);
     }
@@ -108,44 +113,65 @@ function Schedules() {
 
   return (
       <div className="contenitoreScheduleContent">
-        <div className="searchbar">
-          <input id="search" type="text" placeholder=" 🔍Cerca Paziente..." />
-        </div>
-        <span className="bentornato">Bentornato, {utente["cognome"]} 👋🏻</span>
-        <span className="iTuoiPazienti">Le tue visite: </span>
-        <button onClick={onOpenModal}> + </button>
+        {
+          (utente["sesso"] === "M") ? <span className="bentornato">Bentornato, Dr. {utente["cognome"]} 👋🏻</span> : <span className="bentornato">Bentornata, Drs. {utente["cognome"]} 👋🏻</span>
+        }
+        <span className="iTuoiPazienti">Le tue visite in programma: </span>
+        <button onClick={onOpenModal} className="bottoneAggiungiVisita"> + </button>
         <Modal open={open} onClose={onCloseModal}>
-          <h2>Aggiunta visita</h2>
-          <div>
-            <select onChange={ e => aggiornaPazienteSelect(e)}>
-              <option value="" disabled selected>Scegli paziente</option>
-              {pazienti.map( paz => {
-                return(
-                    <option value={paz["id"]}>{paz["nome"]} {paz["cognome"]}</option>
-                )
-              })}
-            </select>
+          <h2>Programma una nuova visita</h2>
+          <div className="containerInputAggiungiVisita">
+
+            <div className="containerSingoloInputAggiungiVisita">
+              <span className="labelInputAggiungiVisita">Scegli il paziente</span>
+              <select onChange={ e => aggiornaPazienteSelect(e)}  className="selectPaziente">
+                <option value="" disabled selected>Scegli paziente</option>
+                {pazienti.map( paz => {
+                  return(
+                      <option value={paz["id"]}>{paz["nome"]} {paz["cognome"]}</option>
+                  )
+                })}
+              </select>
+            </div>
+            <div className="containerSingoloInputAggiungiVisita">
+              <span className="labelInputAggiungiVisita">Scegli l'indirizzo in cui si svolgerà la visita</span>
+              <select onChange={e => aggiornaIndirizzoSelect(e)}  className="selectPaziente">
+                <option value="" disabled selected >Scegli indirizzo</option>
+                {indirizzi.map(ind => {
+                  return(
+                      <option value={ind["id"]}>{ind["via"]} {ind["nCivico"]}, {ind["citta"]}({ind["provincia"]}), {ind["cap"]} </option>
+                  )
+                })}
+              </select>
+            </div>
+            <div className="containerSingoloInputAggiungiVisita">
+              <span className="labelInputAggiungiVisita">Scegli la data della visita</span>
+              <input id ="calendar" className="dataPicker" type="date" min={new Date().getFullYear()} onChange={e => aggiornaDataSelect(e)}/>
+            </div>
+            <div className="containerSingoloInputAggiungiVisita">
+              <button className="aggiungiBottoneVisita" onClick={()=>{onOpenModalRiepilogo(); onCloseModal(); handlerOnClick()}}>Aggiungi</button>
+            </div>
           </div>
-          <div>
-            <select onChange={e => aggiornaIndirizzoSelect(e)}>
-              <option value="" disabled selected>Scegli indirizzo</option>
-              {indirizzi.map(ind => {
-                return(
-                    <option value={ind["id"]}>{ind["via"]} {ind["nCivico"]}, {ind["citta"]}({ind["provincia"]}), {ind["cap"]} </option>
-                )
-              })}
-            </select>
-          </div>
-          <div>
-            <span>Aggiungi data</span><br/>
-            <input id ="calendar" type="date" min={new Date().getFullYear()} onChange={e => aggiornaDataSelect(e)}/>
-          </div>
-          <button onClick={()=>{onOpenModalRiepilogo(); onCloseModal(); handlerOnClick()}}>Aggiungi</button>
         </Modal>
 
         <Modal open={openRiepilogoVisita} onClose={onCloseModalRiepilogo}>
           <img src={pathGif} id="img"/>
-          <div id="dati" style={{display:"none"}}>ciao mario la visita sarà il 21</div>
+          <div id="dati" className="contenitoreDatiVisita" style={{display:"none"}}>
+            <h2>Visita creata correttamente</h2>
+            <div className="divContieneIDati">
+              <div className="centerItem">
+                <FaRegHospital className="iconaVisita"/>
+              </div>
+              <div>
+                <span className="grassetto">Data della visita:</span> <span className="datoVisita">{dataSelect}</span>
+              </div>
+              <div>
+                <span className="grassetto">Luogo della visita:</span> <span className="datoVisita">{indirizzoSelect}</span>
+              </div>
+            </div>
+
+
+          </div>
           <span style={{ display: "none" }}>
                         {
                           setTimeout(() => {

@@ -59,10 +59,10 @@ function Fascicolo(){
             <div className="contenitoreSinistra" style={{
                 width: "90%"
             }}>
-                <span className="testo-bentornat" style={{marginLeft:"0px"}}>Il tuo Fasciscolo Sanitario Elettronico 📊</span>
+                <span className="testo-bentornat TwoPercentMargin" style={{marginLeft:"0px"}}>Il tuo Fasciscolo Sanitario Elettronico 📊</span>
                 <FascicoloBanner categorie={Categorie} misurazioni = {Misurazioni}/>
                 <Grafico categorie={Categorie} misurazioni = {Misurazioni}/>
-                <span className="testo-bentornat" style={{marginLeft:"0px"}}>Storico delle tue Misurazioni 📊</span>
+                <span className="testo-bentornat TwoPercentMargin" style={{marginLeft:"0px"}}>Storico delle tue Misurazioni 📊</span>
                 <div className="contenitoreMisurazioni">
                     {Categorie.map( cat => {
                         return(

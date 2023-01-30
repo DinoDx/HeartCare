@@ -35,7 +35,7 @@
 .testo-bentornat {
   margin-top: 30px;
   margin-bottom: 0px;
-  margin-left: 5%;
+  margin-left: 2%;
   font-family: "Questrial", sans-serif;
   font-size: 38px;
 }
@@ -76,13 +76,13 @@
   width:1000px sembra andare bene, ma si sminchia se ho 1 solo elemento dentro
 */
 .visite-container {
-  width: 95%;
+  width: 97%;
 
   background-color: rgba(242, 242, 242, 0.6);
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  margin-left: 5%;
+  margin-left: 2%;
   margin-top: 10px;
   border: 2px solid hsl(174, 50%, 44%);
   border-radius: 20px 20px;
@@ -104,10 +104,6 @@
   margin-bottom: 20px;
   font-family: "Questrial", sans-serif;
   font-size: 40px;
-}
-
-.cardPazienteHomeMedico{
-  width: 100%;
 }
 
 /*è la parte che continene solamente le card visite.*/
@@ -140,8 +136,8 @@
 
 @media only screen and (min-width: 768px) and (max-width: 1250px) {
   .container-sinistra {
-    width: 100%;
-    height: 550px;
+    width: 95%;
+    height: 480px;
   }
 
   .banner {
@@ -182,13 +178,12 @@
 
   .full-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .note-container{
-    width: 60%;
+    width: 97%;
     height: 500px;
-    margin-left: 2%;
   }
 }
 
@@ -204,7 +199,7 @@
 
   .cardPazienteHomeMedico{
     width: 88%;
-    margin-left: 2%;
+    margin-left: 3%;
   }
 
   .logoMenu-main-content {
@@ -273,6 +268,10 @@
     flex-wrap: wrap;
     padding-bottom: 0;
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .testo-bentornat{

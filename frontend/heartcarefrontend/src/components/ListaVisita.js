@@ -47,7 +47,6 @@ function ListaVisita(props) {
   return (
     <>
     {Object.keys(data).map(function(el, index){
-                console.log(data[el]);
                 return (
                   <VisitaCard classe={props.classe}
                               key={index}

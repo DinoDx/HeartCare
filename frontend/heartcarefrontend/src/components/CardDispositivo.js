@@ -5,7 +5,7 @@ import "../css/dispositivo-style.css";
 
 function CardDispositivo(props) {
   return (
-    <div className="container-visita">
+    <div className="container-dispositivo">
       <span className="titolo-visita">{props.titolo}</span>
       <hr className="linea-visita"></hr>
       <div className="container-icona-dispositivo">

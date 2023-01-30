@@ -49,7 +49,9 @@ function Pazienti() {
         <div className="searchbar">
             <input id="search" type="text" placeholder=" 🔍Cerca Paziente..."  onChange={(e) => setTesto(e.target.value)}/>
         </div>
-        <span className="bentornato">Bentornato, {utente.cognome}  👋🏻</span>
+        {
+            (utente["sesso"] === "M") ? <span className="bentornato">Bentornato, Dr. {utente["cognome"]} 👋🏻</span> : <span className="bentornato">Bentornata, Drs. {utente["cognome"]} 👋🏻</span>
+        }
         <span className="iTuoiPazienti">I tuoi pazienti: </span>
         <ListaPazienti txt={testo} />
     </div>

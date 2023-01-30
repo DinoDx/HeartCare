@@ -1,25 +1,53 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
 
 .container-icona-dispositivo {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .icona-dispositivo-card {
-  width: 80px;
-  height: 80px;
-  font-weight: 100;
+    width: 40px;
+    height: 40px;
 }
 
 .container-descrizione-dispositivo {
-  display: flex;
-  margin-top: 25px;
-  justify-content: center;
-  font-family: "Questrial", sans-serif;
-  font-size: 20px;
+    display: flex;
+    margin-top: 25px;
+    justify-content: center;
+    font-family: "Questrial", sans-serif;
+    font-size: 20px;
 }
 
 .testo-descrizione-dispositivo {
-  width: 80%;
+    width: 80%;
+}
+
+.container-dispositivo{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+    background-color: #f2f2f2;
+    border: 2px solid #37a69b;
+    border-radius: 15px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1250px){
+    .heightFixed{
+        height: 560px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .container-dispositivo{
+        margin-left: 3%;
+        width: 93%;
+        height: 150px;
+    }
+
+    .bottonePaginaDispositivo{
+        width: 100% !important;
+    }
+
 }

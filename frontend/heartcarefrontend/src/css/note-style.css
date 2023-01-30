@@ -5,13 +5,19 @@
     height: 250px;
     display: flex;
     flex-direction: column;
-    border: 3px solid #37a69b;
+    border: 2px solid #37a69b;
     border-radius: 20px 20px;
     background-color: rgba(242, 242, 242, 0.6);
     padding-left: 10px;
     row-gap: 15px;
     overflow-y: scroll;
-    margin :0px 0px 0px 20px;
+    margin :0px 0px 0px 2%;
+}
+
+.erroreCompilazione{
+    display: none;
+    font-size: 10px;
+    color: #d9514a;
 }
 
 .intestazione-note {

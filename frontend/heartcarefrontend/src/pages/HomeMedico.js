@@ -56,14 +56,9 @@ function HomeMedico() {
 
   return  (
     <div className="contenitoreMainContent-Home">
-      <div className="searchbar">
-        <input id="search" type="text" placeholder=" 🔍 Cerca paziente..." />
-      </div>
-      
-
-      
-
-      <span className="testo-bentornat">Bentornato, Dr. {utente.cognome}👋🏻</span>
+      {
+        (utente["sesso"] === "M") ? <span className="testo-bentornat">Bentornato, Dr. {utente["cognome"]} 👋🏻</span> : <span className="testo-bentornat">Bentornata, Drs. {utente["cognome"]} 👋🏻</span>
+      }
       
       <div className="full-container">
         <div className="container-sinistra">

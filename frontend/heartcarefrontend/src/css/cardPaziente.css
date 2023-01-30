@@ -2,7 +2,7 @@
     width: 30%;
     border-radius: 10px;
     border: 2px solid #37a69b;
-    height: 300px;
+    height: 250px;
     -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
     box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
     display: flex;
@@ -18,10 +18,10 @@
 }
 
 .cardPazienteHomeMedico{
-    width: 80%;
+    width: 300px;
     border-radius: 10px;
     border: 2px solid #37a69b;
-    height: 200px;
+    height: 250px;
     -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
     box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 0.57);
     display: flex;
@@ -141,7 +141,7 @@
 
     .buttonVisualizzaFascicolo {
         height: 30px;
-        width: 45%;
+        width: 75%;
         font-size: 12px;
     }
 

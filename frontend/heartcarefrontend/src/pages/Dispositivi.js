@@ -90,15 +90,11 @@ export default function Dispositivi() {
 
   return (
     <div className="contenitoreMainContent-Home">
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
 
       <span className="testo-bentornat">I tuoi dispositivi 🩺</span>
 
       <div className="full-container">
-        <div className="container-sinistra">
+        <div className="container-sinistra heightFixed">
           <div className="banner">
             <div className="blocco-testo-banner">
               <span className="testo-banner">Dispositivi totali</span>
@@ -113,7 +109,6 @@ export default function Dispositivi() {
               <span className="testo-banner-numero">120</span>
             </div>
           </div>
-
           <div className="visite-container">
             <br></br>
             <br></br>
@@ -128,11 +123,13 @@ export default function Dispositivi() {
             </div>
           </div>
           
-          <div className="containerBottoni">
-            <button className="bottoneHomePaziente" onClick={onOpenModal}>Aggiungi Dispositivo</button>
+          <div className="containerBottoni" style={{
+            margin: "2%"
+          }}>
+            <button className="bottoneHomePaziente bottonePaginaDispositivo" onClick={onOpenModal}>Aggiungi Dispositivo</button>
             <Modal open={open} onClose={onCloseModal} center>
               <h2>Aggiungi Dispositivo</h2>
-              <select name="categoria" onChange={e => setCategoria(e.target.value)}>
+              <select name="categoria" onChange={e => setCategoria(e.target.value)} className="selectPaziente">
                 <option value="" disabled selected>Seleziona categoria</option>
                 <option value="Coagulometro">Coagulometro</option>
                 <option value="Misuratore di pressione">Misuratore di pressione</option>

@@ -42,27 +42,32 @@ function NoteContainer() {
 
 
     const handleSubmit = async (event) => {
-        return await fetch("http://localhost:8080/comunicazione/invioNota", {
-            method: "POST",// *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idMittente: idMittente,
-                idDestinatario: idDestinatario,
-                nota: nota
-            }),
+        if(document.getElementsByClassName("textAreaTestoNote")[0].value != ""){
+            setOpen(false);
+            return await fetch("http://localhost:8080/comunicazione/invioNota", {
+                method: "POST",// *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "same-origin", // include, *same-origin, omit
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idMittente: idMittente,
+                    idDestinatario: idDestinatario,
+                    nota: nota
+                }),
 
-            withCredentials: true,
-            redirect: "follow", // manual, *follow, error
-            referrerPolicy: "no-referrer",
-        }).then(async response => {
-            response = await response.json();
-        })
+                withCredentials: true,
+                redirect: "follow", // manual, *follow, error
+                referrerPolicy: "no-referrer",
+            }).then(async response => {
+                response = await response.json();
+            })
+        }else{
+            document.getElementsByClassName("erroreCompilazione")[0].style.display ="block";
+        }
     }
 
     const [pazienti, setPazienti] = useState([]);
@@ -132,8 +137,9 @@ function NoteContainer() {
                         </select>
                         <br />
                         <h2>Testo della nota</h2>
-                        <textarea className="textAreaTestoNote" type="text" placeholder=" Inserire qui la nota" cols={60} rows={20} onChange={onNotaChange}></textarea>
-                        <button className="bottoneInviaNota" onClick={() => { handleSubmit(); setOpen(false) }}>Invia nota</button>
+                        <textarea className="textAreaTestoNote" type="text" placeholder=" Inserire qui la nota" cols={40} rows={20} onChange={onNotaChange}></textarea>
+                        <span className="erroreCompilazione">Aggiungi una nota</span>
+                        <button className="bottoneInviaNota" onClick={() => { handleSubmit(); }}>Invia nota</button>
                     </Modal>
                 </div>
             </div>
