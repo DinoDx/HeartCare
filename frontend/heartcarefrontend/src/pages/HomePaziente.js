@@ -49,7 +49,7 @@ function HomePaziente() {
                 method : "POST",
                 headers : config,
                 body : JSON.stringify({
-                    id: 1
+                    id: jwt(token).id
                 })
             }).then(response => {
                 return response.json()

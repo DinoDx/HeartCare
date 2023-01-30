@@ -99,12 +99,46 @@ function VisitaCard(props) {
                     <IoCallOutline/> <span>{props.numero}</span>
                 </div>
             </div>
+
+            <Modal open={open} onClose={onCloseModal} center>
+                <h2>Fascicolo Sanitario del Paziente {props.nomePaziente} {props.cognomePaziente}</h2>
+                <div className="contenitoreMisurazioni">
+                    {Categorie.map( cat => {
+                        return(
+                            <div>
+                                <h2>{cat}</h2>
+                                <div className="bloccoMisurazione">
+                                    {returnByCategoria(cat).map( mis => {
+                                        return (
+                                            <div className="contenitoreMisurazione">
+                                                <div className="contenitoreIcona"><FaNotesMedical className="iconaMisurazione"/></div>
+                                                <div className="contenitoreDati">
+                                                    {
+                                                        Object.entries(mis["misurazione"]).map(chiave => {
+                                                                if (chiave[0] != "id") {
+                                                                    return(
+                                                                        <div>
+                                                                            <span className="nomeCampo">{chiave[0]} :</span> <span className="valoreCampo">{chiave[1]}</span>
+                                                                        </div>
+                                                                    )
+                                                                }
+                                                            }
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </Modal>
+
             <div className="contenitorePulsantiPazienteCard" ref={bottoniPaziente}>
-                <button className="buttonVisualizzaFascicolo">
+                <button className="buttonVisualizzaFascicolo" onClick={onOpenModal}>
                     Fascicolo Paziente
-                </button>
-                <button className="buttonVisualizzaFascicolo">
-                    Invia una nota
                 </button>
             </div>
         </div>

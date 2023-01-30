@@ -10,7 +10,7 @@ function Pazienti() {
         <div className="searchbar">
             <input id="search" type="text" placeholder=" 🔍Cerca Paziente..." />
         </div>
-        <span className="bentornato">Bentornato, Dr. Lambiase 👋🏻</span>
+        <span className="bentornato">Bentornato, {utente.cognome}  👋🏻</span>
         <span className="iTuoiPazienti">I tuoi pazienti: </span>
         <ListaPazienti />
     </div>
