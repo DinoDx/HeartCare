@@ -15,7 +15,13 @@ import org.springframework.stereotype.Repository;
 public interface DispositivoMedicoDAO
                             extends JpaRepository<DispositivoMedico, Long> {
 
-    @Query(value = "SELECT * FROM dispositivo_medico WHERE id_paziente=?1", nativeQuery = true)
+    /**
+     * Query per la ricerca di dispositivi di un paziente tramite il suo id.
+     * @param idPaziente id del paziente da ricercare.
+     * @return lista di dispositivi affidati a quel paziente.
+     */
+    @Query(value = "SELECT * FROM dispositivo_medico WHERE id_paziente=?1",
+            nativeQuery = true)
     List<DispositivoMedico> findByPaziente(final long idPaziente);
 
 

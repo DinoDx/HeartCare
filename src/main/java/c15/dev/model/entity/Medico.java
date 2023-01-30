@@ -27,8 +27,8 @@ import java.util.*;
 @Getter
 public class Medico extends UtenteRegistrato {
     /**
-     * Lista che contiene l'elenco dei pazienti che sono stati
-     * assegnati al medico in questione
+     * Lista che contiene l'elenco dei pazienti che sono stati.
+     * assegnati al medico in questione.
      */
     @OneToMany(mappedBy = "medico", fetch = FetchType.LAZY)
     @JsonManagedReference("paziente-medico")
@@ -88,13 +88,24 @@ public class Medico extends UtenteRegistrato {
                 Role.MEDICO);
     }
 
+    /**
+     * Metodo equals.
+     * @param o oggetto da confrontare.
+     * @return booleano.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Medico medico)) return false;
-        return Objects.equals(getElencoPazienti(), medico.getElencoPazienti()) && Objects.equals(getNote(), medico.getNote()) && Objects.equals(getElencoVisite(), medico.getElencoVisite());
+        return Objects.equals(getElencoPazienti(),
+                medico.getElencoPazienti()) && Objects.equals(getNote(), medico
+                .getNote()) && Objects.equals(getElencoVisite(),
+                medico.getElencoVisite());
     }
 
+    /**
+     * Metodo hashCode.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getElencoPazienti(), getNote(), getElencoVisite());

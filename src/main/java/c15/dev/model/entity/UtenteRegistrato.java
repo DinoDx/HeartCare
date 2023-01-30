@@ -106,7 +106,8 @@ public class UtenteRegistrato implements Serializable, UserDetails {
      */
     @Column(length = LENGTH_16,unique = true)
     @NotNull
-    @Pattern(regexp = "^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$",
+    @Pattern(regexp =
+            "^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$",
             message = "regexp codice fiscale non rispettata")
     private String codiceFiscale;
 
@@ -124,9 +125,9 @@ public class UtenteRegistrato implements Serializable, UserDetails {
     /**
      * Rappresenta la password di un Utente Registrato.
      * La sua espressione regolare richiede che ci siano:
-     *  almeno 8 caratteri, massimo 16
-     *  almeno una maiuscola
-     *  almeno un numero
+     *  almeno 8 caratteri, massimo 16.
+     *  almeno una maiuscola.
+     *  almeno un numero.
      *  almeno un carattere speciale.
      */
     @NotNull
@@ -190,14 +191,14 @@ public class UtenteRegistrato implements Serializable, UserDetails {
     }
 
     /**
-     * @param dataNascita rappresenta la data di nascita di un utente
-     * @param codFiscale rappresenta il codice fiscale di un utente
-     * @param nTelefono rappresenta il numero di telefono di un utente
-     * @param pass rappresenta la password in formato Stringa di un utente
-     * @param indirizzoEmail rappresenta l'email di un utente
-     * @param nome rappresenta il nome di un utente
-     * @param cognome rappresenta il cognome di un utente
-     * @param sesso rappresenta il genere di un utente
+     * @param dataNascita rappresenta la data di nascita di un utente.
+     * @param codFiscale rappresenta il codice fiscale di un utente.
+     * @param nTelefono rappresenta il numero di telefono di un utente.
+     * @param pass rappresenta la password in formato Stringa di un utente.
+     * @param indirizzoEmail rappresenta l'email di un utente.
+     * @param nome rappresenta il nome di un utente.
+     * @param cognome rappresenta il cognome di un utente.
+     * @param sesso rappresenta il genere di un utente.
      */
     public UtenteRegistrato(final LocalDate dataNascita,
                   final String codFiscale,
@@ -220,19 +221,22 @@ public class UtenteRegistrato implements Serializable, UserDetails {
                 "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
                 "[A-Za-z\\d@$!%*?&]{8,16}$";
 
-        /**La password deve rispettare l'espressione regolare*/
+        /**La password deve rispettare l'espressione regolare.*/
         if(pass.matches(regexpPassword)) {
             this.password = pass;
         }
         else {
-            throw new Exception("La password non rispetta l'espressione regolare");
+            throw new Exception("La password non rispetta " +
+                    "l'espressione regolare");
         }
     }
     public void setPassword(final String pass) throws Exception {
             this.password = pass;
     }
 
-
+    /**
+     * Metodo che ritorna una lista di ruoli.
+     */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

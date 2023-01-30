@@ -34,7 +34,7 @@ public class MisurazioneCoagulazione
     private double tempoDiProtrobina;
 
     /**
-     * questo campo indica inr
+     * questo campo indica inr.
      */
     @Column(name = "inr", nullable = false)
     @NotNull
@@ -49,13 +49,13 @@ public class MisurazioneCoagulazione
     }
 
     /**
-     * @param dataMisurazione rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente della misurazione coagulazione
-     * @param dispositivoMedico rappresenta il dispositivo medico
-     *                          della misurazione coagulazione
-     * @param tempoDiProtrobina rappresenta il valore del tempo di protrobina
-     *                          della misurazione coagulazione
-     * @param inr rappresenta il valore dell'inr della misurazione coagulazione
+     * @param dataMisurazione rappresenta la data della misurazione.
+     * @param paziente rappresenta il paziente della misurazione coagulazione.
+     * @param dispositivoMedico rappresenta il dispositivo medico.
+     *                          della misurazione coagulazione.
+     * @param tempoDiProtrobina rappresenta il valore del tempo di protrobina.
+     *                          della misurazione coagulazione.
+     * @param inr rappresenta il valore dell'inr della misurazione coagulazione.
      *
      */
     public MisurazioneCoagulazione(final LocalDate dataMisurazione,
@@ -70,7 +70,7 @@ public class MisurazioneCoagulazione
 
     /**
      *
-     * @return tempoDiProtrobina
+     * @return tempoDiProtrobina.
      * metodo che restituisce il valore del tempo di protrobina.
      */
     public double getTempoDiProtrobina() {
@@ -79,7 +79,7 @@ public class MisurazioneCoagulazione
 
     /**
      *
-     * @return inr
+     * @return inr.
      * metodo che restituisce il valore dell'inr.
      */
     public double getInr() {
@@ -89,8 +89,8 @@ public class MisurazioneCoagulazione
     /**
      *
      * @param tempoDiProtrobina
-     * metodo che permette di impostare il valore del tempo di protrobina
-     * della misurazione coagulazione.
+     * metodo che permette di impostare il valore del tempo di protrobina.
+     * della misurazione coagulazione..
      */
     public void setTempoDiProtrobina(final double tempoDiProtrobina) {
         this.tempoDiProtrobina = tempoDiProtrobina;
@@ -99,8 +99,8 @@ public class MisurazioneCoagulazione
     /**
      *
      * @param inr
-     * metodo che permette di impostare il valore dell'inr
-     * della misurazione coagulazione.
+     * metodo che permette di impostare il valore dell'inr.
+     * della misurazione coagulazione..
      */
     public void setInr(final double inr) {
         this.inr = inr;

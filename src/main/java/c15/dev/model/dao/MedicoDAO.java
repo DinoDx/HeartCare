@@ -27,5 +27,10 @@ public interface MedicoDAO extends UtenteRegistratoDAO {
      */
     Medico findMedicoById(Long id);
 
+    /**
+     * Ricerca di un medico tramite un email.
+     * @param email email da ricercare nel db.
+     * @return medico con quella email.
+     */
     Medico findByEmail(String email);
 }

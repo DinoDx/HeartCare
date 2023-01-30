@@ -11,8 +11,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Classe dto per la modifica di un paziente.
  * @author carlo.
+ * Classe dto per la modifica di un paziente.
  */
 @Data
 public class ModificaPazienteDTO implements Serializable {

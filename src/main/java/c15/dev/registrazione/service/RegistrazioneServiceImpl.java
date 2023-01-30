@@ -39,7 +39,10 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     private AuthenticationManager authenticationManager;
 
 
-
+    /**
+     * Implementazione metodo per la registrazione del paziente.
+     * @param paz paziente da registrare.
+     */
     @Override
     public AuthenticationResponse registraPaziente(final Paziente paz)
                                                     throws Exception {
@@ -58,6 +61,10 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
         indirizzoDAO.save(ind);
     }
 
+    /**
+     * Implementazione del metodo di registrazione medico.
+     * @param med è il medico da inserire nel db.
+     */
     @Override
     public AuthenticationResponse registraMedico(final Medico med)
                                                     throws Exception {
@@ -70,6 +77,10 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
                 .build();
     }
 
+    /**
+     * Implementazione per il metodo del login tramite token jwt.
+     * @param request parametro richiesta per il login.
+     */
     @Override
     public AuthenticationResponse login(final AuthenticationRequest request)
                                                             throws Exception {
@@ -96,19 +107,24 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
                 .build();
     }
 
+    /**
+     * Implementazione metodo per la ricerca di un paziente tramite l'email.
+     * @param email parametro di ricerca.
+     */
     @Override
     public Paziente findByemail(final String email) {
         return pazienteDAO.findByEmail(email);
     }
 
+    /**
+     * Implementazione metodo per la ricerca di un paziente.
+     * tramite il codice fiscale.
+     * @param codiceFiscale parametro di ricerca.
+     */
     @Override
     public Paziente findBycodiceFiscale(final String codiceFiscale) {
         return pazienteDAO.findBycodiceFiscale(codiceFiscale);
     }
 
-    /**
-     * Implementazione del metodo di registrazione medico.
-     * @param med è il medico da inserire nel db.
-     */
 
 }

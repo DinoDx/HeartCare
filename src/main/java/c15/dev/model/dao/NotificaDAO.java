@@ -13,6 +13,10 @@ import java.util.Optional;
  */
 @Repository
 public interface NotificaDAO extends JpaRepository<Notifica, Long> {
+    /**
+     * Query che ci permette di ricercare una nota tramite il suo id.
+     * @param id id della nota.
+     */
     public Optional<Notifica> findById(Long id);
 
 }
