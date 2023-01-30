@@ -40,6 +40,7 @@ function NoteContainer() {
         fetchAllNote();
     }, []);
 
+
     const handleSubmit = async (event) => {
         return await fetch("http://localhost:8080/comunicazione/invioNota", {
             method: "POST",// *GET, POST, PUT, DELETE, etc.

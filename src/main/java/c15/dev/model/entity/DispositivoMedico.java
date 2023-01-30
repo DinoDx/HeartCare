@@ -105,7 +105,7 @@ public class DispositivoMedico {
     @JsonIgnore
     @JoinColumn(name = "id_paziente",
             referencedColumnName = "id")
-    @JsonBackReference("misurazione-paziente")
+    @JsonBackReference("paziente-dispositivo")
     private Paziente paziente;
 
     /**

@@ -63,7 +63,7 @@ public class Visita implements Serializable {
      * Chiave esterna che fa riferimento alla classe Paziente
      **/
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference("paziente-visite")
     @JoinColumn(name = "id_paziente",
                 referencedColumnName = "id",
                 nullable = true)

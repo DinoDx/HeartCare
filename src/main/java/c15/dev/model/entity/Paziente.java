@@ -49,7 +49,7 @@ public class Paziente extends UtenteRegistrato {
      * Questo campo indica il Medico che viene assegnato al paziente.
      */
     @JsonIgnore
-    @JsonBackReference
+    @JsonBackReference("paziente-medico")
     @ManyToOne
     @JoinColumn(name = "id_medico",
                 referencedColumnName = "id",
@@ -70,7 +70,7 @@ public class Paziente extends UtenteRegistrato {
      */
     @OneToMany(mappedBy = "paziente",
             fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("paziente-dispositivo")
     @JsonIgnore
     private Set<DispositivoMedico> dispositivoMedico;
 
@@ -87,7 +87,7 @@ public class Paziente extends UtenteRegistrato {
 
     @JsonIgnore
     @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("paziente-visite")
     private Set<Visita> elencoVisite;
 
 

@@ -11,15 +11,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * @author: Leopoldo todisco, Carlo Venditto.
+ *
+ */
 @Service
 @Transactional
 public class GestioneComunicazioneServiceImpl
         implements GestioneComunicazioneService {
+    @Autowired
+    private SimpMessagingTemplate template;
     @Autowired
     private GestioneUtenteService utenteService;
     @Autowired
@@ -29,32 +36,6 @@ public class GestioneComunicazioneServiceImpl
     @Autowired
     private JavaMailSender mailSender;
 
-    /**
-     * Metodo per inviare una notifica.
-     * @param messaggio
-     * @param idDest
-     * @return
-     */
-    @Override
-    public Flux<ServerSentEvent<String>> invioNotifica(final String messaggio,
-                                                       final Long idDest) {
-        Notifica n = new Notifica(
-                LocalDate.of(2023, 11, 12),
-                "Notifica Prova",
-                "speriamo funzioni",
-                StatoNotifica.NON_LETTA,
-                utenteService.findPazienteById(1L)
-        );
-        daoNotifica.save(n);
-
-        System.out.println(Flux
-                .just(ServerSentEvent.builder(n.getTesto()).build())
-                .take(1));
-
-        return Flux
-                .just(ServerSentEvent.builder(n.getTesto()).build())
-                .take(1);
-    }
 
     /**
      * Metodo per inviare una email.
@@ -62,7 +43,8 @@ public class GestioneComunicazioneServiceImpl
      * @param emailDestinatario
      */
     @Override
-    public void invioEmail(String messaggio, String emailDestinatario) {
+    public void invioEmail(final String messaggio,
+                           final String emailDestinatario) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("leopoldo.todiscozte@gmail.com");
         message.setTo("leopoldo.todiscozte@gmail.com");
@@ -84,9 +66,8 @@ public class GestioneComunicazioneServiceImpl
      */
     @Override
     public void invioNota(final String messaggio,
-                                                   final Long idDestinatario,
-                                                   final Long idMittente) {
-
+                          final Long idDestinatario,
+                          final Long idMittente) {
         if(utenteService.isMedico(idMittente)){
             Medico m =  utenteService.findMedicoById(idMittente);
             Paziente p = utenteService.findPazienteById(idDestinatario);
@@ -121,4 +102,14 @@ public class GestioneComunicazioneServiceImpl
         return dto;
     }
 
+    /**
+     *  Metodo per inviare una notifica al frontend.
+     * @param message è il messaggio che viene passato al frontend.
+     */
+    @Override
+    public void sendNotifica(String message) {
+        System.out.println("\n\nsiamo nel metodo x inviare la notifica\n\n");
+        //nel topic mettere messaggio + idDestinatario
+        template.convertAndSend("/topic/notifica", message);
+    }
 }

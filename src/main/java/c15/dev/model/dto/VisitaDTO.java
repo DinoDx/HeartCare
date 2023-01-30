@@ -24,7 +24,7 @@ public class VisitaDTO {
     private LocalDate data;
     private String viaIndirizzo;
     private String comune;
-    private Integer nCivico;
+    private String nCivico;
     private String provincia;
     private String numeroTelefono;
     private String genere;

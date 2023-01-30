@@ -45,11 +45,14 @@ public class CORSFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
 
+//        X-Content-Type-Options: nosniff
+
         /**
          * In questa sezione si definiscono gli header di una response.
          */
         response.setHeader("Access-Control-Allow-Origin",
                 request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods",
                 "POST, GET, PUT, OPTIONS, DELETE, PATCH");
         response.setHeader("Access-Control-Max-Age", "3600");
@@ -62,6 +65,7 @@ public class CORSFilter implements Filter {
                         + "Access-Control-Request-Headers, "
                         + "Accept, "
                         + "Access-Control-Request-Method");
+
         chain.doFilter(req, res);
     }
 }
