@@ -284,24 +284,24 @@ public class DBPopulator {
                 paz3
         );
 
-        gestioneMisurazioneService.registrazioneDispositivo(d1,1);
-        gestioneMisurazioneService.registrazioneDispositivo(d2,2);
-        gestioneMisurazioneService.registrazioneDispositivo(d3,3);
-        gestioneMisurazioneService.registrazioneDispositivo(d4,1);
-        gestioneMisurazioneService.registrazioneDispositivo(d5,2);
-        gestioneMisurazioneService.registrazioneDispositivo(d6,3);
-        gestioneMisurazioneService.registrazioneDispositivo(d7,1);
-        gestioneMisurazioneService.registrazioneDispositivo(d8,2);
-        gestioneMisurazioneService.registrazioneDispositivo(d9,3);
-        gestioneMisurazioneService.registrazioneDispositivo(d10,1);
-        gestioneMisurazioneService.registrazioneDispositivo(d11,2);
-        gestioneMisurazioneService.registrazioneDispositivo(d12,3);
-        gestioneMisurazioneService.registrazioneDispositivo(d13,1);
-        gestioneMisurazioneService.registrazioneDispositivo(d14,2);
-        gestioneMisurazioneService.registrazioneDispositivo(d15,3);
-        gestioneMisurazioneService.registrazioneDispositivo(d16,1);
-        gestioneMisurazioneService.registrazioneDispositivo(d17,2);
-        gestioneMisurazioneService.registrazioneDispositivo(d18,3);
+        gestioneMisurazioneService.registrazioneDispositivo(d1, 1);
+        gestioneMisurazioneService.registrazioneDispositivo(d2, 2);
+        gestioneMisurazioneService.registrazioneDispositivo(d3, 3);
+        gestioneMisurazioneService.registrazioneDispositivo(d4, 1);
+        gestioneMisurazioneService.registrazioneDispositivo(d5, 2);
+        gestioneMisurazioneService.registrazioneDispositivo(d6, 3);
+        gestioneMisurazioneService.registrazioneDispositivo(d7, 1);
+        gestioneMisurazioneService.registrazioneDispositivo(d8, 2);
+        gestioneMisurazioneService.registrazioneDispositivo(d9, 3);
+        gestioneMisurazioneService.registrazioneDispositivo(d10, 1);
+        gestioneMisurazioneService.registrazioneDispositivo(d11, 2);
+        gestioneMisurazioneService.registrazioneDispositivo(d12, 3);
+        gestioneMisurazioneService.registrazioneDispositivo(d13, 1);
+        gestioneMisurazioneService.registrazioneDispositivo(d14, 2);
+        gestioneMisurazioneService.registrazioneDispositivo(d15, 3);
+        gestioneMisurazioneService.registrazioneDispositivo(d16, 1);
+        gestioneMisurazioneService.registrazioneDispositivo(d17, 2);
+        gestioneMisurazioneService.registrazioneDispositivo(d18, 3);
 
         gestioneMisurazioneService.registrazioneDispositivo(d2, 1);
         LocalDate data2 = LocalDate.of(2023, 01, 18);
@@ -485,9 +485,11 @@ public class DBPopulator {
                 399
         );
 
-        misurazioniList.addAll(List.of(mis1,mis2,mis3,mis4,mis5,mis6,mis7,mis8,mis9,mis10,
-                mis11,mis12,mis13,mis14,mis15,mis16,mis17,mis18,mis19,mis20));
-        misurazioniList.stream().forEach(mis -> gestioneMisurazioneService.save(mis));
+        misurazioniList.addAll(List.of(mis1, mis2, mis3, mis4, mis5,
+                mis6, mis7, mis8, mis9, mis10, mis11, mis12, mis13,
+                mis14, mis15, mis16, mis17, mis18, mis19, mis20));
+        misurazioniList.stream()
+                        .forEach(mis -> gestioneMisurazioneService.save(mis));
 
 
         /*
@@ -500,7 +502,7 @@ public class DBPopulator {
                 "SA",
                 "Via roma"
         );
-        System.out.println("ci arrivo2");
+
         Indirizzo ind2 = new Indirizzo("Caserta",
                 "1",
                 80056,
@@ -535,25 +537,24 @@ public class DBPopulator {
                 "NA",
                 "Via del vesuvio"
         );
-        System.out.println("ci arrivo3");
-        indirizzoList.addAll(List.of(ind1,ind2,ind3,
-                ind4,ind5,ind6));
+        indirizzoList.addAll(List.of(ind1, ind2, ind3,
+                ind4, ind5, ind6));
         indirizzoList.stream().forEach(i -> userService.registraIndirizzo(i));
-        System.out.println("ci arrivo4");
-        userService.assegnaIndirizzoAdUtente(1,ind1);
-        userService.assegnaIndirizzoAdUtente(2,ind2);
-        userService.assegnaIndirizzoAdUtente(3,ind3);
-        userService.assegnaIndirizzoAdUtente(4,ind4);
-        userService.assegnaIndirizzoAdUtente(5,ind5);
-        userService.assegnaIndirizzoAdUtente(6,ind6);
-        System.out.println("ci arrivo5");
+
+        userService.assegnaIndirizzoAdUtente(1, ind1);
+        userService.assegnaIndirizzoAdUtente(2, ind2);
+        userService.assegnaIndirizzoAdUtente(3, ind3);
+        userService.assegnaIndirizzoAdUtente(4, ind4);
+        userService.assegnaIndirizzoAdUtente(5, ind5);
+        userService.assegnaIndirizzoAdUtente(6, ind6);
+
         /*
             In questa sezione si assegnano i medici ai pazienti
          */
-        userService.assegnaMedicoAPaziente(4,1);
-        userService.assegnaMedicoAPaziente(5,2);
-        userService.assegnaMedicoAPaziente(6,3);
-        System.out.println("ci arrivo6");
+        userService.assegnaMedicoAPaziente(4, 1);
+        userService.assegnaMedicoAPaziente(5, 2);
+        userService.assegnaMedicoAPaziente(6, 3);
+
         /*
             In questa sezione si assegnano i caregiver ai pazienti
          */
@@ -627,34 +628,9 @@ public class DBPopulator {
                 ind6
         );
 
-        visitaList.addAll(List.of(v1,v2,v3,v4,v5,v6));
-        visitaList.stream().forEach(v -> gestioneVisitaService.aggiuntaVisita(v));
-
-    }
-
-    /**
-     * Metodo pre-destroy, viene avviato dal container automaticamente
-     * prima che l'oggetto relativo alla classe sia deallocato dal GC.
-     * Si occupa di inserire elementi nel datatabase.
-     */
-    @PreDestroy
-    public void clearDB(){
-        /*
-         * In questo blocco si vanno a eliminare dal DB tutti i pazienti
-         * definiti precedentemente.
-         **/
-        pazientiList.stream()
-                .map(paziente -> paziente.getId())
-                .forEach(idPaz -> userService.rimuoviPaziente(idPaz));
-
-        /*
-         * In questo blocco si vanno a eliminare dal DB tutti i pazienti
-         * definiti precedentemente.
-         **/
-        medicoList.stream()
-                .map(medico -> medico.getId())
-                .forEach(id -> userService.rimuoviMedico(id));
-
+        visitaList.addAll(List.of(v1, v2, v3, v4, v5, v6));
+        visitaList.stream()
+                .forEach(v -> gestioneVisitaService.aggiuntaVisita(v));
 
     }
 }

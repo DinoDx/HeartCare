@@ -3,6 +3,7 @@ import {FascicoloBanner} from "../components/FascicoloBanner";
 import Grafico from "../components/Grafico";
 import React, {useState,useEffect} from "react";
 import { FaNotesMedical } from "react-icons/fa";
+import jwt from "jwt-decode";
 
 function Fascicolo(){
     const [Categorie,setCategorie] = useState([]);
@@ -24,7 +25,7 @@ function Fascicolo(){
                 method : "POST",
                 headers : config,
                 body : JSON.stringify({
-                    id : 1
+                    id : jwt(token).id
                 })
             }).then(response => {
                 return response.json()
@@ -37,7 +38,7 @@ function Fascicolo(){
                 method : "POST",
                 headers : config,
                 body : JSON.stringify({
-                    id: 1
+                    id: jwt(token).id
                 })
             }).then(response => {
                 return response.json()

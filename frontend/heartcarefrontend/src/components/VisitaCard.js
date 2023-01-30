@@ -6,9 +6,13 @@ import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
 import { IoCallOutline } from "react-icons/io5";
 import { SlArrowDown } from "react-icons/sl";
 import {useRef} from 'react';
+import {useEffect, useState} from "react";
+import Modal from "react-responsive-modal";
+import jwt from "jwt-decode";
+import {FaNotesMedical} from "react-icons/fa";
 
 function VisitaCard(props) {
-
+    const [open, setOpen] = useState(false);
     const container = useRef();
     const linea = useRef();
     const informazioniPaziente = useRef();
@@ -82,6 +86,58 @@ function VisitaCard(props) {
         }
     }
 
+    const [Categorie,setCategorie] = useState([]);
+    const [Misurazioni,setMisurazioni] = useState([]);
+    const token = localStorage.getItem("token");
+
+    let config = {
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        withCredentials: true,
+        Authorization: `Bearer ${token}`,
+        "Content-Type" : "application/json"
+    };
+
+    useEffect(() => {
+        const getCategorie = async () =>{
+            const response = await fetch("http://localhost:8080/getCategorie",{
+                method : "POST",
+                headers : config,
+                body : JSON.stringify({
+                    id : props.id
+                })
+            }).then(response => {
+                return response.json()
+            })
+            setCategorie(response);
+        }
+
+        const fetchData = async() => {
+            const response = await fetch("http://localhost:8080/getAllMisurazioniByPaziente",{
+                method : "POST",
+                headers : config,
+                body : JSON.stringify({
+                    id: props.id
+                })
+            }).then(response => {
+                return response.json()
+            })
+            setMisurazioni(response);
+        }
+        getCategorie();
+        fetchData();
+    }, []);
+
+
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
+
+    const returnByCategoria = (categoria) => {
+        return Misurazioni.filter( mis =>
+            mis["categoria"] == categoria
+        )
+    }
     return(
         <div className={props.classe} ref={container}>
             <BiUser className="iconaPaziente"/>
@@ -99,12 +155,46 @@ function VisitaCard(props) {
                     <IoCallOutline/> <span>{props.numero}</span>
                 </div>
             </div>
+
+            <Modal open={open} onClose={onCloseModal} center>
+                <h2>Fascicolo Sanitario del Paziente {props.nomePaziente} {props.cognomePaziente}</h2>
+                <div className="contenitoreMisurazioni">
+                    {Categorie.map( cat => {
+                        return(
+                            <div>
+                                <h2>{cat}</h2>
+                                <div className="bloccoMisurazione">
+                                    {returnByCategoria(cat).map( mis => {
+                                        return (
+                                            <div className="contenitoreMisurazione">
+                                                <div className="contenitoreIcona"><FaNotesMedical className="iconaMisurazione"/></div>
+                                                <div className="contenitoreDati">
+                                                    {
+                                                        Object.entries(mis["misurazione"]).map(chiave => {
+                                                                if (chiave[0] != "id") {
+                                                                    return(
+                                                                        <div>
+                                                                            <span className="nomeCampo">{chiave[0]} :</span> <span className="valoreCampo">{chiave[1]}</span>
+                                                                        </div>
+                                                                    )
+                                                                }
+                                                            }
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </Modal>
+
             <div className="contenitorePulsantiPazienteCard" ref={bottoniPaziente}>
-                <button className="buttonVisualizzaFascicolo">
+                <button className="buttonVisualizzaFascicolo" onClick={onOpenModal}>
                     Fascicolo Paziente
-                </button>
-                <button className="buttonVisualizzaFascicolo">
-                    Invia una nota
                 </button>
             </div>
         </div>

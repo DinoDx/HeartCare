@@ -19,15 +19,44 @@ import java.time.LocalDate;
 @SuperBuilder
 @AllArgsConstructor
 public class VisitaDTO {
+    /**
+     *  Parametro nome del paziente.
+     */
     private String nomePaziente;
+    /**
+     *  Parametro cognome del paziente.
+     */
     private String cognomePaziente;
+    /**
+     *  Parametro data della visita.
+     */
     private LocalDate data;
+    /**
+     *  Parametro indirizzo della visita.
+     */
     private String viaIndirizzo;
+    /**
+     *  Paramentro comune della visita.
+     */
     private String comune;
+    /**
+     *  Parametro nCivico della visita.
+     */
     private String nCivico;
+    /**
+     *  Parametro provincia della visita.
+     */
     private String provincia;
+    /**
+     *  Parametro numeroTelefono della visita.
+     */
     private String numeroTelefono;
+    /**
+     *  Parametro genere.
+     */
     private String genere;
-
-
+    /**
+     *  Parametro id paziente.
+     */
+    private Long idPaziente;
 }

@@ -56,13 +56,13 @@ public class MisurazioneEnzimiCardiaci
     }
 
     /**
-     * @param data rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivo rappresenta il dispositivo medico con cui
-     *                          è stata effettuata la misurazione
-     * @param creatinKinasi rappresenta il valore della creatin Kinasi
-     * @param mioglobina rappresenta il valore della mioglobina
-     * @param troponinaCardiaca rappresenta il valore della troponina cardiaca
+     * @param data rappresenta la data della misurazione.
+     * @param paziente rappresenta il paziente coinvolto nella misurazione.
+     * @param dispositivo rappresenta il dispositivo medico con cui.
+     *                          è stata effettuata la misurazione.
+     * @param creatinKinasi rappresenta il valore della creatin Kinasi.
+     * @param mioglobina rappresenta il valore della mioglobina.
+     * @param troponinaCardiaca rappresenta il valore della troponina cardiaca.
      */
     public MisurazioneEnzimiCardiaci(final LocalDate data,
                                      final Paziente paziente,

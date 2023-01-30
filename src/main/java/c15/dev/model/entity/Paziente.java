@@ -65,7 +65,7 @@ public class Paziente extends UtenteRegistrato {
     private Set<Nota> note;
 
     /**
-     * Questo campo indica l'insieme dei dispositivi medici che un paziente si
+     * Questo campo indica l'insieme dei dispositivi medici che un paziente si.
      * assegna.
      */
     @OneToMany(mappedBy = "paziente",
@@ -132,16 +132,43 @@ public class Paziente extends UtenteRegistrato {
 
     }
 
-
+    /**
+     * Metodo equals.
+     * @param o oggetto da confrontare.
+     * @return booleano.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Paziente paziente)) return false;
-        return Objects.equals(getNomeCaregiver(), paziente.getNomeCaregiver()) && Objects.equals(getCognomeCaregiver(), paziente.getCognomeCaregiver()) && Objects.equals(getEmailCaregiver(), paziente.getEmailCaregiver()) && Objects.equals(getMedico(), paziente.getMedico()) && Objects.equals(getNote(), paziente.getNote()) && Objects.equals(getDispositivoMedico(), paziente.getDispositivoMedico()) && Objects.equals(getMisurazione(), paziente.getMisurazione()) && Objects.equals(getElencoVisite(), paziente.getElencoVisite());
+        return Objects.equals(getNomeCaregiver(),
+                paziente.getNomeCaregiver())
+                && Objects.equals(getCognomeCaregiver(),
+                paziente.getCognomeCaregiver())
+                && Objects.equals(getEmailCaregiver(),
+                paziente.getEmailCaregiver())
+                && Objects.equals(getMedico(), paziente.getMedico())
+                && Objects.equals(getNote(), paziente.getNote())
+                && Objects.equals(getDispositivoMedico(),
+                paziente.getDispositivoMedico())
+                && Objects.equals(getMisurazione(),
+                paziente.getMisurazione())
+                && Objects.equals(getElencoVisite(),
+                paziente.getElencoVisite());
     }
 
+    /**
+     * Metodo hashCode.
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(getNomeCaregiver(), getCognomeCaregiver(), getEmailCaregiver(), getMedico(), getNote(), getDispositivoMedico(), getMisurazione(), getElencoVisite());
+        return Objects.hash(getNomeCaregiver(),
+                getCognomeCaregiver(),
+                getEmailCaregiver(),
+                getMedico(),
+                getNote(),
+                getDispositivoMedico(),
+                getMisurazione(),
+                getElencoVisite());
     }
 }

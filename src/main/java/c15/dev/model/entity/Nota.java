@@ -63,13 +63,13 @@ public class Nota implements Serializable {
     @PastOrPresent
     private LocalDate dataPubblicazione;
     /**
-     * Campo relativo all'autore della nota
+     * Campo relativo all'autore della nota.
      **/
     @NotNull
     private long autore;
 
     /**
-     * Campo relativo allo stato della nota
+     * Campo relativo allo stato della nota.
      */
 
     @NotNull
@@ -77,7 +77,7 @@ public class Nota implements Serializable {
     private StatoNotifica statoNota;
 
     /**
-     * Campo (chiave esterna) relativo al medico che ha scritto/ricevuto la nota
+     * Campo (chiave esterna) relativo al medico che ha scritto/ricevuto la nota.
      **/
     @ManyToOne
     @JoinColumn(name = "id_medico",
@@ -85,7 +85,7 @@ public class Nota implements Serializable {
     @JsonBackReference
     private Medico medico;
     /**
-     * Campo (chiave esterna) relativo al paziente che ha scritto/ricevuto la nota
+     * Campo (chiave esterna) relativo al paziente che ha scritto/ricevuto la nota.
      **/
     @ManyToOne
     @JoinColumn(name = "id_paziente",
@@ -94,16 +94,16 @@ public class Nota implements Serializable {
     private Paziente paziente;
 
     /**
-     * Costruttore vuoto per la classe nota
+     * Costruttore vuoto per la classe nota.
      **/
 
     /**
-     * @param contenuto rappresenta il contenuto della nota
-     * @param dataPubblicazione rappresenta la data di pubblicazione della nota
-     * @param autore rappresenta chi ha scritto la nota
-     * @param stato rappresenta lo stato della nota
-     * @param medico rappresenta il medico che ha scritto/ricevuto la nota
-     * @param paziente rappresenta il paziente che ha scritto/ricevuto la nota
+     * @param contenuto rappresenta il contenuto della nota.
+     * @param dataPubblicazione rappresenta la data di pubblicazione della nota.
+     * @param autore rappresenta chi ha scritto la nota.
+     * @param stato rappresenta lo stato della nota.
+     * @param medico rappresenta il medico che ha scritto/ricevuto la nota.
+     * @param paziente rappresenta il paziente che ha scritto/ricevuto la nota.
      **/
     public Nota(final String contenuto,
                 final LocalDate dataPubblicazione,
@@ -121,8 +121,8 @@ public class Nota implements Serializable {
 
     /**
      *
-     * @return id
-     * metodo che restituisce l'id della nota
+     * @return id.
+     * metodo che restituisce l'id della nota.
      */
     public Long getId() {
         return id;
@@ -131,7 +131,7 @@ public class Nota implements Serializable {
     /**
      *
      * @param id
-     * metodo che permette di definire l'id della nota
+     * metodo che permette di definire l'id della nota.
      */
     public void setId(final Long id) {
         this.id = id;
@@ -139,8 +139,8 @@ public class Nota implements Serializable {
 
     /**
      *
-     * @return contenuto
-     * metodo che restituisce il contenuto della nota
+     * @return contenuto.
+     * metodo che restituisce il contenuto della nota.
      */
     public String getContenuto() {
         return contenuto;
@@ -149,7 +149,7 @@ public class Nota implements Serializable {
     /**
      *
      * @param contenuto
-     * metodo che permette di definire il contenuto della nota
+     * metodo che permette di definire il contenuto della nota.
      */
     public void setContenuto(final String contenuto) {
         this.contenuto = contenuto;
@@ -157,8 +157,8 @@ public class Nota implements Serializable {
 
     /**
      *
-     * @return dataPubblicazione
-     * metodo che restituisce la data di pubblicazione della nota
+     * @return dataPubblicazione.
+     * metodo che restituisce la data di pubblicazione della nota.
      */
     public LocalDate getDataPubblicazione() {
         return dataPubblicazione;
@@ -167,7 +167,7 @@ public class Nota implements Serializable {
     /**
      *
      * @param dataPubblicazione
-     * metodo che permette di definire la data di pubblicazione della nota
+     * metodo che permette di definire la data di pubblicazione della nota.
      */
     public void setDataPubblicazione(final LocalDate dataPubblicazione) {
         this.dataPubblicazione = dataPubblicazione;
@@ -175,8 +175,8 @@ public class Nota implements Serializable {
 
     /**
      *
-     * @return autore
-     * metodo che permette di restituire l'autore della nota
+     * @return autore.
+     * metodo che permette di restituire l'autore della nota.
      */
     public long getAutore() {
         return autore;
@@ -185,7 +185,7 @@ public class Nota implements Serializable {
     /**
      *
      * @param autore
-     * metodo che permette di definire l'autore della nota
+     * metodo che permette di definire l'autore della nota.
      */
     public void setAutore(final long autore) {
         this.autore = autore;
@@ -193,8 +193,8 @@ public class Nota implements Serializable {
 
     /**
      *
-     * @return statoNota
-     * metodo che permette di restituire lo stato della nota
+     * @return statoNota.
+     * metodo che permette di restituire lo stato della nota.
      */
     public StatoNotifica getStatoNota() {
         return statoNota;
@@ -203,7 +203,7 @@ public class Nota implements Serializable {
     /**
      *
      * @param statoNota
-     * metodo che permette di definire lo stato della nota
+     * metodo che permette di definire lo stato della nota.
      */
     public void setStatoNota(StatoNotifica statoNota) {
         this.statoNota = statoNota;
@@ -211,8 +211,9 @@ public class Nota implements Serializable {
 
     /**
      *
-     * @return medico
-     * metodo che permette di restituire il medico che ha scritto/ricevuto la nota
+     * @return medico.
+     * metodo che permette di restituire il medico che ha.
+     *                                  scritto/ricevuto la nota.
      */
     public Medico getMedico() {
         return medico;
@@ -221,7 +222,8 @@ public class Nota implements Serializable {
     /**
      *
      * @param medico
-     * metodo che permette di definire il medico che ha scritto/ricevuto la nota
+     * metodo che permette di definire il medico che ha.
+     *                              scritto/ricevuto la nota.
      */
     public void setMedico(final Medico medico) {
         this.medico = medico;
@@ -230,7 +232,8 @@ public class Nota implements Serializable {
     /**
      *
      * @return paziente
-     * metodo che permette di restituire il paziente che ha scritto/ricevuto la nota
+     * metodo che permette di restituire il paziente che ha.
+     *                                  scritto/ricevuto la nota.
      */
     public Paziente getPaziente() {
         return paziente;
@@ -239,7 +242,8 @@ public class Nota implements Serializable {
     /**
      *
      * @param paziente
-     * metodo che permette di definire il paziente che ha scritto/ricevuto la nota
+     * metodo che permette di definire il paziente che ha.
+     *                              scritto/ricevuto la nota.
      */
     public void setPaziente(final Paziente paziente) {
         this.paziente = paziente;
@@ -247,7 +251,7 @@ public class Nota implements Serializable {
 
     /**
      *
-     * @return String
+     * @return String.
      */
     @Override
     public String toString() {

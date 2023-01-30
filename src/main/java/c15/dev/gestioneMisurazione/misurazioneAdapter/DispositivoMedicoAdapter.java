@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 /**
  * @author Mario Cicalese, Vincenzo Maria Arnone, Paolo Carmine Valletta.
  * creato il: 06/01/2023.
- * Questa classe rappresenta il design pattern adapter che converte una
+ * Questa classe rappresenta il design pattern adapter che converte una.
  * misurazione JSON in un oggetto misurazione.
  *
  */
@@ -51,7 +51,8 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico {
                 .build();
         try {
             System.out.println("MISURAZIONE  JSON = " + misurazioneJSON);
-            Misurazione result = om.readValue(misurazioneJSON, misurazioneFactory(misurazioneJSON).getClass());
+            Misurazione result = om.readValue(misurazioneJSON,
+                    misurazioneFactory(misurazioneJSON).getClass());
             result.setPaziente(adaptee.getPaziente());
             result.setDispositivoMedico(adaptee);
             System.out.println("FUNZIONA?\n");
@@ -71,9 +72,9 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico {
     /**
      *
      * @param misurazioneJSON
-     * @return Misurazione
-     * Questo metodo rappresenta il design pattern Factory Method che in base
-     * alla categoria del dispositivo medico restituisce un oggetto figlio
+     * @return Misurazione.
+     * Questo metodo rappresenta il design pattern Factory Method che in base.
+     * alla categoria del dispositivo medico restituisce un oggetto figlio.
      * di misurazione.
      */
     public Misurazione misurazioneFactory(final String misurazioneJSON) {

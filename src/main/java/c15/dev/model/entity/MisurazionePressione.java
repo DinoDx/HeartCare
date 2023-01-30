@@ -59,14 +59,14 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     }
 
     /**
-     * @param dataMisurazione rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivoMedico rappresenta il dispositivo medico con cui
-     *                          è stata effettuata la misurazione
-     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto
-     * @param pressioneMassima rappresenta il valore della pressione massima
-     * @param pressioneMinima rappresenta il valore della pressione minima
-     * @param pressioneMedia rappresenta il valore della pressione media
+     * @param dataMisurazione rappresenta la data della misurazione.
+     * @param paziente rappresenta il paziente coinvolto nella misurazione.
+     * @param dispositivoMedico rappresenta il dispositivo medico con cui.
+     *                          è stata effettuata la misurazione.
+     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto.
+     * @param pressioneMassima rappresenta il valore della pressione massima.
+     * @param pressioneMinima rappresenta il valore della pressione minima.
+     * @param pressioneMedia rappresenta il valore della pressione media.
      */
     public MisurazionePressione(final LocalDate dataMisurazione,
                                 final Paziente paziente,
@@ -84,7 +84,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
 
     /**
      *
-     * @return battitiPerMinuto
+     * @return battitiPerMinuto.
      * Metodo che restituisce il valore dei battiti per minuto.
      */
     public int getBattitiPerMinuto() {
@@ -104,7 +104,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
 
     /**
      *
-     * @return pressioneMassima
+     * @return pressioneMassima.
      * Metodo che restituisce il valore della pressione massima.
      */
     public double getPressioneMassima() {
@@ -122,7 +122,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
 
     /**
      *
-     * @return pressioneMinima
+     * @return pressioneMinima.
      * Metodo che restituisce il valore della pressione minima.
      */
     public double getPressioneMinima() {
@@ -141,7 +141,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
 
     /**
      *
-     * @return pressioneMedia
+     * @return pressioneMedia.
      * Metodo che restituisce il valore della pressione media.
      */
     public double getPressioneMedia() {

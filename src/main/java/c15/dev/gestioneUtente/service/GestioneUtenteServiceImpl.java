@@ -22,7 +22,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
+/**
+ * @author Carlo.
+ *  Creato il : 03/01/2023.
+ * Questa classe rappresenta il Service utilizzato per la gestione utenti.
+ */
 @Service
 @RequiredArgsConstructor
 public class GestioneUtenteServiceImpl implements GestioneUtenteService {
@@ -31,6 +35,9 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /**
+     * Provvede ad accedere al db per il dispositivo medico.
+     */
     @Autowired
     private DispositivoMedicoDAO daoM;
 
@@ -50,9 +57,15 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Autowired
     private MedicoDAO medico;
 
+    /**
+     * Provvede ad accedere al db per l'indirizzo.
+     */
     @Autowired
     private IndirizzoDAO indirizzo;
 
+    /**
+     * Provvede ad accedere al db per l'utente.
+     */
     @Qualifier("utenteRegistratoDAO")
     @Autowired
     private UtenteRegistratoDAO utente;
@@ -78,10 +91,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che assegna un caregiver a un paziente.
-     * @param idPaziente del paziente a cui si vuole assegnare il caregiver
-     * @param emailCaregiver email del caregiver
-     * @param nomeCaregiver nome del caregiver
-     * @param cognomeCaregiver nome del caregiver
+     * @param idPaziente del paziente a cui si vuole assegnare il caregiver.
+     * @param emailCaregiver email del caregiver.
+     * @param nomeCaregiver nome del caregiver.
+     * @param cognomeCaregiver nome del caregiver.
      */
     @Override
     public void assegnaCaregiver(final Long idPaziente,
@@ -137,6 +150,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return true;
     }
 
+    /**
+     * Metodo che trova tutti i dispositivi di un paziente
+     * @param idPaziente
+     * @return
+     */
     @Override
     public Set<DispositivoMedico> getDispositiviByPaziente(long idPaziente) {
         //Paziente pz = this.findPazienteById(idPaziente);
@@ -206,8 +224,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * Implementazione del metodo che verifica se un utente è un admin
-     * @param idUtente id dell'utente che vogliamo controllare che sia un admin
+     * Implementazione del metodo che verifica se un utente è un admin.
+     * @param idUtente id dell'utente che vogliamo controllare sia un admin.
      * @return
      */
     @Override
@@ -264,7 +282,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che trova Medico tramite id.
-     * @param id id del medico
+     * @param id id del medico.
      * @return
      */
     @Override
@@ -411,6 +429,13 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         paziente.save(daModificare);
     }
 
+    /**
+     * Metodo per la modifica dati di un medico.
+     * @param dto
+     * @param idUtente
+     * @throws Exception
+     */
+
     @Override
     public void modificaDatiMedico(final UtenteRegistratoDTO dto,
                                    final long idUtente) throws Exception {
@@ -425,6 +450,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     }
 
+    /**
+     * Metodo per la ricerca di un medico tramite il suo paziente.
+     * @param idPaziente
+     * @return
+     */
     @Override
     public  Long findMedicoByPaziente(final long idPaziente){
         Medico m = findPazienteById(idPaziente).getMedico();

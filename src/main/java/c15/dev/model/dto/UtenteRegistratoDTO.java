@@ -11,8 +11,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Classe dto per la modifica degli utenti.
  * @author carlo.
+ * Classe dto per la modifica degli utenti.
  */
 @Data
 public class UtenteRegistratoDTO implements Serializable {
@@ -55,7 +55,8 @@ public class UtenteRegistratoDTO implements Serializable {
             this.password = pass;
         }
         else {
-            throw new Exception("La password non rispetta l'espressione regolare");
+            throw new Exception("La password non rispetta " +
+                    "l'espressione regolare");
         }
     }
 
@@ -71,7 +72,8 @@ public class UtenteRegistratoDTO implements Serializable {
             this.confermaPassword = pass;
         }
         else {
-            throw new Exception("La password non rispetta l'espressione regolare");
+            throw new Exception("La password non rispetta " +
+                    "l'espressione regolare");
         }
     }
 }

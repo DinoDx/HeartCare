@@ -27,10 +27,20 @@ import java.util.Set;
 @RestController
 @CrossOrigin
 public class GestioneMisurazioneController {
+    /**
+     * Sessione
+     */
     @Autowired
     private HttpSession session;
+    /**
+     * Service per la misurazione
+     */
     @Autowired
     private GestioneMisurazioneService misurazioneService;
+
+    /**
+     * Service per la gestione utenti
+     */
     @Autowired
     private GestioneUtenteService utenteService;
     private DispositivoMedicoStub dispositivoMedicoStub
@@ -38,7 +48,8 @@ public class GestioneMisurazioneController {
 
     /**
      * Metodo per la registrazione del dispositivo.
-     * @param dis
+     * @param requestMap
+     * @param request
      */
     @PostMapping(value = "/dispositivo/registra")
     public ResponseEntity<Object>
@@ -56,7 +67,6 @@ public class GestioneMisurazioneController {
         var result = misurazioneService
                 .registrazioneDispositivo(requestMap, idUser);
         if (!result) {
-            System.out.println("sono nel not result, non va a buon fine la registrazione");
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(HttpStatus.OK);
@@ -84,9 +94,9 @@ public class GestioneMisurazioneController {
      * @return List<Misurazione>
      */
     @PostMapping(value = "/FascicoloSanitarioElettronico")
-    public List<Misurazione> getFascicoloSanitarioElettronico(@RequestParam long id) {
+    public List<Misurazione> getFascicoloSanitarioElettronico(
+                                            @RequestParam long id) {
         if (!utenteService.isPaziente(id)) {
-            System.out.println("paziente non esistente");
             return null;
         }
         return misurazioneService.getMisurazioniByPaziente(id);
@@ -94,15 +104,16 @@ public class GestioneMisurazioneController {
 
     /**
      *
-     * @param idDispositivo
-     * @return Misurazione
-     * Questo metodo permette di avviare una registrazione sull'id
+     * @param request
+     * @param map
+     * @return Misurazione.
+     * Questo metodo permette di avviare una registrazione sull'id.
      * del dispositivo passato input e di restituire la misurazione generata.
      *
      */
     @PostMapping(value = "/avvioMisurazione")
-    public Misurazione avvioMisurazione(@RequestBody final HashMap<String, Object> map,
-                                            final HttpServletRequest request) {
+    public Misurazione avvioMisurazione(@RequestBody final HashMap<String,
+            Object> map, final HttpServletRequest request) {
 
         var email = request.getUserPrincipal().getName();
         var u = utenteService.findUtenteByEmail(email);
@@ -111,30 +122,52 @@ public class GestioneMisurazioneController {
             return null;
         }
 
-        Long idDispositivo = Long.parseLong(map.get("idDispositivo").toString());
+        Long idDispositivo = Long.parseLong(map.get("idDispositivo")
+                .toString());
         var dispositivoMedico = misurazioneService.getById(idDispositivo);
-        var dispositivoAdapter = new DispositivoMedicoAdapter(dispositivoMedico);
+        var dispositivoAdapter =
+                new DispositivoMedicoAdapter(dispositivoMedico);
         var m =  dispositivoAdapter.avvioMisurazione();
         misurazioneService.save(m);
         return m;
     }
 
+    /**
+     * Metodo per ricevere le misurazioni tramite una categorie.
+     * @param body
+     * @return
+     */
     @PostMapping(value = "/getMisurazioneCategoria")
-    public List<Misurazione> getMisurazioniByCategoria(@RequestBody HashMap<String,Object> body){
+    public List<Misurazione> getMisurazioniByCategoria(
+            @RequestBody HashMap<String,Object> body){
         System.out.println("CATEGORIA" + body.get("categoria") + "\n");
         String cat = body.get("categoria").toString() ;
         Long idPaz = Long.parseLong(body.get("id").toString());
         return misurazioneService.getMisurazioneByCategoria(cat, idPaz);
     }
+
+    /**
+     * Metodo per ricevere le misurazioni da un paziente.
+     * @param body
+     * @return
+     */
     @PostMapping(value = "/getAllMisurazioniByPaziente")
-    public ResponseEntity<Object> getAllMisurazioniByPaziente(@RequestBody HashMap<String,Object> body){
+    public ResponseEntity<Object> getAllMisurazioniByPaziente(
+            @RequestBody HashMap<String,Object> body){
         Long idPaz = Long.parseLong(body.get("id").toString());
-        List<MisurazioneDTO> list = misurazioneService.getAllMisurazioniByPaziente(idPaz);
+        List<MisurazioneDTO> list =
+                misurazioneService.getAllMisurazioniByPaziente(idPaz);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    /**
+     * Metodo per ricevere le cateogire delle misurazioni di un paziente.
+     * @param body
+     * @return
+     */
     @PostMapping(value = "/getCategorie")
-    public List<String> getCategorieByPaziente(@RequestBody HashMap<String,Object> body){
+    public List<String> getCategorieByPaziente(
+            @RequestBody HashMap<String,Object> body){
         Long idPaz = Long.parseLong(body.get("id").toString());
         System.out.println("aoooo");
         return misurazioneService.findCategorieByPaziente(idPaz);

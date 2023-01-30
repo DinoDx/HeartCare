@@ -16,10 +16,10 @@ import java.time.LocalDate;
 import java.util.Date;
 
 /**
- * @author Alessandro Zoccola
- * Creato il: 30/12/2022
+ * @author Alessandro Zoccola.
+ * Creato il: 30/12/2022.
  * Questa è la classe relativa ad una Misurazione.
- * I campi sono: id autogenerato, data della misurazione
+ * I campi sono: id autogenerato, data della misurazione.
  */
 
 @Entity
@@ -40,7 +40,7 @@ public class Misurazione implements Serializable {
 
     /**
      * Campo relativo alla Data di misurazione nel formato GG-MM-AAAA HH:mm.
-     * Invariante: la data della misurazione deve essere maggiore
+     * Invariante: la data della misurazione deve essere maggiore.
      * o uguale alla data corrente.
      */
     @Column(name = "data_misurazione", nullable = false)
@@ -67,9 +67,9 @@ public class Misurazione implements Serializable {
 
     /**
      * @param data rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivo rappresenta il dispositivo medico con cui è stata
-     *effettuata la misurazione
+     * @param paziente rappresenta il paziente coinvolto nella misurazione.
+     * @param dispositivo rappresenta il dispositivo medico con cui è stata.
+     *effettuata la misurazione.
      */
     public Misurazione(LocalDate data,
                        Paziente paziente,

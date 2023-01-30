@@ -36,7 +36,7 @@ public class DispositivoMedicoStub {
      *
      * @param genere
      * @return String.
-     * Questo metodo restituisce una misurazione della categoria
+     * Questo metodo restituisce una misurazione della categoria.
      * Enzimi Cardiaci.
      */
     public String MisurazioneEnzimiCardiaciStub(String genere){
@@ -79,13 +79,14 @@ public class DispositivoMedicoStub {
 
     /**
      *
-     * @return String
-     * Questo metodo restituisce una misurazione della categoria
+     * @return String.
+     * Questo metodo restituisce una misurazione della categoria.
      * Saturazione.
      */
     public String MisurazioneSaturazioneStub(){
         Integer battitiPerMinuto = ThreadLocalRandom.current().nextInt(60, 90);
-        Integer percentualeSaturazione = ThreadLocalRandom.current().nextInt(75, 100);
+        Integer percentualeSaturazione =
+                ThreadLocalRandom.current().nextInt(75, 100);
 
         mappa.put("battitiPerMinuto",battitiPerMinuto);
         mappa.put("percentualeSaturazione",percentualeSaturazione);
@@ -112,12 +113,13 @@ public class DispositivoMedicoStub {
     /**
      *
      * @param eta
-     * @return String
-     * Questo metodo restituisce una misurazione della categoria
+     * @return String.
+     * Questo metodo restituisce una misurazione della categoria.
      * Pressione.
      */
     public String MisurazionePressioneStub(Integer eta){
-        Integer battitiPerMinuto = ThreadLocalRandom.current().nextInt(60, 90);
+        Integer battitiPerMinuto =
+                ThreadLocalRandom.current().nextInt(60, 90);
         Integer pressioneMinima = 0;
         Integer pressioneMassima = 0;
         Integer pressioneMedia;
@@ -177,7 +179,7 @@ public class DispositivoMedicoStub {
 
     /**
      *
-     * @return String
+     * @return String.
      * Questo metodo restituisce una misurazione della categoria Glicemica.
      */
     public String MisurazioneGlicemicaStub(){
@@ -213,8 +215,8 @@ public class DispositivoMedicoStub {
 
     /**
      *
-     * @return String
-     * Questo metodo restituisce una misurazione della categoria
+     * @return String.
+     * Questo metodo restituisce una misurazione della categoria.
      * HolterECG.
      */
     public String MisurazioneHolterECGStub(){
@@ -259,7 +261,7 @@ public class DispositivoMedicoStub {
 
     /**
      *
-     * @return String
+     * @return String.
      * Questo metodo restituisce una misurazione della categoria Coagulazione.
      */
     public String MisurazioneCoagulazioneStub(){
