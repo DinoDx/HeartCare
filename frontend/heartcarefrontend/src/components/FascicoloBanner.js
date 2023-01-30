@@ -25,7 +25,7 @@ export function FascicoloBanner(props){
     }
 
     return(
-        <div className="banner">
+        <div className="bannerFascicoloSanitarioElettronico">
             {props.categorie.map(cat => {
                 return(
                     <div className="blocco-testo-banner" key={cat}>

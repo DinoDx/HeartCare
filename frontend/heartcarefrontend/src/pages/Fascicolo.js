@@ -1,7 +1,8 @@
 import "../css/Fascicolo.css"
 import {FascicoloBanner} from "../components/FascicoloBanner";
 import Grafico from "../components/Grafico";
-import {useState,useEffect} from "react";
+import React, {useState,useEffect} from "react";
+import { FaNotesMedical } from "react-icons/fa";
 
 function Fascicolo(){
     const [Categorie,setCategorie] = useState([]);
@@ -54,20 +55,38 @@ function Fascicolo(){
     }
         return (
         <div className="contenitoreFascicoloContent">
-            <div className="mainContentFascicolo">
+            <div className="contenitoreSinistra" style={{
+                width: "90%"
+            }}>
+                <span className="testo-bentornat" style={{marginLeft:"0px"}}>Il tuo Fasciscolo Sanitario Elettronico 📊</span>
                 <FascicoloBanner categorie={Categorie} misurazioni = {Misurazioni}/>
                 <Grafico categorie={Categorie} misurazioni = {Misurazioni}/>
-                <div>
+                <span className="testo-bentornat" style={{marginLeft:"0px"}}>Storico delle tue Misurazioni 📊</span>
+                <div className="contenitoreMisurazioni">
                     {Categorie.map( cat => {
                         return(
                             <div>
-                                <span>{cat}</span>
-                                <div>
+                                <h2>{cat}</h2>
+                                <div className="bloccoMisurazione">
                                     {returnByCategoria(cat).map( mis => {
                                         return (
-                                            Object.entries(mis["misurazione"]).map(chiave =>
-                                                <span>{chiave[0]} : {chiave[1]}</span>
-                                            )
+                                            <div className="contenitoreMisurazione">
+                                                <div className="contenitoreIcona"><FaNotesMedical className="iconaMisurazione"/></div>
+                                                <div className="contenitoreDati">
+                                                {
+                                                    Object.entries(mis["misurazione"]).map(chiave => {
+                                                            if (chiave[0] != "id") {
+                                                                return(
+                                                                    <div>
+                                                                        <span className="nomeCampo">{chiave[0]} :</span> <span className="valoreCampo">{chiave[1]}</span>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        }
+                                                    )
+                                                }
+                                                </div>
+                                            </div>
                                         )
                                     })}
                                 </div>
