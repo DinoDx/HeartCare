@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import Modal from "react-responsive-modal";
 import jwt from "jwt-decode";
 import {FaNotesMedical} from "react-icons/fa";
+import {IoMdPin} from "react-icons/io";
 
 function VisitaCard(props) {
     const [open, setOpen] = useState(false);
@@ -153,6 +154,9 @@ function VisitaCard(props) {
                 </div>
                 <div className="informazionePaziente">
                     <IoCallOutline/> <span>{props.numero}</span>
+                </div>
+                <div className="informazionePaziente">
+                    <IoMdPin/> <span>{props.comune}({props.provincia}), {props.via}, {props.ncivico}</span>
                 </div>
             </div>
 

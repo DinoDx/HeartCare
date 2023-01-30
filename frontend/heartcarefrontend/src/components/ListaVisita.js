@@ -58,6 +58,11 @@ function ListaVisita(props) {
                               cognomePaziente={data[el]["cognomePaziente"]}
                               numero={data[el]["numeroTelefono"]}
                               genere={data[el]["genere"]}
+                              comune = {data[el]["comune"]}
+                              via = {data[el]["viaIndirizzo"]}
+                              ncivico = {data[el]["ncivico"]}
+                              provincia = {data[el]["provincia"]}
+
                   />
                 )
     })}

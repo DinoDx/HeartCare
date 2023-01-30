@@ -367,11 +367,15 @@ public class GestioneUtenteController {
 
         /** se il testo non è vuoto allora si filtrano i risultati.*/
         var listPaz = listaPazienti.stream()
-                .filter(pz -> (pz.getNome() + " " + pz.getCognome())
+                .filter(pz -> (pz.getNome()+" "+pz.getCognome())
                                 .toLowerCase()
                                 .contains(txt.toLowerCase()))
                 .toList();
         return new ResponseEntity<>(listPaz, HttpStatus.OK);
+    }
+    @GetMapping(value = "/getIndirizzi")
+    public ResponseEntity<Object> getIndirizzi(){
+        return new ResponseEntity<>(service.findAllIndirizzi(),HttpStatus.OK);
     }
 }
 

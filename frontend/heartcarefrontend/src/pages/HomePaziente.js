@@ -41,7 +41,7 @@ function HomePaziente() {
                 method: "POST",
                 headers: config,
                 body: JSON.stringify({
-                    id: 1
+                    id: jwt(token).id
                 })
             }).then(response => {
                 return response.json()
@@ -54,7 +54,7 @@ function HomePaziente() {
                 method: "POST",
                 headers: config,
                 body: JSON.stringify({
-                    id: 1
+                    id: jwt(token).id
                 })
             }).then(response => {
                 return response.json()
@@ -85,9 +85,7 @@ function HomePaziente() {
             console.log("ma perche");
             setStompClient(client);
             client.subscribe('/topic/notifica', (response) => {
-                console.log(response.body);
                 response = JSON.parse(response.body);
-                console.log(response.body, "OOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                 if (response.idPaziente == idPaziente) {
                     console.log(response.messagio,"OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                     setNotifications((response.messagio));
@@ -113,8 +111,8 @@ function HomePaziente() {
         console.log("merdosoooooooooooooooooooooooooooooooooooo")
       isFirstRun.current = false;
       return;
-    }       console.log("SPERIAMOOOOOOOOOOOOO")
-            
+    }
+            fetchData();
             console.log("CAZZONIIIIIIIIIIIIIIIIIII            ")
             speriamo()
         
@@ -168,7 +166,10 @@ function HomePaziente() {
     const onOpenModal = () => setOpen(true);
     const onOpenModalRisultati = () => setOpenModalRisultati(true);
     const onCloseModal = () => setOpen(false);
-    const onCloseModalRisultati = () => setOpenModalRisultati(false);
+    const onCloseModalRisultati = () => {
+        setOpenModalRisultati(false);
+        document.location.reload();
+    }
 
     const aggiornaDispositivoMisurazione = (event) => {
         setDispositivoMisurazione(event.target.value);
@@ -217,7 +218,7 @@ function HomePaziente() {
                     })}
                 </select>
                 <br />
-                <button className="bottoneInviaNota" onClick={() => { onOpenModalRisultati(); onCloseModal(); avviaMisurazione(); ;fetchData(); }}>Avvia Misurazione</button>
+                <button className="bottoneInviaNota" onClick={() => { onOpenModalRisultati(); onCloseModal(); avviaMisurazione(); }}>Avvia Misurazione</button>
             </Modal>
 
             <Modal open={openRisultati} onClose={()=> {onCloseModalRisultati()}} center>
@@ -268,7 +269,7 @@ function HomePaziente() {
                 </div>
                 <Grafico categorie={Categorie} misurazioni={Misurazioni} />
                 <div className="containerBottoni">
-                    <button className="bottoneHomePaziente" onClick={()=>{onOpenModal()}} >Avvio Misurazione</button>
+                    <button className="bottoneHomePaziente" onClick={() => {onOpenModal();fetchData()}} >Avvio Misurazione</button>
                     <button className="bottoneHomePaziente">Avvio Predizione</button>
                 </div>
 

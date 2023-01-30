@@ -1,5 +1,6 @@
 package c15.dev.gestioneVisita.service;
 
+import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Visita;
 
 import java.util.List;
@@ -25,4 +26,5 @@ public interface GestioneVisitaService {
      * @return
      */
     List<Visita> findVisiteProgrammateByUser(final String email);
+    Indirizzo findIndirizzoById(Long id);
 }

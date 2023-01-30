@@ -8,10 +8,15 @@ import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.Visita;
 import c15.dev.model.entity.enumeration.StatoVisita;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +24,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -45,16 +54,34 @@ public class GestioneVisitaController {
      * @param body
      */
     @PostMapping("/crea")
-    public void aggiungiVisita(@RequestBody final Map<String, Object> body) {
-        Date dataVisita = (Date) body.get("data");
-        Long idPaziente = (Long) body.get("paziente");
-        Paziente paziente = utenteService.findPazienteById(idPaziente);
-        Indirizzo indirizzo = (Indirizzo) body.get("indirizzo");
-        // TO DO potrebbe essere necessario creare un indirizzo.
-        // siccome viene passato un id.
-        // va testato con il frontend.
+    public void aggiungiVisita(@RequestBody final Map<String, Object> body,
+                               HttpServletRequest request)
+            throws JsonProcessingException, ParseException {
+       // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      //  System.out.println(body.get("data").toString());
+        //Date dataVisita = sdf.parse(body.get("data").toString());
+        // /Date dataVisita = new SimpleDateFormat("yyyy-MM-dd").parse(body.get("data").toString());
+       // System.out.println(dataVisita);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dataVisita = LocalDate.parse(body.get("data").toString(), formatter);
+      /*  ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+        LocalDate dataVisita = mapper.readValue(body.get("data"),LocalDate.class); */
+        //DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+       // LocalDate  d1 = LocalDate.parse(date1, df);
+       // GregorianCalendar dataVisita = (GregorianCalendar) body.get("data");
+       // LocalDate dataVisita = mapper.readValue(body.get("data").toString(),LocalDate.class);
+        //System.out.println(dataVisita)
+        //Date dataVisita = sdf.parse(body.get("data").toString());
 
-        Long idMedico = (Long) session.getAttribute("utenteLoggato");
+        Long idPaziente = Long.parseLong(body.get("paziente").toString());
+        Paziente paziente = utenteService.findPazienteById(idPaziente);
+        Long idIndirizzo = Long.parseLong(body.get("indirizzo").toString());
+        Indirizzo indirizzo = visitaService.findIndirizzoById(idIndirizzo);
+        System.out.println("sono entrato in crea visita");
+        System.out.println("AOOOOOOOOOOOOOOOOOO"+request.getUserPrincipal().getName());
+        Long idMedico = utenteService.findUtenteByEmail(request.getUserPrincipal().getName()).getId();
         Medico medicoVisita = utenteService.findMedicoById(idMedico);
 
         //se l'id non corrisponde a un medico si va in corto circuito.
@@ -63,7 +90,7 @@ public class GestioneVisitaController {
         }
 
         @Valid Visita visita = new Visita(LocalDate.of(
-                dataVisita.getDay(),
+                dataVisita.getYear(),
                 dataVisita.getMonth(),
                 dataVisita.getYear()),
                 StatoVisita.PROGRAMMATA,
@@ -71,7 +98,6 @@ public class GestioneVisitaController {
                 paziente,
                 indirizzo);
         visitaService.aggiuntaVisita(visita);
-
     }
 
     /**
@@ -99,7 +125,8 @@ public class GestioneVisitaController {
                         .genere(v.getPaziente().getGenere())
                         .numeroTelefono(v.getPaziente().getNumeroTelefono())
                         .viaIndirizzo(v.getIndirizzoVisita().getVia())
-                        .nCivico(v.getIndirizzoVisita().getnCivico())
+                        .nCivico(v.getIndirizzoVisita().getNCivico())
+                        .provincia(v.getIndirizzoVisita().getProvincia())
                         .comune(v.getIndirizzoVisita().getCitta())
                         .build())
                 .toList();

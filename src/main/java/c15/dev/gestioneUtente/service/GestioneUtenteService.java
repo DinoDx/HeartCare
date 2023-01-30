@@ -199,5 +199,6 @@ public interface GestioneUtenteService {
      * @return
      */
     public  Long findMedicoByPaziente(final long idPaziente);
+    public List<Indirizzo> findAllIndirizzi();
 
 }

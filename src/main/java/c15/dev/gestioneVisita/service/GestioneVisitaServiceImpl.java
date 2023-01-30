@@ -1,7 +1,9 @@
 package c15.dev.gestioneVisita.service;
 
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
+import c15.dev.model.dao.IndirizzoDAO;
 import c15.dev.model.dao.VisitaDAO;
+import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Visita;
 import c15.dev.model.entity.enumeration.StatoVisita;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
 
     @Autowired
     private GestioneUtenteService utenteService;
+
+    @Autowired
+    private IndirizzoDAO indirizzoDAO;
 
     /**
      * Metodo per salvare una nuova visita.
@@ -60,5 +65,10 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
         }
 
         return null;
+    }
+
+    @Override
+    public Indirizzo findIndirizzoById(Long id) {
+        return indirizzoDAO.findById(id).get();
     }
 }

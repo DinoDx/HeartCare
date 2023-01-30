@@ -461,4 +461,9 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return m.getId();
     }
 
+    @Override
+    public List<Indirizzo> findAllIndirizzi() {
+        return indirizzo.findAll();
+    }
+
 }
