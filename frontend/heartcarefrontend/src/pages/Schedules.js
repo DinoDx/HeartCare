@@ -5,6 +5,7 @@ import "../css/scheduleStyle.css";
 import Modal from "react-responsive-modal";
 import { BiPlusCircle, BiPlusMedical } from "react-icons/bi";
 import jwt from "jwt-decode";
+import pathGif from "../images/Ripple-1s-200px_1.gif";
 
 function Schedules() {
   const [open, setOpen] = useState(false);
