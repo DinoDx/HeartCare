@@ -55,44 +55,23 @@ public class GestioneVisitaController {
      */
     @PostMapping("/crea")
     public void aggiungiVisita(@RequestBody final Map<String, Object> body,
-                               HttpServletRequest request)
-            throws JsonProcessingException, ParseException {
-       // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-      //  System.out.println(body.get("data").toString());
-        //Date dataVisita = sdf.parse(body.get("data").toString());
-        // /Date dataVisita = new SimpleDateFormat("yyyy-MM-dd").parse(body.get("data").toString());
-       // System.out.println(dataVisita);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dataVisita = LocalDate.parse(body.get("data").toString(), formatter);
-      /*  ObjectMapper mapper = JsonMapper.builder()
-                .addModule(new JavaTimeModule())
-                .build();
-        LocalDate dataVisita = mapper.readValue(body.get("data"),LocalDate.class); */
-        //DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-YYYY");
-       // LocalDate  d1 = LocalDate.parse(date1, df);
-       // GregorianCalendar dataVisita = (GregorianCalendar) body.get("data");
-       // LocalDate dataVisita = mapper.readValue(body.get("data").toString(),LocalDate.class);
-        //System.out.println(dataVisita)
-        //Date dataVisita = sdf.parse(body.get("data").toString());
-
+                               HttpServletRequest request){
         Long idPaziente = Long.parseLong(body.get("paziente").toString());
         Paziente paziente = utenteService.findPazienteById(idPaziente);
+
         Long idIndirizzo = Long.parseLong(body.get("indirizzo").toString());
         Indirizzo indirizzo = visitaService.findIndirizzoById(idIndirizzo);
-        System.out.println("sono entrato in crea visita");
-        System.out.println("AOOOOOOOOOOOOOOOOOO"+request.getUserPrincipal().getName());
+
+        LocalDate dataVisita = LocalDate.parse(body.get("data").toString());
         Long idMedico = utenteService.findUtenteByEmail(request.getUserPrincipal().getName()).getId();
         Medico medicoVisita = utenteService.findMedicoById(idMedico);
 
-        //se l'id non corrisponde a un medico si va in corto circuito.
+
         if(medicoVisita == null){
             return;
         }
 
-        @Valid Visita visita = new Visita(LocalDate.of(
-                dataVisita.getYear(),
-                dataVisita.getMonth(),
-                dataVisita.getYear()),
+       @Valid Visita visita = new Visita(dataVisita,
                 StatoVisita.PROGRAMMATA,
                 medicoVisita,
                 paziente,

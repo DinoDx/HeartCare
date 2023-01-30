@@ -91,7 +91,7 @@ function Schedules() {
 
   const handlerOnClick = async() =>{
     try{
-      const response = await fetch("http://localhost:8080/crea", {
+      const response = await fetch("http://localhost:8080/visite/crea", {
         method : "POST",
         headers : config,
         body : JSON.stringify({
@@ -140,7 +140,7 @@ function Schedules() {
             <span>Aggiungi data</span><br/>
             <input id ="calendar" type="date" min={new Date().getFullYear()} onChange={e => aggiornaDataSelect(e)}/>
           </div>
-          <button onClick={()=>{onOpenModalRiepilogo(); onCloseModal()}}>Aggiungi</button>
+          <button onClick={()=>{onOpenModalRiepilogo(); onCloseModal(); handlerOnClick()}}>Aggiungi</button>
         </Modal>
 
         <Modal open={openRiepilogoVisita} onClose={onCloseModalRiepilogo}>
