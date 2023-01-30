@@ -55,6 +55,8 @@ public class VisitaDTO {
      *  Parametro genere.
      */
     private String genere;
-
-
+    /**
+     *  Parametro id paziente.
+     */
+    private Long idPaziente;
 }
