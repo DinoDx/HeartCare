@@ -5,9 +5,11 @@ import ListaPazienti from "../components/ListaPazienti";
 import HamburgerMenu from "../components/HamburgerMenu";
 import { Chart } from "react-google-charts";
 import jwt from "jwt-decode";
+import { FaTrashRestore } from "react-icons/fa";
 function Pazienti() {
     const [utente, setUtente] = useState([]);
     const token = localStorage.getItem("token");
+    const [testo,setTesto] = useState(" ");
 
     let config = {
         Accept: "application/json",
@@ -40,14 +42,16 @@ function Pazienti() {
 
         }
     }, [utente])
+
+
   return (
     <div className="contenitorePazientiContent">
         <div className="searchbar">
-            <input id="search" type="text" placeholder=" 🔍Cerca Paziente..." />
+            <input id="search" type="text" placeholder=" 🔍Cerca Paziente..."  onChange={(e) => setTesto(e.target.value)}/>
         </div>
         <span className="bentornato">Bentornato, {utente.cognome}  👋🏻</span>
         <span className="iTuoiPazienti">I tuoi pazienti: </span>
-        <ListaPazienti />
+        <ListaPazienti txt={testo} />
     </div>
   );
 }

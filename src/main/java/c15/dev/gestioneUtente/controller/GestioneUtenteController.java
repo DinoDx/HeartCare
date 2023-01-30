@@ -4,8 +4,11 @@ import c15.dev.gestioneComunicazione.service.GestioneComunicazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
-import c15.dev.model.entity.*;
+import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.Medico;
+import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.model.entity.enumeration.StatoVisita;
+import c15.dev.utils.Role;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -26,7 +29,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.*;
+import java.util.List;
+import java.util.HashMap;
 
 /**
  * @author Leopoldo Todisco, Carlo Venditto.
@@ -64,10 +68,10 @@ public class GestioneUtenteController {
      * @param cognomeCaregiver
      */
     @RequestMapping(value = "/assegnaCaregiver", method = RequestMethod.POST)
-    public void assegnaCaregiver(@RequestParam Long idPaziente,
-                                 @RequestParam String emailCaregiver,
-                                 @RequestParam String nomeCaregiver,
-                                 @RequestParam String cognomeCaregiver) {
+    public void assegnaCaregiver(@RequestParam final Long idPaziente,
+                                 @RequestParam final String emailCaregiver,
+                                 @RequestParam final String nomeCaregiver,
+                                 @RequestParam final String cognomeCaregiver) {
         if (service.isPaziente(idPaziente)) {
             service.assegnaCaregiver(idPaziente,
                     emailCaregiver,
@@ -98,8 +102,8 @@ public class GestioneUtenteController {
      * @param idPaziente
      */
     @RequestMapping(value = "/assegnaPaziente", method = RequestMethod.POST)
-    public void assegnaPaziente(@RequestParam long idMedico,
-                                @RequestParam long idPaziente) {
+    public void assegnaPaziente(@RequestParam final long idMedico,
+                                @RequestParam final long idPaziente) {
         if (service.isMedico(idMedico) && service.isPaziente(idPaziente)) {
             service.assegnaPaziente(idMedico, idPaziente);
         }
@@ -149,11 +153,11 @@ public class GestioneUtenteController {
      */
     @GetMapping(value = "/getPazientiByMedico/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getPazientiByMedico(
-                        @PathVariable("id") long idMedico) {
+    public ResponseEntity<Object>
+    getPazientiByMedico(@PathVariable("id") final long idMedico) {
         System.out.println(idMedico);
         List<Paziente> paz = service.getPazientiByMedico(idMedico);
-        return new ResponseEntity<>(paz,HttpStatus.OK);
+        return new ResponseEntity<>(paz, HttpStatus.OK);
     }
 
     /**
@@ -182,16 +186,15 @@ public class GestioneUtenteController {
         return false;
     }
 
-    //TODO usare generics se possibile
-
     /**
      * Metodo per modificare i dati di un medico.
      * @param pazienteDTO
      * @return
      */
     @PostMapping("/modificaDatiMedico")
-    public boolean modificaDatiPaziente(@Valid @RequestBody
-                                        UtenteRegistratoDTO pazienteDTO)
+    public boolean
+    modificaDatiPaziente(@Valid @RequestBody
+                         final UtenteRegistratoDTO pazienteDTO)
             throws Exception {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
@@ -221,8 +224,9 @@ public class GestioneUtenteController {
     public ResponseEntity<Object>
         getDatiProfiloUtente(@PathVariable("id") final Long idUtente) {
 
-        HttpServletRequest request = ((ServletRequestAttributes)
-                RequestContextHolder.getRequestAttributes()).getRequest();
+        var request = ((ServletRequestAttributes) RequestContextHolder
+                .getRequestAttributes())
+                .getRequest();
 
         System.out.println("qui va");
         HashMap<String, Object> map = new HashMap<>();
@@ -257,7 +261,7 @@ public class GestioneUtenteController {
      */
     @PostMapping("/Home/{id}")
     public ResponseEntity<Object>
-        visualizzazioneHomeUtente(@PathVariable("id") final long idUtente) {
+    visualizzazioneHomeUtente(@PathVariable("id") final long idUtente) {
         HashMap<String, Object> map = new HashMap<>();
 
         if(service.isPaziente(idUtente)){
@@ -290,7 +294,6 @@ public class GestioneUtenteController {
             map.put("sesso", med.getGenere());
         }
 
-        gestioneComunicazioneService.sendNotifica("CAZZONI DURI");
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
@@ -303,26 +306,73 @@ public class GestioneUtenteController {
     @PostMapping(value = "/getDispositiviByUtente/{id}")
     public ResponseEntity<Object>
     getDispositiviByUtente(@PathVariable("id") final long idPaziente) {
-        Set<DispositivoMedico> set = service.
-                                        getDispositiviByPaziente(idPaziente);
+        var set = service.getDispositiviByPaziente(idPaziente);
         return new ResponseEntity<>(set, HttpStatus.OK);
     }
 
     /**
      * Metodo che permtte di ottenere un elenco di utenti a partire.
      * da nome e cognome passati nella searchbar.
-     * @param txt è il testo che viene passato.
+     * @param requestMap il testo che viene passato.
      * @return
      */
     @PostMapping(value = "/searchbar")
-    public ResponseEntity<Object> utentiSearch(@RequestBody final String txt) {
+    public ResponseEntity<Object>
+    utentiSearch(@RequestBody final HashMap<String, String> requestMap) {
+        var txt = requestMap.get("txt");
         var list = service.getTuttiPazienti().stream().toList();
+
+        if(txt == null || txt.isBlank() || txt.isEmpty()) {
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+
         var listPaz = list.stream()
-                .filter(pz -> (pz.getNome() + pz.getCognome()).contains(txt))
+                .filter(pz -> (pz.getNome() + pz.getCognome())
+                                .toLowerCase()
+                                .contains(txt.toLowerCase()))
                 .toList();
+
         return new ResponseEntity<>(listPaz, HttpStatus.OK);
     }
 
+
+    /**
+     * Metodo che permtte di ottenere un elenco di pazienti
+     * in base a nome e cognome passati nella searchbar.
+     * I pazienti devono appartenere al medico in questione.
+     * @param requestMap il testo che viene passato.
+     * @return
+     */
+    @PostMapping(value = "/searchbarMedico")
+    public ResponseEntity<Object>
+    pazientiSearch(@RequestBody final HashMap<String, String> requestMap,
+                   final HttpServletRequest request) {
+        /** txt indica il testo che viene passato dal frontend.*/
+        var txt = requestMap.get("txt");
+        /** email dell'utente che chiama il metodo.*/
+        var email = request.getUserPrincipal().getName();
+        var usr = service.findUtenteByEmail(email);
+
+        if(usr == null || !usr.getRuolo().equals(Role.MEDICO)) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        var medico = (Medico) usr;
+        var listaPazienti = medico.getElencoPazienti();
+
+        /** se il testo che viene passato è vuoto
+         * si restituisce tutta la lista.*/
+        if(txt == null || txt.isBlank() || txt.isEmpty()) {
+            return new ResponseEntity<>(listaPazienti, HttpStatus.OK);
+        }
+
+        /** se il testo non è vuoto allora si filtrano i risultati.*/
+        var listPaz = listaPazienti.stream()
+                .filter(pz -> (pz.getNome() + pz.getCognome())
+                                .toLowerCase()
+                                .contains(txt.toLowerCase()))
+                .toList();
+        return new ResponseEntity<>(listPaz, HttpStatus.OK);
+    }
 }
 
 

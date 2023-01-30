@@ -11,43 +11,14 @@ import jwt from "jwt-decode"
 import SockJS from 'sockjs-client';
 import {Stomp} from "@stomp/stompjs"
 import addNotification from 'react-push-notification';
-import Notifications from 'react-push-notification';
+
 
 function HomeMedico() {
   const [utente, setUtente] = useState([]);
   let nav = useNavigate();
   const token = localStorage.getItem("token");
-  const url = "http://localhost:8080/ws"
-  const [stompClient, setStompClient] = useState(null);
-  const [notifications, setNotifications] = useState([]);
-  
-  addNotification({
-    title: 'Notifica',
-    subtitle: 'This is a subtitle',
-    message: notifications,
-    theme: 'red',
-    native: true // when using native, your OS will handle theming.
-})
-  
-  useEffect(() => {
-    const socket = new SockJS(url);
-    const client = Stomp.over(socket);
-    client.connect({}, (frame) => {
-      setStompClient(client);
-      client.subscribe('/topic/notifica', (response) => {
-        setNotifications((notifications) => [...notifications, response.body]);
-        console.log("notifica = ", response.body)
-        addNotification();
-        
-      });
-    });
 
-    return () => {
-      if (stompClient) {
-        stompClient.disconnect();
-      }
-    };
-  }, [notifications]);
+  
 
 
 

@@ -6,9 +6,9 @@ import {useState, useEffect} from "react";
 import CardPaziente from "./CardPaziente";
 import jwt from "jwt-decode";
 
-function ListaPazienti(){
+function ListaPazienti(props){
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([])
+    const [data, setData] = useState([{}])
     const token = localStorage.getItem("token");
 
     let config = {
@@ -20,12 +20,17 @@ function ListaPazienti(){
         "Content-Type" : "application/json"
     };
 
+    console.log("in lista = ", props.txt)
+
     const fetchData = async () =>{
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:8080/getPazientiByMedico/" + jwt(token).id,{
-                method : "GET",
+            const response = await fetch("http://localhost:8080/searchbarMedico", {
+                method : "POST",
                 headers : config,
+                body: JSON.stringify({
+                    txt: props.txt
+                })
             }).then(response => response.json());
             setData(response);
             console.log(data);
@@ -37,7 +42,7 @@ function ListaPazienti(){
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [props.txt]);
 
     return(
         <div className="contenitoreCardPazienti">

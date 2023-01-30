@@ -82,8 +82,8 @@ public class GestioneVisitaController {
      * @param request è la richiesta.
      */
     @PostMapping("ottieni")
-    public ResponseEntity<Object> visiteByUser(
-            final HttpServletRequest request) {
+    public ResponseEntity<Object>
+    visiteByUser(final HttpServletRequest request) {
         var email = request.getUserPrincipal().getName();
         if(utenteService.findUtenteByEmail(email) == null) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);

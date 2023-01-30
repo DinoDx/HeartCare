@@ -156,7 +156,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return
      */
     @Override
-    public Set<DispositivoMedico> getDispositiviByPaziente(long idPaziente) {
+    public Set<DispositivoMedico>
+    getDispositiviByPaziente(final long idPaziente) {
         //Paziente pz = this.findPazienteById(idPaziente);
         Set<DispositivoMedico> res = new HashSet<>();
         res.addAll(daoM.findByPaziente(idPaziente));
@@ -414,8 +415,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param idUtente
      */
     @Override
-    public void modificaDatiPaziente(ModificaPazienteDTO dto,
-                                     long idUtente) throws Exception {
+    public void modificaDatiPaziente(final ModificaPazienteDTO dto,
+                                     final long idUtente) throws Exception {
         Paziente daModificare = findPazienteById(idUtente);
 
         daModificare.setNome(dto.getNome());
@@ -447,7 +448,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         daModificare.setPassword(dto.getPassword());
 
         medico.save(daModificare);
-
     }
 
     /**

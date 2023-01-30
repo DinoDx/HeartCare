@@ -4,16 +4,17 @@ import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dao.NotaDAO;
 import c15.dev.model.dao.NotificaDAO;
 import c15.dev.model.dto.NotaDTO;
-import c15.dev.model.entity.*;
+import c15.dev.model.dto.NotificaDTO;
+import c15.dev.model.entity.Medico;
+import c15.dev.model.entity.Nota;
+import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -71,9 +72,12 @@ public class GestioneComunicazioneServiceImpl
         if(utenteService.isMedico(idMittente)){
             Medico m =  utenteService.findMedicoById(idMittente);
             Paziente p = utenteService.findPazienteById(idDestinatario);
-            Nota nota = new Nota(messaggio, LocalDate.of(2022,11,10),
-                    idMittente, StatoNotifica.NON_LETTA, m, p
-            );
+            Nota nota = new Nota(messaggio,
+                    LocalDate.now(),
+                    idMittente,
+                    StatoNotifica.NON_LETTA,
+                    m,
+                    p);
             notaDAO.save(nota);
             return;
         }
@@ -81,9 +85,13 @@ public class GestioneComunicazioneServiceImpl
         Medico m = (Medico) utenteService.findMedicoById(idDestinatario);
         Paziente p = (Paziente) utenteService.findPazienteById(idMittente);
 
-        Nota nota = new Nota(messaggio, LocalDate.of(2022,11,10),
-                    idMittente, StatoNotifica.NON_LETTA, m, p
-                );
+        Nota nota =
+                new Nota(messaggio,
+                        LocalDate.now(),
+                        idMittente,
+                        StatoNotifica.NON_LETTA,
+                        m,
+                        p);
         notaDAO.save(nota);
         return;
     }
@@ -102,12 +110,19 @@ public class GestioneComunicazioneServiceImpl
      * @return
      */
     @Override
-    public List<NotaDTO> findNoteByIdUtente(long id) {
+    public List<NotaDTO> findNoteByIdUtente(final long id) {
         System.out.println(id);
-        List<Nota>  note = notaDAO.findNoteByIdUtente(id);
-        List<NotaDTO> dto = note.stream().map(e-> new NotaDTO(
-                utenteService.findUtenteById(e.getAutore()).getNome()+" "+
-                utenteService.findUtenteById(e.getAutore()).getCognome(),
+        List<Nota> note = notaDAO.findNoteByIdUtente(id);
+        List<NotaDTO> dto = note
+                .stream()
+                .map(e->
+                        new NotaDTO(utenteService
+                                .findUtenteById(e.getAutore())
+                                .getNome()
+                                + " "
+                                + utenteService
+                                .findUtenteById(e.getAutore())
+                                .getCognome(),
                 e.getContenuto())).toList();
 
         return dto;
@@ -118,8 +133,15 @@ public class GestioneComunicazioneServiceImpl
      * @param message è il messaggio che viene passato al frontend.
      */
     @Override
-    public void sendNotifica(String message) {
-        //nel topic mettere messaggio + idDestinatario
+    public void sendNotifica(final String message, final Long idDest) {
+        System.out.println("nel metodo sendNotifica");
+        NotificaDTO n = NotificaDTO.builder()
+                .messagio(message)
+                .idPaziente(idDest)
+                .build();
+
+        System.out.println("notifica dto = " + n.toString());
+
         template.convertAndSend("/topic/notifica", message);
     }
 }

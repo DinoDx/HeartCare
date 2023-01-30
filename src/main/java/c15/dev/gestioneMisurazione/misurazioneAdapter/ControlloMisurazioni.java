@@ -121,6 +121,8 @@ public class ControlloMisurazioni {
         var average = mp.getPressioneMedia();
         var min = mp.getPressioneMinima();
 
+        System.out.println("QUESTI SONO I BPM" + mp.getBattitiPerMinuto());
+
         if(bpm >= 140 || max > 150 || min > 85) {
             return true;
         }

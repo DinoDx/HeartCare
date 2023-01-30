@@ -32,43 +32,43 @@ public interface GestioneUtenteService {
      * @param nomeCaregiver nome del caregiver.
      * @param cognomeCaregiver nome del caregiver.
      */
-    void assegnaCaregiver(Long idPaziente,
-                          String emailCaregiver,
-                          String nomeCaregiver,
-                          String cognomeCaregiver);
+    void assegnaCaregiver(final Long idPaziente,
+                          final String emailCaregiver,
+                          final String nomeCaregiver,
+                          final String cognomeCaregiver);
 
     /**
      * Firma del metodo rimuoviPaziente.
      * @param idUtente id del paziente che deve essere rimosso.
      */
-    void rimuoviPaziente(Long idUtente);
+    void rimuoviPaziente(final Long idUtente);
 
     /**
      * Firma del metodo rimuoviMedico.
      * @param idUtente id del medico che deve essere rimosso.
      */
-    void rimuoviMedico(Long idUtente);
+    void rimuoviMedico(final Long idUtente);
 
     /**
      * Firma del metodo isPaziente.
      * @param idUtente id dell'utente che vogliamo controllare che sia un paziente.
      * @return
      */
-    boolean isPaziente(long idUtente);
+    boolean isPaziente(final long idUtente);
 
     /**
      * Firma del metodo isMedico.
      * @param idUtente id dell'utente che vogliamo controllare che sia un medico.
      * @return
      */
-    boolean isMedico(long idUtente);
+    boolean isMedico(final long idUtente);
 
     /**
      * Firma del metodo isAdmin.
      * @param idUtente id dell'utente che vogliamo controllare che sia un admin.
      * @return
      */
-    boolean isAdmin(long idUtente);
+    boolean isAdmin(final long idUtente);
 
     /**
      * Firma del metodo assegnaPaziente.
@@ -76,36 +76,37 @@ public interface GestioneUtenteService {
      * @param idPaziente id del paziente che viene assegnato al medico.
      * @return
      */
-    boolean assegnaPaziente(long idMedico, long idPaziente);
+    boolean assegnaPaziente(final long idMedico,
+                            final long idPaziente);
 
     /**
      * Firma del metodo findPazienteById.
      * @param id id del paziente da ricercare.
      * @return
      */
-    Paziente findPazienteById(Long id);
+    Paziente findPazienteById(final Long id);
 
     /**
      * Firma del metodo findMedicoById.
      * @param id id del medico da ricercare.
      * @return
      */
-    Medico findMedicoById(Long id);
+    Medico findMedicoById(final Long id);
 
-    boolean findUtenteByCf(String cf);
+    boolean findUtenteByCf(final String cf);
 
 
     /**
      * Firma del metodo updatePaziente.
      * @param paz paziente da aggiornare.
      */
-    void updatePaziente(Paziente paz);
+    void updatePaziente(final Paziente paz);
 
     /**
      * Firma del metodo updateMedico.
      * @param med medico da aggiornare.
      */
-    void updateMedico(Medico med);
+    void updateMedico(final Medico med);
 
     /**
      * Firma del metodo getTuttiMedici.
@@ -120,7 +121,7 @@ public interface GestioneUtenteService {
     /**
      * Firma del metodo getPazientiByMedico.
      */
-    List<Paziente> getPazientiByMedico(long idMedico);
+    List<Paziente> getPazientiByMedico(final long idMedico);
 
     /**
      * Firma del metodo modificaDatiPaziente.
@@ -129,7 +130,7 @@ public interface GestioneUtenteService {
      */
     void modificaDatiPaziente(final ModificaPazienteDTO pazienteDTO,
                               final long idUtente)
-                                    throws Exception;
+            throws Exception;
 
     /**
      * Firma del metodo modifica dati di un medico.
@@ -145,7 +146,7 @@ public interface GestioneUtenteService {
      * @param id
      * @return
      */
-    UtenteRegistrato findUtenteById(Long id);
+    UtenteRegistrato findUtenteById(final Long id);
 
     /**
      * Firma del metodo che trova un utente da un email.
@@ -153,7 +154,7 @@ public interface GestioneUtenteService {
      * @return
      */
 
-    UtenteRegistrato findUtenteByEmail(String email);
+    UtenteRegistrato findUtenteByEmail(final String email);
 
     /**
      * Firma del metodo check da un email.
@@ -161,13 +162,13 @@ public interface GestioneUtenteService {
      * @return
      */
 
-    boolean checkByEmail(String email);
+    boolean checkByEmail(final String email);
 
     /**
      * Firma del metodo registraIndirizzo.
      * @param ind
      */
-    boolean registraIndirizzo(Indirizzo ind);
+    boolean registraIndirizzo(final Indirizzo ind);
 
     /**
      * Firma del metodo che assegna un indirizzo ad un utente.

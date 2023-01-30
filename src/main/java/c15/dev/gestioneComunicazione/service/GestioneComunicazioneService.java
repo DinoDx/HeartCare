@@ -15,8 +15,8 @@ public interface GestioneComunicazioneService {
      * @param messaggio
      * @param emailDestinatario
      */
-    void invioEmail(final String messaggio,
-                    final String emailDestinatario);
+    void invioEmail(String messaggio,
+                    String emailDestinatario);
 
     /**
      * Firma del metodo che invia una nota.
@@ -24,9 +24,9 @@ public interface GestioneComunicazioneService {
      * @param idDestinatario
      * @param idMittente
      */
-    void invioNota(final String messaggio,
-                   final Long idDestinatario,
-                   final Long idMittente);
+    void invioNota(String messaggio,
+                   Long idDestinatario,
+                   Long idMittente);
 
     /**
      * Firma del metodo che trova tutte le note.
@@ -39,11 +39,11 @@ public interface GestioneComunicazioneService {
      * @param id
      * @return
      */
-    List<NotaDTO> findNoteByIdUtente(final long id);
+    List<NotaDTO> findNoteByIdUtente(long id);
 
     /**
      * Firma del metodo che invia una notifica.
      * @param message
      */
-    void sendNotifica(String message);
+    void sendNotifica(String message, Long idDest);
 }

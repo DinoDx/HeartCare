@@ -1,5 +1,7 @@
 package c15.dev.gestioneMisurazione.controller;
 
+import c15.dev.gestioneComunicazione.service.GestioneComunicazioneService;
+import c15.dev.gestioneMisurazione.misurazioneAdapter.ControlloMisurazioni;
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoAdapter;
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Paolo Carmine Valletta, Alessandro Zoccola.
@@ -27,6 +28,9 @@ import java.util.Set;
 @RestController
 @CrossOrigin
 public class GestioneMisurazioneController {
+    @Autowired
+    private GestioneComunicazioneService comunicazioneService;
+
     /**
      * Sessione
      */
@@ -77,8 +81,8 @@ public class GestioneMisurazioneController {
      * @param dispositivo
      */
     @RequestMapping(value = "/rimuoviDispositivo", method = RequestMethod.POST)
-    public boolean rimozioneDispositivo(
-            @RequestParam DispositivoMedico dispositivo){
+    public boolean
+    rimozioneDispositivo(@RequestParam DispositivoMedico dispositivo){
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
         if(!utenteService.isPaziente(u.getId())){
@@ -94,8 +98,8 @@ public class GestioneMisurazioneController {
      * @return List<Misurazione>
      */
     @PostMapping(value = "/FascicoloSanitarioElettronico")
-    public List<Misurazione> getFascicoloSanitarioElettronico(
-                                            @RequestParam long id) {
+    public List<Misurazione>
+    getFascicoloSanitarioElettronico(@RequestParam final long id) {
         if (!utenteService.isPaziente(id)) {
             return null;
         }
@@ -122,12 +126,19 @@ public class GestioneMisurazioneController {
             return null;
         }
 
-        Long idDispositivo = Long.parseLong(map.get("idDispositivo")
+        Long idDispositivo = Long
+                .parseLong(map.get("idDispositivo")
                 .toString());
         var dispositivoMedico = misurazioneService.getById(idDispositivo);
         var dispositivoAdapter =
                 new DispositivoMedicoAdapter(dispositivoMedico);
         var m =  dispositivoAdapter.avvioMisurazione();
+
+        if(ControlloMisurazioni.chiamaControllo(m)) {
+            System.out.println("prima di invocare il sendNotifica");
+            comunicazioneService.sendNotifica("Misurazione sballata", m.getPaziente().getId());
+        }
+
         misurazioneService.save(m);
         return m;
     }
