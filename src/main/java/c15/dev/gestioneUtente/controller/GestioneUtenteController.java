@@ -38,11 +38,14 @@ import java.util.*;
 @SessionAttributes("utenteLoggato")
 public class GestioneUtenteController {
     /**
-     * Service per le operazioni di accesso
+     * Service per le operazioni di accesso.
      */
     @Autowired
     private GestioneUtenteService service;
 
+    /**
+     * Service per le operazioni di comunicazione.
+     */
     @Autowired
     private GestioneComunicazioneService gestioneComunicazioneService;
     /**
@@ -75,7 +78,6 @@ public class GestioneUtenteController {
 
     /**
      * Metodo per rimuovere un Paziente o un Medico.
-     *
      * @param idUtente
      */
     @RequestMapping(value = "/rimuoviUtente", method = RequestMethod.POST)
@@ -92,7 +94,6 @@ public class GestioneUtenteController {
 
     /**
      * Metodo che assegna un paziente a un medico.
-     *
      * @param idMedico
      * @param idPaziente
      */
@@ -146,8 +147,10 @@ public class GestioneUtenteController {
      * Metodo che restituisce tutti i pazienti di un medico.
      * @param idMedico id del medico
      */
-    @GetMapping(value = "/getPazientiByMedico/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getPazientiByMedico(@PathVariable("id") long idMedico) {
+    @GetMapping(value = "/getPazientiByMedico/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getPazientiByMedico(
+                        @PathVariable("id") long idMedico) {
         System.out.println(idMedico);
         List<Paziente> paz = service.getPazientiByMedico(idMedico);
         return new ResponseEntity<>(paz,HttpStatus.OK);
@@ -161,14 +164,16 @@ public class GestioneUtenteController {
     //TODO usare optional per vedere solo quali campi modificare
     @PostMapping("/modificaDatiUtente")
     public boolean modificaDatiPaziente(@Valid @RequestBody
-                                        ModificaPazienteDTO pazienteDTO) throws Exception {
+                                        ModificaPazienteDTO pazienteDTO)
+            throws Exception {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
 
         long id = 1L;//utente.getId();
         UtenteRegistrato utente = service.findUtenteById(id);
         if (service.isPaziente(id)) {
-            if (utente.getPassword().equals(pazienteDTO.getConfermaPassword())) {
+            if (utente.getPassword()
+                    .equals(pazienteDTO.getConfermaPassword())) {
                 service.modificaDatiPaziente(pazienteDTO, id);
                 return true;
             }
@@ -186,14 +191,16 @@ public class GestioneUtenteController {
      */
     @PostMapping("/modificaDatiMedico")
     public boolean modificaDatiPaziente(@Valid @RequestBody
-                                        UtenteRegistratoDTO pazienteDTO) throws Exception {
+                                        UtenteRegistratoDTO pazienteDTO)
+            throws Exception {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
 
         long id = 4L;//utente.getId();
         UtenteRegistrato utente = service.findUtenteById(id);
         if (service.isMedico(id)) {
-            if (utente.getPassword().equals(pazienteDTO.getConfermaPassword())) {
+            if (utente.getPassword()
+                    .equals(pazienteDTO.getConfermaPassword())) {
                 service.modificaDatiMedico(pazienteDTO, id);
                 return true;
             }
@@ -283,13 +290,12 @@ public class GestioneUtenteController {
             map.put("sesso", med.getGenere());
         }
 
-
         gestioneComunicazioneService.sendNotifica("CAZZONI DURI");
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     /**
-     * Metodo che permette di ottenere tutti i dispositivi
+     * Metodo che permette di ottenere tutti i dispositivi.
      * associati a un paziente.
      * @param idPaziente
      * @return
@@ -303,7 +309,7 @@ public class GestioneUtenteController {
     }
 
     /**
-     * Metodo che permtte di ottenere un elenco di utenti a partire
+     * Metodo che permtte di ottenere un elenco di utenti a partire.
      * da nome e cognome passati nella searchbar.
      * @param txt è il testo che viene passato.
      * @return

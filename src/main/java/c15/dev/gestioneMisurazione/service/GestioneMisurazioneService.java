@@ -18,23 +18,21 @@ import java.util.Set;
 public interface GestioneMisurazioneService {
     /**
      * Firma del metodo di registrazione Dispositivo.
-     *
      * @param dispositivo che vogliamo assegnare ad un utente.
-     * @param idPaziente id del paziente a cui vogliamo assegnare
+     * @param idPaziente id del paziente a cui vogliamo assegnare.
      *                   il dispositivo.
      * @return true o false.
      */
     public boolean registrazioneDispositivo(DispositivoMedico dispositivo,
                                             long idPaziente);
 
-    public boolean registrazioneDispositivo(HashMap<String, String> dispositivo,
-                                            long idPaziente);
+    public boolean registrazioneDispositivo(
+            HashMap<String, String> dispositivo, long idPaziente);
 
     /**
      * Firma del metodo di rimozione Dispositivo.
-     *
      * @param dispositivo che vogliamo rimuovere ad un utente.
-     * @param idPaziente id del paziente a cui vogliamo rimuovere
+     * @param idPaziente id del paziente a cui vogliamo rimuovere.
      *                   il dispositivo.
      * @return true o false.
      */
@@ -43,15 +41,45 @@ public interface GestioneMisurazioneService {
 
     /**
      *
-     * @return List<Misurazione>
-     * Metodo che restituisce tutte le misurazioni presenti nel database
+     * @return List<Misurazione>.
+     * Metodo che restituisce tutte le misurazioni presenti nel database.
      */
     public List<Misurazione> getMisurazioniByPaziente(Long id);
+
+    /**
+     * Firma del metodo che restituisce il dispositivo dall'id.
+     * @param id
+     * @return
+     */
     public DispositivoMedico getById(Long id);
 
+    /**
+     * Firma del metodo getMisurazione dalla categoria
+     * @param categoria
+     * @param id
+     * @return
+     */
     public List<Misurazione> getMisurazioneByCategoria(String categoria,
                                                        Long id);
+
+    /**
+     * Firma del metodo per salvare una misurazione.
+     * @param misurazione
+     * @return
+     */
     public Misurazione save(Misurazione misurazione);
+
+    /**
+     * Firma del metodo trovaCategoria della misurazione da un paziente.
+     * @param id
+     * @return
+     */
     public List<String> findCategorieByPaziente(Long id);
+
+    /**
+     * Firma del metodo Trova Tutte le misurazioni di un paziente.
+     * @param id
+     * @return
+     */
     public List<MisurazioneDTO> getAllMisurazioniByPaziente(Long id);
 }

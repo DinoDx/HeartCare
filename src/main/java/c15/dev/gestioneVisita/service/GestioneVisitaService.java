@@ -12,7 +12,17 @@ import java.util.List;
  *
  */
 public interface GestioneVisitaService {
+
+    /**
+     * Firma del metodo aggiunta visita.
+     * @param visita
+     */
     void aggiuntaVisita(final Visita visita);
 
+    /**
+     * Firma del metodo trova visite programmate dall'utente.
+     * @param email
+     * @return
+     */
     List<Visita> findVisiteProgrammateByUser(final String email);
 }

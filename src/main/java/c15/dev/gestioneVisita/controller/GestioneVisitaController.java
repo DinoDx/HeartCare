@@ -50,7 +50,8 @@ public class GestioneVisitaController {
         Long idPaziente = (Long) body.get("paziente");
         Paziente paziente = utenteService.findPazienteById(idPaziente);
         Indirizzo indirizzo = (Indirizzo) body.get("indirizzo");
-        // TO DO potrebbe essere necessario creare un indirizzo siccome viene passato un id.
+        // TO DO potrebbe essere necessario creare un indirizzo.
+        // siccome viene passato un id.
         // va testato con il frontend.
 
         Long idMedico = (Long) session.getAttribute("utenteLoggato");
@@ -75,13 +76,14 @@ public class GestioneVisitaController {
 
     /**
      *
-     * Metodo che permette di ottenere la lista di tutte le visite
+     * Metodo che permette di ottenere la lista di tutte le visite.
      * in stato "programmata".
      * @return Response al cui interno vi si ritrova la lista.
      * @param request è la richiesta.
      */
     @PostMapping("ottieni")
-    public ResponseEntity<Object> visiteByUser(final HttpServletRequest request) {
+    public ResponseEntity<Object> visiteByUser(
+            final HttpServletRequest request) {
         var email = request.getUserPrincipal().getName();
         if(utenteService.findUtenteByEmail(email) == null) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);

@@ -88,16 +88,27 @@ public class GestioneComunicazioneServiceImpl
         return;
     }
 
+    /**
+     * Implementazione del metodo che cerca tutte le note.
+     * @return
+     */
     public List<Nota> findAllNote(){
         return notaDAO.findAll();
     }
 
+    /**
+     * Firma del metodo che ricerca tutte le note di un utente.
+     * @param id
+     * @return
+     */
     @Override
     public List<NotaDTO> findNoteByIdUtente(long id) {
         System.out.println(id);
         List<Nota>  note = notaDAO.findNoteByIdUtente(id);
-        List<NotaDTO> dto = note.stream().map(e-> new NotaDTO(utenteService.findUtenteById(e.getAutore()).getNome()+" "+
-                utenteService.findUtenteById(e.getAutore()).getCognome(),e.getContenuto())).toList();
+        List<NotaDTO> dto = note.stream().map(e-> new NotaDTO(
+                utenteService.findUtenteById(e.getAutore()).getNome()+" "+
+                utenteService.findUtenteById(e.getAutore()).getCognome(),
+                e.getContenuto())).toList();
 
         return dto;
     }
@@ -108,7 +119,6 @@ public class GestioneComunicazioneServiceImpl
      */
     @Override
     public void sendNotifica(String message) {
-        System.out.println("\n\nsiamo nel metodo x inviare la notifica\n\n");
         //nel topic mettere messaggio + idDestinatario
         template.convertAndSend("/topic/notifica", message);
     }

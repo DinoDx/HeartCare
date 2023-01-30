@@ -40,19 +40,25 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
     @Autowired
     private PazienteDAO pazienteDao;
     /**
-     * provvede ad accedere al db per effettuare operazioni sulla tabella misurazione
+     * provvede ad accedere al db per effettuare operazioni sulla tabella misurazione.
      */
     @Autowired
     private MisurazioneDAO misurazioneDAO;
 
+    /**
+     * provvede ad accedere al db per le misurazioni della pressione.
+     */
     @Autowired
     private MisurazionePressioneDAO misurazionePressioneDAO;
 
+    /**
+     * Service per la gestione Utente.
+     */
     @Autowired
     private GestioneUtenteService serviceUtente;
 
     /**
-     * Questo metodo ha il compito di controllare che la categoria
+     * Questo metodo ha il compito di controllare che la categoria.
      * passata dal frontend sia una categoria contemplata.
      * @param categoria
      * @return true or false.
@@ -71,10 +77,10 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
     }
 
     /**
-     * Metodo di registrazione del dispositivo che viene usato solo nel
+     * Metodo di registrazione del dispositivo che viene usato solo nel.
      * DBPopulator.
      * @param dispositivo che vogliamo assegnare ad un utente.
-     * @param idPaziente id del paziente a cui vogliamo assegnare
+     * @param idPaziente id del paziente a cui vogliamo assegnare.
      *                   il dispositivo.
      * @return
      */
@@ -133,7 +139,7 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
     /**
      * Questo metodo consente di eliminare un dispositivo dal database.
      * @param dispositivo che vogliamo rimuovere ad un utente.
-     * @param idPaziente id del paziente a cui vogliamo rimuovere
+     * @param idPaziente id del paziente a cui vogliamo rimuovere.
      *                   il dispositivo.
      * @return
      */
@@ -150,21 +156,44 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
         return true;
     }
 
+    /**
+     * Metodo per ricevere le misurazioni da un paziente.
+     * @param id
+     * @return
+     */
     @Override
     public List<Misurazione> getMisurazioniByPaziente(Long id) {
         return (List<Misurazione>) misurazioneDAO.findByPaziente(id);
     }
 
+    /**
+     * Metodo per ricevere il dispositivo dal suo id.
+     * @param id
+     * @return
+     */
     @Override
     public DispositivoMedico getById(Long id) {
         return dispositivoDao.findById(id).get();
     }
 
+    /**
+     * Metodo per ricevere le misurazioni da una categoria.
+     * @param categoria
+     * @param id
+     * @return
+     */
     @Override
-    public List<Misurazione> getMisurazioneByCategoria(String categoria, Long id) {
-        return (List<Misurazione>) misurazioneDAO.findByCategoria(categoria, id);
+    public List<Misurazione> getMisurazioneByCategoria(
+            String categoria, Long id) {
+        return (List<Misurazione>)
+                misurazioneDAO.findByCategoria(categoria, id);
     }
 
+    /**
+     * Metodo per salvare le misurazioni.
+     * @param misurazione
+     * @return
+     */
     @Override
     public Misurazione save(Misurazione misurazione) {
         return misurazioneDAO.save(misurazione);
@@ -175,11 +204,21 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
         return misurazionePressioneDAO.save(misurazionePressione);
     } */
 
+    /**
+     * Metodo per ricercare le categorie delle misurazioni da un paziente.
+     * @param id
+     * @return
+     */
     @Override
     public List<String> findCategorieByPaziente(Long id) {
         return (List<String>) misurazioneDAO.findCategorieByPaziente(id);
     }
 
+    /**
+     * Metodo per ricevere tutte le misurazioni di un paziente.
+     * @param id
+     * @return
+     */
     @Override
     public List<MisurazioneDTO> getAllMisurazioniByPaziente(Long id) {
         List<Misurazione> list = (List<Misurazione>) misurazioneDAO.getAllMisurazioniByPaziente(id);

@@ -32,6 +32,9 @@ public class GestioneComunicazioneController {
     @Autowired
     private GestioneUtenteService utenteService;
 
+    /**
+     * Metodo che inva una mail.
+     */
     @PostMapping(path = "invioEmail")
     public void invioEmail() {
         System.out.println("almeno qui va");
@@ -39,6 +42,11 @@ public class GestioneComunicazioneController {
         service.invioEmail(messaggio, "leopoldo.todiscozte@gmail.com");
     }
 
+    /**
+     * Metodo che invia una nota.
+     * @param nota
+     * @return
+     */
     @PostMapping(path = "/invioNota")
     public ResponseEntity<Object>
     invioNota(@RequestBody final HashMap<String,String> nota) {
@@ -50,6 +58,11 @@ public class GestioneComunicazioneController {
         return new ResponseEntity<>(note, HttpStatus.OK);
     }
 
+    /**
+     * Metodo che prende tutte le note.
+     * @param utente
+     * @return
+     */
     @PostMapping(path = ("/fetchTutteLeNote"))
     public ResponseEntity<Object>
     fetchTutteLeNote(@RequestBody final HashMap<String,Long> utente) {
@@ -59,6 +72,11 @@ public class GestioneComunicazioneController {
                                     HttpStatus.OK);
     }
 
+    /**
+     * Metodo che prende tutti i medici di ogni paziente.
+     * @param utente
+     * @return
+     */
     @PostMapping(path = "/getMedico")
     public ResponseEntity<Object>
     fetchMedcioPerPaziente(@RequestBody final HashMap<String,Long> utente) {

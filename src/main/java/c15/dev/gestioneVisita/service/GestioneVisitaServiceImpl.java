@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+/**
+ *  @author Leopoldo Todisco.
+ *  Creato il : 03/01/2023.
+ *  Questa classe rappresenta il Service utilizzato per la visita.
+ */
 @Service
 public class GestioneVisitaServiceImpl implements GestioneVisitaService {
     @Autowired
@@ -17,12 +23,20 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
     @Autowired
     private GestioneUtenteService utenteService;
 
-
+    /**
+     * Metodo per salvare una nuova visita.
+     * @param visita
+     */
     @Override
     public void aggiuntaVisita(final Visita visita) {
         visitaDAO.save(visita);
     }
 
+    /**
+     * Metodo per trovare le visite programmate da un utente.
+     * @param email email dell'utente.
+     * @return
+     */
     @Override
     public List<Visita> findVisiteProgrammateByUser(final String email) {
         var user = utenteService.findUtenteByEmail(email);
