@@ -20,6 +20,8 @@ public interface MedicoDAO extends UtenteRegistratoDAO {
      */
     Medico findByEmailAndPassword(String email, byte[] password);
 
+    Medico findBycodiceFiscale(String codiceFiscale);
+
     /**
      *
      * @param id del medico.
