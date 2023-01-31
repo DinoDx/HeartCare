@@ -57,21 +57,24 @@ function Grafico(props) {
     }, [isChange])
 
    const handlerOnChange = (event) => {
+       document.getElementById("grafico").style.display = "block";
        let cat = event.target.value;
        setCategoriaSelezionata(cat);
        setIsChange(true);
+
     }
 
     return (
             <div className="contenitoreGrafico">
                 <span className="titoloGrafico">Andamento misurazioni passate:</span>
+                <div id="grafico" style={{display:"none"}}>
                 <Chart
                     className="grafico"
                     chartType="Line"
                     width="100%"
                     height="400px"
                     data={dataGrafico}
-                />
+                /></div>
                 <select id = "selectCategoria" className="selectMisurazione" onChange={(e) => handlerOnChange(e)}>
                     <option value="" disabled selected>Scegli una categoria</option>
                     {props.categorie.map( c => {
