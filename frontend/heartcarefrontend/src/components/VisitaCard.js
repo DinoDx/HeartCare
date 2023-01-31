@@ -131,9 +131,47 @@ function VisitaCard(props) {
     }, []);
 
 
+
+
+
     const onOpenModal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
 
+    const [opendata, setOpendata] = useState(false);
+    const OpenModal = () => setOpendata(true);
+    const CloseModal = () => setOpendata(false);
+
+    const [nuovaData,setDataSelect] = useState();
+
+    const aggiornaDataSelect = (event) => {
+        setDataSelect(event.target.value);
+    }
+
+    const aggiornaData = async () => {
+        return await fetch("http://localhost:8080/visite/modificaDataVisita",{
+            method: "POST",// *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "same-origin", // include, *same-origin, omit
+                headers: {
+                Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idVisita: props.idVisita,
+                nuovaData: nuovaData
+
+            }),
+
+                withCredentials: true,
+                redirect: "follow", // manual, *follow, error
+                referrerPolicy: "no-referrer",
+        }).then(async response => {
+            response = await response.json();
+        })
+
+
+    }
     const returnByCategoria = (categoria) => {
         return Misurazioni.filter( mis =>
             mis["categoria"] == categoria
@@ -200,7 +238,12 @@ function VisitaCard(props) {
                 <button className="buttonVisualizzaFascicolo" onClick={onOpenModal}>
                     Fascicolo Paziente
                 </button>
-                <button className="buttonVisualizzaFascicolo" onClick={onOpenModal}>
+                <Modal open={opendata} onClose={CloseModal}>
+                    Aggiungi nuova data:
+                    <input id ="calendar" className="dataPicker" type="date" min={new Date().getFullYear()} onChange={e => aggiornaDataSelect(e)}/>
+                    <button className="buttonVisualizzaFascicolo" onClick={() => {aggiornaData(); setOpendata(false) ;  document.location.reload()}}> Conferma</button>
+                </Modal>
+                <button className="buttonVisualizzaFascicolo" onClick={OpenModal}>
                     Modifica data visita
                 </button>
             </div>

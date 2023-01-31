@@ -61,6 +61,7 @@ function ListaVisita(props) {
                               via = {data[el]["viaIndirizzo"]}
                               ncivico = {data[el]["ncivico"]}
                               provincia = {data[el]["provincia"]}
+                              idVisita = {data[el]["idVisita"]}
 
                   />
                 )

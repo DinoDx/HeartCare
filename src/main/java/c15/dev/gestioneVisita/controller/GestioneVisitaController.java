@@ -107,6 +107,7 @@ public class GestioneVisitaController {
                         .nCivico(v.getIndirizzoVisita().getNCivico())
                         .provincia(v.getIndirizzoVisita().getProvincia())
                         .comune(v.getIndirizzoVisita().getCitta())
+                        .idVisita(v.getId())
                         .build())
                 .toList();
 
@@ -115,7 +116,7 @@ public class GestioneVisitaController {
 
     @PostMapping("/modificaDataVisita")
     public void modificaDataVisita(@RequestBody final Map<String, String> body){
-          long idVisita =  Long.parseLong(body.get("id"));
+          long idVisita =  Long.parseLong(body.get("idVisita"));
           Visita visita = visitaService.findById(idVisita);
           LocalDate datax = LocalDate.parse(body.get("nuovaData"));
           visitaService.cambiaData(visita,datax);

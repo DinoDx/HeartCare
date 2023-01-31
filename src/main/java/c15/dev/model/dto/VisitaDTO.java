@@ -59,4 +59,6 @@ public class VisitaDTO {
      *  Parametro id paziente.
      */
     private Long idPaziente;
+
+    private Long idVisita;
 }
