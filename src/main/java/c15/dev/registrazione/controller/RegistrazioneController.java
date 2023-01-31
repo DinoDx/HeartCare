@@ -68,6 +68,34 @@ public class RegistrazioneController {
         return registrazioneService.registraPaziente(p);
     }
 
+
+    @PostMapping(value = "/registrazioneMedico")
+    public AuthenticationResponse
+    registrazioneMedico(@RequestBody @Valid final HashMap<String,String> medico)
+            throws Exception {
+        System.out.println("ciao ciao ciao");
+        String nome = medico.get("nome");
+        String cognome = medico.get("cognome");
+        String password = medico.get("password");
+        String email = medico.get("email");
+        String numero =  medico.get("numeroTelefono");
+        String genere = medico.get("genere");
+        String codice = medico.get("codiceFiscale");
+        LocalDate data = LocalDate.parse(medico.get("dataDiNascita"));
+        Medico m = new Medico(data,codice,numero,password,email,nome,cognome,genere);
+
+        String citta = medico.get("citta");
+        String provincia = medico.get("provincia");
+        String civico = medico.get("nCivico");
+        Integer cap = Integer.valueOf(medico.get("cap"));
+        String via = medico.get("via");
+
+        Indirizzo ind = new Indirizzo(citta,civico,cap,provincia,via);
+        registrazioneService.saveIndirizzo(ind);
+        m.setIndirizzoResidenza(ind);
+        return registrazioneService.registraMedico(m);
+    }
+
     /**
      * Metodo per il login.
      * @param req richiesta per il login.
@@ -86,6 +114,7 @@ public class RegistrazioneController {
     @RequestMapping(value = "/registraMedico", method = RequestMethod.POST)
     public void
     registraMedico(@Valid @RequestBody final Medico med) throws Exception {
+        System.out.println("ciao");
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
         if(!utenteService.isAdmin(u.getId())){
@@ -106,7 +135,7 @@ public class RegistrazioneController {
         System.out.println(codice);
 
         boolean approva = utenteService.findUtenteByCf(codice);
-    System.out.println(approva+"codice");
+        System.out.println(approva+"codice");
         return new ResponseEntity<>(approva, HttpStatus.OK);
     }
     /**

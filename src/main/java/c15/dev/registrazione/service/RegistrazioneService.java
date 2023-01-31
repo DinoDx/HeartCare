@@ -1,5 +1,6 @@
 package c15.dev.registrazione.service;
 
+import c15.dev.model.entity.Admin;
 import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
@@ -46,4 +47,6 @@ public interface RegistrazioneService {
      */
     public Paziente findBycodiceFiscale(String codiceFiscale);
 
+    public AuthenticationResponse registraAdmin(Admin admin)
+            throws Exception;
 }

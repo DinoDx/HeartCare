@@ -4,7 +4,7 @@ import { useState } from "react";
 import jwt from "jwt-decode";
 import { ReactSession }  from 'react-client-session';
 import userPath from "../images/user.png";
-
+import { Modal } from 'react-responsive-modal';
 
 function ModificaDatiForm(){
     const [loading, setLoading] = useState(true);
@@ -111,31 +111,49 @@ function ModificaDatiForm(){
 
     })
 
+    const [open, setOpen] = useState(false);
+    const [openConferma, setOpenConferma] = useState(false);
+
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
+    const onOpenModalConferma = () => setOpenConferma(true);
+    const onCloseModalConfermate = () => {
+        document.location.reload();
+        setOpenConferma(false)
+    };
+
     const modificaPassword =  async ()=>{
         if(controllaPassword){
             document.getElementById("errore").style.display="none";
-            return await  fetch("http://localhost:8080/modifica/password",{
-            method: "POST", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body:JSON.stringify({
-            id:id,
-            vecchiaPassword:vecchiaPassword,
-            nuovaPassword:nuovaPassword
-        })
+            return await fetch("http://localhost:8080/modifica/password",{
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "same-origin", // include, *same-origin, omit
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body:JSON.stringify({
+                    id:id,
+                    vecchiaPassword:vecchiaPassword,
+                    nuovaPassword:nuovaPassword
+                })
+            }).then(response => {
 
+                if(response.status != 200){
+                    onOpenModal();
+                }else{
+                    onOpenModalConferma();
+                }
             })
-            
         }else{
             document.getElementById("errore").style.display="block";
         }
     }
+
+
 
     const modificaIndirizzo = () =>{
         fetch("http://localhost:8080/modifica/indirizzo",{
@@ -156,6 +174,12 @@ function ModificaDatiForm(){
             cap:cap,
             numeroCivico:numeroCivico
         })
+        }).then(response => {
+            if(response.status != 200){
+                onOpenModal();
+            }else{
+                onOpenModalConferma();
+            }
         })
     }
 
@@ -176,12 +200,24 @@ function ModificaDatiForm(){
             cognomeCaregiver:cognomeCaregiver,
             emailCaregiver:emailCaregiver
         })
+        }).then(response => {
+            if(response.status != 200){
+                onOpenModal();
+            }else{
+                onOpenModalConferma();
+            }
         })
     }
 
 
     return (
         <div className="contenitoreFormGenerale">
+            <Modal open={open} onClose={onCloseModal} center>
+                <h2>Modifiche non andate a buon fine</h2>
+            </Modal>
+            <Modal open={openConferma} onClose={onCloseModalConfermate} center>
+                <h2>Modifiche apportate correttamente</h2>
+            </Modal>
             <div className="bannerProfilo">
                 <div className="blocco-testo-banner-profilo">
                     <span className="testo-banner-profilo">Medico</span>
@@ -228,7 +264,6 @@ function ModificaDatiForm(){
                 <button className="formButton" onClick={modificaCaregiver}>Salva</button>
             </div>
             </div>
-            <button className="formButton">Salva</button>
         </div>
     );
 }

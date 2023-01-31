@@ -23,6 +23,7 @@ import Fascicolo from "./pages/Fascicolo"
 import Registrazione from "./pages/Registrazione"
 import HomePaziente from "./pages/HomePaziente"
 import Norme from "./pages/Norme";
+import HomeAdmin from "./pages/HomeAdmin";
 
 import jwt from "jwt-decode"
 import Error404 from "./pages/Error404";
@@ -60,12 +61,38 @@ function App() {
   };
 }
 
+const AuthenticatedRouteAdmin= () => {
+    if (!localStorage.getItem("token")) {
+        <Navigate to={"/Login"} />
+    }
+    else {
+        if(jwt(localStorage.getItem("token")).ruolo == "ADMIN")
+            return(
+                <AppShell>
+                    {" "}
+                    <Outlet />{" "}
+                </AppShell>
+            );
+    };
+}
+
 
   const AppRoutes = () => {
     return (
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="Registrazione" element={<Registrazione />} />
+          <Route path="/" element={<AuthenticatedRouteAdmin />}>
+              <Route exact path="/" element={<Navigate to="/Login" replace />} />
+              <Route
+                  path="HomeAdmin"
+                  element={
+                      <AppShell>
+                          <HomeAdmin/>
+                      </AppShell>
+                  }
+              />
+          </Route>
         <Route path="/" element={<AuthenticatedRoutePaziente />}>
         <Route path="/" element={<Navigate to="/Login" replace />} />
         <Route

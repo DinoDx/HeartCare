@@ -1,8 +1,10 @@
 package c15.dev.registrazione.service;
 
+import c15.dev.model.dao.AdminDAO;
 import c15.dev.model.dao.IndirizzoDAO;
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.entity.Admin;
 import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
@@ -25,6 +27,8 @@ import org.springframework.stereotype.Service;
 public class RegistrazioneServiceImpl implements RegistrazioneService {
     @Autowired
     private PazienteDAO pazienteDAO;
+    @Autowired
+    private AdminDAO adminDAO;
     @Autowired
     private IndirizzoDAO indirizzoDAO;
     @Autowired
@@ -77,6 +81,19 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
                 .build();
     }
 
+
+    @Override
+    public AuthenticationResponse registraAdmin(final Admin admin)
+            throws Exception {
+        admin.setPassword(pwdEncoder.encode(admin.getPassword()));
+        Long id = adminDAO.save(admin).getId();
+
+        var jwtToken = jwtService.generateToken(admin);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
     /**
      * Implementazione per il metodo del login tramite token jwt.
      * @param request parametro richiesta per il login.
@@ -94,7 +111,14 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
         Medico medico = null;
         if(user == null) {
             medico = medicoDAO.findByEmail(request.getEmail());
-
+            Admin ad = null;
+            if(medico == null){
+                ad = (Admin) adminDAO.findByEmail(request.getEmail());
+                var jwtToken = jwtService.generateToken(ad);
+                return AuthenticationResponse.builder()
+                        .token(jwtToken)
+                        .build();
+            }
             var jwtToken = jwtService.generateToken(medico);
             return AuthenticationResponse.builder()
                     .token(jwtToken)

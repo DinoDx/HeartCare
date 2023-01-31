@@ -24,11 +24,11 @@ function LoginForm(){
         let ruolo = jwt(tokenInizio).ruolo;
         if(ruolo == "PAZIENTE") {
             nav("/HomePaziente")
-        }
-        else if(ruolo == "MEDICO") {
+        } else if(ruolo == "MEDICO") {
             nav("/HomeMedico");
+        } else if(ruolo == "ADMIN") {
+            nav("/HomeAdmin");
         }
-
     }
 
     useEffect( () => {
@@ -56,8 +56,11 @@ function LoginForm(){
                 if(jwt(response.data.token).ruolo == "PAZIENTE"){
                     nav("/HomePaziente")
                 }
-                else{
+                else if(jwt(response.data.token).ruolo == "MEDICO"){
                     nav("/HomeMedico");
+                }
+                else{
+                    nav("/HomeAdmin");
                 }
             }, (error) => {
                 document.getElementById("spanErrore").style.display = "block";
@@ -75,7 +78,6 @@ function LoginForm(){
             <input type="text" placeholder=" E-mail" className="formEditText" onChange={aggiornaEmail}/>
             <input type="password" placeholder=" Password" className="formEditText" onChange={aggiornaPassword}/>
             <span className="errore" id="spanErrore" >Controlla i dati inseriti</span>
-            <span className="formLink">Ho dimenticato la password</span>
             <button className="formButton" onClick={handleSubmit}>Accedi</button>
             <span onClick={sendToRegistrazione} className="formLink centerFlexItem">Non hai un account? Registrati</span>
         </div>

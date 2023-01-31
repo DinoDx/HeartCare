@@ -38,6 +38,8 @@ public class DBPopulator {
     private GestioneVisitaService gestioneVisitaService;
     private List<Paziente> pazientiList = new ArrayList<>();
     private List<Medico> medicoList = new ArrayList<>();
+
+    private List<Admin> adminList = new ArrayList<>();
     private List<Misurazione> misurazioniList = new ArrayList<>();
     private List<Indirizzo> indirizzoList = new ArrayList<>();
     private List<Visita> visitaList = new ArrayList<>();
@@ -124,6 +126,25 @@ public class DBPopulator {
         medicoList.stream().forEach(m -> {
             try {
                 regService.registraMedico(m);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+        Admin a1 = new Admin(dataNascita,
+                "PDSLPD08E18C129Q",
+                "+393887124110",
+                "Wpasswd1!%",
+                "fabiola@libero.it",
+                "Fabiola",
+                "Valorant",
+                "F");
+
+        adminList.addAll(List.of(a1));
+        adminList.stream().forEach(a -> {
+            try {
+                regService.registraAdmin(a);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
