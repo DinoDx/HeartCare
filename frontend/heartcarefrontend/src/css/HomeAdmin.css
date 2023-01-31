@@ -1,0 +1,27 @@
+.contenitoreAdminContent {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+    margin: 2px;
+    overflow-y: scroll;
+}
+.iTuoiUtenti{
+    font-size: 30px;
+    font-family: "Questrial", sans-serif;
+    margin-top: 10px;
+    margin-left: 35px;
+}
+.bentornat {
+    margin-top: 25px;
+    margin-bottom: 0px;
+    margin-left: 5%;
+    font-family: "Questrial", sans-serif;
+    font-size: 38px;
+}
+
+.searchbarAdmin{
+    width: 80% !important;
+}

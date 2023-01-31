@@ -93,6 +93,8 @@ public interface GestioneUtenteService {
      */
     Medico findMedicoById(final Long id);
 
+    boolean findMedicoByCf(String codiceFiscale);
+
     boolean findUtenteByCf(final String cf);
 
 
@@ -117,6 +119,8 @@ public interface GestioneUtenteService {
      * Firma del metodo getTuttiPazienti.
      */
     List<UtenteRegistrato> getTuttiPazienti();
+
+    List<UtenteRegistrato> getTuttiUtenti();
 
     /**
      * Firma del metodo getPazientiByMedico.
@@ -164,6 +168,8 @@ public interface GestioneUtenteService {
 
     boolean checkByEmail(final String email);
 
+    boolean checkMedicoByEmail(String email);
+
     /**
      * Firma del metodo registraIndirizzo.
      * @param ind
@@ -201,4 +207,8 @@ public interface GestioneUtenteService {
     public  Long findMedicoByPaziente(final long idPaziente);
     public List<Indirizzo> findAllIndirizzi();
 
+    void rimuoviUtente(Long idUtente);
+
+    boolean controllaPassword(String pwd,
+                              Long idAdmin);
 }

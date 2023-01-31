@@ -9,6 +9,7 @@ import c15.dev.model.entity.enumeration.StatoVisita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -71,4 +72,17 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
     public Indirizzo findIndirizzoById(Long id) {
         return indirizzoDAO.findById(id).get();
     }
+
+    @Override
+    public Visita findById(final long id){
+        return visitaDAO.findById(id).get();
+    }
+    @Override
+    public void cambiaData(Visita visita, LocalDate date){
+       visita.setData(date);
+       visitaDAO.save(visita);
+    }
+
+
+
 }

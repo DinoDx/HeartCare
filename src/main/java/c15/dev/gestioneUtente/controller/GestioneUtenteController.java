@@ -82,31 +82,44 @@ public class GestioneUtenteController {
 
     /**
      * Metodo per rimuovere un Paziente o un Medico.
-     * @param idUtente
+
      */
     @RequestMapping(value = "/rimuoviUtente", method = RequestMethod.POST)
-    public boolean rimuoviUtente(@RequestParam Long idUtente) {
-        if (service.isPaziente(idUtente)) {
-            service.rimuoviPaziente(idUtente);
-            return true;
-        } else if (service.isMedico(idUtente)) {
-            service.rimuoviPaziente(idUtente);
-            return true;
+    public ResponseEntity<Object>
+    rimuoviUtente(@RequestBody final HashMap<String, String> map) {
+        System.out.println("SONO NEL METODO");
+        String pwd = map.get("password");
+        Long id = Long.valueOf(map.get("id"));
+        System.out.println(map.get("email"));
+        if (service.controllaPassword(pwd,id)){
+
+            Long idUtente = service.findUtenteByEmail(map.get("email")).getId();
+
+            if(service.isPaziente(idUtente)) {
+                System.out.println("SONO UN PAZIENTE");
+                service.rimuoviUtente(idUtente);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else if(service.isMedico(idUtente)){
+                service.rimuoviMedico(idUtente);
+                return new ResponseEntity<>(HttpStatus.OK);}
         }
-        return false;
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
     }
 
     /**
      * Metodo che assegna un paziente a un medico.
-     * @param idMedico
-     * @param idPaziente
+
      */
     @RequestMapping(value = "/assegnaPaziente", method = RequestMethod.POST)
-    public void assegnaPaziente(@RequestParam final long idMedico,
-                                @RequestParam final long idPaziente) {
-        if (service.isMedico(idMedico) && service.isPaziente(idPaziente)) {
-            service.assegnaPaziente(idMedico, idPaziente);
-        }
+    public ResponseEntity<Object>
+    assegnaPaziente(@RequestBody final HashMap<String,String> assegnamento) {
+        long idPaziente = Long.parseLong(assegnamento.get("idPaziente"));
+        long idMedico = Long.parseLong(assegnamento.get("idMedico"));
+        service.assegnaPaziente(idMedico,idPaziente);
+        System.out.println("CIAOOOOOOOassegna");
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     /**
@@ -114,19 +127,17 @@ public class GestioneUtenteController {
      * Invariante: il metodo può essere chiamato solo da admin.
      */
     @RequestMapping(value = "/getTuttiMedici", method = RequestMethod.POST)
-    public List<UtenteRegistrato> getTuttiMedici() {
+    public ResponseEntity<Object> getTuttiMedici() {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
-        if (service.isAdmin(u.getId())) {
-            return service.getTuttiMedici()
-                    .stream()
-                    .filter((utente)
-                            -> utente.getClass()
-                            .getSimpleName()
-                            .equals("Medico"))
-                    .toList();
-        }
-        return null;
+        System.out.println("CIAOOOOOOO");
+        return new ResponseEntity<>(service.getTuttiMedici()
+                .stream()
+                .filter((utente)
+                        -> utente.getClass()
+                        .getSimpleName()
+                        .equals("Medico"))
+                .toList(), HttpStatus.OK);
     }
 
     /**
@@ -377,6 +388,40 @@ public class GestioneUtenteController {
     public ResponseEntity<Object> getIndirizzi(){
         return new ResponseEntity<>(service.findAllIndirizzi(),HttpStatus.OK);
     }
+
+
+    @PostMapping(value = "/controllaPassword")
+    public ResponseEntity<Object>
+    controllaPassword(@RequestBody final String pwd,
+                      final HttpServletRequest request) {
+
+        var email = request.getUserPrincipal().getName();
+        var u = service.findUtenteByEmail(email);
+        if (u == null) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+
+        if (service.controllaPassword(pwd, u.getId()) == true) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+    }
+
+    @RequestMapping(value = "/getTuttiUtenti", method = RequestMethod.POST)
+    public ResponseEntity<Object> getTuttiUtenti(HttpServletRequest request) {
+
+        var email = request.getUserPrincipal().getName();
+        if(service.findUtenteByEmail(email) == null) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(service.getTuttiUtenti()
+                .stream()
+                .toList(), HttpStatus.OK);
+
+    }
 }
+
 
 

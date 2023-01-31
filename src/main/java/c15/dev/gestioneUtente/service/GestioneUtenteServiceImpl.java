@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -70,6 +72,9 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Autowired
     private UtenteRegistratoDAO utente;
 
+
+    @Autowired
+    private PasswordEncoder pwdEncoder;
 
     /**
      * Metodo che permette di fare il login.
@@ -297,6 +302,15 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     @Override
+    public boolean findMedicoByCf(final String codiceFiscale) {
+        Medico u = medico.findBycodiceFiscale(codiceFiscale);
+
+        if (u == null){
+            return false;
+        }
+        return true;
+    }
+    @Override
     public boolean findUtenteByCf(final String codiceFiscale) {
             Paziente u = paziente.findBycodiceFiscale(codiceFiscale);
 
@@ -309,6 +323,15 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Override
     public boolean checkByEmail(final String email) {
         Paziente u = paziente.findByEmail(email);
+        if (u == null){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkMedicoByEmail(final String email) {
+        Medico u = medico.findByEmail(email);
         if (u == null){
             return false;
         }
@@ -390,6 +413,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return paziente.findAll();
     }
 
+    @Override
+    public List<UtenteRegistrato> getTuttiUtenti(){
+        return utente.findAll();
+    }
 
     /**
      * Metodo per ottenere tutti i pazienti del db di un medico.
@@ -461,9 +488,32 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return m.getId();
     }
 
+
     @Override
     public List<Indirizzo> findAllIndirizzi() {
         return indirizzo.findAll();
+    }
+
+    @Override
+    public void rimuoviUtente(final Long idUtente) {
+        Optional<UtenteRegistrato> u = utente.findById(idUtente);
+        utente.delete(u.get());
+    }
+
+
+    @Override
+    public boolean controllaPassword(final String pwd,
+                                     final Long idAdmin) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        UtenteRegistrato u = utente.findById(idAdmin).get();
+        boolean isPasswordMatch = passwordEncoder.matches(pwd, u.getPassword());
+
+        if(isPasswordMatch) {
+            return true;
+        }
+
+        return false;
     }
 
 }

@@ -112,4 +112,13 @@ public class GestioneVisitaController {
 
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
+
+    @PostMapping("/modificaDataVisita")
+    public void modificaDataVisita(@RequestBody final Map<String, String> body){
+          long idVisita =  Long.parseLong(body.get("id"));
+          Visita visita = visitaService.findById(idVisita);
+          LocalDate datax = LocalDate.parse(body.get("nuovaData"));
+          visitaService.cambiaData(visita,datax);
+    }
+
 }
