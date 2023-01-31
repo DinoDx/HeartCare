@@ -98,8 +98,8 @@ function HomePaziente() {
     };
 
     const speriamo = ()=>{addNotification({
-        title: 'Notifica',
-        subtitle: 'This is a subtitle',
+        title: 'HeartCare',
+        subtitle: 'Misurazioni',
         message: notifications,
         theme: 'red',
         native: true // when using native, your OS will handle theming.

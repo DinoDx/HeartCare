@@ -255,7 +255,7 @@ function RegistrazioneForm() {
                 </div>
                 <div className="contenitoreEditTextCorta">
                     <span className="labelEditText">Provincia</span>
-                    <input type="text" placeholder="Provincia" className="registrazioneEditText" max = "2"
+                    <input type="text" placeholder="Provincia" className="registrazioneEditText" maxLength={2}
                         {...register("provincia", {
                             required: true
                         })} />
@@ -285,7 +285,7 @@ function RegistrazioneForm() {
                 </div>
                 <div className="contenitoreEditTextCortissima">
                     <span className="labelEditText">CAP</span>
-                    <input type="number" placeholder="CAP" className="registrazioneEditText" max="5"
+                    <input type="tel" placeholder="CAP" className="registrazioneEditText" maxLength={5}
                         {...register("cap", {
                             required: true
                         })} />

@@ -4,6 +4,7 @@ import c15.dev.gestioneComunicazione.service.GestioneComunicazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
+import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.UtenteRegistrato;
@@ -263,6 +264,42 @@ public class GestioneUtenteController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+
+    @PostMapping("utente/modifica/{id}")
+    public ResponseEntity<Object>
+    getDatiPerModifica(@PathVariable("id") final Long idUtente) {
+
+        var request = ((ServletRequestAttributes) RequestContextHolder
+                .getRequestAttributes())
+                .getRequest();
+
+        System.out.println("qui va");
+        HashMap<String, Object> map = new HashMap<>();
+        if(service.isPaziente(idUtente)){
+            Paziente paziente = service.findPazienteById(idUtente);
+            Indirizzo indirizzo = paziente.getIndirizzoResidenza();
+            map.put("citta", indirizzo.getCitta());
+            map.put("provincia", indirizzo.getProvincia());
+            map.put("via", indirizzo.getVia());
+            map.put("numeroCivico", indirizzo.getNCivico());
+            map.put("cap", indirizzo.getCap());
+            map.put("emailCaregiver", paziente.getEmailCaregiver());
+            map.put("nomeCaregiver", paziente.getNomeCaregiver());
+            map.put("cognomeCaregiver", paziente.getCognomeCaregiver());
+        }
+
+        else if(service.isMedico(idUtente) || service.isAdmin(idUtente)){
+            Medico medico = service.findMedicoById(idUtente);
+            map.put("nome", medico.getNome());
+            map.put("cognome", medico.getCognome());
+            map.put("email", medico.getEmail());
+            map.put("nTelefono", medico.getNumeroTelefono());
+        }
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+
     /**
      * @author Paolo Carmine Valletta.
      * Metodo che permette di visualizzare la home di un Medico o Paziente.
@@ -421,6 +458,58 @@ public class GestioneUtenteController {
                 .toList(), HttpStatus.OK);
 
     }
+
+
+    @PostMapping( "/modifica/password")
+    public ResponseEntity<Object>
+            modificaPassword(@RequestBody final HashMap<String,String> utente)
+                                                            throws Exception {
+        System.out.println(utente.toString());
+        Long idUtente = Long.valueOf(utente.get("id"));
+        String vecchiaPassword = utente.get("vecchiaPassword");
+        if(service.controllaPassword(vecchiaPassword,idUtente)){
+            Paziente p = (Paziente) service.findUtenteById(idUtente);
+            p.setPassword(service.encryptPassword(utente.get("nuovaPassword")));
+            service.updatePaziente(p);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+    }
+
+
+    @PostMapping("/modifica/indirizzo")
+    public ResponseEntity<Object> modificaIndirizzo(@RequestBody HashMap<String,String> indirizzo) {
+
+        Long idUtente = Long.valueOf(indirizzo.get("id"));
+        Indirizzo ind = service.findUtenteById(idUtente).getIndirizzoResidenza();
+        ind.setCitta(indirizzo.get("citta"));
+        ind.setProvincia(indirizzo.get("provincia"));
+        ind.setNCivico(indirizzo.get("numeroCivico"));
+        ind.setCap(Integer.valueOf(indirizzo.get("cap")));
+        ind.setVia(indirizzo.get("via"));
+
+        service.updateIndirizzo(ind);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PostMapping("/modifica/caregiver")
+    public ResponseEntity<Object> modificaCaregiver(@RequestBody HashMap<String,String> caregiver) {
+        Long idUtente = Long.valueOf(caregiver.get("id"));
+        Paziente p = service.findPazienteById(idUtente);
+
+        p.setNomeCaregiver(caregiver.get("nomeCaregiver"));
+        p.setCognomeCaregiver(caregiver.get("cognomeCaregiver"));
+        p.setEmailCaregiver(caregiver.get("emailCaregiver"));
+
+        service.updatePaziente(p);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }
 
 

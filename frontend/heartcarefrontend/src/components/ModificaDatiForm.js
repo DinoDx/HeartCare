@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import '../css/styleModificaDatiForm.css';
 import { useState } from "react";
-import axios from "axios";
+import jwt from "jwt-decode";
 import { ReactSession }  from 'react-client-session';
 import userPath from "../images/user.png";
 
@@ -10,7 +10,7 @@ function ModificaDatiForm(){
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([])
     const token = localStorage.getItem("token");
-
+    const id = jwt(token).id;
     let config = {
       Accept: "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -20,7 +20,7 @@ function ModificaDatiForm(){
     };
 
     const getDati = async () => {
-      return await fetch("http://localhost:8080/utente/1", {
+      return await fetch("http://localhost:8080/utente/modifica/"+id, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -33,36 +33,38 @@ function ModificaDatiForm(){
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         //body: JSON.stringify(data), // body data type must match "Content-Type" header
-      }).then((response) => response.json());
-    };
-    useEffect(() => {
-      getDati().then((data) => console.log(data));
+      }).then(async (response) => {
+        response = await response.json()
+        setData(response);
+        console.log(data);
     });
+    };
 
-    const [nome, setNome] = useState("");
-    const [cognome, setCognome] = useState("");
+    useEffect(()=>{
+        getDati();
+    },[])
+    
+    const [vecchiaPassword, setVecchiaPassword] = useState("");
+    const [nuovaPassword, setNuovaPassword] = useState("");
     const [nTelefono, setNtelefono] = useState("");
     const [password, setPassword] = useState("");
     const [confermaPassword, setConfermaPassword] = useState("");
     const [nomeCaregiver, setNomeCaregiver] = useState("");
     const [cognomeCaregiver, setCognomeCaregiver] = useState("");
     const [emailCaregiver, setEmailCaregiver] = useState("");
+    const [citta, setCitta] = useState("");
+    const [provincia, setProvincia] = useState("");
+    const [via, setVia] = useState("");
+    const [numeroCivico, setNumeroCivico] = useState("");
+    const [cap, setCap] = useState("");
 
 
-    const aggiornaNome = (event) => {
-        setNome(event.target.value);
+    const aggiornaVecchiaPassowrd = (event) => {
+        setVecchiaPassword(event.target.value);
     }
 
-    const aggiornaCognome = (event) => {
-        setCognome(event.target.value);
-    }
-
-    const aggiornaNtelefono = (event) => {
-        setNtelefono(event.target.value);
-    }
-
-    const aggiornaPassword = (event) => {
-        setPassword(event.target.value);
+    const aggiornaNuovaPassword = (event) => {
+        setNuovaPassword(event.target.value);
     }
 
     const aggiornaConfermaPassword = (event) => {
@@ -81,32 +83,102 @@ function ModificaDatiForm(){
         setEmailCaregiver(event.target.value);
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-
-
-        fetch('http://localhost:8080/modificaDatiUtente', {
-            method : "POST",
-            headers : config,
-            body : JSON.stringify({
-                nome: nome,
-                cognome: cognome,
-                password: password,
-                numeroTelefono: nTelefono,
-                confermaPassword: confermaPassword,
-                nomeCaregiver: nomeCaregiver,
-                cognomeCaregiver: cognomeCaregiver,
-                emailCaregiver: emailCaregiver
-            })
-        })
-            .then((response) => {
-                response.json();
-                console.log(ReactSession.set("utenteLoggato"));
-                console.log(response);
-            }, (error) => {
-                console.log(error);
-            });
+    const aggiornaCitta = (event) => {
+        setCitta(event.target.value);
     }
+
+    const aggiornaProvincia = (event) => {
+        setProvincia(event.target.value);
+    }
+
+    const aggiornaVia = (event) => {
+        setVia(event.target.value);
+    }
+
+    const aggiornaNumeroCivico = (event) => {
+        setNumeroCivico(event.target.value);
+    }
+
+    const aggiornaCap = (event) => {
+        setCap(event.target.value);
+    }
+
+    const controllaPassword = (()=>{
+        const nuova = document.getElementById("nuovaPassword").value;
+        const conferma = document.getElementById("confermaPassword").value;
+
+        return conferma==nuova;
+
+    })
+
+    const modificaPassword =  async ()=>{
+        if(controllaPassword){
+            document.getElementById("errore").style.display="none";
+            return await  fetch("http://localhost:8080/modifica/password",{
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body:JSON.stringify({
+            id:id,
+            vecchiaPassword:vecchiaPassword,
+            nuovaPassword:nuovaPassword
+        })
+
+            })
+            
+        }else{
+            document.getElementById("errore").style.display="block";
+        }
+    }
+
+    const modificaIndirizzo = () =>{
+        fetch("http://localhost:8080/modifica/indirizzo",{
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body:JSON.stringify({
+            id:id,
+            citta:citta,
+            provincia:provincia,
+            via:via,
+            cap:cap,
+            numeroCivico:numeroCivico
+        })
+        })
+    }
+
+    const modificaCaregiver = () =>{
+        fetch("http://localhost:8080/modifica/caregiver",{
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body:JSON.stringify({
+            id:id,
+            nomeCaregiver:nomeCaregiver,
+            cognomeCaregiver:cognomeCaregiver,
+            emailCaregiver:emailCaregiver
+        })
+        })
+    }
+
 
     return (
         <div className="contenitoreFormGenerale">
@@ -128,33 +200,37 @@ function ModificaDatiForm(){
                 <h1 className="titoloDati">Dati personali 👨🏻‍💻 </h1>
                 <hr className="lineaMenuProfilo" />
                 <img src={userPath} className="userImg"/>
-                <input type="text" placeholder={data.nome} className="formEditText" onChange={aggiornaNome}/>
-                <input type="text" placeholder={data.cognome} className="formEditText" onChange={aggiornaCognome}/>
-                <input type="text" placeholder={data.nTelefono} className="formEditText" onChange={aggiornaNtelefono}/>
-                <input type="password" placeholder={data.password} className="formEditText" onChange={aggiornaConfermaPassword}/>
-                <input type="password" placeholder=" Password" className="formEditText" onChange={aggiornaPassword}/>
+                <input type="password"   placeholder="Vecchia password" className="formEditText" onChange={aggiornaVecchiaPassowrd}/>
+                <input type="password" id = "nuovaPassword" placeholder="Nuova password" className="formEditText" onChange={aggiornaNuovaPassword}/>
+                <input type="password" id = "confermaPassword" placeholder="Conferma nuova password" className="formEditText" onChange={aggiornaConfermaPassword}
+                />
+                <span id = "errore"style={{display:"none"}}>Le password non corrispondono</span>
+                <button className="formButton" onClick={modificaPassword}>Salva</button>
+
             </div>
             <div className="contenitoreForm-Secondario">
                 <div className="contenitoreForm-Indirizzo">
                 <h1 className="titoloDati">Indirizzo 🏡</h1>
                 <hr className="lineaMenuProfilo" />
-                <input type="text" placeholder="indirizzo 1" className="formEditText"></input>
-                <input type="text" placeholder="indirizzo 1" className="formEditText"></input>
-                <input type="text" placeholder="indirizzo 1" className="formEditText"></input>
-                <input type="number" placeholder="indirizzo 1" className="formEditText"></input>
-                <input type="text" placeholder="indirizzo 1" className="formEditText"></input>
+                <input type="text" placeholder={data.citta} className="formEditText"  onChange={aggiornaCitta}></input>
+                <input type="text" placeholder={data.provincia} className="formEditText" maxLength={2}  onChange={aggiornaProvincia}></input>
+                <input type="text" placeholder={data.via} className="formEditText" onChange={aggiornaVia}></input>
+                <input type="text" placeholder={data.numeroCivico} className="formEditText" onChange={aggiornaNumeroCivico}></input>
+                <input type="number" placeholder={data.cap} className="formEditText" maxLength={5}  onChange={aggiornaCap}></input>
+                <button className="formButton" onClick={modificaIndirizzo}>Salva</button>
             </div>
             <div className="contenitoreForm-infoCaregiver">
                 <h1 className="titoloDati">Caregiver 🧑🏻‍💼 </h1>
                 <hr className="lineaMenuProfilo" />
-                <input type="text" placeholder="Nome Caregiver" value={data.nomeCaregiver} className="formEditText" onChange={aggiornaNomeCaregiver}/>
-                <input type="text" placeholder="Cognome Caregiver"  value={data.cognomeCaregiver} className="formEditText" onChange={aggiornaCognomeCaregiver}/>
-                <input type="text" placeholder="Email Caregiver" value={data.emailCaregiver} className="formEditText" onChange={aggiornaEmailCaregiver}/>
+                <input type="text" placeholder={data.nomeCaregiver}  className="formEditText" onChange={aggiornaNomeCaregiver}/>
+                <input type="text" placeholder={data.cognomeCaregiver}   className="formEditText" onChange={aggiornaCognomeCaregiver}/>
+                <input type="text" placeholder={data.emailCaregiver}  className="formEditText" onChange={aggiornaEmailCaregiver}/>
+                <button className="formButton" onClick={modificaCaregiver}>Salva</button>
             </div>
             </div>
-            <button className="formButton" onClick={handleSubmit}>Salva</button>
+            <button className="formButton">Salva</button>
         </div>
     );
-    }
+}
 
 export default ModificaDatiForm;

@@ -503,10 +503,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     @Override
     public boolean controllaPassword(final String pwd,
-                                     final Long idAdmin) {
+                                     final Long idUtente) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        UtenteRegistrato u = utente.findById(idAdmin).get();
+        UtenteRegistrato u = utente.findById(idUtente).get();
         boolean isPasswordMatch = passwordEncoder.matches(pwd, u.getPassword());
 
         if(isPasswordMatch) {
@@ -515,5 +515,12 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
         return false;
     }
+
+    @Override
+    public String encryptPassword(String nuovaPassword) {
+        return pwdEncoder.encode(nuovaPassword);
+    }
+
+    public void updateIndirizzo(final Indirizzo ind){ this.indirizzo.save(ind); }
 
 }

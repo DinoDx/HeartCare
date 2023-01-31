@@ -199,6 +199,8 @@ public interface GestioneUtenteService {
      */
     Set<DispositivoMedico> getDispositiviByPaziente(final long idPaziente);
 
+    public void updateIndirizzo(final Indirizzo ind);
+
     /**
      * Firma del metodo che trova un medico dal paziente.
      * @param idPaziente
@@ -211,4 +213,6 @@ public interface GestioneUtenteService {
 
     boolean controllaPassword(String pwd,
                               Long idAdmin);
+
+    String encryptPassword(String nuovaPassword);
 }
