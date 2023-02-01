@@ -19,7 +19,6 @@ import CardDispositivo from "../components/CardDispositivo";
 import { CiMedicalCase } from "react-icons/ci";
 import NoteContainerPaziente from "../components/NoteContainerPaziente";
 import gifPath from "../images/Bars-1s-200px.gif";
-import pathGif from "../images/Ripple-1s-200px_1.gif";
 
 function HomePaziente() {
     const [utente, setUtente] = useState([]);
@@ -27,11 +26,8 @@ function HomePaziente() {
     const [Misurazioni, setMisurazioni] = useState([]);
     const [note, setNote] = useState([]);
     const [visite, setVisite] = useState([]);
-    const [infarto,setInfarto] = useState();
-    const [reponseInfarto, setResponseInfarto] = useState();
     const token = localStorage.getItem("token");
     const idPaziente = jwt(token)["id"];
-
     let config = {
         Accept: "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -213,12 +209,10 @@ function HomePaziente() {
 
     const [open, setOpen] = useState(false);
     const [openRisultati, setOpenModalRisultati] = useState(false);
-    const [openInfartoRisultato, setOpenInfartoRisultato] = useState(false);
+
     const [openPredizione, setOpenPredizione] = useState(false);
     const onOpenModalPredizione = () => setOpenPredizione(true);
     const onCloseModalPredizione = () => setOpenPredizione(false);
-    const onOpenInfartoRisultato = () => setOpenInfartoRisultato(true);
-    const onCloseInfartoRisultato = () => setOpenInfartoRisultato(false);
 
     const onOpenModal = () => setOpen(true);
     const onOpenModalRisultati = () => setOpenModalRisultati(true);
@@ -256,21 +250,6 @@ function HomePaziente() {
             response = await response.json();
             setDatiMisurazione(response);
         })
-    }
-
-    const handlerOnChange = (event) => {
-        setInfarto(event.target.value);
-    }
-
-    const avviaPredizione = async() => {
-        const response = await("http://localhost:8080/avvioPredizione", {
-            method : "POST",
-            headers : config,
-            body : JSON.stringify({
-                infarto : infarto
-        })
-        }).then(response => response.json())
-        setResponseInfarto(response);
     }
 
     return !localStorage.getItem("token") ? (
@@ -345,19 +324,18 @@ function HomePaziente() {
                 <Modal open={openPredizione} onClose={onCloseModalPredizione} center>
                     <h2>Inserisci i tuoi dati:</h2>
                     <div className="contenitoreDatiMisurazione">
+                        <span className="grassetto">Hai dolore al petto?</span>
+                        <select className="selectDispositivo">
+                            <option value="alto">Alto</option>
+                            <option value="alto">Medio</option>
+                            <option value="alto">Basso</option>
+                        </select>
                         <span className="grassetto">Hai avuto già un infarto?</span>
-                        <select className="selectDispositivo" onChange={e => handlerOnChange(e)}>
+                        <select className="selectDispositivo">
                             <option value="alto">Sì</option>
                             <option value="alto">No</option>
                         </select>
-                        <button className="bottoneInviaNota" onClick={() => {avviaPredizione(); onOpenInfartoRisultato(); onCloseModalPredizione()}}>Avvio Predizione</button>
-                    </div>
-                </Modal>
-
-                <Modal open={openInfartoRisultato} onClose={onCloseInfartoRisultato} center>
-                    <img src={pathGif} id="img"/>
-                    <div id="dati" style={{ display: "none" }}>
-                        {infarto == 1? <h2> Sei a rischio infarto</h2> : <h2> Non sei a rischio infarto</h2> }
+                        <button className="bottoneInviaNota">Avvio Predizione</button>
                     </div>
                 </Modal>
 
