@@ -91,7 +91,8 @@ public class Visita implements Serializable {
      * @param stato rappresenta lo stato della elencoVisite.
      * @param med rappresenta il medico con cui si fa la elencoVisite.
      * @param paz rappresenta il paziente che è coinvolto nella elencoVisite.
-     * @param indirizzo rappresenta l'indirizzo in cui si effettuerà la elencoVisite.
+     * @param indirizzo rappresenta l'indirizzo in cui
+     *                  si effettuerà la elencoVisite.
      */
     public Visita(final LocalDate dataVisita,
                   final StatoVisita stato,

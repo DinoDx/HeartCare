@@ -9,6 +9,7 @@ import c15.dev.model.dao.MisurazionePressioneDAO;
 import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.dto.MisurazioneDTO;
 import c15.dev.model.entity.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -194,6 +195,7 @@ public class GestioneMisurazioneServiceImpl implements GestioneMisurazioneServic
      * @param misurazione
      * @return
      */
+    @Transactional
     @Override
     public Misurazione save(Misurazione misurazione) {
         return misurazioneDAO.save(misurazione);

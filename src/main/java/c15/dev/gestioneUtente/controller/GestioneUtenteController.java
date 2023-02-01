@@ -566,8 +566,8 @@ public class GestioneUtenteController {
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @PostMapping("/modifica/caregiver")
-    public ResponseEntity<Object> modificaCaregiver(
-            @RequestBody final HashMap<String,String> caregiver) {
+    public ResponseEntity<Object>
+    modificaCaregiver(@RequestBody final HashMap<String,String> caregiver) {
         Long idUtente = Long.valueOf(caregiver.get("id"));
         Paziente p = service.findPazienteById(idUtente);
 
@@ -576,9 +576,12 @@ public class GestioneUtenteController {
         p.setEmailCaregiver(caregiver.get("emailCaregiver"));
 
         service.updatePaziente(p);
+        gestioneComunicazioneService.invioEmail("Sei diventato caregiver",
+                p.getEmailCaregiver());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
     /**
      * Metodo che serve per restituire il medico di un paziente.

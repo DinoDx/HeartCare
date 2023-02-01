@@ -2,6 +2,7 @@ package c15.dev.model.dao;
 
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.UtenteRegistrato;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 

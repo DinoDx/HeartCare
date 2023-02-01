@@ -137,7 +137,6 @@ function HomePaziente() {
             client.subscribe('/topic/notifica', (response) => {
                 response = JSON.parse(response.body);
                 if (response.idPaziente == idPaziente) {
-                    console.log(response.messagio,"OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                     setNotifications((response.messagio));
                     setAggiorna(aggiorna+1);
                     console.log("notifica = ", response.messagio)                

@@ -178,7 +178,7 @@ public class DispositivoMedico {
                 LocalDate birthday = paziente.getDataDiNascita();//toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 misurazione = dispositivoMedicoStub.
                         MisurazionePressioneStub(Period
-                                .between(birthday,currentDate)
+                                .between(birthday, currentDate)
                                 .getYears());
             }
                 break;

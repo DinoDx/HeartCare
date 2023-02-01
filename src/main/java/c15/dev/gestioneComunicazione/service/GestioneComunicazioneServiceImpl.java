@@ -10,6 +10,7 @@ import c15.dev.model.entity.Nota;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

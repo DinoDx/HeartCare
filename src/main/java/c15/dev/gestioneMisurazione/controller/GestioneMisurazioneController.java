@@ -1,23 +1,22 @@
 package c15.dev.gestioneMisurazione.controller;
 
 import c15.dev.gestioneComunicazione.service.GestioneComunicazioneService;
-import c15.dev.gestioneMisurazione.misurazioneAdapter.ControlloMisurazioni;
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoAdapter;
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
-import c15.dev.model.dto.MisurazioneDTO;
-import c15.dev.model.entity.DispositivoMedico;
-import c15.dev.model.entity.Misurazione;
-import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.model.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -31,11 +30,9 @@ public class GestioneMisurazioneController {
     @Autowired
     private GestioneComunicazioneService comunicazioneService;
 
-    /**
-     * Sessione
-     */
     @Autowired
-    private HttpSession session;
+    private RestTemplate restTemplate;
+
     /**
      * Service per la misurazione
      */
@@ -82,14 +79,18 @@ public class GestioneMisurazioneController {
      */
     @RequestMapping(value = "/rimuoviDispositivo", method = RequestMethod.POST)
     public boolean
-    rimozioneDispositivo(@RequestParam DispositivoMedico dispositivo){
-        UtenteRegistrato u = (UtenteRegistrato)
-                session.getAttribute("utenteLoggato");
+    rimozioneDispositivo(@RequestParam final DispositivoMedico dispositivo,
+                         final HttpServletRequest request) {
+      /*  var u = request.get
         if(!utenteService.isPaziente(u.getId())){
             return false;
         }
         return misurazioneService.rimozioneDispositivo(dispositivo,
                 u.getId());
+                */
+
+        return true;
+
     }
 
     /**
@@ -134,10 +135,7 @@ public class GestioneMisurazioneController {
                 new DispositivoMedicoAdapter(dispositivoMedico);
         var m =  dispositivoAdapter.avvioMisurazione();
 
-        if(ControlloMisurazioni.chiamaControllo(m)) {
-            System.out.println("prima di invocare il sendNotifica");
-            comunicazioneService.sendNotifica("Misurazione sballata", m.getPaziente().getId());
-        }
+
 
         misurazioneService.save(m);
         return m;
@@ -166,8 +164,7 @@ public class GestioneMisurazioneController {
     public ResponseEntity<Object> getAllMisurazioniByPaziente(
             @RequestBody HashMap<String,Object> body){
         Long idPaz = Long.parseLong(body.get("id").toString());
-        List<MisurazioneDTO> list =
-                misurazioneService.getAllMisurazioniByPaziente(idPaz);
+        var list = misurazioneService.getAllMisurazioniByPaziente(idPaz);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -178,9 +175,91 @@ public class GestioneMisurazioneController {
      */
     @PostMapping(value = "/getCategorie")
     public List<String> getCategorieByPaziente(
-            @RequestBody HashMap<String,Object> body){
+            @RequestBody HashMap<String, Object> body) {
         Long idPaz = Long.parseLong(body.get("id").toString());
-        System.out.println("aoooo");
         return misurazioneService.findCategorieByPaziente(idPaz);
     }
+
+    /**
+     * Metodo per prevedere se l'utente avrà un infarto.
+     * @param body
+     * @return
+     */
+    @PostMapping(value = "/avvioPredizione")
+    public ResponseEntity<Object> avvioPredizione(@RequestBody final HashMap<String, String> body,
+                                                    final HttpServletRequest request) {
+        var email = request.getUserPrincipal().getName();
+        var usr = utenteService.findUtenteByEmail(email);
+        Paziente paz = (Paziente) usr;
+        long id = usr.getId();
+
+        /**
+         * "age":90,
+         * "sex": 1,
+         * "trestbps": 180,
+         * "chol": 250,
+         * "fbs": 1,
+         * "thalach": 250,
+         * "thal": 1
+         *
+         * */
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        var eta = Period
+                        .between(usr.getDataDiNascita(), LocalDate.now())
+                        .getYears();
+
+        map.put("age", eta);
+
+        var sex = usr.getGenere();
+        if(sex.equals("M")) {
+            map.put("sex", 1);
+        }
+        else {
+            map.put("sex", 0);
+        }
+
+        var pressione = paz.getMisurazione()
+                .stream()
+                .filter(s -> s.getClass().equals(MisurazionePressione.class))
+                .map(s1 -> (MisurazionePressione) s1)
+                .reduce((one, two) -> two)
+                .get();
+
+        map.put("trestbps", pressione.getPressioneMedia());
+
+        var colesterolo = paz.getMisurazione()
+                .stream()
+                .filter(s -> s.getClass().equals(MisurazioneGlicemica.class))
+                .map(s1 -> (MisurazioneGlicemica) s1)
+                .reduce((one, two) -> two)
+                .get();
+
+        map.put("chol", colesterolo.getColesterolo());
+
+        var fbs = paz.getMisurazione()
+                .stream()
+                .filter(s -> s.getClass().equals(MisurazioneGlicemica.class))
+                .map(s -> (MisurazioneGlicemica) s)
+                .reduce((one, two) -> two)
+                .get();
+        int flag = (fbs.getZuccheriNelSangue() > 120) ? 1 : 0;
+        map.put("fbs", flag);
+
+        map.put("thalach", pressione.getBattitiPerMinuto());
+
+        if(body.get("infarto").equals("si")) {
+            map.put("thal", 1);
+        }
+        else {
+            map.put("thal", 0);
+        }
+
+        System.out.println(map);
+
+        var i =  restTemplate.postForObject("http://localhost:8081/", map, String.class);
+        System.out.println(i);
+        return new ResponseEntity<>(i, HttpStatus.OK);
+    }
+
+
 }

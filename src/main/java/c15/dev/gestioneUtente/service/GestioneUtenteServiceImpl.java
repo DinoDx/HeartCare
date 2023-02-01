@@ -423,6 +423,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      */
     @Override
     public void updatePaziente(final Paziente paz) {
+
         this.paziente.save(paz);
     }
 
