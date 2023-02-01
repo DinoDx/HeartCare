@@ -20,18 +20,27 @@ import java.util.List;
  */
 @Service
 public class GestioneVisitaServiceImpl implements GestioneVisitaService {
+    /**
+     * DAO per le operazioni di accesso al db delle visite.
+     */
     @Autowired
     private VisitaDAO visitaDAO;
 
+    /**
+     * Service per le operazioni dell'utente.
+     */
     @Autowired
     private GestioneUtenteService utenteService;
 
+    /**
+     * DAO per le operazioni di accesso al db degli indirizzi.
+     */
     @Autowired
     private IndirizzoDAO indirizzoDAO;
 
     /**
      * Metodo per salvare una nuova visita.
-     * @param visita
+     * @param visita i dati della visita da aggiungere.
      */
     @Override
     public void aggiuntaVisita(final Visita visita) {
@@ -41,7 +50,7 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
     /**
      * Metodo per trovare le visite programmate da un utente.
      * @param email email dell'utente.
-     * @return
+     * @return lista di visite programmate per l'utente
      */
     @Override
     public List<Visita> findVisiteProgrammateByUser(final String email) {
@@ -68,17 +77,33 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
         return null;
     }
 
+    /**
+     * Metodo trova i dati di un indirizzo dato l'id.
+     * @param id l'identificativo dell'indirizzo.
+     * @return l'indirizzo associato a quel id.
+     */
     @Override
-    public Indirizzo findIndirizzoById(Long id) {
+    public Indirizzo findIndirizzoById(final Long id) {
         return indirizzoDAO.findById(id).get();
     }
 
+    /**
+     * Metodo trova i dati di una visita dato l'id.
+     * @param id l'identificativo della visita.
+     * @return la visita associata a quel id.
+     */
     @Override
     public Visita findById(final long id){
         return visitaDAO.findById(id).get();
     }
+
+    /**
+     * Metodo che permette di cambiare la data di una visita.
+     * @param visita la visita a cui cambiare la data.
+     * @param date la nuova data in cui sarà programmata la visita.
+     */
     @Override
-    public void cambiaData(Visita visita, LocalDate date){
+    public void cambiaData(final Visita visita, final LocalDate date) {
        visita.setData(date);
        visitaDAO.save(visita);
     }

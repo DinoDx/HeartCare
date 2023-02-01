@@ -2,11 +2,9 @@ package c15.dev.model.entity;
 
 import c15.dev.utils.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -14,12 +12,9 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -230,6 +225,11 @@ public class UtenteRegistrato implements Serializable, UserDetails {
                     "l'espressione regolare");
         }
     }
+
+    /**
+     * Metodo permette di settare la password.
+     * @param pass nuova.
+     */
     public void setPassword(final String pass) throws Exception {
             this.password = pass;
     }
@@ -237,37 +237,60 @@ public class UtenteRegistrato implements Serializable, UserDetails {
     /**
      * Metodo che ritorna una lista di ruoli.
      */
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(ruolo.name()));
     }
 
+    /**
+     * Metodo che restituisce la password di un utente registrato.
+     * @return password.
+     */
     @Override
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Metodo che restitusice la mail di un utente.
+     * @return email.
+     */
     @Override
     public String getUsername() {
         return email;
     }
 
+    /**
+     * Metodo che ci dice se un account è scaduto.
+     * @return true o false.
+     */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    /**
+     * Metodo che ci dice se un account è bloccato.
+     * @return true o false.
+     */
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    /**
+     * Metodo che ci dice se le credenziali sono scadute o meno.
+     * @return true o false.
+     */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    /**
+     * Metodo che ci dice se un account è abilitato.
+     * @return true o false.
+     */
     @Override
     public boolean isEnabled() {
         return true;

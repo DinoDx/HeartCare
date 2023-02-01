@@ -25,20 +25,44 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RegistrazioneServiceImpl implements RegistrazioneService {
+    /**
+     * Provvede alle operazioni del db legate al paziente.
+     */
     @Autowired
     private PazienteDAO pazienteDAO;
+    /**
+     * Provvede alle operazioni del db legate all'admin.
+     */
     @Autowired
     private AdminDAO adminDAO;
+
+    /**
+     * Provvede alle operazioni del db legate all'indirizzo.
+     */
     @Autowired
     private IndirizzoDAO indirizzoDAO;
+
+    /**
+     * Provvede alle operazioni del db legate al medico.
+     */
     @Autowired
     private MedicoDAO medicoDAO;
+
+    /**
+     * Provvede alle operazioni legate al token di autenticazione.
+     */
     @Autowired
     private JwtService jwtService;
 
+    /**
+     * Provvede alla criptazione della password.
+     */
     @Autowired
     private PasswordEncoder pwdEncoder;
 
+    /**
+     * Provvede alle operazioni di autenticazione.
+     */
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -46,6 +70,7 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     /**
      * Implementazione metodo per la registrazione del paziente.
      * @param paz paziente da registrare.
+     * @return response.
      */
     @Override
     public AuthenticationResponse registraPaziente(final Paziente paz)
@@ -61,13 +86,18 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
                 .build();
     }
 
-    public void saveIndirizzo(Indirizzo ind){
+    /**
+     * Implementazione metodo per la registrazione dell'indirizzo.
+     * @param ind indirizzo da registrare.
+     */
+    public void saveIndirizzo(final Indirizzo ind){
         indirizzoDAO.save(ind);
     }
 
     /**
      * Implementazione del metodo di registrazione medico.
      * @param med è il medico da inserire nel db.
+     * @return response.
      */
     @Override
     public AuthenticationResponse registraMedico(final Medico med)
@@ -82,6 +112,11 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     }
 
 
+    /**
+     * Implementazione metodo per la registrazione dell'admin.
+     * @param admin admin da registrare.
+     * @return response.
+     */
     @Override
     public AuthenticationResponse registraAdmin(final Admin admin)
             throws Exception {
@@ -97,6 +132,7 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     /**
      * Implementazione per il metodo del login tramite token jwt.
      * @param request parametro richiesta per il login.
+     * @return response.
      */
     @Override
     public AuthenticationResponse login(final AuthenticationRequest request)
@@ -134,6 +170,7 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     /**
      * Implementazione metodo per la ricerca di un paziente tramite l'email.
      * @param email parametro di ricerca.
+     * @return dati del paziente.
      */
     @Override
     public Paziente findByemail(final String email) {
@@ -144,6 +181,7 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
      * Implementazione metodo per la ricerca di un paziente.
      * tramite il codice fiscale.
      * @param codiceFiscale parametro di ricerca.
+     * @return dati del paziente.
      */
     @Override
     public Paziente findBycodiceFiscale(final String codiceFiscale) {

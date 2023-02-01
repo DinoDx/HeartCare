@@ -7,12 +7,9 @@ import c15.dev.model.entity.Nota;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,9 +25,15 @@ public class GestioneComunicazioneController {
     @Autowired
     private SimpMessagingTemplate template;
 
+    /**
+     * Service per le operazioni legate alla comunicazione.
+     */
     @Autowired
     private GestioneComunicazioneService service;
 
+    /**
+     * Service per le operazioni legate all'utente.
+     */
     @Autowired
     private GestioneUtenteService utenteService;
 
@@ -46,8 +49,8 @@ public class GestioneComunicazioneController {
 
     /**
      * Metodo che invia una nota.
-     * @param nota
-     * @return
+     * @param nota dati della nota da inviare.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @PostMapping(path = "/invioNota")
     public ResponseEntity<Object>
@@ -62,8 +65,8 @@ public class GestioneComunicazioneController {
 
     /**
      * Metodo che prende tutte le note.
-     * @param utente
-     * @return
+     * @param utente dati dell'utente di cui vogliamo ottenere le note.
+     * @return è la response che sarà fetchata dal frontend.
      */
     @PostMapping(path = ("/fetchTutteLeNote"))
     public ResponseEntity<Object>
@@ -100,8 +103,8 @@ public class GestioneComunicazioneController {
 
     /**
      * Metodo che prende tutti i medici di ogni paziente.
-     * @param utente
-     * @return
+     * @param utente contiene i dati dell'utente
+     * @return response è la response che sarà fetchata dal frontend.
      */
     @PostMapping(path = "/getMedico")
     public ResponseEntity<Object>

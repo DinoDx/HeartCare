@@ -27,22 +27,41 @@ import java.util.List;
 @Transactional
 public class GestioneComunicazioneServiceImpl
         implements GestioneComunicazioneService {
+    /**
+     * Oggetto per invio notifiche.
+     */
     @Autowired
     private SimpMessagingTemplate template;
+
+    /**
+     * Service per le operazioni legate all'utente.
+     */
     @Autowired
     private GestioneUtenteService utenteService;
+
+    /**
+     * Provvede alle operazioni del db della notifica.
+     */
     @Autowired
     private NotificaDAO daoNotifica;
+
+    /**
+     * Provvede alle operazioni del db delle note.
+     */
     @Autowired
     private NotaDAO notaDAO;
+
+    /**
+     * Provvede all'invio delle email.
+     */
     @Autowired
     private JavaMailSender mailSender;
 
 
     /**
      * Metodo per inviare una email.
-     * @param messaggio
-     * @param emailDestinatario
+     * @param messaggio messaggio da inviare nell'email.
+     * @param emailDestinatario mail del destinatario.
      */
     @Override
     public void invioEmail(final String messaggio,
@@ -60,11 +79,9 @@ public class GestioneComunicazioneServiceImpl
 
     /**
      * Metodo per inviare una nota.
-     *
-     * @param messaggio
-     * @param idDestinatario
-     * @param idMittente
-     * @return
+     * @param messaggio messaggio da inviare.
+     * @param idDestinatario id del destinatario della mail.
+     * @param idMittente id del mittente della mail.
      */
     @Override
     public void invioNota(final String messaggio,
@@ -99,7 +116,7 @@ public class GestioneComunicazioneServiceImpl
 
     /**
      * Implementazione del metodo che cerca tutte le note.
-     * @return
+     * @return lista di tutte le note.
      */
     public List<Nota> findAllNote(){
         return notaDAO.findAll();
@@ -107,8 +124,8 @@ public class GestioneComunicazioneServiceImpl
 
     /**
      * Firma del metodo che ricerca tutte le note di un utente.
-     * @param id
-     * @return
+     * @param id identificativo dell'utente.
+     * @return lista delle note dell'utente.
      */
     @Override
     public List<NotaDTO> findNoteByIdUtente(final long id) {
@@ -129,6 +146,11 @@ public class GestioneComunicazioneServiceImpl
         return dto;
     }
 
+    /**
+     * Firma del metodo che restituisce tutte le note non lette di un utente.
+     * @param email email dell'utente.
+     * @return lista delle note non lette dell'utente.
+     */
     @Override
     public List<Nota> findNoteNonLetteByUser(String email) {
         var user = utenteService.findUtenteByEmail(email);
@@ -141,7 +163,7 @@ public class GestioneComunicazioneServiceImpl
 
 
     /**
-     *  Metodo per inviare una notifica al frontend.
+     * Metodo per inviare una notifica al frontend.
      * @param message è il messaggio che viene passato al frontend.
      */
     @Override

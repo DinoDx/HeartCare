@@ -8,28 +8,17 @@ import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.Visita;
 import c15.dev.model.entity.enumeration.StatoVisita;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -42,20 +31,33 @@ import java.util.Map;
 @RestController
 @RequestMapping("/visite")
 public class GestioneVisitaController {
+
+    /**
+     * Service per le operazioni dell'utente.
+     */
     @Autowired
     private GestioneUtenteService utenteService;
+
+    /**
+     * Service per le operazioni legate alla visita.
+     */
     @Autowired
     private GestioneVisitaService visitaService;
+
+    /**
+     * Sessione.
+     */
     @Autowired
     private HttpSession session;
 
     /**
      * Metodo che consente di aggiungere una visita.
-     * @param body
+     * @param body che contiene i dati della visita.
+     * @param request contiene la richiesta.
      */
     @PostMapping("/crea")
     public void aggiungiVisita(@RequestBody final Map<String, Object> body,
-                               HttpServletRequest request){
+                               HttpServletRequest request) {
         Long idPaziente = Long.parseLong(body.get("paziente").toString());
         Paziente paziente = utenteService.findPazienteById(idPaziente);
 
@@ -63,7 +65,9 @@ public class GestioneVisitaController {
         Indirizzo indirizzo = visitaService.findIndirizzoById(idIndirizzo);
 
         LocalDate dataVisita = LocalDate.parse(body.get("data").toString());
-        Long idMedico = utenteService.findUtenteByEmail(request.getUserPrincipal().getName()).getId();
+        Long idMedico = utenteService
+                .findUtenteByEmail(request.getUserPrincipal()
+                        .getName()).getId();
         Medico medicoVisita = utenteService.findMedicoById(idMedico);
 
 
@@ -83,8 +87,8 @@ public class GestioneVisitaController {
      *
      * Metodo che permette di ottenere la lista di tutte le visite.
      * in stato "programmata".
-     * @return Response al cui interno vi si ritrova la lista.
      * @param request è la richiesta.
+     * @return Response al cui interno vi si ritrova la lista.
      */
     @PostMapping("ottieni")
     public ResponseEntity<Object>
@@ -114,8 +118,14 @@ public class GestioneVisitaController {
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 
+    /**
+     *
+     * Metodo che permette di modificare la data di una visita.
+     * @param body contiene i dati della visita.
+     */
     @PostMapping("/modificaDataVisita")
-    public void modificaDataVisita(@RequestBody final Map<String, String> body){
+    public void modificaDataVisita(@RequestBody final
+                                       Map<String, String> body) {
           long idVisita =  Long.parseLong(body.get("idVisita"));
           Visita visita = visitaService.findById(idVisita);
           LocalDate datax = LocalDate.parse(body.get("nuovaData"));

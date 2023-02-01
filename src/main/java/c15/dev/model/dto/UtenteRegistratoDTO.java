@@ -7,8 +7,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @author carlo.
@@ -44,12 +42,14 @@ public class UtenteRegistratoDTO implements Serializable {
      */
     private String confermaPassword;
 
+    /**
+     * Metodo per il controllo e set della password.
+     * @param pass password da settare.
+     */
     public void setPassword(final String pass) throws Exception {
         String regexpPassword =
                 "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
                         "[A-Za-z\\d@$!%*?&]{8,16}$";
-
-        System.out.println(pass);
 
         if(pass.matches(regexpPassword)) {
             this.password = pass;
@@ -60,9 +60,10 @@ public class UtenteRegistratoDTO implements Serializable {
         }
     }
 
-
-
-
+    /**
+     * Metodo per il controllare e settare il conferma password.
+     * @param pass password da controllare.
+     */
     public void setConfermaPassword(final String pass) throws Exception {
         String regexpPassword =
                 "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +

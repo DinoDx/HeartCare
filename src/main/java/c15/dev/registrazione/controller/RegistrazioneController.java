@@ -28,22 +28,34 @@ import java.util.HashMap;
 @CrossOrigin
 @RequestMapping(path = "auth")
 public class RegistrazioneController {
+
+    /**
+     * Service per le operazioni legate alla registrazione.
+     */
     @Autowired
     public RegistrazioneService registrazioneService;
 
+    /**
+     * Service per le operazioni legate all'utente.
+     */
     @Autowired
     public GestioneUtenteService utenteService;
 
+    /**
+     * Sessione.
+     */
     @Autowired
     public HttpSession session;
 
     /**
      * Metodo per la registrazione di un paziente.
      * @param paziente paziente da registrare.
+     * @return response.
      */
     @PostMapping(value = "/registrazione")
         public AuthenticationResponse
-            registrazione(@RequestBody @Valid final HashMap<String,String> paziente)
+            registrazione(@RequestBody @Valid final
+                          HashMap<String, String> paziente)
                         throws Exception {
         System.out.println(paziente);
         String nome = paziente.get("nome");
@@ -54,7 +66,8 @@ public class RegistrazioneController {
         String genere = paziente.get("genere");
         String codice = paziente.get("codiceFiscale");
         LocalDate data = LocalDate.parse(paziente.get("dataDiNascita"));
-        Paziente p = new Paziente(data,codice,numero,password,email,nome,cognome,genere);
+        Paziente p = new Paziente(data,
+                codice,numero,password,email,nome,cognome,genere);
 
         String citta = paziente.get("citta");
         String provincia = paziente.get("provincia");
@@ -69,11 +82,15 @@ public class RegistrazioneController {
     }
 
 
+    /**
+     * Metodo per la registrazione di un medico.
+     * @param medico medico da registrare.
+     * @return response.
+     */
     @PostMapping(value = "/registrazioneMedico")
     public AuthenticationResponse
-    registrazioneMedico(@RequestBody @Valid final HashMap<String,String> medico)
+    registrazioneMedico(@RequestBody @Valid final HashMap<String, String> medico)
             throws Exception {
-        System.out.println("ciao ciao ciao");
         String nome = medico.get("nome");
         String cognome = medico.get("cognome");
         String password = medico.get("password");
@@ -99,6 +116,7 @@ public class RegistrazioneController {
     /**
      * Metodo per il login.
      * @param req richiesta per il login.
+     * @return response.
      */
     @PostMapping(value = "/login")
     public AuthenticationResponse login(@RequestBody
@@ -126,31 +144,30 @@ public class RegistrazioneController {
 
     /**
      * Metodo che permette di ottenere un utente conoscendo il codice fiscale.
-     * @param codiceFiscale
-     * @return
+     * @param codiceFiscale restituisce un utente dato il cf.
+     * @return response che contiene i dati dell'utente.
      */
     @PostMapping(value = "/getByCodice")
-    public ResponseEntity<Object> getByCodice(@RequestBody HashMap<String,String> codiceFiscale){
+    public ResponseEntity<Object> getByCodice(@RequestBody
+                                                  HashMap<String,String>
+                                                          codiceFiscale){
         String codice = codiceFiscale.get("codiceFiscale");
-        System.out.println(codice);
 
         boolean approva = utenteService.findUtenteByCf(codice);
-        System.out.println(approva+"codice");
         return new ResponseEntity<>(approva, HttpStatus.OK);
     }
     /**
      * Metodo per ottenere un utente avendo la sua email.
-     * @param email è l'email dell'utente
-     * @return
+     * @param email è l'email dell'utente.
+     * @return response che contiene i dati dell'utente.
      */
     @PostMapping(value = "/getByEmail")
-    public ResponseEntity<Object> getByEmail(@RequestBody HashMap<String,String> email){
-        System.out.println(email);
+    public ResponseEntity<Object> getByEmail(@RequestBody
+                                                 HashMap<String,String>
+                                                         email) {
         String mail = email.get("email");
-        System.out.println(email);
 
         boolean approva = utenteService.checkByEmail(mail);
-        System.out.println(approva+"email");
         return new ResponseEntity<>(approva,HttpStatus.OK);
     }
 

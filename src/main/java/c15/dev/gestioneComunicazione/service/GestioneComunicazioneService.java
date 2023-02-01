@@ -8,21 +8,20 @@ import java.util.List;
  * @author Leopoldo Todisco, Carlo Venditto.
  *
  */
-
 public interface GestioneComunicazioneService {
     /**
      * Firma del metodo che invia una mail.
-     * @param messaggio
-     * @param emailDestinatario
+     * @param messaggio messaggio da inviare nell'email.
+     * @param emailDestinatario mail a cui inviare il messaggio.
      */
     void invioEmail(String messaggio,
                     String emailDestinatario);
 
     /**
      * Firma del metodo che invia una nota.
-     * @param messaggio
-     * @param idDestinatario
-     * @param idMittente
+     * @param messaggio messaggio da inviare.
+     * @param idDestinatario id del destinatario della nota.
+     * @param idMittente id del mittente della nota.
      */
     void invioNota(String messaggio,
                    Long idDestinatario,
@@ -30,26 +29,28 @@ public interface GestioneComunicazioneService {
 
     /**
      * Firma del metodo che trova tutte le note.
-     * @return
+     * @return lista di tutte le note.
      */
     List<Nota> findAllNote();
 
     /**
      * Firma del metodo che cerca tutte le note di un utente.
-     * @param id
-     * @return
+     * @param id identificativo di un utente.
+     * @return lista delle note di un utente.
      */
     List<NotaDTO> findNoteByIdUtente(long id);
 
     /**
      * Firma del metodo che cerca tutte le note non lette di un utente.
-     *
+     * @param email email dell'utente.
+     * @return lista delle note non lette dell'utente.
      */
-    List<Nota> findNoteNonLetteByUser(final String email);
+    List<Nota> findNoteNonLetteByUser(String email);
 
     /**
      * Firma del metodo che invia una notifica.
-     * @param message
+     * @param message messaggio della notifica.
+     * @param idDest id del destinatario della notifica.
      */
     void sendNotifica(String message, Long idDest);
 }

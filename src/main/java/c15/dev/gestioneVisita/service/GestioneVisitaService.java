@@ -17,19 +17,35 @@ public interface GestioneVisitaService {
 
     /**
      * Firma del metodo aggiunta visita.
-     * @param visita
+     * @param visita i dati della visita da creare.
      */
-    void aggiuntaVisita(final Visita visita);
+    void aggiuntaVisita(Visita visita);
 
     /**
      * Firma del metodo trova visite programmate dall'utente.
-     * @param email
-     * @return
+     * @param email metodo che restituisce le visite di un utente data l'email.
+     * @return la lista delle visite programmate per quell'utente.
      */
-    List<Visita> findVisiteProgrammateByUser(final String email);
+    List<Visita> findVisiteProgrammateByUser(String email);
+
+    /**
+     * Firma del metodo trova i dati di un indirizzo dato l'id.
+     * @param id l'identificativo dell'indirizzo.
+     * @return l'indirizzo associato a quel id.
+     */
     Indirizzo findIndirizzoById(Long id);
 
+    /**
+     * Firma del metodo trova i dati di una visita dato l'id.
+     * @param id l'identificativo della visita.
+     * @return la visita associata a quel id.
+     */
     Visita findById(long id);
 
+    /**
+     * Firma del metodo che permette di cambiare la data di una visita.
+     * @param visita la visita a cui cambiare la data.
+     * @param date la nuova data in cui sarà programmata la visita.
+     */
     void cambiaData(Visita visita, LocalDate date);
 }
