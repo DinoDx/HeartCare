@@ -211,6 +211,10 @@ function HomePaziente() {
     const [open, setOpen] = useState(false);
     const [openRisultati, setOpenModalRisultati] = useState(false);
 
+    const [openPredizione, setOpenPredizione] = useState(false);
+    const onOpenModalPredizione = () => setOpenPredizione(true);
+    const onCloseModalPredizione = () => setOpenPredizione(false);
+
     const onOpenModal = () => setOpen(true);
     const onOpenModalRisultati = () => setOpenModalRisultati(true);
     const onCloseModal = () => setOpen(false);
@@ -317,10 +321,30 @@ function HomePaziente() {
                         <span className="valoreInformazioneBannerNero">{visite.length}</span>
                     </div>
                 </div>
+
+                <Modal open={openPredizione} onClose={onCloseModalPredizione} center>
+                    <h2>Inserisci i tuoi dati:</h2>
+                    <div className="contenitoreDatiMisurazione">
+                        <span className="grassetto">Hai dolore al petto?</span>
+                        <select className="selectDispositivo">
+                            <option value="alto">Alto</option>
+                            <option value="alto">Medio</option>
+                            <option value="alto">Basso</option>
+                        </select>
+                        <span className="grassetto">Hai avuto già un infarto?</span>
+                        <select className="selectDispositivo">
+                            <option value="alto">Sì</option>
+                            <option value="alto">No</option>
+                        </select>
+                        <button className="bottoneInviaNota">Avvio Predizione</button>
+                    </div>
+                </Modal>
+
+
                 <Grafico categorie={Categorie} misurazioni={Misurazioni} />
                 <div className="containerBottoni">
                     <button className="bottoneHomePaziente" onClick={() => {onOpenModal();fetchData()}} >Avvio Misurazione</button>
-                    <button className="bottoneHomePaziente">Avvio Predizione</button>
+                    <button className="bottoneHomePaziente" onClick={onOpenModalPredizione}>Avvio Predizione</button>
                 </div>
 
             </div>
