@@ -129,6 +129,17 @@ public class GestioneComunicazioneServiceImpl
         return dto;
     }
 
+    @Override
+    public List<Nota> findNoteNonLetteByUser(String email) {
+        var user = utenteService.findUtenteByEmail(email);
+        long idUser = user.getId();
+
+        var list = notaDAO.findNoteByIdUtente(idUser);
+        return list.stream().filter(n -> n.getStatoNota().equals(StatoNotifica.NON_LETTA)).toList();
+
+    }
+
+
     /**
      *  Metodo per inviare una notifica al frontend.
      * @param message è il messaggio che viene passato al frontend.

@@ -2,7 +2,9 @@ package c15.dev.gestioneComunicazione.controller;
 
 import c15.dev.gestioneComunicazione.service.GestioneComunicazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
+import c15.dev.model.dto.NotaDTO;
 import c15.dev.model.entity.Nota;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -70,6 +72,30 @@ public class GestioneComunicazioneController {
         Long id = utente.get("idMittente");
         return new ResponseEntity<>(service.findNoteByIdUtente(id),
                                     HttpStatus.OK);
+    }
+
+    /**
+     * Metodo che permette di ottenere la lista di tutte le note.
+     * in stato "non letta".
+     * @param request la richiesta.
+     * @return Response al cui interno c'è la lista di note.
+     */
+
+    @PostMapping("/nuoveNote")
+    public ResponseEntity<Object> noteByUser(
+            final HttpServletRequest request) {
+        var email = request.getUserPrincipal().getName();
+        if(utenteService.findUtenteByEmail(email)==null) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+        List<Nota> list = service.findNoteNonLetteByUser(email);
+
+        var result = list.stream()
+                .map(n -> NotaDTO.builder()
+                        .nome(n.getMedico().getNome())
+                        .messaggio(n.getContenuto()).build()).toList();
+
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     /**

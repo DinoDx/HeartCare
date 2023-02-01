@@ -1,6 +1,7 @@
 package c15.dev.model.dto;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 /**
  * @author carlo.
@@ -11,6 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@SuperBuilder
 public class NotaDTO {
     /**
      *  Parametro nome della nota.

@@ -21,9 +21,11 @@ import NoteContainerPaziente from "../components/NoteContainerPaziente";
 import gifPath from "../images/Bars-1s-200px.gif";
 
 function HomePaziente() {
-
+    const [utente, setUtente] = useState([]);
     const [Categorie, setCategorie] = useState([]);
     const [Misurazioni, setMisurazioni] = useState([]);
+    const [note, setNote] = useState([]);
+    const [visite, setVisite] = useState([]);
     const token = localStorage.getItem("token");
     const idPaziente = jwt(token)["id"];
     let config = {
@@ -34,6 +36,23 @@ function HomePaziente() {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
     };
+
+    const fetchHome = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/Home/"+jwt(token).id, {
+                method : "POST",
+                headers : config,
+            }).then(response => response.json());
+            setUtente(response);
+
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
+    useEffect( () => {
+        fetchHome();
+    }, [])
 
     useEffect(() => {
         const getCategorie = async () => {
@@ -57,12 +76,43 @@ function HomePaziente() {
                     id: jwt(token).id
                 })
             }).then(response => {
+                console.log(response);
                 return response.json()
             })
             setMisurazioni(response);
         }
+
+        const fetchNote = async () => {
+                const response = await fetch("http://localhost:8080/comunicazione/nuoveNote", {
+                    method : "POST",
+                    headers : config,
+                    body: JSON.stringify({
+                        id: jwt(token).id
+                    })
+                }).then(response => {
+                    console.log(response)
+                    return response.json();
+                })
+                setNote(response);
+            }
+
+        const fetchVisite = async () => {
+            const response = await fetch("http://localhost:8080/visite/ottieni",{
+                method : "POST",
+                headers : config,
+                body: JSON.stringify({
+                    id: jwt(token).id
+                })
+            }).then(response =>{
+                return response.json();
+            })
+            setVisite(response);
+        }
+
         getCategorie();
         fetchData();
+        fetchNote();
+        fetchVisite();
     }, []);
 
 
@@ -108,12 +158,10 @@ function HomePaziente() {
 
     useEffect(()=>{
     if (isFirstRun.current) {
-        console.log("merdosoooooooooooooooooooooooooooooooooooo")
       isFirstRun.current = false;
       return;
     }
             fetchData();
-            console.log("CAZZONIIIIIIIIIIIIIIIIIII            ")
             speriamo()
         
     },[aggiorna]);
@@ -205,7 +253,9 @@ function HomePaziente() {
         <Navigate to={"/Login"} />
     ) : (
         <div className="contenitorePazientiContent contenitoreHomePaziente">
-            <span className="testo-bentornat">Bentornato, Gianluigi Buffon👋🏻</span>
+            {
+                (utente["sesso"] === "M") ? <span className="testo-bentornat">Bentornato, {utente["nome"]} {utente["cognome"]} 👋🏻</span> : <span className="testo-bentornat">Bentornata, {utente["nome"]} {utente["cognome"]} 👋🏻</span>
+            }
 
             <Modal open={open} onClose={onCloseModal} center>
                 <h2>Scegli il dispositivo da cui avviare la misurazione</h2>
@@ -256,15 +306,15 @@ function HomePaziente() {
                 <div className="bannerNero">
                     <div className="informazioneBannerNero">
                         <span>Misurazioni effettuate</span>
-                        <span className="valoreInformazioneBannerNero">120</span>
+                        <span className="valoreInformazioneBannerNero">{Misurazioni.length}</span>
                     </div>
                     <div className="informazioneBannerNero">
                         <span>Note non lette</span>
-                        <span className="valoreInformazioneBannerNero">1</span>
+                        <span className="valoreInformazioneBannerNero">{note.length}</span>
                     </div>
                     <div className="informazioneBannerNero">
                         <span>Visite in programma</span>
-                        <span className="valoreInformazioneBannerNero">2</span>
+                        <span className="valoreInformazioneBannerNero">{visite.length}</span>
                     </div>
                 </div>
                 <Grafico categorie={Categorie} misurazioni={Misurazioni} />

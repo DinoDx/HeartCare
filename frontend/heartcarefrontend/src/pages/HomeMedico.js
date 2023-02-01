@@ -15,6 +15,8 @@ import addNotification from 'react-push-notification';
 
 function HomeMedico() {
   const [utente, setUtente] = useState([]);
+  const [note, setNote] = useState([]);
+  const [visite, setVisite] = useState([]);
   let nav = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -31,21 +33,51 @@ function HomeMedico() {
     "Content-Type" : "application/json"
   };
 
-  const fetchHome = async () => {
-    try {
-      const response = await fetch("http://localhost:8080/Home/"+jwt(token).id, {
-        method : "POST",
-        headers : config,
-      }).then(response => response.json());
-      setUtente(response);
-      
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
 
   useEffect( () => {
+    const fetchHome = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/Home/"+jwt(token).id, {
+          method : "POST",
+          headers : config,
+        }).then(response => response.json());
+        setUtente(response);
+
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    const fetchNote = async () => {
+      const response = await fetch("http://localhost:8080/comunicazione/nuoveNote", {
+        method : "POST",
+        headers : config,
+        body: JSON.stringify({
+          id: jwt(token).id
+        })
+      }).then(response => {
+        console.log(response)
+        return response.json();
+      })
+      setNote(response);
+    }
+
+    const fetchVisite = async () => {
+      const response = await fetch("http://localhost:8080/visite/ottieni",{
+        method : "POST",
+        headers : config,
+        body: JSON.stringify({
+          id: jwt(token).id
+        })
+      }).then(response =>{
+        return response.json();
+      })
+      setVisite(response);
+    }
+
     fetchHome();
+    fetchNote();
+    fetchVisite();
       }, [])
 
   useEffect(() => {
@@ -70,12 +102,12 @@ function HomeMedico() {
 
             <div className="blocco-testo-banner">
               <span className="testo-banner">Appuntamenti in programma</span>
-              <span className="testo-banner-numero">{utente.appuntamentiInProgramma}</span>
+              <span className="testo-banner-numero">{visite.length}</span>
             </div>
 
             <div className="blocco-testo-banner">
               <span className="testo-banner">Nuove note</span>
-              <span className="testo-banner-numero">{utente.numeroNote}</span>
+              <span className="testo-banner-numero">{note.length}</span>
             </div>
           </div>
 

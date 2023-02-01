@@ -42,6 +42,12 @@ public interface GestioneComunicazioneService {
     List<NotaDTO> findNoteByIdUtente(long id);
 
     /**
+     * Firma del metodo che cerca tutte le note non lette di un utente.
+     *
+     */
+    List<Nota> findNoteNonLetteByUser(final String email);
+
+    /**
      * Firma del metodo che invia una notifica.
      * @param message
      */

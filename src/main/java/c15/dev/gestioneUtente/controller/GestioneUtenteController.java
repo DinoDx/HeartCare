@@ -485,7 +485,8 @@ public class GestioneUtenteController {
 
 
     @PostMapping("/modifica/indirizzo")
-    public ResponseEntity<Object> modificaIndirizzo(@RequestBody HashMap<String,String> indirizzo) {
+    public ResponseEntity<Object> modificaIndirizzo(
+            @RequestBody HashMap<String,String> indirizzo) {
 
         Long idUtente = Long.valueOf(indirizzo.get("id"));
         Indirizzo ind = service.findUtenteById(idUtente).getIndirizzoResidenza();
@@ -501,7 +502,8 @@ public class GestioneUtenteController {
 
 
     @PostMapping("/modifica/caregiver")
-    public ResponseEntity<Object> modificaCaregiver(@RequestBody HashMap<String,String> caregiver) {
+    public ResponseEntity<Object> modificaCaregiver(
+            @RequestBody HashMap<String,String> caregiver) {
         Long idUtente = Long.valueOf(caregiver.get("id"));
         Paziente p = service.findPazienteById(idUtente);
 
@@ -512,6 +514,32 @@ public class GestioneUtenteController {
         service.updatePaziente(p);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Metodo che serve per restituire il medico di un paziente.
+     * @param idPaziente id del paziente.
+     * @return mappa con parametri del medico.
+     */
+    @PostMapping("/getMedico/{id}")
+    public ResponseEntity<Object> getMedicoByPaziente(
+            @PathVariable("id") final long idPaziente) {
+        System.out.println("ID DEL PAZIENTE" + idPaziente);
+        HashMap<String, Object> map = new HashMap<>();
+
+        System.out.println("QUI VA" + idPaziente);
+        long idMedico = service.findMedicoByPaziente(idPaziente);
+        System.out.println("QUI VOGLIO MEDICO" + idMedico);
+
+        var med = service.findMedicoById(idMedico);
+
+        System.out.println("MEDICO" + med.toString());
+        map.put("nome", med.getNome());
+        map.put("cognome", med.getCognome());
+        map.put("email", med.getEmail());
+        map.put("telefono", med.getNumeroTelefono());
+
+        return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
 

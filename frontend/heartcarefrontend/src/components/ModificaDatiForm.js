@@ -5,9 +5,11 @@ import jwt from "jwt-decode";
 import { ReactSession }  from 'react-client-session';
 import userPath from "../images/user.png";
 import { Modal } from 'react-responsive-modal';
+import {json} from "react-router-dom";
 
 function ModificaDatiForm(){
     const [loading, setLoading] = useState(true);
+    const [medico, setMedico] = useState([]);
     const [data, setData] = useState([])
     const token = localStorage.getItem("token");
     const id = jwt(token).id;
@@ -154,6 +156,18 @@ function ModificaDatiForm(){
     }
 
 
+    useEffect(() => {
+        const fetchMedico = async () => {
+            const response = await fetch("http://localhost:8080/getMedico/"+jwt(token).id,{
+                method: "POST",
+                headers: config,
+            }).then(response => response.json());
+                setMedico(response);
+        }
+        fetchMedico();
+    },[])
+
+
 
     const modificaIndirizzo = () =>{
         fetch("http://localhost:8080/modifica/indirizzo",{
@@ -221,15 +235,15 @@ function ModificaDatiForm(){
             <div className="bannerProfilo">
                 <div className="blocco-testo-banner-profilo">
                     <span className="testo-banner-profilo">Medico</span>
-                    <span className="testo-banner-numero-profilo">Paolo Carmine</span>
+                    <span className="testo-banner-numero-profilo">{medico["nome"]} {medico["cognome"]}</span>
                 </div>
                 <div className="blocco-testo-banner-profilo">
                     <span className="testo-banner-profilo">E-mail Medico</span>
-                    <span className="testo-banner-numero-profilo">paolocarmine@gmail.com</span>
+                    <span className="testo-banner-numero-profilo">{medico["email"]}</span>
                 </div>
                 <div className="blocco-testo-banner-profilo">
                     <span className="testo-banner-profilo">Telefono Medico</span>
-                    <span className="testo-banner-numero-profilo">3567898798</span>
+                    <span className="testo-banner-numero-profilo">{medico["telefono"]}</span>
                 </div>
             </div>
             <div className="contenitoreForm-infoPersonali">

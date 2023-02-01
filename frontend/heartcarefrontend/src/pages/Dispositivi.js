@@ -9,6 +9,8 @@ import CardPaziente from "../components/CardPaziente";
 
 export default function Dispositivi() {
   const [dispositivi, setDispositivi] = useState([]);
+  const [misurazioni, setMisurazioni] = useState([]);
+  const [visite, setVisite] = useState([]);
   const token = localStorage.getItem("token");
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
@@ -18,6 +20,15 @@ export default function Dispositivi() {
   const [numeroSeriale, setNumeroSeriale] = useState("");
 
   //const [loading, setLoading] = useState(false);
+
+  let config = {
+    Accept: "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    withCredentials: true,
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json"
+  };
 
   const aggiornaDispositivi = (disp) => {
     setDispositivi(disp);
@@ -78,7 +89,38 @@ export default function Dispositivi() {
   2 useEffect per evitare di avere un array vuoto come variabile di stato.
   */
   useEffect( () => {
+
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:8080/getAllMisurazioniByPaziente", {
+        method: "POST",
+        headers: config,
+        body: JSON.stringify({
+          id: jwt(token).id
+        })
+      }).then(response => {
+        console.log(response);
+        return response.json()
+      })
+      setMisurazioni(response);
+    }
+
+    const fetchVisite = async () => {
+      const response = await fetch("http://localhost:8080/visite/ottieni",{
+        method : "POST",
+        headers : config,
+        body: JSON.stringify({
+          id: jwt(token).id
+        })
+      }).then(response =>{
+        return response.json();
+      })
+      setVisite(response);
+    }
+
     fetchDispositivi();
+    fetchVisite();
+    fetchData();
+
   }, [])
 
   useEffect(() => {
@@ -98,15 +140,15 @@ export default function Dispositivi() {
           <div className="banner">
             <div className="blocco-testo-banner">
               <span className="testo-banner">Dispositivi totali</span>
-              <span className="testo-banner-numero">12</span>
+              <span className="testo-banner-numero">{dispositivi.length}</span>
             </div>
             <div className="blocco-testo-banner">
-              <span className="testo-banner">Sfigmomanometri</span>
-              <span className="testo-banner-numero">120</span>
+              <span className="testo-banner">Misurazioni effettuate</span>
+              <span className="valoreInformazioneBannerNero">{misurazioni.length}</span>
             </div>
             <div className="blocco-testo-banner">
-              <span className="testo-banner">Coagulometri</span>
-              <span className="testo-banner-numero">120</span>
+              <span className="testo-banner">Visite in programma</span>
+              <span className="valoreInformazioneBannerNero">{visite.length}</span>
             </div>
           </div>
           <div className="visite-container">
