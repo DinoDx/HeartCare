@@ -472,8 +472,8 @@ public class GestioneUtenteController {
         if(service.controllaPassword(vecchiaPassword,idUtente)){
             UtenteRegistrato u = service.findUtenteById(idUtente);
            // Paziente p = (Paziente) service.findUtenteById(idUtente);
-            //p.setPassword(service.encryptPassword(utente.get("nuovaPassword")));
-            u.setPassword(utente.get("nuovaPassword"));
+            u.setPassword(service.encryptPassword(utente.get("nuovaPassword")));
+            //u.setPassword(utente.get("nuovaPassword"));
             service.updateUtente(u);
             //service.updatePaziente(p);
             return new ResponseEntity<>(HttpStatus.OK);
