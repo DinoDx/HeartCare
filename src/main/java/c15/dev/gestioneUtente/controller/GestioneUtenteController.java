@@ -269,10 +269,6 @@ public class GestioneUtenteController {
     public ResponseEntity<Object>
     getDatiPerModifica(@PathVariable("id") final Long idUtente) {
 
-        var request = ((ServletRequestAttributes) RequestContextHolder
-                .getRequestAttributes())
-                .getRequest();
-
         System.out.println("qui va");
         HashMap<String, Object> map = new HashMap<>();
         if(service.isPaziente(idUtente)){
@@ -288,8 +284,14 @@ public class GestioneUtenteController {
             map.put("cognomeCaregiver", paziente.getCognomeCaregiver());
         }
 
-        else if(service.isMedico(idUtente) || service.isAdmin(idUtente)){
+        else if(service.isMedico(idUtente)){
             Medico medico = service.findMedicoById(idUtente);
+            Indirizzo indirizzo = medico.getIndirizzoResidenza();
+            map.put("citta", indirizzo.getCitta());
+            map.put("provincia", indirizzo.getProvincia());
+            map.put("via", indirizzo.getVia());
+            map.put("numeroCivico", indirizzo.getNCivico());
+            map.put("cap", indirizzo.getCap());
             map.put("nome", medico.getNome());
             map.put("cognome", medico.getCognome());
             map.put("email", medico.getEmail());
@@ -468,9 +470,12 @@ public class GestioneUtenteController {
         Long idUtente = Long.valueOf(utente.get("id"));
         String vecchiaPassword = utente.get("vecchiaPassword");
         if(service.controllaPassword(vecchiaPassword,idUtente)){
-            Paziente p = (Paziente) service.findUtenteById(idUtente);
-            p.setPassword(service.encryptPassword(utente.get("nuovaPassword")));
-            service.updatePaziente(p);
+            UtenteRegistrato u = service.findUtenteById(idUtente);
+           // Paziente p = (Paziente) service.findUtenteById(idUtente);
+            //p.setPassword(service.encryptPassword(utente.get("nuovaPassword")));
+            u.setPassword(utente.get("nuovaPassword"));
+            service.updateUtente(u);
+            //service.updatePaziente(p);
             return new ResponseEntity<>(HttpStatus.OK);
         }
 

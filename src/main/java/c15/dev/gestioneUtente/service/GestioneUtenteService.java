@@ -104,6 +104,8 @@ public interface GestioneUtenteService {
      */
     void updatePaziente(final Paziente paz);
 
+    void updateUtente(final UtenteRegistrato u);
+
     /**
      * Firma del metodo updateMedico.
      * @param med medico da aggiornare.

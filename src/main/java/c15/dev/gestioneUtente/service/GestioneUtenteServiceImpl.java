@@ -387,6 +387,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         this.paziente.save(paz);
     }
 
+
+    public void updateUtente(final UtenteRegistrato u) {
+        this.utente.save(u);
+    }
+
     /**
      * Metodo per fare un update di un'entry nel DB.
      * @param med è il medico da aggiornare.
