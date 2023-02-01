@@ -69,7 +69,7 @@ function Menu() {
         </Link>
 
         <Link
-          to={"/Profilo"}
+          to={"/ProfiloMedico"}
           className="voceMenuText"
           onClick={() => addClassActive(4, "contenitoreMainContent")}
         >

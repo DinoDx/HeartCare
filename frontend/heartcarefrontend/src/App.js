@@ -24,7 +24,7 @@ import Registrazione from "./pages/Registrazione"
 import HomePaziente from "./pages/HomePaziente"
 import Norme from "./pages/Norme";
 import HomeAdmin from "./pages/HomeAdmin";
-
+import ProfiloMedico from "./pages/ProfiloMedico";
 import jwt from "jwt-decode"
 import Error404 from "./pages/Error404";
 
@@ -164,10 +164,10 @@ const AuthenticatedRouteAdmin= () => {
             }
           />
           <Route
-            path="Profilo"
+            path="ProfiloMedico"
             element={
               <AppShell>
-                <Profilo />
+                <ProfiloMedico />
               </AppShell>
             }
           />
