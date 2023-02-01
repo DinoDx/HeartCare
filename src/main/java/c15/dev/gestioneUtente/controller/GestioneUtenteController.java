@@ -385,6 +385,23 @@ public class GestioneUtenteController {
         return new ResponseEntity<>(listPaz, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/searchBarAdmin")
+    public ResponseEntity<Object> utentiSearchAdmin(@RequestBody HashMap<String, String> requestMap){
+        String txt = requestMap.get("txt");
+        var list = service.getTuttiUtenti();
+
+        if(txt == null || txt.isBlank() || txt.isEmpty()) {
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+
+        var listFiltered = list.stream()
+                .filter( utente -> (utente.getNome()+ " " +utente.getCognome())
+                                    .toLowerCase()
+                                    .contains(txt.toLowerCase())).toList();
+
+        return new ResponseEntity<>(listFiltered,HttpStatus.OK);
+    }
+
 
     /**
      * Metodo che permtte di ottenere un elenco di pazienti
