@@ -26,195 +26,242 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo di assegnaCaregiver.
-     *
      * @param idPaziente del paziente a cui si vuole assegnare il caregiver.
      * @param emailCaregiver email del caregiver.
      * @param nomeCaregiver nome del caregiver.
      * @param cognomeCaregiver nome del caregiver.
      */
-    void assegnaCaregiver(final Long idPaziente,
-                          final String emailCaregiver,
-                          final String nomeCaregiver,
-                          final String cognomeCaregiver);
+    void assegnaCaregiver(Long idPaziente,
+                          String emailCaregiver,
+                          String nomeCaregiver,
+                          String cognomeCaregiver);
 
     /**
      * Firma del metodo rimuoviPaziente.
      * @param idUtente id del paziente che deve essere rimosso.
      */
-    void rimuoviPaziente(final Long idUtente);
+    void rimuoviPaziente(Long idUtente);
 
     /**
      * Firma del metodo rimuoviMedico.
      * @param idUtente id del medico che deve essere rimosso.
      */
-    void rimuoviMedico(final Long idUtente);
+    void rimuoviMedico(Long idUtente);
 
     /**
      * Firma del metodo isPaziente.
      * @param idUtente id dell'utente che vogliamo controllare che sia un paziente.
-     * @return
+     * @return true o false.
      */
-    boolean isPaziente(final long idUtente);
+    boolean isPaziente(long idUtente);
 
     /**
      * Firma del metodo isMedico.
      * @param idUtente id dell'utente che vogliamo controllare che sia un medico.
-     * @return
+     * @return true o false.
      */
-    boolean isMedico(final long idUtente);
+    boolean isMedico(long idUtente);
 
     /**
      * Firma del metodo isAdmin.
      * @param idUtente id dell'utente che vogliamo controllare che sia un admin.
-     * @return
+     * @return true o false.
      */
-    boolean isAdmin(final long idUtente);
+    boolean isAdmin(long idUtente);
 
     /**
      * Firma del metodo assegnaPaziente.
      * @param idMedico   id del medico a cui assegnamo il paziente.
      * @param idPaziente id del paziente che viene assegnato al medico.
-     * @return
+     * @return true o false.
      */
-    boolean assegnaPaziente(final long idMedico,
-                            final long idPaziente);
+    boolean assegnaPaziente(long idMedico,
+                            long idPaziente);
 
     /**
      * Firma del metodo findPazienteById.
      * @param id id del paziente da ricercare.
-     * @return
+     * @return Paziente.
      */
-    Paziente findPazienteById(final Long id);
+    Paziente findPazienteById(Long id);
 
     /**
      * Firma del metodo findMedicoById.
      * @param id id del medico da ricercare.
-     * @return
+     * @return Medico.
      */
-    Medico findMedicoById(final Long id);
+    Medico findMedicoById(Long id);
 
+    /**
+     * Firma metodo findMedicoByCf.
+     * @param codiceFiscale
+     * @return true o false.
+     */
     boolean findMedicoByCf(String codiceFiscale);
 
-    boolean findUtenteByCf(final String cf);
+    /**
+     * Firma metodo findUtenteByCf.
+     * @param cf
+     * @return true o false.
+     */
+    boolean findUtenteByCf(String cf);
 
 
     /**
      * Firma del metodo updatePaziente.
      * @param paz paziente da aggiornare.
      */
-    void updatePaziente(final Paziente paz);
+    void updatePaziente(Paziente paz);
 
-    void updateUtente(final UtenteRegistrato u);
+    void updateUtente(UtenteRegistrato u);
 
     /**
      * Firma del metodo updateMedico.
      * @param med medico da aggiornare.
      */
-    void updateMedico(final Medico med);
+    void updateMedico(Medico med);
 
     /**
      * Firma del metodo getTuttiMedici.
+     * @return Lista tutti di tutti i medici.
      */
     List<UtenteRegistrato> getTuttiMedici();
 
     /**
      * Firma del metodo getTuttiPazienti.
+     * @return Lista di tutti i pazienti.
      */
     List<UtenteRegistrato> getTuttiPazienti();
 
+    /**
+     * Firma del metodo getTuttiUtenti.
+     * @return Lista di tutti gli utenti.
+     */
     List<UtenteRegistrato> getTuttiUtenti();
 
     /**
      * Firma del metodo getPazientiByMedico.
+     * @param idMedico id del medico.
+     * @return Lista di tutti i pazienti associati al medico
      */
-    List<Paziente> getPazientiByMedico(final long idMedico);
+    List<Paziente> getPazientiByMedico(long idMedico);
 
     /**
      * Firma del metodo modificaDatiPaziente.
-     * @param pazienteDTO
-     * @param idUtente
+     * @param pazienteDTO DTO per modificare un paziente.
+     * @param idUtente id dell-utente.
      */
-    void modificaDatiPaziente(final ModificaPazienteDTO pazienteDTO,
-                              final long idUtente)
+    void modificaDatiPaziente(ModificaPazienteDTO pazienteDTO,
+                              long idUtente)
             throws Exception;
 
     /**
      * Firma del metodo modifica dati di un medico.
-     * @param dto
-     * @param idUtente
+     * @param dto DTO per modificare un utente.
+     * @param idUtente id utente.
      * @throws Exception
      */
-    void modificaDatiMedico(final UtenteRegistratoDTO dto, final long idUtente)
+    void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente)
             throws Exception;
 
     /**
      * Firma del metodo che trova un utente da un id.
-     * @param id
-     * @return
+     * @param id dell'utente.
+     * @return UtenteRegistrato.
      */
-    UtenteRegistrato findUtenteById(final Long id);
+    UtenteRegistrato findUtenteById(Long id);
 
     /**
      * Firma del metodo che trova un utente da un email.
-     * @param email
-     * @return
+     * @param email email utente da ricercare.
+     * @return UtenteRegistrato.
      */
 
-    UtenteRegistrato findUtenteByEmail(final String email);
+    UtenteRegistrato findUtenteByEmail(String email);
 
     /**
      * Firma del metodo check da un email.
-     * @param email
-     * @return
+     * @param email email paziente da ricercare.
+     * @return true o false.
      */
 
-    boolean checkByEmail(final String email);
+    boolean checkByEmail(String email);
 
+    /**
+     * Firma metodo checkMedicoByEmail
+     * @param email email del medico da ricercare.
+     * @return true o false.
+     */
     boolean checkMedicoByEmail(String email);
 
     /**
      * Firma del metodo registraIndirizzo.
-     * @param ind
+     * @param ind indirizzo da registrare.
+     * @return true o false.
      */
-    boolean registraIndirizzo(final Indirizzo ind);
+    boolean registraIndirizzo(Indirizzo ind);
 
     /**
      * Firma del metodo che assegna un indirizzo ad un utente.
-     * @param idUtente
-     * @param ind
-     * @return
+     * @param idUtente id utente.
+     * @param ind indirizzo che verrà assegnato all'utente.
+     * @return true o false.
      */
-    boolean assegnaIndirizzoAdUtente(final long idUtente, final Indirizzo ind);
+    boolean assegnaIndirizzoAdUtente(long idUtente, Indirizzo ind);
 
     /**
      * Firma del metodo che assegna un medico ad un paziente.
-     * @param idMedico
-     * @param idUtente
-     * @return
+     * @param idMedico id del medico.
+     * @param idUtente id dell'utente.
+     * @return true o false.
      */
-    boolean assegnaMedicoAPaziente(final long idMedico, final long idUtente);
+    boolean assegnaMedicoAPaziente(long idMedico, long idUtente);
 
     /**
      * Firma del metodo che ritorna la lista di dispositivi di un paziente,
-     * @param idPaziente
-     * @return
+     * @param idPaziente id del Paziente.
+     * @return Insieme di dispositivi medici.
      */
-    Set<DispositivoMedico> getDispositiviByPaziente(final long idPaziente);
+    Set<DispositivoMedico> getDispositiviByPaziente(long idPaziente);
 
-    public void updateIndirizzo(final Indirizzo ind);
+    /**
+     * Firma metodo updateIndirizzo.
+     * @param ind indirizzo da aggiornare.
+     */
+     void updateIndirizzo(Indirizzo ind);
 
     /**
      * Firma del metodo che trova un medico dal paziente.
-     * @param idPaziente
-     * @return
+     * @param idPaziente id del paziente.
+     * @return Long.
      */
-    public  Long findMedicoByPaziente(final long idPaziente);
-    public List<Indirizzo> findAllIndirizzi();
+      Long findMedicoByPaziente(long idPaziente);
 
+    /**
+     * Firma metodo findAllIndirizzi
+     * @return  Lista di indirizzi.
+     */
+     List<Indirizzo> findAllIndirizzi();
+
+    /**
+     * Firma metodo rimuoviUtente
+     * @param idUtente id utente.
+     */
     void rimuoviUtente(Long idUtente);
 
+    /**
+     * Firma metodo controllaPassword.
+     * @param pwd password.
+     * @param idAdmin id dell'admin.
+     * @return true o false.
+     */
     boolean controllaPassword(String pwd,
                               Long idAdmin);
 
+    /**
+     * Firma metodo encryptPassword.
+     * @param nuovaPassword nuova password da inserire.
+     * @return String
+     */
     String encryptPassword(String nuovaPassword);
 }
