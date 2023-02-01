@@ -62,11 +62,10 @@ public class GestioneUtenteController {
 
     /**
      * Metodo per assegnare un caregiver.
-     *
-     * @param idPaziente
-     * @param emailCaregiver
-     * @param nomeCaregiver
-     * @param cognomeCaregiver
+     * @param idPaziente id del paziente.
+     * @param emailCaregiver email del caregiver.
+     * @param nomeCaregiver nome del caregiver.
+     * @param cognomeCaregiver cognome del caregiver.
      */
     @RequestMapping(value = "/assegnaCaregiver", method = RequestMethod.POST)
     public void assegnaCaregiver(@RequestParam final Long idPaziente,
@@ -83,7 +82,8 @@ public class GestioneUtenteController {
 
     /**
      * Metodo per rimuovere un Paziente o un Medico.
-
+     * @param map hashmap contente i dati dell'utente.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @RequestMapping(value = "/rimuoviUtente", method = RequestMethod.POST)
     public ResponseEntity<Object>
@@ -110,7 +110,8 @@ public class GestioneUtenteController {
 
     /**
      * Metodo che assegna un paziente a un medico.
-
+     * @param assegnamento HashMap contenete gli id del paziente e del medico.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @RequestMapping(value = "/assegnaPaziente", method = RequestMethod.POST)
     public ResponseEntity<Object>
@@ -126,6 +127,7 @@ public class GestioneUtenteController {
     /**
      * Metodo che restituisce tutti i medici.
      * Invariante: il metodo può essere chiamato solo da admin.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @RequestMapping(value = "/getTuttiMedici", method = RequestMethod.POST)
     public ResponseEntity<Object> getTuttiMedici() {
@@ -144,6 +146,7 @@ public class GestioneUtenteController {
     /**
      * Metodo che restituisce tutti i pazienti.
      * Invariante: il metodo può essere chiamato solo da admin.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @RequestMapping(value = "/getTuttiPazienti", method = RequestMethod.POST)
     public ResponseEntity<Object> getTuttiPazienti() {
@@ -161,7 +164,8 @@ public class GestioneUtenteController {
 
     /**
      * Metodo che restituisce tutti i pazienti di un medico.
-     * @param idMedico id del medico
+     * @param idMedico id del medico.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @GetMapping(value = "/getPazientiByMedico/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -174,13 +178,13 @@ public class GestioneUtenteController {
 
     /**
      * Metodo per modificare i dati di un utente.
-     * @param pazienteDTO
-     * @return
+     * @param pazienteDTO DTO per la modifica di un paziente.
+     * @return true o false.
      */
     //TODO usare optional per vedere solo quali campi modificare
     @PostMapping("/modificaDatiUtente")
     public boolean modificaDatiPaziente(@Valid @RequestBody
-                                        ModificaPazienteDTO pazienteDTO)
+                                       final ModificaPazienteDTO pazienteDTO)
             throws Exception {
        /* UtenteRegistrato utente = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");*/
@@ -200,8 +204,8 @@ public class GestioneUtenteController {
 
     /**
      * Metodo per modificare i dati di un medico.
-     * @param pazienteDTO
-     * @return
+     * @param pazienteDTO DTO per la modifica di un paziente.
+     * @return true o false.
      */
     @PostMapping("/modificaDatiMedico")
     public boolean
@@ -228,7 +232,7 @@ public class GestioneUtenteController {
     /**
      * @author Leopoldo Todisco.
      * Metodo che permette di ottenere i dati relativi a un utente qualsiasi.
-     * @param idUtente
+     * @param idUtente id dell'utente.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
      * Essa comprende una Map con i dati utente e lo stato della risposta.
      */
@@ -264,7 +268,11 @@ public class GestioneUtenteController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-
+    /**
+     * Metodo che restituisce i dati per la modifica.
+     * @param idUtente id dell'utente.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     */
     @PostMapping("utente/modifica/{id}")
     public ResponseEntity<Object>
     getDatiPerModifica(@PathVariable("id") final Long idUtente) {
@@ -305,7 +313,7 @@ public class GestioneUtenteController {
     /**
      * @author Paolo Carmine Valletta.
      * Metodo che permette di visualizzare la home di un Medico o Paziente.
-     * @param idUtente
+     * @param idUtente id dell'utente.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
      * Essa comprende una Map con i dati della home e lo stato della risposta.
      */
@@ -350,8 +358,8 @@ public class GestioneUtenteController {
     /**
      * Metodo che permette di ottenere tutti i dispositivi.
      * associati a un paziente.
-     * @param idPaziente
-     * @return
+     * @param idPaziente id del paziente.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @PostMapping(value = "/getDispositiviByUtente/{id}")
     public ResponseEntity<Object>
@@ -364,7 +372,7 @@ public class GestioneUtenteController {
      * Metodo che permtte di ottenere un elenco di utenti a partire.
      * da nome e cognome passati nella searchbar.
      * @param requestMap il testo che viene passato.
-     * @return
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @PostMapping(value = "/searchbar")
     public ResponseEntity<Object>
@@ -385,13 +393,36 @@ public class GestioneUtenteController {
         return new ResponseEntity<>(listPaz, HttpStatus.OK);
     }
 
+    /**
+     * Metodo che permette ad un admin di ricercare gli utenti.
+     * @param requestMap il testo che viene passato.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     */
+    @PostMapping(value = "/searchBarAdmin")
+    public ResponseEntity<Object> utentiSearchAdmin(
+              @RequestBody final HashMap<String, String> requestMap) {
+        String txt = requestMap.get("txt");
+        var list = service.getTuttiUtenti();
+
+        if(txt == null || txt.isBlank() || txt.isEmpty()) {
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+
+        var listFiltered = list.stream()
+                .filter( utente -> (utente.getNome()+ " " +utente.getCognome())
+                                    .toLowerCase()
+                                    .contains(txt.toLowerCase())).toList();
+
+        return new ResponseEntity<>(listFiltered,HttpStatus.OK);
+    }
+
 
     /**
      * Metodo che permtte di ottenere un elenco di pazienti
      * in base a nome e cognome passati nella searchbar.
      * I pazienti devono appartenere al medico in questione.
      * @param requestMap il testo che viene passato.
-     * @return
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @PostMapping(value = "/searchbarMedico")
     public ResponseEntity<Object>
@@ -423,11 +454,23 @@ public class GestioneUtenteController {
                 .toList();
         return new ResponseEntity<>(listPaz, HttpStatus.OK);
     }
+
+    /**
+     * Metodo che restituisce tutti gli indirizzi.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     */
     @GetMapping(value = "/getIndirizzi")
-    public ResponseEntity<Object> getIndirizzi(){
+    public ResponseEntity<Object> getIndirizzi() {
         return new ResponseEntity<>(service.findAllIndirizzi(),HttpStatus.OK);
     }
 
+    /**
+     * Metodo che controlla che la password passata sia uguale
+     * a quella della richiesta.
+     * @param pwd password.
+     * @param request richiesta.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     */
 
     @PostMapping(value = "/controllaPassword")
     public ResponseEntity<Object>
@@ -448,8 +491,14 @@ public class GestioneUtenteController {
 
     }
 
+    /**
+     * Metodo che restituisce tutti gli utenti.
+     * @param request richiesta.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     */
     @RequestMapping(value = "/getTuttiUtenti", method = RequestMethod.POST)
-    public ResponseEntity<Object> getTuttiUtenti(HttpServletRequest request) {
+    public ResponseEntity<Object> getTuttiUtenti(
+                                final HttpServletRequest request) {
 
         var email = request.getUserPrincipal().getName();
         if(service.findUtenteByEmail(email) == null) {
@@ -461,7 +510,12 @@ public class GestioneUtenteController {
 
     }
 
-
+    /**
+     * Metodo che peremtte di modificare la password.
+     * @param utente map contenente tutti i dati dell'utente.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     * @throws Exception
+     */
     @PostMapping( "/modifica/password")
     public ResponseEntity<Object>
             modificaPassword(@RequestBody final HashMap<String,String> utente)
@@ -484,9 +538,14 @@ public class GestioneUtenteController {
     }
 
 
+    /**
+     * Metodo che permette di modificare un indirizzo.
+     * @param indirizzo map contenente i dati dell'utente.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     */
     @PostMapping("/modifica/indirizzo")
     public ResponseEntity<Object> modificaIndirizzo(
-            @RequestBody HashMap<String,String> indirizzo) {
+            @RequestBody final HashMap<String,String> indirizzo) {
 
         Long idUtente = Long.valueOf(indirizzo.get("id"));
         Indirizzo ind = service.findUtenteById(idUtente).getIndirizzoResidenza();
@@ -501,9 +560,14 @@ public class GestioneUtenteController {
     }
 
 
+    /**
+     * Metodo che permette di modificare il caregiver di un paziente.
+     * @param caregiver map contenente i dati del paziente e del caregiver.
+     * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     */
     @PostMapping("/modifica/caregiver")
     public ResponseEntity<Object> modificaCaregiver(
-            @RequestBody HashMap<String,String> caregiver) {
+            @RequestBody final HashMap<String,String> caregiver) {
         Long idUtente = Long.valueOf(caregiver.get("id"));
         Paziente p = service.findPazienteById(idUtente);
 

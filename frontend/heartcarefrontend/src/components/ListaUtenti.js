@@ -8,7 +8,7 @@ import CardUtente from "./CardUtente";
 import CardAdminMedico from "./CardAdminMedico";
 import "../css/HomeAdmin.css"
 
-function ListaUtenti() {
+function ListaUtenti(props) {
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -26,9 +26,12 @@ function ListaUtenti() {
     const fetchData = async () =>{
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:8080/getTuttiUtenti",{
+            const response = await fetch("http://localhost:8080/searchBarAdmin",{
                 method : "POST",
                 headers : config,
+                body : JSON.stringify({
+                    txt : props.text
+                })
             }).then(response => response.json());
             setData(response);
         } catch (error) {
@@ -40,6 +43,10 @@ function ListaUtenti() {
     useEffect(() => {
         fetchData();
     }, []);
+
+    useEffect( () => {
+        fetchData();
+    },[props.text])
 
 
 

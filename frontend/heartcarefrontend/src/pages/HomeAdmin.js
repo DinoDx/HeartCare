@@ -30,6 +30,7 @@ function HomeAdmin(){
     const [genere, setGenere] = useState("");
     const [dataNascita, setDataNascita] = useState("");
     const [codiceFiscale, setCodiceFiscale] = useState("");
+    const [searchText, setSearchText] = useState("");
 
     const aggiornaNome = (event) => {
         setNome(event.target.value);
@@ -124,10 +125,14 @@ function HomeAdmin(){
         nav("/");
     }
 
+    const handlerOnChange = (event) => {
+        setSearchText(event.target.value);
+    }
+
     return(
         <div className="contenitoreAdminContent">
         <div className="searchbar searchbarAdmin"  style={{margin: "0px"}}>
-            <input id="search" type="text" placeholder=" 🔍 Cerca utente..." />
+            <input id="search" type="text" placeholder=" 🔍 Cerca utente..." onChange={ (e) => handlerOnChange(e)}/>
         </div>
             <Modal open={openMale} onClose={onCloseModalMale} center>
                 <h2>Registrazione del medico fallita, riprova</h2>
@@ -354,7 +359,7 @@ function HomeAdmin(){
             </Modal>
             <span className="bentornat" style={{margin: "0px"}}>Bentornato, Admin 👋🏻</span><br/><br/>
             <button onClick={onOpenModal} className="bottoneInviaNota" >Registra un medico: </button><br/><br/>
-            <ListaUtenti/>
+            <ListaUtenti text={searchText}/>
             <div className="divlogout">
             <button className="bottoneLogout" onClick={()=> logout()}> Logout</button><br/><br/>
             </div>

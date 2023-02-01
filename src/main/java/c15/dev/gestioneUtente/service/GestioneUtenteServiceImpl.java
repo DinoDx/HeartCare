@@ -32,8 +32,14 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class GestioneUtenteServiceImpl implements GestioneUtenteService {
+    /**
+     * Service per le operazioni che riguardano Jwt.
+     */
     @Autowired
     private final JwtService jwtService;
+    /**
+     * provvede alle operazioni legate all'autenticazione.
+     */
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -73,12 +79,16 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     private UtenteRegistratoDAO utente;
 
 
+    /**
+     * Oggetto che provvede alla criptazione della password.
+     */
     @Autowired
     private PasswordEncoder pwdEncoder;
 
     /**
      * Metodo che permette di fare il login.
-     * @return
+     * @param request richiesta.
+     * @return AuthenticationResponse.
      */
     @Override
     public AuthenticationResponse login(final AuthenticationRequest request) {
@@ -121,8 +131,9 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che assegna indirizzo ad utente.
-     * @param idUtente
-     * @param ind
+     * @param idUtente id utente.
+     * @param ind indirizzo da assegnare.
+     * @return true o false.
      */
     @Override
     public boolean assegnaIndirizzoAdUtente(final long idUtente,
@@ -139,10 +150,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che assegna medico a paziente.
-     * @param idMedico
-     * @param idPaziente
+     * @param idMedico id medico.
+     * @param idPaziente id paziente.
+     * @return true o false.
      */
-
     @Override
     public boolean assegnaMedicoAPaziente(final long idMedico,
                                           final long idPaziente) {
@@ -157,8 +168,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che trova tutti i dispositivi di un paziente
-     * @param idPaziente
-     * @return
+     * @param idPaziente id paziente.
+     * @return insieme dispositivi medici.
      */
     @Override
     public Set<DispositivoMedico>
@@ -175,7 +186,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che elimina un paziente.
-     * @param idUtente
+     * @param idUtente id utente.
      */
     @Override
     public void rimuoviPaziente(final Long idUtente) {
@@ -185,7 +196,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che elimina un medico.
-     * @param idUtente
+     * @param idUtente id dell'utente.
      */
     @Override
     public void rimuoviMedico(final Long idUtente) {
@@ -196,8 +207,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che verifica se un utente è un paziente.
-     * @param idUtente
-     * @return
+     * @param idUtente id dell'utente.
+     * @return true o false.
      */
     @Override
     public boolean isPaziente(final long idUtente) {
@@ -214,8 +225,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che verifica se un utente è un medico.
-     * @param idUtente
-     * @return
+     * @param idUtente id dell'utente.
+     * @return true o false.
      */
     @Override
     public boolean isMedico(final long idUtente) {
@@ -232,10 +243,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     /**
      * Implementazione del metodo che verifica se un utente è un admin.
      * @param idUtente id dell'utente che vogliamo controllare sia un admin.
-     * @return
+     * @return true o false.
      */
     @Override
-    public boolean isAdmin(final long idUtente){
+    public boolean isAdmin(final long idUtente) {
         Optional<UtenteRegistrato> u = admin.findById(idUtente);
 
         if (u.isEmpty()){
@@ -248,9 +259,9 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che assegna un paziente ad un medico.
-     * @param idMedico
-     * @param idPaziente
-     * @return
+     * @param idMedico id del medico.
+     * @param idPaziente id del paziente.
+     * @return true o false.
      */
     @Override
     public boolean assegnaPaziente(final long idMedico,
@@ -273,8 +284,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo che trova un Paziente tramite id.
-     * @param id
-     * @return
+     * @param id id del paziente.
+     * @return Paziente.
      */
     @Override
     public Paziente findPazienteById(final Long id) {
@@ -289,7 +300,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     /**
      * Metodo che trova Medico tramite id.
      * @param id id del medico.
-     * @return
+     * @return Medico.
      */
     @Override
     public Medico findMedicoById(final Long id) {
@@ -301,6 +312,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return (Medico) paz.get();
     }
 
+    /**
+     * Metodo che restituisce un medico tramite il codice fiscale.
+     * @param codiceFiscale codice fiscale del medico.
+     * @return true o false.
+     */
     @Override
     public boolean findMedicoByCf(final String codiceFiscale) {
         Medico u = medico.findBycodiceFiscale(codiceFiscale);
@@ -310,6 +326,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         }
         return true;
     }
+    /**
+     * Metodo che restituisce un paziente tramite il codice fiscale.
+     * @param codiceFiscale codice fiscale utente.
+     * @return true o false.
+     */
     @Override
     public boolean findUtenteByCf(final String codiceFiscale) {
             Paziente u = paziente.findBycodiceFiscale(codiceFiscale);
@@ -319,7 +340,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         }
         return true;
     }
-
+    /**
+     * Metodo che restituisce un paziente tramite la sua email.
+     * @param email email del paziente.
+     * @return true o false.
+     */
     @Override
     public boolean checkByEmail(final String email) {
         Paziente u = paziente.findByEmail(email);
@@ -328,7 +353,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         }
         return true;
     }
-
+    /**
+     * Metodo che restituisce un medico tramite la sua email.
+     * @param email email del medico.
+     * @return true o false.
+     */
     @Override
     public boolean checkMedicoByEmail(final String email) {
         Medico u = medico.findByEmail(email);
@@ -341,6 +370,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     /**
      * Metodo per registrare indirizzo nel DB.
      * @param ind è l'indirizzo da aggiungere.
+     * @return true o false.
      */
     @Override
     public boolean registraIndirizzo(final Indirizzo ind) {
@@ -348,7 +378,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return true;
     }
 
-
+    /**
+     * Metodo che restituisce un utente tramite il suo id.
+     * @param id id dell'utente.
+     * @return UtenteRegistrato.
+     */
     @Override
     public UtenteRegistrato findUtenteById(final Long id) {
         Optional<UtenteRegistrato> u = utente.findById(id);
@@ -358,6 +392,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
          return u.get();
     }
 
+    /**
+     * Metodo che restituisce un utente tramite la sua mail.
+     * @param email email dell'utente.
+     * @return UtenteRegistrato.
+     */
     @Override
     public UtenteRegistrato findUtenteByEmail(final String email) {
         UtenteRegistrato result;
@@ -388,6 +427,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
 
+    /**
+     * Metodo per fare update di un utente nel DB.
+     * @param u utente da aggiornare.
+     */
     public void updateUtente(final UtenteRegistrato u) {
         this.utente.save(u);
     }
@@ -403,6 +446,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo per ottenere tutti i medici del db.
+     * @return lista di tutti i medici.
      */
     @Override
     public List<UtenteRegistrato> getTuttiMedici() {
@@ -411,6 +455,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo per ottenere tutti i pazienti del db.
+     * @return Lista di tutti i pazienti.
      */
     @Override
     public List<UtenteRegistrato> getTuttiPazienti(){
@@ -418,6 +463,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return paziente.findAll();
     }
 
+    /**
+     * Metodo che restituisce tutti gli utenti dal db
+     * @return Lista di tutti gli utenti.
+     */
     @Override
     public List<UtenteRegistrato> getTuttiUtenti(){
         return utente.findAll();
@@ -425,6 +474,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo per ottenere tutti i pazienti del db di un medico.
+     * @param idMedico id del medico.
+     * @return Lista di tutti i pazienti asscociati al medico.
      */
     @Override
     public List<Paziente> getPazientiByMedico(final long idMedico) {
@@ -443,8 +494,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo per modificare i dati di un paziente.
-     * @param dto
-     * @param idUtente
+     * @param dto DTO per la modifica di un paziente.
+     * @param idUtente id utente.
      */
     @Override
     public void modificaDatiPaziente(final ModificaPazienteDTO dto,
@@ -464,8 +515,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo per la modifica dati di un medico.
-     * @param dto
-     * @param idUtente
+     * @param dto DTO per la modifica di un utente registrato.
+     * @param idUtente id utente.
      * @throws Exception
      */
 
@@ -484,8 +535,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
     /**
      * Metodo per la ricerca di un medico tramite il suo paziente.
-     * @param idPaziente
-     * @return
+     * @param idPaziente id del paziente.
+     * @return Long.
      */
     @Override
     public  Long findMedicoByPaziente(final long idPaziente){
@@ -493,19 +544,32 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return m.getId();
     }
 
-
+    /**
+     * metodo che restituisce gli indirizzi dal db.
+     * @return Lista di indirizzi.
+     */
     @Override
     public List<Indirizzo> findAllIndirizzi() {
         return indirizzo.findAll();
     }
 
+    /**
+     * Metodo che rimuove un utente dal db.
+     * @param idUtente id dell'utente.
+     */
     @Override
     public void rimuoviUtente(final Long idUtente) {
         Optional<UtenteRegistrato> u = utente.findById(idUtente);
         utente.delete(u.get());
     }
 
-
+    /**
+     * metodo che controlla che la password passata
+     * sia uguale a quella presente nel db.
+     * @param pwd password passata.
+     * @param idUtente id dell'utente.
+     * @return true o false
+     */
     @Override
     public boolean controllaPassword(final String pwd,
                                      final Long idUtente) {
@@ -521,11 +585,21 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return false;
     }
 
+    /**
+     * Metodo che decripta la nuova password.
+     * @param nuovaPassword password nuova che si vuole inserire.
+     * @return String.
+     */
     @Override
-    public String encryptPassword(String nuovaPassword) {
+    public String encryptPassword(final String nuovaPassword) {
         return pwdEncoder.encode(nuovaPassword);
     }
 
-    public void updateIndirizzo(final Indirizzo ind){ this.indirizzo.save(ind); }
+    /**
+     * Metodo che aggiorna un indirizzo.
+     * @param ind indirizzo che si vuole aggiornare.
+     */
+    public void updateIndirizzo(final Indirizzo ind) {
+        this.indirizzo.save(ind); }
 
 }
