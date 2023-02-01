@@ -118,6 +118,12 @@ function HomeAdmin(){
         }
     })
 
+    let nav = useNavigate();
+    const logout = () => {
+        localStorage.removeItem("token");
+        nav("/");
+    }
+
     return(
         <div className="contenitoreAdminContent">
         <div className="searchbar searchbarAdmin"  style={{margin: "0px"}}>
@@ -348,8 +354,10 @@ function HomeAdmin(){
             </Modal>
             <span className="bentornat" style={{margin: "0px"}}>Bentornato, Admin 👋🏻</span><br/><br/>
             <button onClick={onOpenModal} className="bottoneInviaNota" >Registra un medico: </button><br/><br/>
-            <span className="iTuoiUtenti">Gli Utenti :</span><br/><br/>
             <ListaUtenti/>
+            <div className="divlogout">
+            <button className="bottoneLogout" onClick={()=> logout()}> Logout</button><br/><br/>
+            </div>
         </div>
         );
 

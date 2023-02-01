@@ -6,6 +6,7 @@ import {useState, useEffect} from "react";
 import CardPaziente from "./CardPaziente";
 import CardUtente from "./CardUtente";
 import CardAdminMedico from "./CardAdminMedico";
+import "../css/HomeAdmin.css"
 
 function ListaUtenti() {
 
@@ -45,8 +46,9 @@ function ListaUtenti() {
     return(
 
         <div>
-
+            <br/><br/><span className="iTuoiUtenti">I Pazienti :</span><br/><br/>
         <div className="contenitoreCardPazienti">
+
             {data.map(function(medico, idx){
                 if(medico.ruolo == "PAZIENTE")
                 return (
@@ -55,7 +57,7 @@ function ListaUtenti() {
             })}
 
         </div>
-
+            <br/><br/><span className="iTuoiUtenti">I Medici :</span><br/><br/>
     <div className="contenitoreCardPazienti">
         {data.map(function(medico, idx){
             if(medico.ruolo == "MEDICO")
