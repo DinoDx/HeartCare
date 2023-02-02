@@ -118,12 +118,8 @@ function NoteContainerPaziente() {
                 <div className="container-icona">
                     <BiPlusCircle className="icona-aggiunta-nota" onClick={onOpenModal} />
                     <Modal open={open} onClose={onCloseModal} center>
-                        <h2>Scegli il paziente</h2>
-                        <select className="selectPaziente" >
-
-                        </select>
                         <br />
-                        <h2>Testo della nota</h2>
+                        <h2>Testo della nota da inviare al tuo medico</h2>
                         <textarea className="textAreaTestoNote" type="text" placeholder=" Inserire qui la nota" cols={60} rows={20} onChange={onNotaChange}></textarea>
                         <button className="bottoneInviaNota" onClick={() => { handleSubmit(); setOpen(false) }}>Invia nota</button>
                     </Modal>

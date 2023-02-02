@@ -166,7 +166,13 @@ function Schedules() {
                 <span className="grassetto">Data della visita:</span> <span className="datoVisita">{dataSelect}</span>
               </div>
               <div>
-                <span className="grassetto">Luogo della visita:</span> <span className="datoVisita">{indirizzoSelect}</span>
+                <span className="grassetto">Luogo della visita:</span>
+                {indirizzi.map(ind => {
+                    if(ind["id"] == indirizzoSelect)
+                      return(
+                          <span className="datoVisita"> {ind["via"]} {ind["nCivico"]}, {ind["citta"]}({ind["provincia"]}), {ind["cap"]} </span>
+                      )
+                  })}
               </div>
             </div>
 
