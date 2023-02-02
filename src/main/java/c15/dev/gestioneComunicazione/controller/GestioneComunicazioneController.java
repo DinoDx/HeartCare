@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class GestioneComunicazioneController {
      * Metodo che inva una mail.
      */
     @PostMapping(path = "invioEmail")
+
     public void invioEmail() {
         System.out.println("almeno qui va");
         String messaggio = "notifica di prova";

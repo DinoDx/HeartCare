@@ -185,7 +185,7 @@ export default function Dispositivi() {
               <textarea className="textAreaTestoNote" name="desc" type="text" placeholder=" Inserire una breve descrizione" cols={40} rows={8} onChange={e => setDescrizione(e.target.value)}></textarea>
               <h2></h2>
               <textarea className="textAreaTestoNote" name="nSeriale" type="text" placeholder=" Inserire numero seriale dispositivo" cols={40} rows={8} onChange={e => setNumeroSeriale(e.target.value)} ></textarea>
-              <button className="bottoneInviaNota" onClick={registraDispositivo}>Aggiungi</button>
+              <button className="bottoneInviaNota" onClick={()=>{registraDispositivo(); setOpen(false)}}>Aggiungi</button>
           </Modal>
           </div>
         </div>

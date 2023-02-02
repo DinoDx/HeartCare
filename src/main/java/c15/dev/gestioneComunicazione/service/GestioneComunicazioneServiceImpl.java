@@ -16,6 +16,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
@@ -65,6 +66,7 @@ public class GestioneComunicazioneServiceImpl
      * @param emailDestinatario mail del destinatario.
      */
     @Override
+    @Async
     public void invioEmail(final String messaggio,
                            final String emailDestinatario) {
         SimpleMailMessage message = new SimpleMailMessage();

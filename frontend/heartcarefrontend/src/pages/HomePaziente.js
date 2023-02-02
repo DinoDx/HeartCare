@@ -167,6 +167,34 @@ function HomePaziente() {
 
 
 
+   
+    const [predizione,setPredizione] = useState("");
+
+    const invioDatiPredizione = () =>{
+        return fetch("http://localhost:8080/avvioPredizione",{
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                infarto:infarto
+            }),
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+        }).then(response=>{
+            response = response.json();
+            console.log(response);
+            setPredizione(response);    
+        })
+    } 
+
+
+
+
     const [dispositivi, setDispositivi] = useState([]);
 
     //const [loading, setLoading] = useState(false);
@@ -227,6 +255,7 @@ function HomePaziente() {
         console.log(dispositivoMisurazione);
     }
 
+    const [infarto,setInfarto] = useState("");
     const [datiMisurazione, setDatiMisurazione] = useState({});
     const avviaMisurazione = async () => {
         // fare la fetch per inviare dati
@@ -324,16 +353,11 @@ function HomePaziente() {
                 <Modal open={openPredizione} onClose={onCloseModalPredizione} center>
                     <h2>Inserisci i tuoi dati:</h2>
                     <div className="contenitoreDatiMisurazione">
-                        <span className="grassetto">Hai dolore al petto?</span>
-                        <select className="selectDispositivo">
-                            <option value="alto">Alto</option>
-                            <option value="alto">Medio</option>
-                            <option value="alto">Basso</option>
-                        </select>
                         <span className="grassetto">Hai avuto già un infarto?</span>
-                        <select className="selectDispositivo">
-                            <option value="alto">Sì</option>
-                            <option value="alto">No</option>
+                        <select className="selectDispositivo" onChange={e => setInfarto(e.target.value)}>
+                        <option value="" disabled selected>Seleziona categoria</option>
+                            <option value="si" >Sì</option>
+                            <option value="no">No</option>
                         </select>
                         <button className="bottoneInviaNota">Avvio Predizione</button>
                     </div>
