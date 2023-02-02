@@ -2,13 +2,9 @@ package c15.dev.model.dto;
 
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.*;
 import lombok.Data;
-
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @author carlo.
@@ -47,7 +43,7 @@ public class ModificaPazienteDTO implements Serializable {
      */
     @NotNull
     @Pattern(regexp = "^((00|\\+)39[\\. ]??)??3\\d{2}[\\. ]??\\d{6,7}$")
-    @Size(min=LENGTH_13, max=LENGTH_13)
+    @Size(min = LENGTH_13, max = LENGTH_13)
     private String numeroTelefono;
     /**
      * Campo che indica la password nuova di un paziente.

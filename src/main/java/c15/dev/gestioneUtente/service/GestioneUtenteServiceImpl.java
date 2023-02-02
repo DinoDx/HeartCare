@@ -1,6 +1,11 @@
 package c15.dev.gestioneUtente.service;
 
-import c15.dev.model.dao.*;
+import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.dao.MedicoDAO;
+import c15.dev.model.dao.DispositivoMedicoDAO;
+import c15.dev.model.dao.AdminDAO;
+import c15.dev.model.dao.IndirizzoDAO;
+import c15.dev.model.dao.UtenteRegistratoDAO;
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
 import c15.dev.model.entity.Paziente;

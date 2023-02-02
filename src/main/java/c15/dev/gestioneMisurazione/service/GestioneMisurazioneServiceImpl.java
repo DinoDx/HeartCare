@@ -11,14 +11,12 @@ import c15.dev.model.dto.MisurazioneDTO;
 import c15.dev.model.entity.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 
 /**

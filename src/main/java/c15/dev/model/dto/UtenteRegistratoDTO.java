@@ -31,7 +31,7 @@ public class UtenteRegistratoDTO implements Serializable {
      */
     @NotNull
     @Pattern(regexp = "^((00|\\+)39[\\. ]??)??3\\d{2}[\\. ]??\\d{6,7}$")
-    @Size(min=LENGTH_13, max=LENGTH_13)
+    @Size(min = LENGTH_13, max = LENGTH_13)
     private String numeroTelefono;
     /**
      * Campo che indica la password nuova di un paziente.
@@ -48,15 +48,15 @@ public class UtenteRegistratoDTO implements Serializable {
      */
     public void setPassword(final String pass) throws Exception {
         String regexpPassword =
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
-                        "[A-Za-z\\d@$!%*?&]{8,16}$";
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])"
+                        + "[A-Za-z\\d@$!%*?&]{8,16}$";
 
         if(pass.matches(regexpPassword)) {
             this.password = pass;
         }
         else {
-            throw new Exception("La password non rispetta " +
-                    "l'espressione regolare");
+            throw new Exception("La password non rispetta "
+                    + "l'espressione regolare");
         }
     }
 
@@ -66,15 +66,15 @@ public class UtenteRegistratoDTO implements Serializable {
      */
     public void setConfermaPassword(final String pass) throws Exception {
         String regexpPassword =
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
-                        "[A-Za-z\\d@$!%*?&]{8,16}$";
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])"
+                        + "[A-Za-z\\d@$!%*?&]{8,16}$";
 
         if(pass.matches(regexpPassword)) {
             this.confermaPassword = pass;
         }
         else {
-            throw new Exception("La password non rispetta " +
-                    "l'espressione regolare");
+            throw new Exception("La password non rispetta "
+                    + "l'espressione regolare");
         }
     }
 }

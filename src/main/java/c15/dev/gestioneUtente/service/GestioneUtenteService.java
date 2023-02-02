@@ -2,11 +2,14 @@ package c15.dev.gestioneUtente.service;
 
 import c15.dev.model.dto.ModificaPazienteDTO;
 import c15.dev.model.dto.UtenteRegistratoDTO;
-import c15.dev.model.entity.*;
+import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.Medico;
+import c15.dev.model.entity.DispositivoMedico;
+import c15.dev.model.entity.Indirizzo;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 

@@ -1,7 +1,11 @@
 package c15.dev.model.dto;
 
 
-import lombok.*;
+import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 /**
  * @author carlo.

@@ -51,6 +51,7 @@ public class DispositivoMedico {
      * Necessaria a causa del checkstyle.
      */
     private static final int LENGTH_30 = 30;
+    private static final int LENGTH_10 = 10;
 
     /**
      * Costante il cui valore è 100.
@@ -83,7 +84,7 @@ public class DispositivoMedico {
      */
     @Column(unique = true )
     @NotNull
-    @Size(min = LENGTH_30, max = LENGTH_30)
+    @Size(min = LENGTH_10, max = LENGTH_30)
     private String numeroSeriale;
 
     /**

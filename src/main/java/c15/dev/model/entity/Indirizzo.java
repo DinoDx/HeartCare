@@ -1,12 +1,10 @@
 package c15.dev.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Column;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;

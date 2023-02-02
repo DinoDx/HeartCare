@@ -2,18 +2,24 @@ package c15.dev.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.checkerframework.checker.optional.qual.Present;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * @author Alessandro Zoccola.
@@ -82,7 +88,7 @@ public class Misurazione implements Serializable {
     /**
      * Costruttore vuoto per Misurazione.
      */
-    public Misurazione(){
+    public Misurazione() {
 
     }
 }

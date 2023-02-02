@@ -78,25 +78,20 @@ public class GestioneMisurazioneController {
      * @param dispositivo
      */
     @RequestMapping(value = "/rimuoviDispositivo", method = RequestMethod.POST)
-    public boolean
+    public ResponseEntity<Object>
     rimozioneDispositivo(@RequestParam final DispositivoMedico dispositivo,
                          final HttpServletRequest request) {
-      /*  var u = request.get
-        if(!utenteService.isPaziente(u.getId())){
-            return false;
-        }
-        return misurazioneService.rimozioneDispositivo(dispositivo,
-                u.getId());
-                */
+        var email = request.getUserPrincipal().getName();
+        var usr = utenteService.findUtenteByEmail(email);
+        misurazioneService.rimozioneDispositivo(dispositivo, usr.getId());
 
-        return true;
-
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
      *
      * @param id
-     * @return List<Misurazione>
+     * @return List<Misurazione> elenco delle misurazioni.
      */
     @PostMapping(value = "/FascicoloSanitarioElettronico")
     public List<Misurazione>
@@ -111,7 +106,7 @@ public class GestioneMisurazioneController {
      *
      * @param request
      * @param map
-     * @return Misurazione.
+     * @return Misurazione singola misurazione.
      * Questo metodo permette di avviare una registrazione sull'id.
      * del dispositivo passato input e di restituire la misurazione generata.
      *
@@ -144,7 +139,7 @@ public class GestioneMisurazioneController {
     /**
      * Metodo per ricevere le misurazioni tramite una categorie.
      * @param body
-     * @return
+     * @returnn elenco misurazioni di una specifica categoria.
      */
     @PostMapping(value = "/getMisurazioneCategoria")
     public List<Misurazione> getMisurazioniByCategoria(
@@ -158,7 +153,7 @@ public class GestioneMisurazioneController {
     /**
      * Metodo per ricevere le misurazioni da un paziente.
      * @param body
-     * @return
+     * @return elenco delle misurazioni del paziente passato in input.
      */
     @PostMapping(value = "/getAllMisurazioniByPaziente")
     public ResponseEntity<Object> getAllMisurazioniByPaziente(
@@ -171,7 +166,8 @@ public class GestioneMisurazioneController {
     /**
      * Metodo per ricevere le cateogire delle misurazioni di un paziente.
      * @param body
-     * @return
+     * @return lista di stringhe che indicano tutte le
+     * categorie delle misurazioni.
      */
     @PostMapping(value = "/getCategorie")
     public List<String> getCategorieByPaziente(
@@ -183,7 +179,7 @@ public class GestioneMisurazioneController {
     /**
      * Metodo per prevedere se l'utente avrà un infarto.
      * @param body
-     * @return
+     * @return risultato della predizione 1 o 0.
      */
     @PostMapping(value = "/avvioPredizione")
     public ResponseEntity<Object> avvioPredizione(@RequestBody final HashMap<String, String> body,
