@@ -244,7 +244,13 @@ function HomePaziente() {
 
     const [openPredizione, setOpenPredizione] = useState(false);
     const onOpenModalPredizione = () => setOpenPredizione(true);
-    const onCloseModalPredizione = () => setOpenPredizione(false);
+    const onCloseModalPredizione = () => {
+        setOpenPredizione(false);
+    }
+
+    const [openPredizioneRisultati, setOpenPredizioneRisultati] = useState(false);
+    const onOpenModalPredizioneRisultati = () => setOpenPredizioneRisultati(true);
+    const onCloseModalPredizioneRisultati = () => setOpenPredizioneRisultati(false);
 
     const onOpenModal = () => setOpen(true);
     const onOpenModalRisultati = () => setOpenModalRisultati(true);
@@ -338,6 +344,26 @@ function HomePaziente() {
             </Modal>
 
 
+            <Modal open={openPredizioneRisultati} onClose={()=> {onCloseModalPredizioneRisultati()}} center>
+                <h2>Risultati della tua predizione:</h2>
+                <div className="contenitoreDatiMisurazione">
+                    <img src={gifPath} id="img" />
+                    <div id="dati" style={{ display: "none" }}>
+                    <h4>{predizione}</h4>
+                    </div>
+                    <span style={{ display: "none" }}>
+                        {
+
+                            setTimeout(() => {
+                                document.getElementById("img").style.display = "none";
+                                document.getElementById("dati").style.display = "block";
+                            }, 2000)
+                        }
+                    </span>
+                </div>
+            </Modal>
+
+
             <div className="contenitoreSinistra">
                 <div className="bannerNero">
                     <div className="informazioneBannerNero">
@@ -363,7 +389,7 @@ function HomePaziente() {
                             <option value="si" >Sì</option>
                             <option value="no">No</option>
                         </select>
-                        <button className="bottoneInviaNota" onClick={invioDatiPredizione}>Avvio Predizione</button>
+                        <button className="bottoneInviaNota" onClick={()=>{invioDatiPredizione(); onCloseModalPredizione(); onOpenModalPredizioneRisultati();}}>Avvio Predizione</button>
                     </div>
                 </Modal>
 
