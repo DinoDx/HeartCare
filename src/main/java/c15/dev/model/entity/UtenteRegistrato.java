@@ -1,26 +1,22 @@
 package c15.dev.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Id;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Table;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Inheritance;
+import c15.dev.utils.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  * @author Leopoldo Todisco.
@@ -38,11 +34,11 @@ import java.util.Date;
  */
 @Entity
 @SuperBuilder
-@Data
 @Setter
+@Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "utente_registrato")
-public class UtenteRegistrato implements Serializable {
+public class UtenteRegistrato implements Serializable, UserDetails {
     /**
      * Costante il cui valore è 30.
      * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
@@ -90,18 +86,23 @@ public class UtenteRegistrato implements Serializable {
      * Campo relativo alla Data di nascita nel formato GG-MM-AAAA.
      * Invariante: la data di nascita deve essere inferiore o uguale alla data corrente.
      */
-    @NotNull
+    /*@NotNull
     @Past
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date dataDiNascita;
+    private Date dataDiNascita;*/
 
+    @NotNull
+    @Past
+
+    private LocalDate dataDiNascita;
     /**
      * Campo relativo al Codice Fiscale.
      * Invariante: deve rispettare l'espressione regolare.
      */
     @Column(length = LENGTH_16,unique = true)
     @NotNull
-    @Pattern(regexp = "^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$",
+    @Pattern(regexp =
+            "^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$",
             message = "regexp codice fiscale non rispettata")
     private String codiceFiscale;
 
@@ -119,13 +120,13 @@ public class UtenteRegistrato implements Serializable {
     /**
      * Rappresenta la password di un Utente Registrato.
      * La sua espressione regolare richiede che ci siano:
-     *  almeno 8 caratteri, massimo 16
-     *  almeno una maiuscola
-     *  almeno un numero
+     *  almeno 8 caratteri, massimo 16.
+     *  almeno una maiuscola.
+     *  almeno un numero.
      *  almeno un carattere speciale.
      */
     @NotNull
-    private byte[] password;
+    private String password;
 
     /**
      * Rappresenta l'email di un Utente Registrato.
@@ -164,7 +165,18 @@ public class UtenteRegistrato implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_indirizzo",
                 referencedColumnName = "id")
+    @JsonBackReference
     private Indirizzo indirizzoResidenza;
+
+    /**
+     * Insieme delle notifiche relative a un utente.
+     */
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "destinatario")
+    private Set<Notifica> elencoNotifiche;
+
+    @Enumerated(EnumType.STRING)
+    private Role ruolo;
 
     /**
      * Costruttore vuoto per UtenteRegistrato.
@@ -174,23 +186,23 @@ public class UtenteRegistrato implements Serializable {
     }
 
     /**
-     * @param dataNascita rappresenta la data di nascita di un utente
-     * @param codFiscale rappresenta il codice fiscale di un utente
-     * @param nTelefono rappresenta il numero di telefono di un utente
-     * @param pass rappresenta la password in formato Stringa di un utente
-     * @param indirizzoEmail rappresenta l'email di un utente
-     * @param nome rappresenta il nome di un utente
-     * @param cognome rappresenta il cognome di un utente
-     * @param sesso rappresenta il genere di un utente
+     * @param dataNascita rappresenta la data di nascita di un utente.
+     * @param codFiscale rappresenta il codice fiscale di un utente.
+     * @param nTelefono rappresenta il numero di telefono di un utente.
+     * @param pass rappresenta la password in formato Stringa di un utente.
+     * @param indirizzoEmail rappresenta l'email di un utente.
+     * @param nome rappresenta il nome di un utente.
+     * @param cognome rappresenta il cognome di un utente.
+     * @param sesso rappresenta il genere di un utente.
      */
-    public UtenteRegistrato(final Date dataNascita,
+    public UtenteRegistrato(final LocalDate dataNascita,
                   final String codFiscale,
                   final String nTelefono,
                   final String pass,
                   final String indirizzoEmail,
                   final String nome,
                   final String cognome,
-                  final String sesso) throws Exception {
+                  final String sesso, final Role ruolo) throws Exception {
         this.dataDiNascita = dataNascita;
         this.codiceFiscale = codFiscale;
         this.numeroTelefono = nTelefono;
@@ -198,50 +210,89 @@ public class UtenteRegistrato implements Serializable {
         this.nome = nome;
         this.cognome = cognome;
         this.genere = sesso;
+        this.ruolo = ruolo;
 
         String regexpPassword =
                 "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
                 "[A-Za-z\\d@$!%*?&]{8,16}$";
 
-        /**La password deve rispettare l'espressione regolare*/
+        /**La password deve rispettare l'espressione regolare.*/
         if(pass.matches(regexpPassword)) {
-            /*
-             * In questo blocco si converte la stringa "password" in un array di bytes
-             * per poi applicare l'algoritmo di crittografia SHA-256
-             * Per questo motivo il campo password è un array di bytes e non String
-             */
-            try {
-                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-                this.password = msgDigest.digest(pass.getBytes());
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
+            this.password = pass;
         }
         else {
-            throw new Exception("La password non rispetta l'espressione regolare");
+            throw new Exception("La password non rispetta " +
+                    "l'espressione regolare");
         }
     }
+
+    /**
+     * Metodo permette di settare la password.
+     * @param pass nuova.
+     */
     public void setPassword(final String pass) throws Exception {
-        String regexpPassword =
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
-                "[A-Za-z\\d@$!%*?&]{8,16}$";
-
-        if(pass.matches(regexpPassword)) {
-            try {
-                MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-                this.password = msgDigest.digest(pass.getBytes());
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else {
-            throw new Exception("La password non rispetta l'espressione regolare");
-        }
+            this.password = pass;
     }
 
-    public void setPassword(byte[] password){
-        this.password = password;
+    /**
+     * Metodo che ritorna una lista di ruoli.
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(ruolo.name()));
     }
 
+    /**
+     * Metodo che restituisce la password di un utente registrato.
+     * @return password.
+     */
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
+    /**
+     * Metodo che restitusice la mail di un utente.
+     * @return email.
+     */
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    /**
+     * Metodo che ci dice se un account è scaduto.
+     * @return true o false.
+     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /**
+     * Metodo che ci dice se un account è bloccato.
+     * @return true o false.
+     */
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * Metodo che ci dice se le credenziali sono scadute o meno.
+     * @return true o false.
+     */
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /**
+     * Metodo che ci dice se un account è abilitato.
+     * @return true o false.
+     */
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

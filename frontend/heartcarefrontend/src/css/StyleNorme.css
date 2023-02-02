@@ -1,0 +1,152 @@
+.contenitoreNormeContent{
+    display : flex;
+    flex-direction: row;
+    width: 80%;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: rgba(242, 242, 242, 0.76);
+    margin:2px;
+    overflow: auto;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contenitoreNormeContent::-webkit-scrollbar{
+    display: none;
+}
+
+.divNorme{
+    display: flex;
+    background-color: #f2f2f2;
+    flex-direction: column;
+    width: 40%;
+    height: 60%;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #37a69b;
+}
+
+.overflow{
+    display: flex;
+    overflow-x: auto;
+}
+
+.overflow::-webkit-scrollbar{
+    display: none;
+}
+
+.divNormeFattori{
+    display: flex;
+    background-color: #f2f2f2;
+    flex-direction: column;
+    width: 60%;
+    height: 45%;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #37a69b;
+}
+
+.divNumero{
+    font-family: "Questrial", sans-serif;
+    cursor: pointer;
+    font-size: 70px;
+    display: flex;
+    width: 15%;
+    flex-direction: row;
+    justify-content: center;
+    align-self: baseline;
+}
+
+.divSpazio{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: self-end;
+}
+
+.lineaMenuNorme {
+    width: 97%;
+    border: none;
+    border-top: 1px solid rgba(105, 127, 140, 0.6);
+    border-top-left-radius: 75%;
+    border-top-right-radius: 75%;
+    height: 1px;
+}
+
+.arrowImg{
+    width: 100%;
+    height: 200px;
+    cursor: pointer;
+}
+
+.titoloNorme{
+    margin: 5px;
+    font-family: "Questrial", sans-serif;
+}
+
+.testoPuntato{
+    font-size: 19px;
+    font-family: "Questrial", sans-serif;
+}
+
+.footer-norme{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.footer-element-norme{
+    font-family: "Questrial", sans-serif;
+    cursor: pointer;
+}
+
+.grassetto{
+    font-weight: bolder;
+}
+
+@media only screen and (max-width: 767px) {
+    .divNumero{
+        display: none;
+    }
+
+    .divNorme{
+        display: flex;
+        width: 90%;
+    }
+
+    .divNormeFattori{
+        width: 90%;
+    }
+
+    .footer-element-norme{
+        font-family: "Questrial", sans-serif;
+        font-size: 20px;
+    }
+
+    .contenitoreNormeContent{
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+    .divNumero{
+        font-size: 50px;
+    }
+
+    .divNorme{
+        display: flex;
+        width: 60%;
+    }
+
+    .footer-element-norme{
+        font-family: "Questrial", sans-serif;
+        font-size: 25px;
+    }
+}

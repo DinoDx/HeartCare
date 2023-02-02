@@ -1,10 +1,10 @@
 package c15.dev.model.entity;
 
+import c15.dev.utils.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalDate;
 
 /**
  * @author Leopoldo Todisco.
@@ -21,18 +21,18 @@ public class Admin extends UtenteRegistrato implements Serializable {
     }
 
     /**
-     * Costruttore comprensivo di tutti i parametri, richiama il costruttore
+     * Costruttore comprensivo di tutti i parametri, richiama il costruttore.
      * di "UtenteRegistrato".
-     * @param dataNascita indica la data di nascita dell'admin
-     * @param codFiscale
-     * @param nTelefono è il campo del numero di telefono dell'admin
-     * @param pass è la password dell'admin
-     * @param indirizzoEmail è l'indirizzo email dell'admin
-     * @param nome è il nome dell'admin
-     * @param cog è il cognome dell'admin
-     * @param sesso indica il genere dell'admin
+     * @param dataNascita indica la data di nascita dell'admin.
+     * @param codFiscale indica il codice fiscale dell'admin.
+     * @param nTelefono è il campo del numero di telefono dell'admin.
+     * @param pass è la password dell'admin.
+     * @param indirizzoEmail è l'indirizzo email dell'admin.
+     * @param nome è il nome dell'admin.
+     * @param cog è il cognome dell'admin.
+     * @param sesso indica il genere dell'admin.
      */
-    public Admin(final Date dataNascita,
+    public Admin(final LocalDate dataNascita,
                  final String codFiscale,
                  final String nTelefono,
                  final String pass,
@@ -47,7 +47,8 @@ public class Admin extends UtenteRegistrato implements Serializable {
                 indirizzoEmail,
                 nome,
                 cog,
-                sesso);
+                sesso,
+                Role.ADMIN);
     }
 
 }

@@ -51,6 +51,7 @@
   justify-content: center;
   width: 50%;
   height: 90vh;
+  gap: 20px;
   border-radius: 20px;
   background-color: rgba(242, 242, 242, 0.76);
 }
@@ -88,6 +89,7 @@
 .formLink {
   font-size: 12px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .centerFlexItem {

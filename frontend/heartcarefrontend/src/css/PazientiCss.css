@@ -64,6 +64,10 @@
         font-size: 23px;
     }
 
+    .contenitorePazientiContent{
+        width: 90%;
+    }
+
     .iTuoiPazienti{
         font-size: 18px;
         font-family: "Questrial", sans-serif;

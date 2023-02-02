@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface MisurazioneCoagulazioneDAO extends MisurazioneDAO{
+public interface MisurazioneCoagulazioneDAO extends MisurazioneDAO {
 }

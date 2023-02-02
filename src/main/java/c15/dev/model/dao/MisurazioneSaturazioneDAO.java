@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * DAO per la misurazione della saturazione.
  */
 @Repository
-public interface MisurazioneSaturazioneDAO extends MisurazioneDAO{
+public interface MisurazioneSaturazioneDAO extends MisurazioneDAO {
 }

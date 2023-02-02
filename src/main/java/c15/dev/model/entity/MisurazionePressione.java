@@ -3,9 +3,11 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+
 
 /**
  * @author Alessandro Zoccola.
@@ -18,6 +20,7 @@ import java.util.GregorianCalendar;
  *  valore pressione minima.
  */
 @Entity
+@SuperBuilder
 public class MisurazionePressione extends Misurazione implements Serializable {
     /**
      * Questo campo indica il numero di battiti per minuto.
@@ -55,16 +58,16 @@ public class MisurazionePressione extends Misurazione implements Serializable {
     }
 
     /**
-     * @param dataMisurazione rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivoMedico rappresenta il dispositivo medico con cui
-     *                          è stata effettuata la misurazione
-     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto
-     * @param pressioneMassima rappresenta il valore della pressione massima
-     * @param pressioneMinima rappresenta il valore della pressione minima
-     * @param pressioneMedia rappresenta il valore della pressione media
+     * @param dataMisurazione rappresenta la data della misurazione.
+     * @param paziente rappresenta il paziente coinvolto nella misurazione.
+     * @param dispositivoMedico rappresenta il dispositivo medico con cui.
+     *                          è stata effettuata la misurazione.
+     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto.
+     * @param pressioneMassima rappresenta il valore della pressione massima.
+     * @param pressioneMinima rappresenta il valore della pressione minima.
+     * @param pressioneMedia rappresenta il valore della pressione media.
      */
-    public MisurazionePressione(final GregorianCalendar dataMisurazione,
+    public MisurazionePressione(final LocalDate dataMisurazione,
                                 final Paziente paziente,
                                 final DispositivoMedico dispositivoMedico,
                                 final int battitiPerMinuto,
@@ -80,7 +83,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
 
     /**
      *
-     * @return battitiPerMinuto
+     * @return battitiPerMinuto.
      * Metodo che restituisce il valore dei battiti per minuto.
      */
     public int getBattitiPerMinuto() {
@@ -100,7 +103,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
 
     /**
      *
-     * @return pressioneMassima
+     * @return pressioneMassima.
      * Metodo che restituisce il valore della pressione massima.
      */
     public double getPressioneMassima() {
@@ -118,7 +121,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
 
     /**
      *
-     * @return pressioneMinima
+     * @return pressioneMinima.
      * Metodo che restituisce il valore della pressione minima.
      */
     public double getPressioneMinima() {
@@ -137,7 +140,7 @@ public class MisurazionePressione extends Misurazione implements Serializable {
 
     /**
      *
-     * @return pressioneMedia
+     * @return pressioneMedia.
      * Metodo che restituisce il valore della pressione media.
      */
     public double getPressioneMedia() {

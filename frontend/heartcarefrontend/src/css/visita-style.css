@@ -3,7 +3,6 @@
 .container-visita {
   width: 270px;
   height: 310px;
-
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
@@ -24,6 +23,7 @@
   font-family: "Cambay Devanagari Regular";
   font-weight: 700;
   font-size: 30px;
+  margin-bottom: 0;
 }
 
 .linea-visita {
@@ -99,9 +99,10 @@
 
 @media only screen and (max-width: 767px) {
   .container-visita {
-    width: 85%;
+    width: 100%;
     height: 50px;
     margin-bottom: 17px;
+    margin-right: 10px;
   }
 
   .linea-visita {

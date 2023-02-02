@@ -3,8 +3,11 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -20,6 +23,7 @@ import java.util.GregorianCalendar;
  */
 
 @Entity
+@SuperBuilder
 public class MisurazioneHolterECG extends Misurazione implements Serializable {
     /**
      * Campo che rappresenta la durata dell'onda p di un elettrocardiogramma.
@@ -65,25 +69,25 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
     }
 
     /**
-     * @param dataMisurazione rappresenta la data
-     *                        della misurazione Holter ECG
-     * @param paziente rappresenta il paziente
-     *                 della misurazione Holter ECG
-     * @param dispositivoMedico rappresenta il dispositivo medico
-     *                          della misurazione Holter ECG
-     * @param durataOndaP rappresenta il valore della durata Onda P
-     *                    della misurazione Holter ECG
-     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto
-     *                         della misurazione Holter ECG
-     * @param durataComplessoQRS rappresenta il valore della durata complesso QRS
-     *                           della misurazione Holter ECG
-     * @param intervalloPR rappresenta il valore dell'intervallo PR
-     *                     della misurazione Holter ECG
-     * @param ondaT rappresenta il valore dell'onda T
-     *              della misurazione Holter ECG
+     * @param dataMisurazione rappresenta la data.
+     *                        della misurazione Holter ECG.
+     * @param paziente rappresenta il paziente.
+     *                 della misurazione Holter ECG.
+     * @param dispositivoMedico rappresenta il dispositivo medico.
+     *                          della misurazione Holter ECG.
+     * @param durataOndaP rappresenta il valore della durata Onda P.
+     *                    della misurazione Holter ECG.
+     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto.
+     *                         della misurazione Holter ECG.
+     * @param durataComplessoQRS rappresenta il valore della durata complesso.
+     *                           QRS della misurazione Holter ECG.
+     * @param intervalloPR rappresenta il valore dell'intervallo PR.
+     *                     della misurazione Holter ECG.
+     * @param ondaT rappresenta il valore dell'onda T.
+     *              della misurazione Holter ECG.
      *
      */
-    public MisurazioneHolterECG(final GregorianCalendar dataMisurazione,
+    public MisurazioneHolterECG(final LocalDate dataMisurazione,
                                 final Paziente paziente,
                                 final DispositivoMedico dispositivoMedico,
                                 final double durataOndaP,
@@ -101,7 +105,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
 
     /**
      *
-     * @return durataOndaP
+     * @return durataOndaP.
      * metodo che restituisce il valore della durata onda P.
      */
     public double getDurataOndaP() {
@@ -110,7 +114,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
 
     /**
      *
-     * @return battitiPerMinuto
+     * @return battitiPerMinuto.
      * metodo che restituisce il valore del battiti per minuto.
      */
     public int getBattitiPerMinuto() {
@@ -119,7 +123,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
 
     /**
      *
-     * @return durataComplessoQRS
+     * @return durataComplessoQRS.
      * metodo che restituisce il valore della durata complesso QRS.
      */
     public double getDurataComplessoQRS() {
@@ -128,7 +132,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
 
     /**
      *
-     * @return intervalloPR
+     * @return intervalloPR.
      * metodo che restituisce il valore dell'intervallo PR.
      */
     public double getIntervalloPR() {
@@ -137,7 +141,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
 
     /**
      *
-     * @return ondaT
+     * @return ondaT.
      * metodo che restituisce il valore dell'ondaT.
      */
     public double getOndaT() {
@@ -147,7 +151,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
     /**
      *
      * @param durataOndaP
-     * metodo che permette di impostare il valore dell'ondaP
+     * metodo che permette di impostare il valore dell'ondaP.
      * della misurazione Holter ECG.
      */
     public void setDurataOndaP(final double durataOndaP) {
@@ -157,7 +161,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
     /**
      *
      * @param battitiPerMinuto
-     * metodo che permette di impostare il valore dei battiti per minuto
+     * metodo che permette di impostare il valore dei battiti per minuto.
      * della misurazione Holter ECG.
      */
     public void setBattitiPerMinuto(final int battitiPerMinuto) {
@@ -167,7 +171,8 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
     /**
      *
      * @param durataComplessoQRS
-     * metodo che permette di impostare il valore della durata del complesso QRS
+     * metodo che permette di impostare il valore della durata.
+     *                                          del complesso QRS.
      * della misurazione Holter ECG.
      */
     public void setDurataComplessoQRS(final double durataComplessoQRS) {
@@ -177,7 +182,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
     /**
      *
      * @param intervalloPR
-     * metodo che permette di impostare il valore dell'intervallo PR
+     * metodo che permette di impostare il valore dell'intervallo PR.
      * della misurazione Holter ECG.
      */
     public void setIntervalloPR(final double intervalloPR) {
@@ -187,7 +192,7 @@ public class MisurazioneHolterECG extends Misurazione implements Serializable {
     /**
      *
      * @param ondaT
-     * metodo che permette di impostare il valore dell'ondaT
+     * metodo che permette di impostare il valore dell'ondaT.
      * della misurazione Holter ECG.
      */
     public void setOndaT(final double ondaT) {

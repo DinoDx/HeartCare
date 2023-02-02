@@ -1,74 +1,120 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200&family=Questrial&display=swap");
 
 .container-note {
-  width: 85%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  border: 3px solid #37a69b;
-  border-radius: 20px 20px;
-  background-color: rgba(242, 242, 242, 0.6);
-  padding-left: 10px;
-  row-gap: 15px;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #37a69b;
+    border-radius: 20px 20px;
+    background-color: rgba(242, 242, 242, 0.6);
+    padding-left: 10px;
+    row-gap: 15px;
+    overflow-y: scroll;
+    margin :0px 0px 0px 2%;
+}
+
+.erroreCompilazione{
+    display: none;
+    font-size: 10px;
+    color: #d9514a;
 }
 
 .intestazione-note {
-  display: flex;
-  align-items: center;
-  padding-left: 5px;
-  padding-top: 13px;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    padding-top: 13px;
 }
 
 .div-intestazione-sx {
-  width: 50%;
+    width: 50%;
 }
 
 .container-icona {
-  padding-right: 40px;
-  width: 50%;
-  justify-content: end;
-  display: flex;
+    padding-right: 40px;
+    width: 50%;
+    justify-content: end;
+    display: flex;
 }
 
 .icona-aggiunta-nota {
-  width: 30px;
-  height: 30px;
+    width: 30px;
+    height: 30px;
 }
 
 .testo-intestazione-note {
-  font-size: 35px;
-  font-family: "Questrial", sans-serif;
-  font-weight: 700;
+    font-size: 35px;
+    font-family: "Questrial", sans-serif;
+    font-weight: 700;
 }
 
 .nota-div {
-  padding-bottom: 3px;
-  padding-left: 8px;
-  border-left: 3px solid #d9514a;
+    padding-bottom: 3px;
+    padding-left: 8px;
+    border-left: 3px solid #d9514a;
 
-  display: flex;
-  flex-direction: column;
-  vertical-align: center;
-  row-gap: 5px;
+    display: flex;
+    flex-direction: column;
+    vertical-align: center;
+    row-gap: 5px;
 }
 
 .autore-nota {
-  font-weight: 700;
-  font-size: 20px;
+    font-weight: 700;
+    font-size: 20px;
 }
 
 .corpo-nota {
-  font-family: "Questrial", sans-serif;
-  font-size: 15px;
+    font-family: "Questrial", sans-serif;
+    font-size: 15px;
 }
 
 .linea-tra-note {
-  margin-left: 0;
-  width: 95%;
-  border: none;
-  border-top: 1px solid rgba(105, 127, 140, 0.6);
+    margin-left: 0;
+    width: 95%;
+    border: none;
+    border-top: 1px solid rgba(105, 127, 140, 0.6);
 }
 
+.selectPaziente{
+    height: 30px;
+    border-radius: 5px;
+    background-color: #d9d9d9;
+    color: #282c34;
+    width: 80%;
+    font-weight: bolder;
+    font-family: "Questrial", sans-serif;
+    border: none;
+    padding: 5px;
+}
+
+.textAreaTestoNote{
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: "Questrial", sans-serif;
+}
+
+.react-responsive-modal-modal{
+    border-radius: 15px;
+    border: 2px solid #37a69b;
+}
+
+h2{
+    font-family: "Questrial", sans-serif;
+}
+
+.bottoneInviaNota{
+    font-weight: bold;
+    font-family: "Questrial", sans-serif;
+    width: 55%;
+    height: 40px;
+    margin-top: 10px;
+    border: 2px solid #37a69b;
+    border-radius: 15px;
+    -webkit-box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+    box-shadow: 7px 7px 28px -11px rgba(0, 0, 0, 1);
+}
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) and (max-width: 1250px) {
 }
@@ -77,21 +123,25 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .container-note {
-    width: 90%;
-    height: 100%;
-    margin-bottom: 30px;
-  }
+    .container-note {
+        width: 90%;
+        margin-bottom: 30px;
+    }
 
-  .intestazione-note {
-    display: none;
-  }
+    .nota-div {
+        margin-top: 15px;
+    }
 
-  .nota-div {
-    margin-top: 15px;
-  }
+    .autore-nota {
+        font-size: 18px;
+    }
 
-  .autore-nota {
-    font-size: 18px;
-  }
+    @media only screen and (min-width: 360px) and (max-width: 1250px){
+        .container-note{
+            width: 95%;
+        }
+
+
+    }
+
 }

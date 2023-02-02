@@ -1,7 +1,10 @@
 package c15.dev.model.entity;
 
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
-import c15.dev.model.entity.enumeration.Categoria;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,36 +15,43 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * @author Mario Cicalese.
  * Creato il 30/12/2022.
- * Questa è la classe relativa al dispositivo medico utilizzato da un paziente
+ * Questa è la classe relativa al dispositivo medico utilizzato da un paziente.
  * per effettuare delle misurazioni.
- * I campi sono id (auto generato), dataRegistrazione,
+ * I campi sono id (auto generato), dataRegistrazione.
  * descrizione, numeroSeriale, disponibile, categoria,paziente.
  */
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "Dispositivo_medico")
-public class DispositivoMedico implements Serializable {
+public class DispositivoMedico {
     /**
      * Costante il cui valore è 30.
      * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
      * Necessaria a causa del checkstyle.
      */
     private static final int LENGTH_30 = 30;
+    private static final int LENGTH_10 = 10;
 
     /**
      * Costante il cui valore è 100.
@@ -61,12 +71,11 @@ public class DispositivoMedico implements Serializable {
      * Invariante: la data deve essere <= rispetto la data corrente.
      */
     @NotNull
-    private GregorianCalendar dataRegistrazione;
+    private LocalDate dataRegistrazione;
     /**
      * Campo relativo alla descrizione del dispositivo medico.
      */
     @NotNull
-    @Max(100)
     private String descrizione;
 
     /**
@@ -75,11 +84,11 @@ public class DispositivoMedico implements Serializable {
      */
     @Column(unique = true )
     @NotNull
-    @Size(min = LENGTH_30, max = LENGTH_30)
+    @Size(min = LENGTH_10, max = LENGTH_30)
     private String numeroSeriale;
 
     /**
-     * Campo relativo a se il dispositivo medico è disponibile
+     * Campo relativo a se il dispositivo medico è disponibile.
      * per essere assegnato a un paziente.
      */
     @NotNull
@@ -88,21 +97,23 @@ public class DispositivoMedico implements Serializable {
      * Campo relativo alla categoria di appartenenza del dispositivo medico.
      */
     @NotNull
-    private Categoria categoria;
+    private String categoria;
     /**
-     * Campo (chiave esterna) relativo al paziente a cui è assegnato
-     * il paziente
+     * Campo (chiave esterna) relativo al paziente a cui è assegnato.
+     * il paziente.
      */
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_paziente",
-            referencedColumnName = "id",
-            nullable = true)
+            referencedColumnName = "id")
+    @JsonBackReference("paziente-dispositivo")
     private Paziente paziente;
 
     /**
      * Campo che indica l'insieme delle misurazioni generate da un dispositivo.
      */
-    @OneToMany(mappedBy = "dispositivoMedico", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dispositivoMedico", fetch = FetchType.LAZY)
+    @JsonManagedReference("dispositivo-misurazione")
     private Set<Misurazione> misurazione;
 
     /**
@@ -114,199 +125,103 @@ public class DispositivoMedico implements Serializable {
     /**
      *
      * @param dataRegistrazione rappresenta la data di registrazione.
-     * @param descrizione rappresenta la descrizione
+     * @param descrizione rappresenta la descrizione.
      *                      del dispositivo medico.
-     * @param numeroSeriale rappresenta il numero seriale
+     * @param numeroSeriale rappresenta il numero seriale.
      *                      del dispositivo medico.
-     * @param disponibile indica se il dispositivo medico è disponibile o no
-     * @param categoria rappresenta la categoria di appartenenza
+     * @param disponibile indica se il dispositivo medico è disponibile o no.
+     * @param categoria rappresenta la categoria di appartenenza.
      *                  del dispositivo medico.
-     * @param paziente rappresenta il paziente a cui è assegnato
+     * @param paziente rappresenta il paziente a cui è assegnato.
      *                 il dispositivo medico.
      */
-    public DispositivoMedico(final GregorianCalendar dataRegistrazione,
+    public DispositivoMedico(final LocalDate dataRegistrazione,
                              final String descrizione,
                              final String numeroSeriale,
                              final Boolean disponibile,
-                             final Categoria categoria,
+                             final String categoria,
                              final Paziente paziente) {
         this.dataRegistrazione = dataRegistrazione;
         this.descrizione = descrizione;
         this.numeroSeriale = numeroSeriale;
-        this.disponibile = disponibile;
+        this.disponibile = true;
         this.categoria = categoria;
         this.paziente = paziente;
     }
 
     /**
-     *
-     * @return id
-     * metodo che restituisce l'id del dispositivo medico
+     * Metodo per l'avvio di una misurazione.
+     * @return stringa che contiene la misurazione.
      */
-    public Long getId() {
-        return id;
-    }
 
-    /**
-     *
-     * @param id
-     * metodo che permette di definire l'id del dispositivo medico
-     */
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    /**
-     *
-     * @return dataRegistrazione
-     * metodo che restituisce la data di registrazione del dispositivo medico
-     */
-    public GregorianCalendar getDataRegistrazione() {
-        return dataRegistrazione;
-    }
-
-    /**
-     *
-     * @param dataRegistrazione
-     * metodo che permette di definire la data di registrazione
-     * del dispositivo medico
-     */
-    public void setDataRegistrazione(final GregorianCalendar dataRegistrazione) {
-        this.dataRegistrazione = dataRegistrazione;
-    }
-
-    /**
-     *
-     * @return descrizione
-     * metodo che restituisce la descrizione del dispositivo medico
-     */
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    /**
-     *
-     * @param descrizione
-     * metodo che permette di definire la descrizione del dispositivo medico
-     */
-    public void setDescrizione(final String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    /**
-     *
-     * @return numeroSeriale
-     * metodo che restituisce il numero seriale del dispositivo medico
-     */
-    public String getNumeroSeriale() {
-        return numeroSeriale;
-    }
-
-    /**
-     *
-     * @param numeroSeriale
-     * metodo che permette di definire il numero seriale del dispositivo medico
-     */
-    public void setNumeroSeriale(final String numeroSeriale) {
-        this.numeroSeriale = numeroSeriale;
-    }
-
-    /**
-     *
-     * @return disponibile
-     * metodo che restituisce la disponibilità o meno del dispositivo medico
-     */
-    public Boolean getDisponibile() {
-        return disponibile;
-    }
-
-    /**
-     *
-     * @param disponibile
-     * metodo che permette di definire la disponibilità del dispositivo medico
-     */
-    public void setDisponibile(final Boolean disponibile) {
-        this.disponibile = disponibile;
-    }
-
-    /**
-     *
-     * @return categoria
-     * metodo che restituisce la categoria del dispositivo medico
-     */
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    /**
-     *
-     * @param categoria
-     * metodo che permette di definire la categoria del dispositivo medico
-     */
-    public void setCategoria(final Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    /**
-     *
-     * @return paziente
-     * metodo che restituisce il paziente a cui è assegnato
-     * il dispositivo medico
-     */
-    public Paziente getPaziente() {
-        return paziente;
-    }
-
-    /**
-     *
-     * @param paziente
-     * metodo che permette di definire il paziente a cui è assegnato
-     * il dispositivo medico
-     */
-    public void setPaziente(final Paziente paziente) {
-        this.paziente = paziente;
-    }
-
-    public String avvioMisurazione(){
-        DispositivoMedicoStub dispositivoMedicoStub = new DispositivoMedicoStub();
+    public String avvioMisurazione() {
+        var dispositivoMedicoStub = new DispositivoMedicoStub();
         String misurazione = " ";
 
-        switch(categoria.getDisplayName()){
-            case "ECG" : misurazione = dispositivoMedicoStub.MisurazioneHolterECGStub();
+        switch(categoria){
+            case "ECG" : misurazione = dispositivoMedicoStub
+                    .MisurazioneHolterECGStub();
                 break;
-            case "Saturimetro" : misurazione = dispositivoMedicoStub.MisurazioneSaturazioneStub() ;
+            case "Saturimetro" : misurazione = dispositivoMedicoStub
+                    .MisurazioneSaturazioneStub() ;
                 break;
-            case "Coagulometro" : misurazione = dispositivoMedicoStub.MisurazioneCoagulazioneStub();
+            case "Coagulometro" : misurazione =
+                    dispositivoMedicoStub.MisurazioneCoagulazioneStub();
                 break;
-            case "Misuratore glicemico" : misurazione = dispositivoMedicoStub.MisurazioneGlicemicaStub();
+            case "Misuratore glicemico" : misurazione = dispositivoMedicoStub
+                    .MisurazioneGlicemicaStub();
                 break;
             case "Misuratore di pressione" : {
-                LocalDate currentDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                LocalDate birthday = paziente.getDataDiNascita().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                misurazione = dispositivoMedicoStub.MisurazionePressioneStub(Period.between(birthday,currentDate).getYears());
+                LocalDate currentDate = new Date()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+                LocalDate birthday = paziente.getDataDiNascita();//toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                misurazione = dispositivoMedicoStub.
+                        MisurazionePressioneStub(Period
+                                .between(birthday, currentDate)
+                                .getYears());
             }
                 break;
-            case "Enzimi cardiaci" : dispositivoMedicoStub.MisurazioneEnzimiCardiaciStub(paziente.getGenere());
+            case "Enzimi cardiaci" : misurazione = dispositivoMedicoStub
+                    .MisurazioneEnzimiCardiaciStub(paziente.getGenere());
                 break;
         }
         return misurazione;
     }
 
     /**
-     * Metodo per ottenere una stringa comprensiva di tutti i campi
-     * dell'oggetto.
-     * @return String
+     * Metodo equals.
+     * @param o oggetto da confrontare.
+     * @return booleano.
      */
     @Override
-    public String toString() {
-        return "DispositivoMedico{"
-                + "id=" + id
-                + ", dataRegistrazione=" + dataRegistrazione
-                + ", descrizione='" + descrizione + '\''
-                + ", numeroSeriale='" + numeroSeriale + '\''
-                + ", disponibile=" + disponibile
-                + ", categoria=" + categoria
-                + ", paziente=" + paziente
-                + '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DispositivoMedico that)) return false;
+        return Objects.equals(getId(),
+                that.getId()) && Objects.equals(getDataRegistrazione(),
+                that.getDataRegistrazione()) && Objects.equals(getDescrizione(),
+                that.getDescrizione()) && Objects.equals(getNumeroSeriale(),
+                that.getNumeroSeriale()) && Objects.equals(getDisponibile(),
+                that.getDisponibile()) && Objects.equals(getCategoria(),
+                that.getCategoria()) && Objects.equals(getPaziente(),
+                that.getPaziente()) && Objects.equals(getMisurazione(),
+                that.getMisurazione());
+    }
+
+    /**
+     * Metodo hashCode.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(),
+                getDataRegistrazione(),
+                getDescrizione(),
+                getNumeroSeriale(),
+                getDisponibile(),
+                getCategoria(),
+                getPaziente(),
+                getMisurazione());
     }
 }

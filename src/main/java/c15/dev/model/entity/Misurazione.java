@@ -1,26 +1,39 @@
 package c15.dev.model.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.checkerframework.checker.optional.qual.Present;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 /**
- * @author Alessandro Zoccola
- * Creato il: 30/12/2022
+ * @author Alessandro Zoccola.
+ * Creato il: 30/12/2022.
  * Questa è la classe relativa ad una Misurazione.
- * I campi sono: id autogenerato, data della misurazione
+ * I campi sono: id autogenerato, data della misurazione.
  */
 
 @Entity
+@ToString
 @Inheritance(strategy = InheritanceType.JOINED)
 @SuperBuilder
+@Getter
+@Setter
 @Table(name = "misurazione")
 public class Misurazione implements Serializable {
     /**
@@ -29,22 +42,22 @@ public class Misurazione implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    @NotNull
     private Long id;
 
     /**
      * Campo relativo alla Data di misurazione nel formato GG-MM-AAAA HH:mm.
-     * Invariante: la data della misurazione deve essere maggiore
+     * Invariante: la data della misurazione deve essere maggiore.
      * o uguale alla data corrente.
      */
     @Column(name = "data_misurazione", nullable = false)
     @NotNull
-    @Future
-    private GregorianCalendar dataMisurazione;
+    private LocalDate dataMisurazione;
     /**
      * Campo relativo alla relazione tra pazienti e misurazioni.
      */
     @ManyToOne
+    @JsonIgnore
+    @JsonBackReference("misurazione-paziente")
     @JoinColumn(name = "id_paziente",
             referencedColumnName = "id", nullable = false)
     private Paziente paziente;
@@ -54,15 +67,18 @@ public class Misurazione implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_dispositivo_medico",
             referencedColumnName = "id", nullable = false)
+    @JsonIgnore
+    @JsonBackReference("dispositivo-misurazione")
     private DispositivoMedico dispositivoMedico;
 
     /**
      * @param data rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivo rappresenta il dispositivo medico con cui è stata
-     *effettuata la misurazione
+     * @param paziente rappresenta il paziente coinvolto nella misurazione.
+     * @param dispositivo rappresenta il dispositivo medico con cui è stata.
+     *effettuata la misurazione.
      */
-    public Misurazione(GregorianCalendar data, Paziente paziente,
+    public Misurazione(LocalDate data,
+                       Paziente paziente,
                        DispositivoMedico dispositivo) {
         this.dataMisurazione = data;
         this.paziente = paziente;
@@ -72,80 +88,7 @@ public class Misurazione implements Serializable {
     /**
      * Costruttore vuoto per Misurazione.
      */
-    public Misurazione(){
+    public Misurazione() {
 
     }
-
-    /**
-     *
-     * @return id
-     * metodo che restituisce l'id della misurazione.
-     */
-    public long getId(){
-        return this.id;
-    }
-
-    /**
-     *
-     * @return dataMisurazione
-     * metodo che restituisce la data della misurazione.
-     */
-    public GregorianCalendar getDataMisurazione() {
-        return this.dataMisurazione;
-    }
-
-    /**
-     *
-     * @param data
-     * Metodo che permette di inserire la data della misurazione.
-     *
-     */
-    public void setDataMisurazione(GregorianCalendar data) {
-        this.dataMisurazione = data;
-    }
-
-    /**
-     *
-     * @return dataMisurazione
-     * Metodo che permette di restituire il paziente a cui afferisce
-     * la misurazione.
-     *
-     */
-    public Paziente getPaziente() {
-        return paziente;
-    }
-
-    /**
-     *
-     * @param paziente
-     * Metodo che permette di impostare il paziente della misurazione.
-     *
-     */
-    public void setPaziente(Paziente paziente) {
-        this.paziente = paziente;
-    }
-
-    /**
-     *
-     * @return dispositivoMedico
-     * Metodo che permette di restituire il dispositivo medico da cui è stata
-     * effettuata la misurazione.
-     *
-     */
-    public DispositivoMedico getDispositivoMedico() {
-        return dispositivoMedico;
-    }
-
-    /**
-     *
-     * @param dispositivo
-     * Metodo che permette di impostare il dispositivo medico della
-     * misurazione.
-     *
-     */
-    public void setDispositivoMedico(DispositivoMedico dispositivo) {
-        this.dispositivoMedico = dispositivo;
-    }
-
-
 }

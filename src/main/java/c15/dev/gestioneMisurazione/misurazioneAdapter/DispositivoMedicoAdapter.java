@@ -1,34 +1,38 @@
 package c15.dev.gestioneMisurazione.misurazioneAdapter;
 
-import c15.dev.model.entity.*;
+import c15.dev.model.entity.DispositivoMedico;
+import c15.dev.model.entity.Misurazione;
+import c15.dev.model.entity.MisurazionePressione;
+import c15.dev.model.entity.MisurazioneEnzimiCardiaci;
+import c15.dev.model.entity.MisurazioneGlicemica;
+import c15.dev.model.entity.MisurazioneCoagulazione;
+import c15.dev.model.entity.MisurazioneSaturazione;
+import c15.dev.model.entity.MisurazioneHolterECG;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
 /**
  * @author Mario Cicalese, Vincenzo Maria Arnone, Paolo Carmine Valletta.
  * creato il: 06/01/2023.
- * Questa classe rappresenta il design pattern adapter che converte una
+ * Questa classe rappresenta il design pattern adapter che converte una.
  * misurazione JSON in un oggetto misurazione.
  *
  */
-public class DispositivoMedicoAdapter implements IDispositivoMedico{
+public class DispositivoMedicoAdapter implements IDispositivoMedico {
+    /**adaptee è il dispositivo la cui misurazione va adattata*/
     private DispositivoMedico adaptee;
-    private Gson gson ;
+    private Gson gson;
 
     /**
      *
-     * @param adaptee
+     * @param adap
      * Costruttore per la classe DispositivoMedicoAdapter.
      */
-    public DispositivoMedicoAdapter(DispositivoMedico adaptee) {
-        this.adaptee = adaptee;
+    public DispositivoMedicoAdapter(final DispositivoMedico adap) {
+        this.adaptee = adap;
         gson = new Gson();
     }
 
@@ -40,22 +44,35 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico{
     @Override
     public Misurazione avvioMisurazione() {
         String misurazioneJSON = adaptee.avvioMisurazione();
-        Misurazione misurazione = gson
-                .fromJson(misurazioneJSON,misurazioneFactory(misurazioneJSON)
-                        .getClass());
-        return misurazione;
+        //Misurazione misurazione = gson.fromJson(misurazioneJSON, misurazioneFactory(misurazioneJSON).getClass());
+
+        ObjectMapper om = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+        try {
+            System.out.println("MISURAZIONE  JSON = " + misurazioneJSON);
+            Misurazione result = om.readValue(misurazioneJSON,
+                    misurazioneFactory(misurazioneJSON).getClass());
+            result.setPaziente(adaptee.getPaziente());
+            result.setDispositivoMedico(adaptee);
+            System.out.println("FUNZIONA?\n");
+            System.out.println(result);
+            return result;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      *
      * @param misurazioneJSON
-     * @return Misurazione
-     * Questo metodo rappresenta il design pattern Factory Method che in base
-     * alla categoria del dispositivo medico restituisce un oggetto figlio
+     * @return Misurazione.
+     * Questo metodo rappresenta il design pattern Factory Method che in base.
+     * alla categoria del dispositivo medico restituisce un oggetto figlio.
      * di misurazione.
      */
-    public Misurazione misurazioneFactory(String misurazioneJSON) {
-        switch (adaptee.getCategoria().getDisplayName()) {
+    public Misurazione misurazioneFactory(final String misurazioneJSON) {
+        switch (adaptee.getCategoria()) {
             case "ECG":
                 return new MisurazioneHolterECG();
             case "Saturimetro":

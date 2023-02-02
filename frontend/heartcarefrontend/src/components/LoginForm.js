@@ -1,15 +1,40 @@
-import React from "react";
+import React, {useEffect} from "react";
 import '../css/style.css';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { ReactSession }  from 'react-client-session';
+import jwt from "jwt-decode"
 
 
+import {useNavigate} from "react-router";
 
 
 function LoginForm(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const nav = useNavigate();
+    const ref = useRef(0);
+    
+    const rimanda = () => {
+        let tokenInizio = localStorage.getItem("token");
+        if(tokenInizio == null) {
+            return;
+        }
+
+        let ruolo = jwt(tokenInizio).ruolo;
+        if(ruolo == "PAZIENTE") {
+            nav("/HomePaziente")
+        } else if(ruolo == "MEDICO") {
+            nav("/HomeMedico");
+        } else if(ruolo == "ADMIN") {
+            nav("/HomeAdmin");
+        }
+    }
+
+    useEffect( () => {
+        document.getElementById("spanErrore").style.display = "none";
+        rimanda();
+    })
 
     const aggiornaEmail = (event) => {
         setEmail(event.target.value);
@@ -22,27 +47,39 @@ function LoginForm(){
     const handleSubmit = (event) => {
         event.preventDefault()
 
-
-        axios.post('http://localhost:8080/login', {
+        axios.post('http://localhost:8080/auth/login', {
             email: email,
             password: password
         })
             .then((response) => {
-                console.log(ReactSession.set("utenteLoggato"));
-                console.log(response);
+                localStorage.setItem('token', response.data.token);
+                if(jwt(response.data.token).ruolo == "PAZIENTE"){
+                    nav("/HomePaziente")
+                }
+                else if(jwt(response.data.token).ruolo == "MEDICO"){
+                    nav("/HomeMedico");
+                }
+                else{
+                    nav("/HomeAdmin");
+                }
             }, (error) => {
+                document.getElementById("spanErrore").style.display = "block";
                 console.log(error);
             });
     }
 
 
+    const sendToRegistrazione = () => {
+        nav("/Registrazione")
+    }
+
     return (
         <div className="contenitoreForm">
             <input type="text" placeholder=" E-mail" className="formEditText" onChange={aggiornaEmail}/>
             <input type="password" placeholder=" Password" className="formEditText" onChange={aggiornaPassword}/>
-            <span className="formLink">Ho dimenticato la password</span>
+            <span className="errore" id="spanErrore" >Controlla i dati inseriti</span>
             <button className="formButton" onClick={handleSubmit}>Accedi</button>
-            <span className="formLink centerFlexItem">Non hai un account? Registrati</span>
+            <span onClick={sendToRegistrazione} className="formLink centerFlexItem">Non hai un account? Registrati</span>
         </div>
     );
 }

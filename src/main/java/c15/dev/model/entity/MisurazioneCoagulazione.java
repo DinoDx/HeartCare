@@ -3,9 +3,11 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 /**
  * @author Paolo Carmine Valletta.
@@ -15,7 +17,10 @@ import java.util.GregorianCalendar;
  *
  */
 @Entity
-public class MisurazioneCoagulazione extends Misurazione implements Serializable {
+@SuperBuilder
+@AllArgsConstructor
+public class MisurazioneCoagulazione
+        extends Misurazione implements Serializable {
     /**
      * Questo campo indica il tempo di protrombina.
      */
@@ -24,11 +29,11 @@ public class MisurazioneCoagulazione extends Misurazione implements Serializable
     private double tempoDiProtrobina;
 
     /**
-     * questo campo indica inr
+     * questo campo indica inr.
      */
     @Column(name = "inr", nullable = false)
     @NotNull
-    private int inr;
+    private Double inr;
 
     /**
      *
@@ -39,20 +44,20 @@ public class MisurazioneCoagulazione extends Misurazione implements Serializable
     }
 
     /**
-     * @param dataMisurazione rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente della misurazione coagulazione
-     * @param dispositivoMedico rappresenta il dispositivo medico
-     *                          della misurazione coagulazione
-     * @param tempoDiProtrobina rappresenta il valore del tempo di protrobina
-     *                          della misurazione coagulazione
-     * @param inr rappresenta il valore dell'inr della misurazione coagulazione
+     * @param dataMisurazione rappresenta la data della misurazione.
+     * @param paziente rappresenta il paziente della misurazione coagulazione.
+     * @param dispositivoMedico rappresenta il dispositivo medico.
+     *                          della misurazione coagulazione.
+     * @param tempoDiProtrobina rappresenta il valore del tempo di protrobina.
+     *                          della misurazione coagulazione.
+     * @param inr rappresenta il valore dell'inr della misurazione coagulazione.
      *
      */
-    public MisurazioneCoagulazione(final GregorianCalendar dataMisurazione,
+    public MisurazioneCoagulazione(final LocalDate dataMisurazione,
                                    final Paziente paziente,
                                    final DispositivoMedico dispositivoMedico,
-                                   final double tempoDiProtrobina,
-                                   final int inr) {
+                                   final Double tempoDiProtrobina,
+                                   final Double inr) {
         super(dataMisurazione, paziente, dispositivoMedico);
         this.tempoDiProtrobina = tempoDiProtrobina;
         this.inr = inr;
@@ -60,7 +65,7 @@ public class MisurazioneCoagulazione extends Misurazione implements Serializable
 
     /**
      *
-     * @return tempoDiProtrobina
+     * @return tempoDiProtrobina.
      * metodo che restituisce il valore del tempo di protrobina.
      */
     public double getTempoDiProtrobina() {
@@ -69,18 +74,18 @@ public class MisurazioneCoagulazione extends Misurazione implements Serializable
 
     /**
      *
-     * @return inr
+     * @return inr.
      * metodo che restituisce il valore dell'inr.
      */
-    public int getInr() {
+    public double getInr() {
         return inr;
     }
 
     /**
      *
      * @param tempoDiProtrobina
-     * metodo che permette di impostare il valore del tempo di protrobina
-     * della misurazione coagulazione.
+     * metodo che permette di impostare il valore del tempo di protrobina.
+     * della misurazione coagulazione..
      */
     public void setTempoDiProtrobina(final double tempoDiProtrobina) {
         this.tempoDiProtrobina = tempoDiProtrobina;
@@ -89,10 +94,10 @@ public class MisurazioneCoagulazione extends Misurazione implements Serializable
     /**
      *
      * @param inr
-     * metodo che permette di impostare il valore dell'inr
-     * della misurazione coagulazione.
+     * metodo che permette di impostare il valore dell'inr.
+     * della misurazione coagulazione..
      */
-    public void setInr(final int inr) {
+    public void setInr(final double inr) {
         this.inr = inr;
     }
 }

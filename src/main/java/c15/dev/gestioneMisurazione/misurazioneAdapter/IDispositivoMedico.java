@@ -8,5 +8,9 @@ import c15.dev.model.entity.Misurazione;
  * dalla classe DispositivoMedicoAdapter.
  */
 public interface IDispositivoMedico {
+    /**
+     * Firma del metodo che avvia la misurazione.
+     * @return
+     */
     public Misurazione avvioMisurazione();
 }

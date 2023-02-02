@@ -7,7 +7,8 @@
   border-radius: 20px;
   background-color: rgba(242, 242, 242, 0.76);
   margin: 2px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .contenitoreMainContent-Home::-webkit-scrollbar {
@@ -18,11 +19,14 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1250px) {
+
 }
 
 @media only screen and (max-width: 767px) {
   .contenitoreMainContent-Home {
-    width: 95%;
-    height: 97%;
+    width: 90%;
   }
+
+
+
 }

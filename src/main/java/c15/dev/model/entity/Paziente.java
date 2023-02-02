@@ -1,15 +1,20 @@
 package c15.dev.model.entity;
 
 
+import c15.dev.utils.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.LazyGroup;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 
 /**
@@ -18,9 +23,10 @@ import java.util.Set;
  * Questa è la classe relativa a un Paziente.
  */
 @Entity
-@Data
-@SuperBuilder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Setter
+@Getter
+@SuperBuilder
 public class Paziente extends UtenteRegistrato {
     /**
      * Questo campo rappresenta il nome del caregiver.
@@ -43,6 +49,7 @@ public class Paziente extends UtenteRegistrato {
      * Questo campo indica il Medico che viene assegnato al paziente.
      */
     @JsonIgnore
+    @JsonBackReference("paziente-medico")
     @ManyToOne
     @JoinColumn(name = "id_medico",
                 referencedColumnName = "id",
@@ -54,43 +61,35 @@ public class Paziente extends UtenteRegistrato {
      */
     @JsonIgnore
     @OneToMany(mappedBy = "paziente",
-                fetch = FetchType.EAGER)
+                fetch = FetchType.LAZY)
     private Set<Nota> note;
 
     /**
-     * Questo campo indica l'insieme dei dispositivi medici che un paziente si
+     * Questo campo indica l'insieme dei dispositivi medici che un paziente si.
      * assegna.
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "paziente",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
+    @JsonManagedReference("paziente-dispositivo")
+    @JsonIgnore
     private Set<DispositivoMedico> dispositivoMedico;
 
     /**
      * Campo che indica l'insieme delle misurazioni che un paziente esegue.
      */
-    @JsonIgnore
-    @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
+    @JsonManagedReference("misurazione-paziente")
+    @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY)
     private Set<Misurazione> misurazione;
 
     /**
      * Campo che inidica l'insieme delle visite a cui un paziente è stato.
      */
-    @JsonIgnore
-    @OneToMany(mappedBy = "paziente", fetch = FetchType.EAGER)
-    private Set<Visita> elencoVisite = new HashSet<>();
 
-    /**
-     * Insieme delle notifiche relative a un paziente.
-     */
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "avviso",
-            joinColumns = @JoinColumn(name = "paziente_id"),
-            inverseJoinColumns = @JoinColumn(name = "notifica_id")
-    )
-    private Set<Notifica> notifica;
+    @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY)
+    @JsonManagedReference("paziente-visite")
+    private Set<Visita> elencoVisite;
+
 
     /**
      * costruttore vuoto.
@@ -112,7 +111,7 @@ public class Paziente extends UtenteRegistrato {
      *
      * costruttore per il Paziente.
      */
-    public Paziente(final Date dataNascita,
+    public Paziente(final LocalDate dataNascita,
                     final String codFiscale,
                     final String nTelefono,
                     final String pass,
@@ -120,7 +119,7 @@ public class Paziente extends UtenteRegistrato {
                     final String nome,
                     final String cognome,
                     final String sesso
-                   ) throws Exception {
+    ) throws Exception {
         super(dataNascita,
                 codFiscale,
                 nTelefono,
@@ -128,26 +127,48 @@ public class Paziente extends UtenteRegistrato {
                 indirizzoEmail,
                 nome,
                 cognome,
-                sesso);
+                sesso,
+        Role.PAZIENTE);
 
     }
 
     /**
-     * Metodo che permette di aggiungere una singola elencoVisite al set.
-     * @param visita
-     */
-    public void addSingolaVisita(Visita visita){
-        this.elencoVisite.add(visita);
-
-    }
-    /**
-     * Metodo toString.
-     * @return Stringa che contiene tutto il contenuto della classe.
+     * Metodo equals.
+     * @param o oggetto da confrontare.
+     * @return booleano.
      */
     @Override
-    public String toString() {
-        return super.toString();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Paziente paziente)) return false;
+        return Objects.equals(getNomeCaregiver(),
+                paziente.getNomeCaregiver())
+                && Objects.equals(getCognomeCaregiver(),
+                paziente.getCognomeCaregiver())
+                && Objects.equals(getEmailCaregiver(),
+                paziente.getEmailCaregiver())
+                && Objects.equals(getMedico(), paziente.getMedico())
+                && Objects.equals(getNote(), paziente.getNote())
+                && Objects.equals(getDispositivoMedico(),
+                paziente.getDispositivoMedico())
+                && Objects.equals(getMisurazione(),
+                paziente.getMisurazione())
+                && Objects.equals(getElencoVisite(),
+                paziente.getElencoVisite());
     }
 
-
+    /**
+     * Metodo hashCode.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNomeCaregiver(),
+                getCognomeCaregiver(),
+                getEmailCaregiver(),
+                getMedico(),
+                getNote(),
+                getDispositivoMedico(),
+                getMisurazione(),
+                getElencoVisite());
+    }
 }

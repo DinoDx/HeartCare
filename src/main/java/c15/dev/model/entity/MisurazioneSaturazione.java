@@ -3,8 +3,11 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -13,10 +16,12 @@ import java.util.GregorianCalendar;
  * Questa è la classe relativa ad una Misurazione Saturazione.
  * I campi sono: data della misurazione,
  *  valore battiti per minuto,
- *  valore percentuale saturazione
+ *  valore percentuale saturazione.
  */
 @Entity
-public class MisurazioneSaturazione extends Misurazione implements Serializable {
+@SuperBuilder
+public class MisurazioneSaturazione
+        extends Misurazione implements Serializable {
     /**
      * Questo campo numerico indica il numero di battiti per minuto.
      */
@@ -39,15 +44,15 @@ public class MisurazioneSaturazione extends Misurazione implements Serializable 
     }
 
     /**
-     * @param data rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivo rappresenta il dispositivo medico con cui
-     *                          è stata effettuata la misurazione
-     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto
-     * @param percentualeSaturazione rappresenta il valore della
-     *                               percentuale di saturazione
+     * @param data rappresenta la data della misurazione.
+     * @param paziente rappresenta il paziente coinvolto nella misurazione.
+     * @param dispositivo rappresenta il dispositivo medico con cui.
+     *                          è stata effettuata la misurazione.
+     * @param battitiPerMinuto rappresenta il valore dei battiti per minuto.
+     * @param percentualeSaturazione rappresenta il valore della.
+     *                               percentuale di saturazione.
      */
-    public MisurazioneSaturazione(final GregorianCalendar data,
+    public MisurazioneSaturazione(final LocalDate data,
                                   final Paziente paziente,
                                   final DispositivoMedico dispositivo,
                                   final int battitiPerMinuto,
@@ -60,8 +65,8 @@ public class MisurazioneSaturazione extends Misurazione implements Serializable 
 
     /**
      *
-     * @return battitiPerMinuto
-     * metodo che restituisce il valore dei battiti per minuto
+     * @return battitiPerMinuto.
+     * metodo che restituisce il valore dei battiti per minuto.
      */
     public int getBattitiPerMinuto() {
         return battitiPerMinuto;
@@ -70,7 +75,7 @@ public class MisurazioneSaturazione extends Misurazione implements Serializable 
     /**
      *
      * @param battitiPerMinuto
-     * metodo che permette settare i battiti per minuto di una misurazione
+     * metodo che permette settare i battiti per minuto di una misurazione.
      *
      */
     public void setBattitiPerMinuto(final int battitiPerMinuto) {
@@ -80,8 +85,8 @@ public class MisurazioneSaturazione extends Misurazione implements Serializable 
 
     /**
      *
-     * @return percentualeSaturazione
-     * metodo che restituisce il valore della percentuale della saturazione
+     * @return percentualeSaturazione.
+     * metodo che restituisce il valore della percentuale della saturazione.
      */
     public double getPercentualeSaturazione() {
         return percentualeSaturazione;
@@ -90,7 +95,8 @@ public class MisurazioneSaturazione extends Misurazione implements Serializable 
     /**
      *
      * @param percentualeSaturazione
-     * metodo che permette settare la percentuale di saturazione di una misurazione
+     * metodo che permette settare la percentuale
+     *                              di saturazione di una misurazione.
      *
      */
     public void setPercentualeSaturazione(final double percentualeSaturazione) {

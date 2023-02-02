@@ -1,65 +1,127 @@
-import React from "react";
-import RouterMedico from "../components/router-menu/RouterMedico";
-import MainContent from "../components/MainContent";
+  import React, { useEffect, useState } from "react";
 import VisitaCard from "../components/VisitaCard";
 import NoteContainer from "../components/NoteContainer";
 import "../css/style.css";
 import "../css/home-main-content.css";
 import "../css/homeMedico_style.css";
-import logoPath from "../images/LogoHeartCare.png";
 import { useNavigate } from "react-router";
+import { Navigate } from "react-router-dom";
+import ListaVisita from "../components/ListaVisita";
+import jwt from "jwt-decode"
+import SockJS from 'sockjs-client';
+import {Stomp} from "@stomp/stompjs"
+import addNotification from 'react-push-notification';
+
 
 function HomeMedico() {
-  //let nav = useNavigate();
-  return (
+  const [utente, setUtente] = useState([]);
+  const [note, setNote] = useState([]);
+  const [visite, setVisite] = useState([]);
+  let nav = useNavigate();
+  const token = localStorage.getItem("token");
+
+  
+
+
+
+  let config = {
+    Accept: "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    withCredentials: true,
+    Authorization: `Bearer ${token}`,
+    "Content-Type" : "application/json"
+  };
+
+
+  useEffect( () => {
+    const fetchHome = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/Home/"+jwt(token).id, {
+          method : "POST",
+          headers : config,
+        }).then(response => response.json());
+        setUtente(response);
+
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    const fetchNote = async () => {
+      const response = await fetch("http://localhost:8080/comunicazione/nuoveNote", {
+        method : "POST",
+        headers : config,
+        body: JSON.stringify({
+          id: jwt(token).id
+        })
+      }).then(response => {
+        console.log(response)
+        return response.json();
+      })
+      setNote(response);
+    }
+
+    const fetchVisite = async () => {
+      const response = await fetch("http://localhost:8080/visite/ottieni",{
+        method : "POST",
+        headers : config,
+        body: JSON.stringify({
+          id: jwt(token).id
+        })
+      }).then(response =>{
+        return response.json();
+      })
+      setVisite(response);
+    }
+
+    fetchHome();
+    fetchNote();
+    fetchVisite();
+      }, [])
+
+  useEffect(() => {
+    if(utente.length > 0) {
+      
+    }
+  }, [utente])
+
+  return  (
     <div className="contenitoreMainContent-Home">
-      <div className="header-responsive">
-        <img src={logoPath} className="logoMenu-main-content" />
-      </div>
-      <div className="searchbar">
-        <input id="search" type="text" placeholder=" 🔍 Cerca paziente..." />
-      </div>
-
-      <span className="testo-bentornat">Bentornato, Dr. Lambiase 👋🏻</span>
-
+      {
+        (utente["sesso"] === "M") ? <span className="testo-bentornat">Bentornato, Dr. {utente["cognome"]} 👋🏻</span> : <span className="testo-bentornat">Bentornata, Drs. {utente["cognome"]} 👋🏻</span>
+      }
+      
       <div className="full-container">
         <div className="container-sinistra">
           <div className="banner">
             <div className="blocco-testo-banner">
-              <span className="testo-banner">Pazienti totali</span>
-              <span className="testo-banner-numero">120</span>
+              <span className="testo-banner" >Pazienti totali</span>
+              <span className="testo-banner-numero">{utente.pazientiTotali}</span>
             </div>
 
             <div className="blocco-testo-banner">
               <span className="testo-banner">Appuntamenti in programma</span>
-              <span className="testo-banner-numero">12</span>
+              <span className="testo-banner-numero">{visite.length}</span>
             </div>
 
             <div className="blocco-testo-banner">
               <span className="testo-banner">Nuove note</span>
-              <span className="testo-banner-numero">21</span>
+              <span className="testo-banner-numero">{note.length}</span>
             </div>
           </div>
 
           <div className="visite-container">
             <span className="visite-in-programma">
-              Visite in programma oggi:
+              Le prossime visite in programma
             </span>
 
-            <div className="box-visite">
-              <VisitaCard />
-              <VisitaCard />
-              <VisitaCard />
-              <VisitaCard />
-              <VisitaCard />
+            <div className="box-visite box-visiteHomeMedico">
+              <ListaVisita classe="cardPazienteHomeMedico"/>
             </div>
           </div>
         </div>
-
-        <div className="note-container">
-          <div className="note-header-container">
-            <span className="note-header-responsive">Note</span>
-          </div>
+        <div className="note-container" >
           <NoteContainer />
         </div>
       </div>

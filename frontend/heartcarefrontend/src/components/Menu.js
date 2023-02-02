@@ -2,12 +2,13 @@ import React from "react";
 import logoPath from "../images/LogoHeartCare.png";
 import "../css/style.css";
 import "../css/style_menu.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHospital } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { SlHome } from "react-icons/sl";
 import { BsCalendarEvent } from "react-icons/bs";
 import { AiOutlineQuestion, AiOutlineUser } from "react-icons/ai";
+import jwt from "jwt-decode";
 
 function addClassActive(id, nomeClasseMainContent) {
   let attualmenteSelezionato = document.querySelectorAll(".voceMenuActive");
@@ -16,26 +17,24 @@ function addClassActive(id, nomeClasseMainContent) {
   });
   document.getElementById(id).classList.add("voceMenuActive");
   // nel caso in cui clicco su una voce del menu da telefono poi nascondo il menu
-  if (window.innerWidth < 768) {
-    document.getElementsByClassName("contenitoreMenu")[0].style.display =
-      "none";
-    // caso in cui l'utente riclicca sulla stessa voce del menu
-    if (
-      document.getElementsByClassName(nomeClasseMainContent)[0] != undefined &&
-      document.getElementsByClassName(nomeClasseMainContent)[0].style.display !=
-        "flex"
-    )
-      document.getElementsByClassName(nomeClasseMainContent)[0].style.display =
-        "flex";
-  }
 }
 
 function Menu() {
+  let nav = useNavigate();
+  const token = localStorage.getItem("token")
+
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    nav("/");
+  }
+  
   return (
     <div className="contenitoreMenu">
       <img src={logoPath} className="logoMenu" />
 
-      <div className="contenitoreVociMenu">
+
+      <div className="contenitoreVociMenu" id="menu-medico">
         <Link
           to={"/HomeMedico"}
           className="voceMenuText"
@@ -70,7 +69,7 @@ function Menu() {
         </Link>
 
         <Link
-          to={"/Profilo"}
+          to={"/ProfiloMedico"}
           className="voceMenuText"
           onClick={() => addClassActive(4, "contenitoreMainContent")}
         >
@@ -93,12 +92,12 @@ function Menu() {
           </div>
         </Link>
 
-        <Link to={"/About"} className="voceMenuText">
-          <div className="voceMenu">
+        <div className="voceMenuText" onClick={() => logout()}>
+          <div className="voceMenu" >
             <CiLogout className="iconaMenu" />
             <span>Logout</span>
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );

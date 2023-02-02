@@ -3,9 +3,13 @@ package c15.dev.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+
 
 
 /**
@@ -17,7 +21,10 @@ import java.util.GregorianCalendar;
  *               valore creatin Kinasi,
  *               troponina Cardiaca.
  */
+@Getter
+@Setter
 @Entity
+@SuperBuilder
 public class MisurazioneEnzimiCardiaci
         extends Misurazione implements Serializable {
     /**
@@ -49,15 +56,15 @@ public class MisurazioneEnzimiCardiaci
     }
 
     /**
-     * @param data rappresenta la data della misurazione
-     * @param paziente rappresenta il paziente coinvolto nella misurazione
-     * @param dispositivo rappresenta il dispositivo medico con cui
-     *                          è stata effettuata la misurazione
-     * @param creatinKinasi rappresenta il valore della creatin Kinasi
-     * @param mioglobina rappresenta il valore della mioglobina
-     * @param troponinaCardiaca rappresenta il valore della troponina cardiaca
+     * @param data rappresenta la data della misurazione.
+     * @param paziente rappresenta il paziente coinvolto nella misurazione.
+     * @param dispositivo rappresenta il dispositivo medico con cui.
+     *                          è stata effettuata la misurazione.
+     * @param creatinKinasi rappresenta il valore della creatin Kinasi.
+     * @param mioglobina rappresenta il valore della mioglobina.
+     * @param troponinaCardiaca rappresenta il valore della troponina cardiaca.
      */
-    public MisurazioneEnzimiCardiaci(final GregorianCalendar data,
+    public MisurazioneEnzimiCardiaci(final LocalDate data,
                                      final Paziente paziente,
                                      final DispositivoMedico dispositivo,
                                      final double mioglobina,
@@ -66,64 +73,6 @@ public class MisurazioneEnzimiCardiaci
         super(data, paziente, dispositivo);
         this.creatinKinasi = creatinKinasi;
         this.mioglobina = mioglobina;
-        this.troponinaCardiaca = troponinaCardiaca;
-    }
-
-    /**
-     *
-     * @return mioglobina
-     * Metodo che restituisce il valore della mioglobina.
-     */
-    public double getMioglobina() {
-        return mioglobina;
-    }
-
-    /**
-     *
-     * @param mioglobina
-     * Metodo che permette settare la mioglobina di una misurazione.
-     *
-     */
-    public void setMioglobina(final double mioglobina) {
-        this.mioglobina = mioglobina;
-    }
-
-    /**
-     *
-     * @return creatinKinasi
-     * Metodo che restituisce il valore della creatin kinasi.
-     */
-    public double getCreatinKinasi() {
-        return creatinKinasi;
-    }
-
-    /**
-     *
-     * @param creatinKinasi
-     * Metodo che permette settare la creatin kinasi di una misurazione.
-     *
-     */
-    public void setCreatinKinasi(final double creatinKinasi) {
-        this.creatinKinasi = creatinKinasi;
-    }
-
-    /**
-     *
-     * @return troponinaCardiaca
-     * Metodo che restituisce il valore della troponina Cardiaca.
-     */
-    public double getTroponinaCardiaca() {
-        return troponinaCardiaca;
-    }
-
-
-    /**
-     *
-     * @param troponinaCardiaca
-     * Metodo che permette settare la troponina cardiaca di una misurazione.
-     *
-     */
-    public void setTroponinaCardiaca(final double troponinaCardiaca) {
         this.troponinaCardiaca = troponinaCardiaca;
     }
 }

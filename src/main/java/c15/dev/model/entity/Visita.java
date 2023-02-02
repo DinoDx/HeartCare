@@ -1,6 +1,7 @@
 package c15.dev.model.entity;
 
 import c15.dev.model.entity.enumeration.StatoVisita;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -8,12 +9,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -22,6 +23,7 @@ import java.util.Objects;
  * Questa è la classe che rappresenta le visite.
  */
 @Entity
+@ToString
 public class Visita implements Serializable {
     /**
      * Campo relativo all'id della nota generato automaticamente.
@@ -36,7 +38,7 @@ public class Visita implements Serializable {
     @Column(nullable = false)
     @NotNull
     @Future
-    private GregorianCalendar data;
+    private LocalDate data;
 
     /**
      * Campo relativo allo stato della elencoVisite.
@@ -49,6 +51,7 @@ public class Visita implements Serializable {
      * Chiave esterna che fa riferimento alla classe Medico.
      **/
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_medico",
                 referencedColumnName = "id",
                 nullable = false)
@@ -57,9 +60,10 @@ public class Visita implements Serializable {
 
 
     /**
-     * Chiave esterna che fa riferimento alla classe Paziente
+     * Chiave esterna che fa riferimento alla classe Paziente.
      **/
     @ManyToOne
+    @JsonBackReference("paziente-visite")
     @JoinColumn(name = "id_paziente",
                 referencedColumnName = "id",
                 nullable = true)
@@ -67,10 +71,11 @@ public class Visita implements Serializable {
 
 
     /**
-     * Chiave esterna che fa riferimento alla classe Indirizzo
+     * Chiave esterna che fa riferimento alla classe Indirizzo.
      **/
     @ManyToOne
     @JoinColumn(name="id_indirizzo", referencedColumnName = "id")
+    @JsonBackReference
     @NotNull
     private Indirizzo indirizzoVisita;
 
@@ -82,13 +87,14 @@ public class Visita implements Serializable {
     }
 
     /**
-     * @param dataVisita rappresenta la data della elencoVisite
-     * @param stato rappresenta lo stato della elencoVisite
-     * @param med rappresenta il medico con cui si fa la elencoVisite
-     * @param paz rappresenta il paziente che è coinvolto nella elencoVisite
-     * @param indirizzo rappresenta l'indirizzo in cui si effettuerà la elencoVisite
+     * @param dataVisita rappresenta la data della elencoVisite.
+     * @param stato rappresenta lo stato della elencoVisite.
+     * @param med rappresenta il medico con cui si fa la elencoVisite.
+     * @param paz rappresenta il paziente che è coinvolto nella elencoVisite.
+     * @param indirizzo rappresenta l'indirizzo in cui
+     *                  si effettuerà la elencoVisite.
      */
-    public Visita(final GregorianCalendar dataVisita,
+    public Visita(final LocalDate dataVisita,
                   final StatoVisita stato,
                   final Medico med,
                   final Paziente paz,
@@ -102,7 +108,7 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return id
+     * @return id.
      * metodo che restituisce l'id della notifica.
      */
     public Long getId() {
@@ -111,10 +117,10 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return data
+     * @return data.
      * metodo che restituisce la data della elencoVisite.
      */
-    public GregorianCalendar getData() {
+    public LocalDate getData() {
         return data;
     }
 
@@ -123,13 +129,13 @@ public class Visita implements Serializable {
      * @param data
      * metodo che permette di definire la data della elencoVisite.
      */
-    public void setData(final GregorianCalendar data) {
+    public void setData(final LocalDate data) {
         this.data = data;
     }
 
     /**
      *
-     * @return stato
+     * @return stato.
      * metodo che restituisce lo stato della elencoVisite.
      */
     public StatoVisita getStatoVisita() {
@@ -147,7 +153,7 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return medico
+     * @return medico.
      * metodo che restituisce il medico che effettua la elencoVisite.
      */
     public Medico getMedico() {
@@ -157,7 +163,7 @@ public class Visita implements Serializable {
     /**
      *
      * @param medico
-     * metodo che permette di definire il medico che effettua la elencoVisite
+     * metodo che permette di definire il medico che effettua la elencoVisite.
      */
     public void setMedico(final Medico medico) {
         this.medico = medico;
@@ -165,8 +171,8 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return paziente
-     * metodo che restituisce il paziente che effettua la elencoVisite
+     * @return paziente.
+     * metodo che restituisce il paziente che effettua la elencoVisite.
      */
     public Paziente getPaziente() {
         return paziente;
@@ -175,7 +181,8 @@ public class Visita implements Serializable {
     /**
      *
      * @param paziente
-     * metodo che permette di definire il paziente coinvolto nella elencoVisite
+     * metodo che permette di definire il paziente coinvolto
+     *                          nella elencoVisite.
      */
     public void setPaziente(final Paziente paziente) {
         this.paziente = paziente;
@@ -183,8 +190,8 @@ public class Visita implements Serializable {
 
     /**
      *
-     * @return indirizzoVisita
-     * metodo che restituisce l' indirizzo della elencoVisite
+     * @return indirizzoVisita.
+     * metodo che restituisce l' indirizzo della elencoVisite.
      */
     public Indirizzo getIndirizzoVisita() {
         return indirizzoVisita;
@@ -200,7 +207,7 @@ public class Visita implements Serializable {
     }
 
     /**
-     * metodo equals
+     * metodo equals.
      * @param o
      * @return
      */
@@ -217,7 +224,8 @@ public class Visita implements Serializable {
                 && getStatoVisita() == visita.getStatoVisita()
                 && Objects.equals(getMedico(), visita.getMedico())
                 && Objects.equals(getPaziente(), visita.getPaziente())
-                && Objects.equals(getIndirizzoVisita(), visita.getIndirizzoVisita());
+                && Objects.equals(getIndirizzoVisita(),
+                visita.getIndirizzoVisita());
     }
 
     /**
