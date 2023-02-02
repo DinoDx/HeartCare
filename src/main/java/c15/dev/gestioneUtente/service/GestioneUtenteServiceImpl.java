@@ -6,8 +6,6 @@ import c15.dev.model.dao.DispositivoMedicoDAO;
 import c15.dev.model.dao.AdminDAO;
 import c15.dev.model.dao.IndirizzoDAO;
 import c15.dev.model.dao.UtenteRegistratoDAO;
-import c15.dev.model.dto.ModificaPazienteDTO;
-import c15.dev.model.dto.UtenteRegistratoDTO;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.UtenteRegistrato;
@@ -498,46 +496,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
                 .toList();
     }
 
-    /**
-     * Metodo per modificare i dati di un paziente.
-     * @param dto DTO per la modifica di un paziente.
-     * @param idUtente id utente.
-     */
-    @Override
-    public void modificaDatiPaziente(final ModificaPazienteDTO dto,
-                                     final long idUtente) throws Exception {
-        Paziente daModificare = findPazienteById(idUtente);
 
-        daModificare.setNome(dto.getNome());
-        daModificare.setCognome(dto.getCognome());
-        daModificare.setNumeroTelefono(dto.getNumeroTelefono());
-        daModificare.setEmailCaregiver(dto.getEmailCaregiver());
-        daModificare.setNomeCaregiver(dto.getNomeCaregiver());
-        daModificare.setCognomeCaregiver(dto.getCognomeCaregiver());
-        daModificare.setPassword(dto.getPassword());
-        //TODO AGGIUNGERE PURE INDIRIZZO QUANDO CI SARà
-        paziente.save(daModificare);
-    }
-
-    /**
-     * Metodo per la modifica dati di un medico.
-     * @param dto DTO per la modifica di un utente registrato.
-     * @param idUtente id utente.
-     * @throws Exception
-     */
-
-    @Override
-    public void modificaDatiMedico(final UtenteRegistratoDTO dto,
-                                   final long idUtente) throws Exception {
-        Medico daModificare = findMedicoById(idUtente);
-
-        daModificare.setNome(dto.getNome());
-        daModificare.setCognome(dto.getCognome());
-        daModificare.setNumeroTelefono(dto.getNumeroTelefono());
-        daModificare.setPassword(dto.getPassword());
-
-        medico.save(daModificare);
-    }
 
     /**
      * Metodo per la ricerca di un medico tramite il suo paziente.

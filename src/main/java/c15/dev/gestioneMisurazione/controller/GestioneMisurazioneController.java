@@ -61,7 +61,6 @@ public class GestioneMisurazioneController {
         var idUser = user.getId();
 
         if(!utenteService.isPaziente(user.getId())) {
-            System.out.println("non sono un paziente...");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
@@ -118,7 +117,6 @@ public class GestioneMisurazioneController {
         var email = request.getUserPrincipal().getName();
         var u = utenteService.findUtenteByEmail(email);
         if(u == null || !utenteService.isPaziente(u.getId())) {
-            System.out.println("DEVI ESSERE PAZIENTE");
             return null;
         }
 
@@ -144,7 +142,6 @@ public class GestioneMisurazioneController {
     @PostMapping(value = "/getMisurazioneCategoria")
     public List<Misurazione> getMisurazioniByCategoria(
             @RequestBody HashMap<String,Object> body){
-        System.out.println("CATEGORIA" + body.get("categoria") + "\n");
         String cat = body.get("categoria").toString() ;
         Long idPaz = Long.parseLong(body.get("id").toString());
         return misurazioneService.getMisurazioneByCategoria(cat, idPaz);
@@ -250,12 +247,10 @@ public class GestioneMisurazioneController {
             map.put("thal", 0);
         }
 
-        System.out.println(map);
+
 
         var i =  restTemplate.postForObject("http://localhost:8081/", map, String.class);
         i = i.substring(1, 2);
-        System.out.println(i);
-
         return new ResponseEntity<>(Integer.valueOf(i), HttpStatus.OK);
     }
 

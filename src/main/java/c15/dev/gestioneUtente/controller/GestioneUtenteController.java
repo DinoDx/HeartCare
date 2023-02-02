@@ -2,8 +2,6 @@ package c15.dev.gestioneUtente.controller;
 
 import c15.dev.gestioneComunicazione.service.GestioneComunicazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
-import c15.dev.model.dto.ModificaPazienteDTO;
-import c15.dev.model.dto.UtenteRegistratoDTO;
 import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.Medico;
@@ -12,7 +10,6 @@ import c15.dev.model.entity.enumeration.StatoVisita;
 import c15.dev.utils.Role;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -88,16 +85,16 @@ public class GestioneUtenteController {
     @RequestMapping(value = "/rimuoviUtente", method = RequestMethod.POST)
     public ResponseEntity<Object>
     rimuoviUtente(@RequestBody final HashMap<String, String> map) {
-        System.out.println("SONO NEL METODO");
+
         String pwd = map.get("password");
         Long id = Long.valueOf(map.get("id"));
-        System.out.println(map.get("email"));
+
         if (service.controllaPassword(pwd,id)){
 
             Long idUtente = service.findUtenteByEmail(map.get("email")).getId();
 
             if(service.isPaziente(idUtente)) {
-                System.out.println("SONO UN PAZIENTE");
+
                 service.rimuoviUtente(idUtente);
                 return new ResponseEntity<>(HttpStatus.OK);
             } else if(service.isMedico(idUtente)){
@@ -119,7 +116,6 @@ public class GestioneUtenteController {
         long idPaziente = Long.parseLong(assegnamento.get("idPaziente"));
         long idMedico = Long.parseLong(assegnamento.get("idMedico"));
         service.assegnaPaziente(idMedico,idPaziente);
-        System.out.println("CIAOOOOOOOassegna");
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
@@ -133,7 +129,6 @@ public class GestioneUtenteController {
     public ResponseEntity<Object> getTuttiMedici() {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
-        System.out.println("CIAOOOOOOO");
         return new ResponseEntity<>(service.getTuttiMedici()
                 .stream()
                 .filter((utente)
@@ -152,7 +147,6 @@ public class GestioneUtenteController {
     public ResponseEntity<Object> getTuttiPazienti() {
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
-        System.out.println("CIAOOOOOOO");
         return new ResponseEntity<>(service.getTuttiPazienti()
                 .stream()
                 .filter((utente)
@@ -171,62 +165,10 @@ public class GestioneUtenteController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object>
     getPazientiByMedico(@PathVariable("id") final long idMedico) {
-        System.out.println(idMedico);
         List<Paziente> paz = service.getPazientiByMedico(idMedico);
         return new ResponseEntity<>(paz, HttpStatus.OK);
     }
 
-    /**
-     * Metodo per modificare i dati di un utente.
-     * @param pazienteDTO DTO per la modifica di un paziente.
-     * @return true o false.
-     */
-    //TODO usare optional per vedere solo quali campi modificare
-    @PostMapping("/modificaDatiUtente")
-    public boolean modificaDatiPaziente(@Valid @RequestBody
-                                       final ModificaPazienteDTO pazienteDTO)
-            throws Exception {
-       /* UtenteRegistrato utente = (UtenteRegistrato)
-                session.getAttribute("utenteLoggato");*/
-
-        long id = 1L;//utente.getId();
-        UtenteRegistrato utente = service.findUtenteById(id);
-        if (service.isPaziente(id)) {
-            if (utente.getPassword()
-                    .equals(pazienteDTO.getConfermaPassword())) {
-                service.modificaDatiPaziente(pazienteDTO, id);
-                return true;
-            }
-
-        }
-        return false;
-    }
-
-    /**
-     * Metodo per modificare i dati di un medico.
-     * @param pazienteDTO DTO per la modifica di un paziente.
-     * @return true o false.
-     */
-    @PostMapping("/modificaDatiMedico")
-    public boolean
-    modificaDatiPaziente(@Valid @RequestBody
-                         final UtenteRegistratoDTO pazienteDTO)
-            throws Exception {
-       /* UtenteRegistrato utente = (UtenteRegistrato)
-                session.getAttribute("utenteLoggato");*/
-
-        long id = 4L;//utente.getId();
-        UtenteRegistrato utente = service.findUtenteById(id);
-        if (service.isMedico(id)) {
-            if (utente.getPassword()
-                    .equals(pazienteDTO.getConfermaPassword())) {
-                service.modificaDatiMedico(pazienteDTO, id);
-                return true;
-            }
-
-        }
-        return false;
-    }
 
 
     /**
@@ -244,7 +186,7 @@ public class GestioneUtenteController {
                 .getRequestAttributes())
                 .getRequest();
 
-        System.out.println("qui va");
+
         HashMap<String, Object> map = new HashMap<>();
         if(service.isPaziente(idUtente)){
             Paziente paziente = service.findPazienteById(idUtente);
@@ -277,7 +219,7 @@ public class GestioneUtenteController {
     public ResponseEntity<Object>
     getDatiPerModifica(@PathVariable("id") final Long idUtente) {
 
-        System.out.println("qui va");
+
         HashMap<String, Object> map = new HashMap<>();
         if(service.isPaziente(idUtente)){
             Paziente paziente = service.findPazienteById(idUtente);
@@ -520,7 +462,7 @@ public class GestioneUtenteController {
     public ResponseEntity<Object>
             modificaPassword(@RequestBody final HashMap<String,String> utente)
                                                             throws Exception {
-        System.out.println(utente.toString());
+
         Long idUtente = Long.valueOf(utente.get("id"));
         String vecchiaPassword = utente.get("vecchiaPassword");
         if(service.controllaPassword(vecchiaPassword,idUtente)){
@@ -591,16 +533,11 @@ public class GestioneUtenteController {
     @PostMapping("/getMedico/{id}")
     public ResponseEntity<Object> getMedicoByPaziente(
             @PathVariable("id") final long idPaziente) {
-        System.out.println("ID DEL PAZIENTE" + idPaziente);
+
         HashMap<String, Object> map = new HashMap<>();
-
-        System.out.println("QUI VA" + idPaziente);
         long idMedico = service.findMedicoByPaziente(idPaziente);
-        System.out.println("QUI VOGLIO MEDICO" + idMedico);
-
         var med = service.findMedicoById(idMedico);
 
-        System.out.println("MEDICO" + med.toString());
         map.put("nome", med.getNome());
         map.put("cognome", med.getCognome());
         map.put("email", med.getEmail());

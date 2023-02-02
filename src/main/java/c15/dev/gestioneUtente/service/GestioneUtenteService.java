@@ -1,7 +1,5 @@
 package c15.dev.gestioneUtente.service;
 
-import c15.dev.model.dto.ModificaPazienteDTO;
-import c15.dev.model.dto.UtenteRegistratoDTO;
 import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.Medico;
@@ -149,23 +147,7 @@ public interface GestioneUtenteService {
      */
     List<Paziente> getPazientiByMedico(long idMedico);
 
-    /**
-     * Firma del metodo modificaDatiPaziente.
-     * @param pazienteDTO DTO per modificare un paziente.
-     * @param idUtente id dell-utente.
-     */
-    void modificaDatiPaziente(ModificaPazienteDTO pazienteDTO,
-                              long idUtente)
-            throws Exception;
 
-    /**
-     * Firma del metodo modifica dati di un medico.
-     * @param dto DTO per modificare un utente.
-     * @param idUtente id utente.
-     * @throws Exception
-     */
-    void modificaDatiMedico(UtenteRegistratoDTO dto, long idUtente)
-            throws Exception;
 
     /**
      * Firma del metodo che trova un utente da un id.

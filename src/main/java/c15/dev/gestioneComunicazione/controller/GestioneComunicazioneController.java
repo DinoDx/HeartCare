@@ -44,7 +44,6 @@ public class GestioneComunicazioneController {
     @PostMapping(path = "invioEmail")
 
     public void invioEmail() {
-        System.out.println("almeno qui va");
         String messaggio = "notifica di prova";
         service.invioEmail(messaggio, "leopoldo.todiscozte@gmail.com");
     }
@@ -57,7 +56,6 @@ public class GestioneComunicazioneController {
     @PostMapping(path = "/invioNota")
     public ResponseEntity<Object>
     invioNota(@RequestBody final HashMap<String,String> nota) {
-        System.out.println(nota);
         long idDestinatario = Long.parseLong(nota.get("idDestinatario"));
         long idMittente = Long.parseLong(nota.get("idMittente"));
         service.invioNota(nota.get("nota"),idDestinatario,idMittente);
@@ -73,7 +71,6 @@ public class GestioneComunicazioneController {
     @PostMapping(path = ("/fetchTutteLeNote"))
     public ResponseEntity<Object>
     fetchTutteLeNote(@RequestBody final HashMap<String,Long> utente) {
-        System.out.println(utente.get("idMittente"));
         Long id = utente.get("idMittente");
         return new ResponseEntity<>(service.findNoteByIdUtente(id),
                                     HttpStatus.OK);
