@@ -164,14 +164,11 @@ function HomePaziente() {
             speriamo()
         
     },[aggiorna]);
-
-
-
    
     const [predizione,setPredizione] = useState("");
 
-    const invioDatiPredizione = () =>{
-        return fetch("http://localhost:8080/avvioPredizione",{
+    const invioDatiPredizione = async () =>{
+        return await fetch("http://localhost:8080/avvioPredizione",{
             method: "POST",
             mode: "cors",
             cache: "no-cache",
@@ -185,10 +182,17 @@ function HomePaziente() {
             }),
             redirect: "follow",
             referrerPolicy: "no-referrer",
-        }).then(response=>{
-            response = response.json();
-            console.log(response);
-            setPredizione(response);    
+        }).then(async response=>{
+            response = await response.json()
+            if(response == 1) {
+                setPredizione("Sei a rischio infarto");
+                console.log(predizione)
+            }
+            else {
+                setPredizione("Non sei a rischio infarto")
+                console.log(predizione)
+            }
+
         })
     } 
 
@@ -359,7 +363,7 @@ function HomePaziente() {
                             <option value="si" >Sì</option>
                             <option value="no">No</option>
                         </select>
-                        <button className="bottoneInviaNota">Avvio Predizione</button>
+                        <button className="bottoneInviaNota" onClick={invioDatiPredizione}>Avvio Predizione</button>
                     </div>
                 </Modal>
 

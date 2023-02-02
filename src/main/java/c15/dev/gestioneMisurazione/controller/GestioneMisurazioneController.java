@@ -257,8 +257,10 @@ public class GestioneMisurazioneController {
         System.out.println(map);
 
         var i =  restTemplate.postForObject("http://localhost:8081/", map, String.class);
+        i = i.substring(1, 2);
         System.out.println(i);
-        return new ResponseEntity<>(i, HttpStatus.OK);
+
+        return new ResponseEntity<>(Integer.valueOf(i), HttpStatus.OK);
     }
 
 

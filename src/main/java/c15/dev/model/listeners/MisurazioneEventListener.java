@@ -13,7 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * @author Leopoldo Todisco
+ * Listener che si occupa di inviare email quando la misurazione è sballata.
  */
 @Component
 public class MisurazioneEventListener implements PostInsertEventListener {
