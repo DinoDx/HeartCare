@@ -273,12 +273,13 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         if(med.isEmpty()) {
             return false;
         }
-        Optional<UtenteRegistrato> paz = medico.findById(idPaziente);
+        Optional<UtenteRegistrato> paz = paziente.findById(idPaziente);
         if(paz.isEmpty()) {
             return false;
         }
         Medico m = (Medico) med.get();
         Paziente pz = (Paziente) paz.get();
+
         m.getElencoPazienti().add(pz);
         pz.setMedico(m);
         paziente.save(pz);
