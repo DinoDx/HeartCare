@@ -25,6 +25,7 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
      */
     @Autowired
     private VisitaDAO visitaDAO;
+
     /**
      * Service per le operazioni dell'utente.
      */
@@ -42,19 +43,8 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
      * @param visita i dati della visita da aggiungere.
      */
     @Override
-    public boolean aggiuntaVisita(final Visita visita) {
-        if (visita.getData().isBefore(LocalDate.now())) {
-            return false;
-        } else if (visita.getIndirizzoVisita() == null) {
-            return false;
-        } else if (visita.getMedico() == null) {
-            return false;
-        } else if (visita.getPaziente() == null) {
-            return false;
-        } else {
-            visitaDAO.save(visita);
-            return true;
-        }
+    public void aggiuntaVisita(final Visita visita) {
+        visitaDAO.save(visita);
     }
 
     /**
@@ -67,14 +57,16 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
         var user = utenteService.findUtenteByEmail(email);
         long idUser = user.getId();
 
-        if (utenteService.isMedico(user.getId())) {
+        if(utenteService.isMedico(user.getId())) {
             var list = visitaDAO.findByMedico(idUser);
             System.out.println("dopo la lista");
             return list
                     .stream()
                     .filter(v -> v.getStatoVisita()
                             .equals(StatoVisita.PROGRAMMATA)).toList();
-        } else if (utenteService.isPaziente(user.getId())) {
+        }
+
+        else if(utenteService.isPaziente(user.getId())) {
             var list = visitaDAO.findByPaziente(idUser);
             return list
                     .stream()
@@ -101,7 +93,7 @@ public class GestioneVisitaServiceImpl implements GestioneVisitaService {
      * @return la visita associata a quel id.
      */
     @Override
-    public Visita findById(final long id) {
+    public Visita findById(final long id){
         return visitaDAO.findById(id).get();
     }
 

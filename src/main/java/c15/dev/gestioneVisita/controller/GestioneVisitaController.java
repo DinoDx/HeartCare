@@ -54,12 +54,10 @@ public class GestioneVisitaController {
      * Metodo che consente di aggiungere una visita.
      * @param body che contiene i dati della visita.
      * @param request contiene la richiesta.
-     * @return visita creata.
      */
     @PostMapping("/crea")
-    public ResponseEntity<Object> aggiungiVisita(@RequestBody final
-                                                     Map<String, Object> body,
-                               final HttpServletRequest request) {
+    public void aggiungiVisita(@RequestBody final Map<String, Object> body,
+                               HttpServletRequest request) {
         Long idPaziente = Long.parseLong(body.get("paziente").toString());
         Paziente paziente = utenteService.findPazienteById(idPaziente);
 
@@ -73,8 +71,8 @@ public class GestioneVisitaController {
         Medico medicoVisita = utenteService.findMedicoById(idMedico);
 
 
-        if (medicoVisita == null) {
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        if(medicoVisita == null){
+            return;
         }
 
        @Valid Visita visita = new Visita(dataVisita,
@@ -82,12 +80,7 @@ public class GestioneVisitaController {
                 medicoVisita,
                 paziente,
                 indirizzo);
-        if (visitaService.aggiuntaVisita(visita)) {
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-        }
-
+        visitaService.aggiuntaVisita(visita);
     }
 
     /**
@@ -101,7 +94,7 @@ public class GestioneVisitaController {
     public ResponseEntity<Object>
     visiteByUser(final HttpServletRequest request) {
         var email = request.getUserPrincipal().getName();
-        if (utenteService.findUtenteByEmail(email) == null) {
+        if(utenteService.findUtenteByEmail(email) == null) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         List<Visita> list = visitaService.findVisiteProgrammateByUser(email);
@@ -136,7 +129,7 @@ public class GestioneVisitaController {
           long idVisita =  Long.parseLong(body.get("idVisita"));
           Visita visita = visitaService.findById(idVisita);
           LocalDate datax = LocalDate.parse(body.get("nuovaData"));
-          visitaService.cambiaData(visita, datax);
+          visitaService.cambiaData(visita,datax);
     }
 
 }

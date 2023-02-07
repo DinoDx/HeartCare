@@ -10,7 +10,6 @@ import { FaRegHospital } from "react-icons/fa";
 
 function Schedules() {
   const [open, setOpen] = useState(false);
-  const [openErrore, setOpenErrore] = useState(false);
   const [openRiepilogoVisita, setOpenRiepilogoVisita] = useState(false);
   const [pazienti,setPazienti] = useState([{}]);
   const [indirizzi,setIndirizzi] = useState([{}]);
@@ -18,8 +17,6 @@ function Schedules() {
   const [pazienteSelect,setPazienteSelect] = useState();
   const [indirizzoSelect,setindirizzoSelect] = useState();
   const [dataSelect,setDataSelect] = useState();
-  const onOpenModalErrore = () => setOpenErrore(true);
-  const onCloseModalErrore = () => setOpenErrore(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
   const onOpenModalRiepilogo = () => setOpenRiepilogoVisita(true);
@@ -106,18 +103,9 @@ function Schedules() {
           data : dataSelect,
           indirizzo : indirizzoSelect
         })
-      }).then(response => {
-        console.log(response.status);
-        if(response.status != 200){
-          // apri modale errore
-          onOpenModalErrore();
-          response.json()
-          setUtente(response);
-        }else{
-          onOpenModalRiepilogo();
-        }
+      }).then(response => response.json());
+      setUtente(response);
 
-      });
     }catch (error) {
       console.error(error.message);
     }
@@ -129,9 +117,6 @@ function Schedules() {
           (utente["sesso"] === "M") ? <span className="bentornato">Bentornato, Dr. {utente["cognome"]} 👋🏻</span> : <span className="bentornato">Bentornata, Drs. {utente["cognome"]} 👋🏻</span>
         }
         <span className="iTuoiPazienti">Le tue visite in programma: </span>
-        <Modal open={openErrore} onClose={onCloseModalErrore} center>
-            <h2>Creazione della visita non andata a buon fine</h2>
-        </Modal>
         <button onClick={onOpenModal} className="bottoneAggiungiVisita"> + </button>
         <Modal open={open} onClose={onCloseModal}>
           <h2>Programma una nuova visita</h2>
@@ -164,7 +149,7 @@ function Schedules() {
               <input id ="calendar" className="dataPicker" type="date" min={new Date().getFullYear()} onChange={e => aggiornaDataSelect(e)}/>
             </div>
             <div className="containerSingoloInputAggiungiVisita">
-              <button className="aggiungiBottoneVisita" onClick={()=>{onCloseModal(); handlerOnClick()}}>Aggiungi</button>
+              <button className="aggiungiBottoneVisita" onClick={()=>{onOpenModalRiepilogo(); onCloseModal(); handlerOnClick()}}>Aggiungi</button>
             </div>
           </div>
         </Modal>

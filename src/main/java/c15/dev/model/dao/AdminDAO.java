@@ -14,22 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminDAO extends UtenteRegistratoDAO {
     /**
-     * Questo metodo è responsabile della rimozione di un admin dal sistema.
-     * dato il suo id.
-     * @param id
-     */
-    @Query("DELETE FROM Admin a WHERE a.id=:id")
-    void removeAdmin(Long id);
-
-    /**
-     *
-     * @param email
-     * @param password
-     * @return Admin trovato nel db.
-     */
-    Admin findByEmailAndPassword(String email, byte[] password);
-
-    /**
      * Metodo per la ricerca tramite una email
      * @param email
      * @return utente trovato nel db.
