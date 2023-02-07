@@ -2,7 +2,6 @@ package c15.dev.gestioneComunicazione.service;
 
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dao.NotaDAO;
-import c15.dev.model.dao.NotificaDAO;
 import c15.dev.model.dto.NotaDTO;
 import c15.dev.model.dto.NotificaDTO;
 import c15.dev.model.entity.Medico;
@@ -10,7 +9,6 @@ import c15.dev.model.entity.Nota;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.enumeration.StatoNotifica;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -41,11 +39,6 @@ public class GestioneComunicazioneServiceImpl
     @Autowired
     private GestioneUtenteService utenteService;
 
-    /**
-     * Provvede alle operazioni del db della notifica.
-     */
-    @Autowired
-    private NotificaDAO daoNotifica;
 
     /**
      * Provvede alle operazioni del db delle note.
@@ -76,8 +69,6 @@ public class GestioneComunicazioneServiceImpl
         message.setText(messaggio);
         mailSender.send(message);
         System.out.println("email inviata");
-
-        //jujdhvttecwbdgdn
     }
 
     /**
@@ -90,7 +81,7 @@ public class GestioneComunicazioneServiceImpl
     public void invioNota(final String messaggio,
                           final Long idDestinatario,
                           final Long idMittente) {
-        if(utenteService.isMedico(idMittente)){
+        if (utenteService.isMedico(idMittente)) {
             Medico m =  utenteService.findMedicoById(idMittente);
             Paziente p = utenteService.findPazienteById(idDestinatario);
             Nota nota = new Nota(messaggio,
@@ -121,7 +112,7 @@ public class GestioneComunicazioneServiceImpl
      * Implementazione del metodo che cerca tutte le note.
      * @return lista di tutte le note.
      */
-    public List<Nota> findAllNote(){
+    public List<Nota> findAllNote() {
         return notaDAO.findAll();
     }
 
@@ -136,7 +127,7 @@ public class GestioneComunicazioneServiceImpl
         List<Nota> note = notaDAO.findNoteByIdUtente(id);
         List<NotaDTO> dto = note
                 .stream()
-                .map(e->
+                .map(e ->
                         new NotaDTO(utenteService
                                 .findUtenteById(e.getAutore())
                                 .getNome()
@@ -155,12 +146,14 @@ public class GestioneComunicazioneServiceImpl
      * @return lista delle note non lette dell'utente.
      */
     @Override
-    public List<Nota> findNoteNonLetteByUser(String email) {
+    public List<Nota> findNoteNonLetteByUser(final String email) {
         var user = utenteService.findUtenteByEmail(email);
         long idUser = user.getId();
 
         var list = notaDAO.findNoteByIdUtente(idUser);
-        return list.stream().filter(n -> n.getStatoNota().equals(StatoNotifica.NON_LETTA)).toList();
+        return list.stream().filter(n -> n.getStatoNota()
+                .equals(StatoNotifica.NON_LETTA))
+                .toList();
 
     }
 

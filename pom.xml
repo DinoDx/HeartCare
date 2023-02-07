@@ -146,13 +146,23 @@
 			<version>3.0.2</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>6.1.6.Final</version>
+			<type>pom</type>
+		</dependency>
+
+
+			<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-suite-engine</artifactId>
 			<version>1.8.1</version>
 		</dependency>
 
-	</dependencies>
+
+		</dependencies>
 
 
 

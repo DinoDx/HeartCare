@@ -77,7 +77,7 @@ public class GestioneVisitaServiceImplTesting {
                 );
         indirizzo = new Indirizzo("Salerno",
                                   "34",
-                                  84090,
+                                  "84090",
                                   "Salerno",
                                   "Via Casa Mia"
                 );

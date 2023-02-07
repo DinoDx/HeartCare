@@ -27,7 +27,7 @@ public interface GestioneUtenteService {
      * @param nomeCaregiver nome del caregiver.
      * @param cognomeCaregiver nome del caregiver.
      */
-    void assegnaCaregiver(Long idPaziente,
+    boolean assegnaCaregiver(Long idPaziente,
                           String emailCaregiver,
                           String nomeCaregiver,
                           String cognomeCaregiver);
