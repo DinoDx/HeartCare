@@ -1,5 +1,7 @@
 package c15.dev.gestioneVisita.service;
 
+import c15.dev.HeartCareApplication;
+import c15.dev.HeartCareApplicationTests;
 import c15.dev.model.dao.VisitaDAO;
 import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Medico;
@@ -17,6 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -31,6 +34,7 @@ import static org.mockito.Mockito.when;
  */
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
+@ContextConfiguration(classes = HeartCareApplicationTests.class)
 public class GestioneVisitaServiceImplTesting {
     /**
      * Mock dao per le operazioni CRUD della visita
