@@ -83,6 +83,7 @@ function ModificaDatiForm(){
 
     const aggiornaEmailCaregiver = (event) => {
         setEmailCaregiver(event.target.value);
+        console.log(/^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$/.test(emailCaregiver));
     }
 
     const aggiornaCitta = (event) => {
@@ -216,6 +217,7 @@ function ModificaDatiForm(){
         })
         }).then(response => {
             if(response.status != 200){
+                console.log(response)
                 onOpenModal();
             }else{
                 onOpenModalConferma();
@@ -266,7 +268,7 @@ function ModificaDatiForm(){
                 <input type="text" placeholder={data.provincia} className="formEditText" maxLength={2}  onChange={aggiornaProvincia}></input>
                 <input type="text" placeholder={data.via} className="formEditText" onChange={aggiornaVia}></input>
                 <input type="text" placeholder={data.numeroCivico} className="formEditText" onChange={aggiornaNumeroCivico}></input>
-                <input type="number" placeholder={data.cap} className="formEditText" maxLength={5}  onChange={aggiornaCap}></input>
+                <input type="text" placeholder={data.cap} className="formEditText" maxLength={5}  onChange={aggiornaCap}></input>
                 <button className="formButton" onClick={modificaIndirizzo}>Salva</button>
             </div>
             <div className="contenitoreForm-infoCaregiver">
