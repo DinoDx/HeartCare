@@ -1,6 +1,7 @@
 package c15.dev.registrazione.service;
 
 import c15.dev.HeartCareApplication;
+import c15.dev.HeartCareApplicationTests;
 import c15.dev.model.dao.AdminDAO;
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
@@ -32,7 +33,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = HeartCareApplication.class)
+@ContextConfiguration(classes = HeartCareApplicationTests.class)
 public class RegistrazioneServiceImplTest {
 
 
