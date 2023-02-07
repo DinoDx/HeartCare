@@ -13,7 +13,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -33,19 +38,19 @@ public class RegistrazioneController {
      * Service per le operazioni legate alla registrazione.
      */
     @Autowired
-    public RegistrazioneService registrazioneService;
+    private RegistrazioneService registrazioneService;
 
     /**
      * Service per le operazioni legate all'utente.
      */
     @Autowired
-    public GestioneUtenteService utenteService;
+    private GestioneUtenteService utenteService;
 
     /**
      * Sessione.
      */
     @Autowired
-    public HttpSession session;
+    private HttpSession session;
 
     /**
      * Metodo per la registrazione di un paziente.
@@ -67,7 +72,7 @@ public class RegistrazioneController {
         String codice = paziente.get("codiceFiscale");
         LocalDate data = LocalDate.parse(paziente.get("dataDiNascita"));
         Paziente p = new Paziente(data,
-                codice,numero,password,email,nome,cognome,genere);
+                codice, numero, password, email, nome, cognome, genere);
 
         String citta = paziente.get("citta");
         String provincia = paziente.get("provincia");
@@ -75,7 +80,7 @@ public class RegistrazioneController {
         Integer cap = Integer.valueOf(paziente.get("cap"));
         String via = paziente.get("via");
 
-        Indirizzo ind = new Indirizzo(citta,civico,cap,provincia,via);
+        Indirizzo ind = new Indirizzo(citta, civico, cap, provincia, via);
         registrazioneService.saveIndirizzo(ind);
         p.setIndirizzoResidenza(ind);
         return registrazioneService.registraPaziente(p);
@@ -89,7 +94,8 @@ public class RegistrazioneController {
      */
     @PostMapping(value = "/registrazioneMedico")
     public AuthenticationResponse
-    registrazioneMedico(@RequestBody @Valid final HashMap<String, String> medico)
+    registrazioneMedico(
+            @RequestBody @Valid final HashMap<String, String> medico)
             throws Exception {
         String nome = medico.get("nome");
         String cognome = medico.get("cognome");
@@ -98,8 +104,10 @@ public class RegistrazioneController {
         String numero =  medico.get("numeroTelefono");
         String genere = medico.get("genere");
         String codice = medico.get("codiceFiscale");
-        LocalDate data = LocalDate.parse(medico.get("dataDiNascita"));
-        Medico m = new Medico(data,codice,numero,password,email,nome,cognome,genere);
+        LocalDate data = LocalDate.parse(
+                medico.get("dataDiNascita"));
+        Medico m = new Medico(data, codice, numero, password, email,
+                nome, cognome, genere);
 
         String citta = medico.get("citta");
         String provincia = medico.get("provincia");
@@ -107,7 +115,7 @@ public class RegistrazioneController {
         Integer cap = Integer.valueOf(medico.get("cap"));
         String via = medico.get("via");
 
-        Indirizzo ind = new Indirizzo(citta,civico,cap,provincia,via);
+        Indirizzo ind = new Indirizzo(citta, civico, cap, provincia, via);
         registrazioneService.saveIndirizzo(ind);
         m.setIndirizzoResidenza(ind);
         return registrazioneService.registraMedico(m);
@@ -129,17 +137,17 @@ public class RegistrazioneController {
      * Metodo che permette all'admin di registrare un medico.
      * @param med medico da registrare.
      */
-    @RequestMapping(value = "/registraMedico", method = RequestMethod.POST)
+    /* @RequestMapping(value = "/registraMedico", method = RequestMethod.POST)
     public void
     registraMedico(@Valid @RequestBody final Medico med) throws Exception {
         System.out.println("ciao");
         UtenteRegistrato u = (UtenteRegistrato)
                 session.getAttribute("utenteLoggato");
-        if(!utenteService.isAdmin(u.getId())){
+        if (!utenteService.isAdmin(u.getId())) {
             return;
         }
         registrazioneService.registraMedico(med);
-    }
+    } */
 
 
     /**
@@ -149,8 +157,8 @@ public class RegistrazioneController {
      */
     @PostMapping(value = "/getByCodice")
     public ResponseEntity<Object> getByCodice(@RequestBody
-                                                  HashMap<String,String>
-                                                          codiceFiscale){
+                                                 final HashMap<String, String>
+                                                          codiceFiscale) {
         String codice = codiceFiscale.get("codiceFiscale");
 
         boolean approva = utenteService.findUtenteByCf(codice);
@@ -163,12 +171,12 @@ public class RegistrazioneController {
      */
     @PostMapping(value = "/getByEmail")
     public ResponseEntity<Object> getByEmail(@RequestBody
-                                                 HashMap<String,String>
+                                                 final HashMap<String, String>
                                                          email) {
         String mail = email.get("email");
 
         boolean approva = utenteService.checkByEmail(mail);
-        return new ResponseEntity<>(approva,HttpStatus.OK);
+        return new ResponseEntity<>(approva, HttpStatus.OK);
     }
 
 }

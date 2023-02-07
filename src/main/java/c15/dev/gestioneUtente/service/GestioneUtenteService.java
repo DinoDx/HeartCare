@@ -21,6 +21,7 @@ import java.util.Set;
 public interface GestioneUtenteService {
     /**
      * Firma del metodo di login.
+     * @param request richiesta di autenticazione
      * @return UtenteRegistrato loggato.
      */
     AuthenticationResponse login(AuthenticationRequest request);
@@ -51,14 +52,16 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo isPaziente.
-     * @param idUtente id dell'utente che vogliamo controllare che sia un paziente.
+     * @param idUtente id dell'utente che vogliamo controllare
+     * che sia un paziente.
      * @return true o false.
      */
     boolean isPaziente(long idUtente);
 
     /**
      * Firma del metodo isMedico.
-     * @param idUtente id dell'utente che vogliamo controllare che sia un medico.
+     * @param idUtente id dell'utente che vogliamo controllare
+     * che sia un medico.
      * @return true o false.
      */
     boolean isMedico(long idUtente);
@@ -113,7 +116,10 @@ public interface GestioneUtenteService {
      * @param paz paziente da aggiornare.
      */
     void updatePaziente(Paziente paz);
-
+    /**
+     * Firma del metodo updateUtente.
+     * @param u utente da aggiornare.
+     */
     void updateUtente(UtenteRegistrato u);
 
     /**
@@ -173,7 +179,7 @@ public interface GestioneUtenteService {
     boolean checkByEmail(String email);
 
     /**
-     * Firma metodo checkMedicoByEmail
+     * Firma metodo checkMedicoByEmail.
      * @param email email del medico da ricercare.
      * @return true o false.
      */
@@ -203,7 +209,7 @@ public interface GestioneUtenteService {
     boolean assegnaMedicoAPaziente(long idMedico, long idUtente);
 
     /**
-     * Firma del metodo che ritorna la lista di dispositivi di un paziente,
+     * Firma del metodo che ritorna la lista di dispositivi di un paziente.
      * @param idPaziente id del Paziente.
      * @return Insieme di dispositivi medici.
      */
@@ -223,13 +229,13 @@ public interface GestioneUtenteService {
       Long findMedicoByPaziente(long idPaziente);
 
     /**
-     * Firma metodo findAllIndirizzi
+     * Firma metodo findAllIndirizzi.
      * @return  Lista di indirizzi.
      */
      List<Indirizzo> findAllIndirizzi();
 
     /**
-     * Firma metodo rimuoviUtente
+     * Firma metodo rimuoviUtente.
      * @param idUtente id utente.
      */
     void rimuoviUtente(Long idUtente);
@@ -246,7 +252,7 @@ public interface GestioneUtenteService {
     /**
      * Firma metodo encryptPassword.
      * @param nuovaPassword nuova password da inserire.
-     * @return String
+     * @return String.
      */
     String encryptPassword(String nuovaPassword);
 }

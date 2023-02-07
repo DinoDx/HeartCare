@@ -1,9 +1,10 @@
 package c15.dev.registrazione.service;
 
+import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.dao.AdminDAO;
 import c15.dev.model.dao.IndirizzoDAO;
 import c15.dev.model.dao.MedicoDAO;
-import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.dao.UtenteRegistratoDAO;
 import c15.dev.model.entity.Admin;
 import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Medico;
@@ -42,9 +43,9 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     @Autowired
     private IndirizzoDAO indirizzoDAO;
 
-    /**
-     * Provvede alle operazioni del db legate al medico.
-     */
+        /**
+         * Provvede alle operazioni del db legate al medico.
+         */
     @Autowired
     private MedicoDAO medicoDAO;
 
@@ -66,6 +67,12 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /**
+     * Provvede alle operazioni del db legate all'utente.
+     */
+    @Autowired
+    private UtenteRegistratoDAO utenteRegistratoDAO;
+
 
     /**
      * Implementazione metodo per la registrazione del paziente.
@@ -76,10 +83,18 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     public AuthenticationResponse registraPaziente(final Paziente paz)
                                                     throws Exception {
 
+        if (paz == null) {
+            throw new IllegalArgumentException("Paziente non valido");
+        } else if (utenteRegistratoDAO.findByEmail(paz.getEmail()) != null) {
+            throw new IllegalArgumentException(
+                    "Email " + paz.getEmail() + "già presente"
+            );
+        }
+
         paz.setPassword(pwdEncoder.encode(paz.getPassword()));
 
-        Long id = pazienteDAO.save(paz).getId();
-
+        Paziente savedPaziente = pazienteDAO.save(paz);
+        Long id = savedPaziente.getId();
         var jwtToken = jwtService.generateToken(paz);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
@@ -90,7 +105,7 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
      * Implementazione metodo per la registrazione dell'indirizzo.
      * @param ind indirizzo da registrare.
      */
-    public void saveIndirizzo(final Indirizzo ind){
+    public void saveIndirizzo(final Indirizzo ind) {
         indirizzoDAO.save(ind);
     }
 
@@ -101,10 +116,10 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
      */
     @Override
     public AuthenticationResponse registraMedico(final Medico med)
-                                                    throws Exception {
+                                                            throws Exception {
         med.setPassword(pwdEncoder.encode(med.getPassword()));
         Long id = pazienteDAO.save(med).getId();
-
+        //TODO TOGLIERE PAZIENTEDAO E METTERE MEDICODAO
         var jwtToken = jwtService.generateToken(med);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
@@ -145,10 +160,10 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
 
         var user = pazienteDAO.findByEmail(request.getEmail());
         Medico medico = null;
-        if(user == null) {
+        if (user == null) {
             medico = medicoDAO.findByEmail(request.getEmail());
             Admin ad = null;
-            if(medico == null){
+            if (medico == null) {
                 ad = (Admin) adminDAO.findByEmail(request.getEmail());
                 var jwtToken = jwtService.generateToken(ad);
                 return AuthenticationResponse.builder()
@@ -187,6 +202,4 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
     public Paziente findBycodiceFiscale(final String codiceFiscale) {
         return pazienteDAO.findBycodiceFiscale(codiceFiscale);
     }
-
-
 }

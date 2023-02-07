@@ -52,7 +52,7 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico {
         try {
             System.out.println("MISURAZIONE  JSON = " + misurazioneJSON);
             Misurazione result = om.readValue(misurazioneJSON,
-                    misurazioneFactory(misurazioneJSON).getClass());
+                    misurazioneFactory().getClass());
             result.setPaziente(adaptee.getPaziente());
             result.setDispositivoMedico(adaptee);
             System.out.println("FUNZIONA?\n");
@@ -65,13 +65,12 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico {
 
     /**
      *
-     * @param misurazioneJSON
      * @return Misurazione.
      * Questo metodo rappresenta il design pattern Factory Method che in base.
      * alla categoria del dispositivo medico restituisce un oggetto figlio.
      * di misurazione.
      */
-    public Misurazione misurazioneFactory(final String misurazioneJSON) {
+    public Misurazione misurazioneFactory() {
         switch (adaptee.getCategoria()) {
             case "ECG":
                 return new MisurazioneHolterECG();
