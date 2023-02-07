@@ -1,5 +1,6 @@
 package c15.dev.gestioneUtente.service;
 
+import c15.dev.HeartCareApplicationTests;
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
 import c15.dev.model.entity.Medico;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
+@ContextConfiguration(classes = HeartCareApplicationTests.class)
 public class GestioneUtenteServiceImplTest {
     /**
      *  Mocking del MedicoDAO per accedere al DB da parte del medico.
