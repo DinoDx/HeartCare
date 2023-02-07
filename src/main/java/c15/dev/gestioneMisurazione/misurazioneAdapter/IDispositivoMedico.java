@@ -12,5 +12,5 @@ public interface IDispositivoMedico {
      * Firma del metodo che avvia la misurazione.
      * @return
      */
-    public Misurazione avvioMisurazione();
+    Misurazione avvioMisurazione();
 }

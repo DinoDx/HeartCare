@@ -7,10 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
-
-
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -51,7 +48,7 @@ public class DispositivoMedicoStub {
         Double troponinaCardiaca = ThreadLocalRandom
                                     .current()
                                     .nextDouble(0.1, 10);
-        System.out.println(creatinKenasi);
+
         mappa.put("mioglobina",mioglobina);
         mappa.put("creatinKenasi",creatinKenasi);
         mappa.put("troponinaCardiaca",troponinaCardiaca);

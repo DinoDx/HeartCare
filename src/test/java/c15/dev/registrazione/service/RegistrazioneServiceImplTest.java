@@ -5,7 +5,9 @@ import c15.dev.HeartCareApplicationTests;
 import c15.dev.model.dao.AdminDAO;
 import c15.dev.model.dao.MedicoDAO;
 import c15.dev.model.dao.PazienteDAO;
+import c15.dev.model.dao.UtenteRegistratoDAO;
 import c15.dev.model.entity.Admin;
+import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.utils.AuthenticationRequest;
@@ -22,20 +24,25 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = HeartCareApplicationTests.class)
 public class RegistrazioneServiceImplTest {
 
+    @InjectMocks
+    RegistrazioneServiceImpl registrazioneService;
 
     @InjectMocks
     private RegistrazioneServiceImpl rs;
@@ -55,11 +62,21 @@ public class RegistrazioneServiceImplTest {
     @Mock
    private AuthenticationManager authenticationManager;
 
+    /**
+     * Provvede alla criptazione della password.
+     */
+    @Mock
+    private PasswordEncoder pwdEncoder;
+
     @Mock
     private JwtService jwtService;
 
     @Mock
     private AuthenticationResponse authenticationResponse;
+
+    @Mock
+    private UtenteRegistratoDAO utenteRegistratoDAO;
+    private Indirizzo indirizzo;
 
     @Test
     public void TestLoginPaziente() throws Exception {
@@ -81,9 +98,9 @@ public class RegistrazioneServiceImplTest {
 
 
 
-       Mockito.when(this.pazienteDAO.findByEmail(any())).thenReturn(paziente);
-       Mockito.when(this.adminDAO.findByEmail(any())).thenReturn(null);
-       Mockito.when(this.medicoDAO.findByEmail(any())).thenReturn(null);
+       when(this.pazienteDAO.findByEmail(any())).thenReturn(paziente);
+       when(this.adminDAO.findByEmail(any())).thenReturn(null);
+       when(this.medicoDAO.findByEmail(any())).thenReturn(null);
 
        var jwtToken = jwtService.generateToken(paziente);
         assertEquals(AuthenticationResponse.builder()
@@ -93,9 +110,6 @@ public class RegistrazioneServiceImplTest {
 
 
    }
-
-
-
     @Test
     public void TestLoginMedico() throws Exception {
         request = new AuthenticationRequest(
@@ -116,9 +130,9 @@ public class RegistrazioneServiceImplTest {
 
 
 
-        Mockito.when(this.pazienteDAO.findByEmail(any())).thenReturn(null);
-        Mockito.when(this.adminDAO.findByEmail(any())).thenReturn(null);
-        Mockito.when(this.medicoDAO.findByEmail(any())).thenReturn(med1);
+        when(this.pazienteDAO.findByEmail(any())).thenReturn(null);
+        when(this.adminDAO.findByEmail(any())).thenReturn(null);
+        when(this.medicoDAO.findByEmail(any())).thenReturn(med1);
 
         var jwtToken = jwtService.generateToken(med1);
         assertEquals(AuthenticationResponse.builder()
@@ -149,9 +163,9 @@ public class RegistrazioneServiceImplTest {
 
 
 
-        Mockito.when(this.pazienteDAO.findByEmail(any())).thenReturn(null);
-        Mockito.when(this.adminDAO.findByEmail(any())).thenReturn(a1);
-        Mockito.when(this.medicoDAO.findByEmail(any())).thenReturn(null);
+        when(this.pazienteDAO.findByEmail(any())).thenReturn(null);
+        when(this.adminDAO.findByEmail(any())).thenReturn(a1);
+        when(this.medicoDAO.findByEmail(any())).thenReturn(null);
 
         var jwtToken = jwtService.generateToken(a1);
         assertEquals(AuthenticationResponse.builder()
@@ -160,5 +174,73 @@ public class RegistrazioneServiceImplTest {
 
 
 
+    }
+
+    /**
+     * metood che si occupa di testare la registrazione del paziente
+     * @throws Exception
+     */
+    @Test
+    public void registraPaziente()
+            throws Exception {
+        Paziente paziente = new Paziente(
+                LocalDate.parse("2001-06-15"),
+                "CCLMRA02G14E321Q",
+                "+393421234561",
+                "Wpasswd1!%",
+                "mario@gmail.com",
+                "Mario",
+                "Cicalese",
+                "M"
+        );
+
+        Paziente SavedPaziente = new Paziente(
+                LocalDate.parse("2001-06-15"),
+                "CCLMRA02G14E321Q",
+                "+393421234561",
+                "Wpasswd1!%",
+                "mario@gmail.com",
+                "Mario",
+                "Cicalese",
+                "M"
+        );
+        SavedPaziente.setId(1L);
+        String token = jwtService.generateToken(paziente);
+        when(this.pazienteDAO.save(paziente)).thenReturn(SavedPaziente);
+        when(this.utenteRegistratoDAO.findByEmail(any())).thenReturn(null);
+        assertEquals(AuthenticationResponse.builder()
+                .token(token)
+                .build(), this.registrazioneService.registraPaziente(paziente));
+    }
+
+    /**
+     * metodo che si occupa di testare la registrazione di un paziente
+     * con una mail già presente nel database
+     * @throws Exception
+     */
+    @Test
+    public void TestRegistrazioneEmailPresente() throws Exception {
+        Paziente paziente = new Paziente(
+                LocalDate.parse("2001-06-15"),
+                "CCLMRA02G14E321Q",
+                "+393421234561",
+                "Wpasswd1!%",
+                "mario@gmail.com",
+                "Mario",
+                "Cicalese",
+                "M"
+        );
+        when(this.utenteRegistratoDAO.findByEmail(any())).thenReturn(paziente);
+        assertThrows(IllegalArgumentException.class, () -> this.registrazioneService.registraPaziente(paziente));
+    }
+
+    /**
+     * metodo che si occupa di testare la registrazione del paziente
+     * quando viene passato passato un paziente come null
+     */
+    @Test
+    public void TestRegistrazionePazienteNull() {
+        assertThrows(IllegalArgumentException.class,
+                () -> this.registrazioneService.registraPaziente(null));
     }
 }

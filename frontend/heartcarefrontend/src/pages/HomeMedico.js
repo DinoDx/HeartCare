@@ -20,10 +20,6 @@ function HomeMedico() {
   let nav = useNavigate();
   const token = localStorage.getItem("token");
 
-  
-
-
-
   let config = {
     Accept: "application/json",
     "Access-Control-Allow-Origin": "*",
