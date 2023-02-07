@@ -231,7 +231,9 @@ public class RegistrazioneServiceImplTest {
                 "Cicalese",
                 "M"
         );
-        when(this.utenteRegistratoDAO.findByEmail(any())).thenReturn(paziente);
+        Mockito.when(utenteRegistratoDAO.findByEmail(anyString())).thenAnswer(invocationOnMock -> {
+            return paziente;
+        });
         assertThrows(IllegalArgumentException.class, () -> this.registrazioneService.registraPaziente(paziente));
     }
 
