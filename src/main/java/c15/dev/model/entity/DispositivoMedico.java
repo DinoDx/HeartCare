@@ -51,6 +51,12 @@ public class DispositivoMedico {
      * Necessaria a causa del checkstyle.
      */
     private static final int LENGTH_30 = 30;
+
+    /**
+     * Costante il cui valore è 10.
+     * Viene usata per indicare la lunghezza massima di alcuni campi nel DB.
+     * Necessaria a causa del checkstyle.
+     */
     private static final int LENGTH_10 = 10;
 
     /**
@@ -124,29 +130,29 @@ public class DispositivoMedico {
 
     /**
      *
-     * @param dataRegistrazione rappresenta la data di registrazione.
-     * @param descrizione rappresenta la descrizione.
+     * @param data rappresenta la data di registrazione.
+     * @param desc rappresenta la descrizione.
      *                      del dispositivo medico.
-     * @param numeroSeriale rappresenta il numero seriale.
+     * @param nSeriale rappresenta il numero seriale.
      *                      del dispositivo medico.
-     * @param disponibile indica se il dispositivo medico è disponibile o no.
-     * @param categoria rappresenta la categoria di appartenenza.
+     * @param disp indica se il dispositivo medico è disponibile o no.
+     * @param cat rappresenta la categoria di appartenenza.
      *                  del dispositivo medico.
-     * @param paziente rappresenta il paziente a cui è assegnato.
+     * @param paz rappresenta il paziente a cui è assegnato.
      *                 il dispositivo medico.
      */
-    public DispositivoMedico(final LocalDate dataRegistrazione,
-                             final String descrizione,
-                             final String numeroSeriale,
-                             final Boolean disponibile,
-                             final String categoria,
-                             final Paziente paziente) {
-        this.dataRegistrazione = dataRegistrazione;
-        this.descrizione = descrizione;
-        this.numeroSeriale = numeroSeriale;
+    public DispositivoMedico(final LocalDate data,
+                             final String desc,
+                             final String nSeriale,
+                             final Boolean disp,
+                             final String cat,
+                             final Paziente paz) {
+        this.dataRegistrazione = data;
+        this.descrizione = desc;
+        this.numeroSeriale = nSeriale;
         this.disponibile = true;
-        this.categoria = categoria;
-        this.paziente = paziente;
+        this.categoria = cat;
+        this.paziente = paz;
     }
 
     /**
@@ -158,33 +164,33 @@ public class DispositivoMedico {
         var dispositivoMedicoStub = new DispositivoMedicoStub();
         String misurazione = " ";
 
-        switch(categoria){
-            case "ECG" : misurazione = dispositivoMedicoStub
-                    .MisurazioneHolterECGStub();
+        switch(categoria) {
+            case "ECG": misurazione = dispositivoMedicoStub
+                    .misurazioneHolterECGStub();
                 break;
             case "Saturimetro" : misurazione = dispositivoMedicoStub
-                    .MisurazioneSaturazioneStub() ;
+                    .misurazioneSaturazioneStub() ;
                 break;
             case "Coagulometro" : misurazione =
-                    dispositivoMedicoStub.MisurazioneCoagulazioneStub();
+                    dispositivoMedicoStub.misurazioneCoagulazioneStub();
                 break;
             case "Misuratore glicemico" : misurazione = dispositivoMedicoStub
-                    .MisurazioneGlicemicaStub();
+                    .misurazioneGlicemicaStub();
                 break;
             case "Misuratore di pressione" : {
                 LocalDate currentDate = new Date()
                         .toInstant()
                         .atZone(ZoneId.systemDefault())
                         .toLocalDate();
-                LocalDate birthday = paziente.getDataDiNascita();//toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate birthday = paziente.getDataDiNascita();
                 misurazione = dispositivoMedicoStub.
-                        MisurazionePressioneStub(Period
+                        misurazionePressioneStub(Period
                                 .between(birthday, currentDate)
                                 .getYears());
             }
                 break;
-            case "Enzimi cardiaci" : misurazione = dispositivoMedicoStub
-                    .MisurazioneEnzimiCardiaciStub(paziente.getGenere());
+            case "Enzimi cardiaci": misurazione = dispositivoMedicoStub
+                    .misurazioneEnzimiCardiaciStub(paziente.getGenere());
                 break;
         }
         return misurazione;
@@ -197,8 +203,12 @@ public class DispositivoMedico {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof DispositivoMedico that)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DispositivoMedico that)) {
+            return false;
+        }
         return Objects.equals(getId(),
                 that.getId()) && Objects.equals(getDataRegistrazione(),
                 that.getDataRegistrazione()) && Objects.equals(getDescrizione(),

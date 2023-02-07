@@ -1,0 +1,83 @@
+{
+  "id": "4a9d432c-2c9a-4c6e-9c75-0e5318b3c7d2",
+  "version": "2.0",
+  "name": "HeartCare",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "a56c6252-2fef-484a-9a3f-0702df10d446",
+    "name": "login",
+    "commands": [{
+      "id": "02692599-4a5c-4d81-b871-2867ad0fb075",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ff9d2272-f0c7-4208-b1eb-248e6b4b76f9",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1512x945",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3e925089-6419-47c2-995d-b3747b25d167",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb60a296-8359-4d38-9c73-495180de3a1e",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "giuseppegiordano@libero.it"
+    }, {
+      "id": "39266186-109a-4764-9e39-4ee30e4ffb21",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(2)",
+      "targets": [
+        ["css=.formEditText:nth-child(2)", "css:finder"],
+        ["xpath=//input[@type='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Wpasswd1!%"
+    }, {
+      "id": "54cf9409-5ab7-4ba8-98ae-24e3a8a4a53a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formButton",
+      "targets": [
+        ["css=.formButton", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "65e138ac-393b-453c-8d2f-aaabf11a22f0",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}

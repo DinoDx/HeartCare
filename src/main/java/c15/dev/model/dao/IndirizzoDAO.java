@@ -2,7 +2,6 @@ package c15.dev.model.dao;
 
 import c15.dev.model.entity.Indirizzo;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

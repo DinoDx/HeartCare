@@ -20,8 +20,6 @@ function ListaPazienti(props){
         "Content-Type" : "application/json"
     };
 
-    console.log("in lista = ", props.txt)
-
     const fetchData = async () =>{
         setLoading(true);
         try {

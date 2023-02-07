@@ -1,0 +1,184 @@
+{
+  "id": "4a9d432c-2c9a-4c6e-9c75-0e5318b3c7d2",
+  "version": "2.0",
+  "name": "HeartCare",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "7b2d4def-c3cc-44f0-b6f5-678ba93d672d",
+    "name": "registra_dispositivo",
+    "commands": [{
+      "id": "0b54864b-619f-4c18-81ba-63b4c1abbacd",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5693612e-bf48-4ec1-b4d4-21bf3c140674",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1512x945",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a901b032-4d89-4521-82c7-0056fa69bb27",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9004ab4d-68d8-4439-95c3-d3e3fbdc2dc0",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "giuseppegiordano@libero.it"
+    }, {
+      "id": "99463216-01fa-43d9-b121-a48d35385c29",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(2)",
+      "targets": [
+        ["css=.formEditText:nth-child(2)", "css:finder"],
+        ["xpath=//input[@type='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Wpasswd1!%"
+    }, {
+      "id": "48f2ef03-3750-484b-b29b-5761cb48c15f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formButton",
+      "targets": [
+        ["css=.formButton", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a2cd6ee6-5991-4675-b35f-9d51b7b630bf",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\33 > span",
+      "targets": [
+        ["css=#\\33 > span", "css:finder"],
+        ["xpath=//div[@id='3']/span", "xpath:idRelative"],
+        ["xpath=//a[3]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Dispositivi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fbc15ade-4623-4227-b256-af337a3b15b7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneHomePaziente",
+      "targets": [
+        ["css=.bottoneHomePaziente", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[3]/button", "xpath:idRelative"],
+        ["xpath=//body/div/div/div[2]/div/div/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi Dispositivo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a1da6e72-8ce7-4a1d-b8fb-42a90cefa14b",
+      "comment": "",
+      "command": "click",
+      "target": "name=categoria",
+      "targets": [
+        ["name=categoria", "name"],
+        ["css=.selectPaziente", "css:finder"],
+        ["xpath=//select[@name='categoria']", "xpath:attributes"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7923451-1f54-4f7e-8c04-2ad644fcfcbe",
+      "comment": "",
+      "command": "select",
+      "target": "name=categoria",
+      "targets": [],
+      "value": "label=Misuratore di pressione"
+    }, {
+      "id": "26b626ff-0572-45aa-b7ec-1523ca654d1c",
+      "comment": "",
+      "command": "click",
+      "target": "name=desc",
+      "targets": [
+        ["name=desc", "name"],
+        ["css=.textAreaTestoNote:nth-child(5)", "css:finder"],
+        ["xpath=//textarea[@name='desc']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2927be5a-fbfb-4702-9a36-aa0add321177",
+      "comment": "",
+      "command": "type",
+      "target": "name=desc",
+      "targets": [
+        ["name=desc", "name"],
+        ["css=.textAreaTestoNote:nth-child(5)", "css:finder"],
+        ["xpath=//textarea[@name='desc']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "nuovo misuratore"
+    }, {
+      "id": "a1597dc4-e91c-45a7-998f-cf52d79a1340",
+      "comment": "",
+      "command": "click",
+      "target": "name=nSeriale",
+      "targets": [
+        ["name=nSeriale", "name"],
+        ["css=.textAreaTestoNote:nth-child(7)", "css:finder"],
+        ["xpath=//textarea[@name='nSeriale']", "xpath:attributes"],
+        ["xpath=//textarea[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "434feaa0-2e8f-484f-a3c3-dc2502042d7a",
+      "comment": "",
+      "command": "type",
+      "target": "name=nSeriale",
+      "targets": [
+        ["name=nSeriale", "name"],
+        ["css=.textAreaTestoNote:nth-child(7)", "css:finder"],
+        ["xpath=//textarea[@name='nSeriale']", "xpath:attributes"],
+        ["xpath=//textarea[2]", "xpath:position"]
+      ],
+      "value": "SRLNMBR1009"
+    }, {
+      "id": "84e0c09f-3267-4dde-9ed8-6fe089af112a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneInviaNota",
+      "targets": [
+        ["css=.bottoneInviaNota", "css:finder"],
+        ["xpath=//body/div[2]/div/div[2]/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "65e138ac-393b-453c-8d2f-aaabf11a22f0",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}

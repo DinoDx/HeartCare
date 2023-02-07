@@ -4,11 +4,9 @@ package c15.dev.gestioneMisurazione.service;
 import c15.dev.model.dto.MisurazioneDTO;
 import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.Misurazione;
-import c15.dev.model.entity.MisurazionePressione;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Paolo Carmine Valletta, Alessandro Zoccola.
@@ -23,11 +21,19 @@ public interface GestioneMisurazioneService {
      *                   il dispositivo.
      * @return true o false.
      */
-    public boolean registrazioneDispositivo(DispositivoMedico dispositivo,
+    boolean registrazioneDispositivo(DispositivoMedico dispositivo,
                                             long idPaziente);
 
-    public boolean registrazioneDispositivo(
-            HashMap<String, String> dispositivo, long idPaziente);
+    /**
+     * Firma del metodo di registrazione Dispositivo.
+     * @param dispositivo che vogliamo assegnare ad un
+     *                    utente sotto forma di hashmap.
+     * @param idPaziente id del paziente a cui vogliamo assegnare.
+     *                   il dispositivo.
+     * @return true o false.
+     */
+    boolean registrazioneDispositivo(HashMap<String, String> dispositivo,
+                                            long idPaziente);
 
     /**
      * Firma del metodo di rimozione Dispositivo.
@@ -36,50 +42,50 @@ public interface GestioneMisurazioneService {
      *                   il dispositivo.
      * @return true o false.
      */
-    public boolean rimozioneDispositivo(DispositivoMedico dispositivo,
+    boolean rimozioneDispositivo(DispositivoMedico dispositivo,
                                         long idPaziente);
 
     /**
-     *
+     * @param id è l'id del paziente.
      * @return List<Misurazione>.
      * Metodo che restituisce tutte le misurazioni presenti nel database.
      */
-    public List<Misurazione> getMisurazioniByPaziente(Long id);
+    List<Misurazione> getMisurazioniByPaziente(Long id);
 
     /**
      * Firma del metodo che restituisce il dispositivo dall'id.
      * @param id
-     * @return
+     * @return un dispositivo medico.
      */
-    public DispositivoMedico getById(Long id);
+    DispositivoMedico getById(Long id);
 
     /**
-     * Firma del metodo getMisurazione dalla categoria
+     * Firma del metodo getMisurazione dalla categoria.
      * @param categoria
      * @param id
-     * @return
+     * @return lista di misurazioni di una determinata categoria.
      */
-    public List<Misurazione> getMisurazioneByCategoria(String categoria,
+    List<Misurazione> getMisurazioneByCategoria(String categoria,
                                                        Long id);
 
     /**
      * Firma del metodo per salvare una misurazione.
      * @param misurazione
-     * @return
+     * @return la misurazione salvata.
      */
-    public Misurazione save(Misurazione misurazione);
+    Misurazione save(Misurazione misurazione);
 
     /**
      * Firma del metodo trovaCategoria della misurazione da un paziente.
      * @param id
-     * @return
+     * @return lista di stringhe in cui ogni stringa indica una categoria.
      */
-    public List<String> findCategorieByPaziente(Long id);
+    List<String> findCategorieByPaziente(Long id);
 
     /**
      * Firma del metodo Trova Tutte le misurazioni di un paziente.
      * @param id
-     * @return
+     * @return elenco di misurazioni di un paziente.
      */
-    public List<MisurazioneDTO> getAllMisurazioniByPaziente(Long id);
+    List<MisurazioneDTO> getAllMisurazioniByPaziente(Long id);
 }

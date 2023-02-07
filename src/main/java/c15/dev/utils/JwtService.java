@@ -22,13 +22,16 @@ import java.util.function.Function;
  */
 @Service
 public class JwtService {
+    /**
+     * key che si usa per criptare i dati.
+     */
     private static final String SECRET_KEY =
             "5267556B58703272357538782F413F4428472B4B6250655368566D5971337436";
 
     /**
      * Metodo che restituisce l'email presente nel token.
      * @param token
-     * @return
+     * @return username/password.
      */
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -37,7 +40,7 @@ public class JwtService {
     /**
      * Metodo per la generazione di un token.
      * @param userDetails
-     * @return
+     * @return token.
      */
     public String generateToken(UtenteRegistrato userDetails) {
         HashMap<String, Object> mappaClaims = new HashMap<>();
@@ -53,11 +56,11 @@ public class JwtService {
      * id, ruolo.
      * @param extraClaims
      * @param userDetails
-     * @return
+     * @return token.
      *
      */
-    public String generateToken(Map<String, Object> extraClaims,
-                                UtenteRegistrato userDetails) {
+    public String generateToken(final Map<String, Object> extraClaims,
+                                final UtenteRegistrato userDetails) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
@@ -73,10 +76,10 @@ public class JwtService {
      * Metodo che controlla che il token sia valido.
      * @param token
      * @param userDetails
-     * @return
+     * @return booleano si o no.
      */
-    public boolean isTokenValid(String token,
-                                UtenteRegistrato userDetails) {
+    public boolean isTokenValid(final String token,
+                                final UtenteRegistrato userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()))
                 && !isTokenExpired(token);
@@ -86,18 +89,18 @@ public class JwtService {
     /**
      * Metodo che controlla se il token è scaduto.
      * @param token
-     * @return
+     * @return true o false.
      */
-    private boolean isTokenExpired(String token) {
+    private boolean isTokenExpired(final String token) {
         return extractExpiration(token).before(new Date());
     }
 
     /**
      * Metodo che estra la data di scadenza del token.
      * @param token
-     * @return
+     * @return data di scadenza.
      */
-    private Date extractExpiration(String token) {
+    private Date extractExpiration(final String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
@@ -105,11 +108,11 @@ public class JwtService {
      * Metodo che estrae i componenti del token.
      * @param token
      * @param claimsResolver
-     * @return
+     * @return tutte le caratteristiche del token.
      * @param <T>
      */
-    public <T> T extractClaim(String token,
-                              Function<Claims, T> claimsResolver) {
+    public <T> T extractClaim(final String token,
+                              final Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
@@ -117,9 +120,9 @@ public class JwtService {
     /**
      * Metodo di ausilio al metodo di estrazione dei componenti del token.
      * @param token
-     * @return
+     * @return tutte le caratteristiche del token.
      */
-    private Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(final String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -131,7 +134,7 @@ public class JwtService {
     /**
      * Metodo che permette di estrarre la chiave segreta del token.
      * Usa un decoder.
-     * @return
+     * @return chiave di cifratura.
      */
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);

@@ -5,7 +5,7 @@ package c15.dev.model.entity.enumeration;
  * Questa è l'enumeratore relativa allo stato della notifica.
  * il campo è: displayStato.
  */
-public enum StatoNotifica {
+public enum StatoNota {
 
     /**
      * LETTA sta per lo stato Letta.
@@ -15,11 +15,7 @@ public enum StatoNotifica {
     /**
      * NON_LETTA sta per lo stato Non letta.
      */
-    NON_LETTA("Non letta"),
-    /**
-     * SCADUTA sta per lo stato scaduta.
-     */
-    SCADUTA("SCADUTA");
+    NON_LETTA("Non letta");
 
 
     /**
@@ -32,7 +28,7 @@ public enum StatoNotifica {
      * @param displayStato rappresenta il nome dello stato che verrà mostrato.
      * Costruttore dell'enumeratore StatoNotifica.
      */
-    StatoNotifica(String displayStato) {
+    StatoNota(String displayStato) {
         this.displayStato = displayStato;
     }
 

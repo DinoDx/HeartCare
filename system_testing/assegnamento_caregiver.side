@@ -1,0 +1,154 @@
+{
+  "id": "4a9d432c-2c9a-4c6e-9c75-0e5318b3c7d2",
+  "version": "2.0",
+  "name": "HeartCare",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "f7275052-df9d-4af7-a1e5-d0c3f2b117e4",
+    "name": "assegnamento_caregiver",
+    "commands": [{
+      "id": "b918f9a2-c0c1-4b6e-b6c7-8390f2387c97",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "21e5f513-8d38-4e00-af2a-ba07b3fe8cb8",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1512x945",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "00a8aeab-1ef3-479c-a928-b03693521e8d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "54087372-2539-48c4-9220-309c78f3b65d",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "giuseppegiordano@libero.it"
+    }, {
+      "id": "621314c0-f422-4447-b1f7-ddfbe6a96dbd",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(2)",
+      "targets": [
+        ["css=.formEditText:nth-child(2)", "css:finder"],
+        ["xpath=//input[@type='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Wpasswd1!%"
+    }, {
+      "id": "d6274e17-ca3f-4035-a0b9-7e41e1c12af2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formButton",
+      "targets": [
+        ["css=.formButton", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c883054a-ac92-4893-be66-3d3d55bc5bde",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\34 > span",
+      "targets": [
+        ["css=#\\34 > span", "css:finder"],
+        ["xpath=//div[@id='4']/span", "xpath:idRelative"],
+        ["xpath=//a[4]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Profilo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "93dc1af9-e5d5-4292-82d3-ae4c6ed87cdc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(3)",
+      "targets": [
+        ["css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(3)", "css:finder"],
+        ["xpath=(//input[@type='text'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e412bff-605d-4875-8b36-ada8fc3d17b9",
+      "comment": "",
+      "command": "type",
+      "target": "css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(3)",
+      "targets": [
+        ["css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(3)", "css:finder"],
+        ["xpath=(//input[@type='text'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input", "xpath:position"]
+      ],
+      "value": "Leopoldo"
+    }, {
+      "id": "8caee1af-2c9f-4eba-922f-ad705fe3a266",
+      "comment": "",
+      "command": "type",
+      "target": "css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(4)",
+      "targets": [
+        ["css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(4)", "css:finder"],
+        ["xpath=(//input[@type='text'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input[2]", "xpath:position"]
+      ],
+      "value": "Todisco"
+    }, {
+      "id": "36a22b77-8bac-4be6-aba9-3d8f3107abc6",
+      "comment": "",
+      "command": "type",
+      "target": "css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(5)",
+      "targets": [
+        ["css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(5)", "css:finder"],
+        ["xpath=(//input[@type='text'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input[3]", "xpath:position"]
+      ],
+      "value": "leopoldo.todiscozte@gmail.com"
+    }, {
+      "id": "74020073-5147-49a8-8678-55e84ecdeff7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formButton:nth-child(6)",
+      "targets": [
+        ["css=.formButton:nth-child(6)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "65e138ac-393b-453c-8d2f-aaabf11a22f0",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}

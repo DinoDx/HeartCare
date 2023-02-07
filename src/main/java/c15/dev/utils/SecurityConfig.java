@@ -25,17 +25,23 @@ import java.util.List;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    /**
+     * Filtro di autenticazione.
+     */
     private final JwtAuthenticationFilter authFilter;
+    /**
+     * bean che provvede ad aunteticare un utente.
+     */
     private final AuthenticationProvider provider;
 
     /**
      * Mertodo che permette di aggiungere filtri a una request.
      * @param http
-     * @return
+     * @return l'insieme dei filtri che la richiesta http deve attraversare.
      * @throws Exception
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+    public SecurityFilterChain securityFilterChain(final HttpSecurity http)
             throws Exception {
         http.cors().configurationSource(corsConfigurationSource()).and()
                 .csrf()
@@ -43,8 +49,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/login", "/auth/registrazione",
                         "/auth/getByEmail",
-                        "/auth/getByCodice","/ws/**",
-                        "/comunicazione/invioNota", "/comunicazione/invioNotifica")
+                        "/auth/getByCodice", "/ws/**",
+                        "/comunicazione/invioNota",
+                        "/comunicazione/invioNotifica")
                 .permitAll()
                 .anyRequest().authenticated() //c'era authenticated
                 .and()
@@ -61,7 +68,7 @@ public class SecurityConfig {
 
     /**
      * Configurazione delle richieste CORS.
-     * @return
+     * @return bean di configurazione.
      */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

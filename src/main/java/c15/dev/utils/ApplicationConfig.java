@@ -25,12 +25,15 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableAsync
 public class ApplicationConfig {
+    /**
+     * dao per trovare gli utenti.
+     */
     @Autowired  @Qualifier("utenteRegistratoDAO")
     private UtenteRegistratoDAO usrdao;
 
     /**
      * Estrae il bean relativo al service.
-     * @return
+     * @return user detail, contiene le info del token.
      */
     @Bean
     public UserDetailsService userDetailsService() {
@@ -48,7 +51,7 @@ public class ApplicationConfig {
 
     /**
      * Dependency Injection per il provider di autenticazione.
-     * @return
+     * @return un autenthication provider.
      */
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -60,7 +63,7 @@ public class ApplicationConfig {
 
     /**
      * Dependency Injection per il manager di autenticazione.
-     * @return
+     * @return authentication manager.
      */
     @Bean
     public AuthenticationManager

@@ -7,7 +7,16 @@ package c15.dev.utils;
  * I ruoli sono passati al frontend via token.
  */
 public enum Role {
+    /**
+     * ruolo paziente.
+     */
     PAZIENTE,
+    /**
+     * ruolo medico.
+     */
     MEDICO,
+    /**
+     * ruolo admin.
+     */
     ADMIN,
 }

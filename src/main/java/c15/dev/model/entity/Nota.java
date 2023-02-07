@@ -1,11 +1,7 @@
 package c15.dev.model.entity;
 
-import c15.dev.model.entity.enumeration.Autore;
-
-import c15.dev.model.entity.enumeration.StatoNotifica;
-import c15.dev.model.entity.UtenteRegistrato;
+import c15.dev.model.entity.enumeration.StatoNota;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -13,19 +9,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.NotBlank;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.GregorianCalendar;
 
 /**
  * @author Mario Cicalese.
@@ -74,7 +66,7 @@ public class Nota implements Serializable {
 
     @NotNull
     @Column(nullable = false)
-    private StatoNotifica statoNota;
+    private StatoNota statoNota;
 
     /**
      * Campo (chiave esterna) relativo al medico che ha scritto/ricevuto la nota.
@@ -108,7 +100,7 @@ public class Nota implements Serializable {
     public Nota(final String contenuto,
                 final LocalDate dataPubblicazione,
                 final long autore,
-                final StatoNotifica stato,
+                final StatoNota stato,
                 final Medico medico,
                 final Paziente paziente) {
         this.contenuto = contenuto;
@@ -196,7 +188,7 @@ public class Nota implements Serializable {
      * @return statoNota.
      * metodo che permette di restituire lo stato della nota.
      */
-    public StatoNotifica getStatoNota() {
+    public StatoNota getStatoNota() {
         return statoNota;
     }
 
@@ -205,7 +197,7 @@ public class Nota implements Serializable {
      * @param statoNota
      * metodo che permette di definire lo stato della nota.
      */
-    public void setStatoNota(StatoNotifica statoNota) {
+    public void setStatoNota(StatoNota statoNota) {
         this.statoNota = statoNota;
     }
 

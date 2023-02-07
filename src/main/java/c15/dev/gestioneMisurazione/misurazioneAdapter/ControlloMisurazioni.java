@@ -19,10 +19,10 @@ public class ControlloMisurazioni {
     /**
      * Metodo che data una misurazione chiama il relativo
      * metodo di controllo.
-     * @param m
+     * @param m misurazione.
      * @return true o false.
      */
-    public static boolean chiamaControllo(Misurazione m) {
+    public static boolean chiamaControllo(final Misurazione m) {
         var classeMisurazione = m.getClass().getSimpleName();
 
         switch (classeMisurazione) {
@@ -58,10 +58,10 @@ public class ControlloMisurazioni {
     /**
      * Metodo che controlla che la misurazione ECG non abbia valori
      * troppo alti o troppo bassi.
-     * @param m
-     * @return
+     * @param m misurazione.
+     * @return true o false.
      */
-    public static boolean controlloECG(MisurazioneHolterECG m) {
+    public static boolean controlloECG(final MisurazioneHolterECG m) {
         var paziente = m.getPaziente();
         var durataOndaP = m.getDurataOndaP();
         var battitiPerMinuto = m.getBattitiPerMinuto();
@@ -69,12 +69,12 @@ public class ControlloMisurazioni {
         var intervalloPR = m.getIntervalloPR();
         var ondaT = m.getOndaT();
 
-        if(durataOndaP > 120 || battitiPerMinuto > 90
+        if (durataOndaP > 120 || battitiPerMinuto > 90
                              || durataComplessoQRS > 0.11
                              || intervalloPR > 0.20
                              || ondaT > 500) {
             return true;
-        } else if(durataOndaP < 60 || battitiPerMinuto < 60
+        } else if (durataOndaP < 60 || battitiPerMinuto < 60
                 || durataComplessoQRS < 0.08
                 || intervalloPR < 0.10
                 || ondaT < 300) {
@@ -89,20 +89,19 @@ public class ControlloMisurazioni {
      * Metodo che controlla che i valori di una misurazione saturazione siano
      * nei limiti.
      * Se sono sballati si restituisce true.
-     * @param m
+     * @param m misurazione.
      * @return true or false
      */
-    public static boolean controlloSaturazione(MisurazioneSaturazione m) {
+    public static boolean
+    controlloSaturazione(final MisurazioneSaturazione m) {
         var paziente = m.getPaziente();
         var bpm = m.getBattitiPerMinuto();
         var saturazione = m.getPercentualeSaturazione();
 
         //true vuol dire che la misurazione è sballata
-        if(saturazione >= 93 || bpm > 140 ) {
+        if (saturazione >= 93 || bpm > 140) {
             return true;
-        }
-
-        else if(saturazione <= 85 || bpm <= 65) {
+        } else if (saturazione <= 85 || bpm <= 65) {
             return true;
         }
 
@@ -112,10 +111,10 @@ public class ControlloMisurazioni {
     /**
      * Metodo per controllare che la misurazione pressione
      * non abbia valori troppo alti o troppo bassi.
-     * @param mp
-     * @return
+     * @param mp misurazione.
+     * @return true o false.
      */
-    public static boolean controlloPressione(MisurazionePressione mp) {
+    public static boolean controlloPressione(final MisurazionePressione mp) {
         var bpm = mp.getBattitiPerMinuto();
         var max = mp.getPressioneMassima();
         var average = mp.getPressioneMedia();
@@ -123,11 +122,9 @@ public class ControlloMisurazioni {
 
         System.out.println("QUESTI SONO I BPM" + mp.getBattitiPerMinuto());
 
-        if(bpm >= 140 || max > 150 || min > 85) {
+        if (bpm >= 140 || max > 150 || min > 85) {
             return true;
-        }
-
-        else if(bpm <= 65 || max < 100 || min < 80) {
+        } else if (bpm <= 65 || max < 100 || min < 80) {
             return true;
         }
 
@@ -137,15 +134,16 @@ public class ControlloMisurazioni {
     /**
      * Metodo per controllare che la misurazione coagulazione
      * non abbia valori troppo alti o troppo bassi.
-     * @param m
-     * @return
+     * @param m misurazione.
+     * @return true o false.
      */
-    public static boolean controlloCoagulazione(MisurazioneCoagulazione m) {
+    public static boolean
+    controlloCoagulazione(final MisurazioneCoagulazione m) {
         var paziente = m.getPaziente();
         var tempoDiProtrombina = m.getTempoDiProtrobina();
         var inr = m.getInr();
 
-        if(tempoDiProtrombina > 20 || inr > 2.3) {
+        if (tempoDiProtrombina > 20 || inr > 2.3) {
             return true;
         } else if (tempoDiProtrombina < 5 || inr < 0.5) {
             return true;
@@ -157,19 +155,17 @@ public class ControlloMisurazioni {
     /**
      * Metodo per controllare che la misurazione glicemica
      * non abbia valori troppo alti o troppo bassi.
-     * @param m
-     * @return
+     * @param m misurazione.
+     * @return true o false.
      */
-    public static boolean controlloGlicemia(MisurazioneGlicemica m) {
+    public static boolean controlloGlicemia(final MisurazioneGlicemica m) {
         var colesterolo = m.getColesterolo();
         var trigliceridi = m.getTrigliceridi();
         var zuccheri = m.getZuccheriNelSangue();
 
-        if(colesterolo > 500 || trigliceridi > 100 || zuccheri > 500) {
+        if (colesterolo > 500 || trigliceridi > 100 || zuccheri > 500) {
             return true;
-        }
-
-        else if(colesterolo < 100 || zuccheri < 120 || trigliceridi < 80) {
+        } else if (colesterolo < 100 || zuccheri < 120 || trigliceridi < 80) {
             return true;
         }
 
@@ -179,20 +175,20 @@ public class ControlloMisurazioni {
     /**
      * Metodo per controllare che la misurazione degli enzimi cardiaci
      * non abbia valori troppo alti o troppo bassi.
-     * @param m
-     * @return
+     * @param m misurazione.
+     * @return true o false.
      */
-    public static boolean controlloEnzimiCardiaci(MisurazioneEnzimiCardiaci m) {
-
+    public static boolean
+    controlloEnzimiCardiaci(final MisurazioneEnzimiCardiaci m) {
         var paziente = m.getPaziente();
         var creatinKinasi = m.getCreatinKinasi();
         var mioGlobina = m.getMioglobina();
         var troponinaCardiaca = m.getTroponinaCardiaca();
 
-        if(mioGlobina > 90 || creatinKinasi > 200 || troponinaCardiaca > 10 ) {
+        if (mioGlobina > 90 || creatinKinasi > 200 || troponinaCardiaca > 10) {
              return true;
-        } else if(  mioGlobina < 0 ||
-                creatinKinasi < 20 || troponinaCardiaca < 0 ) {
+        } else if(mioGlobina < 0
+                || creatinKinasi < 20 || troponinaCardiaca < 0) {
 
             return true;
         }
