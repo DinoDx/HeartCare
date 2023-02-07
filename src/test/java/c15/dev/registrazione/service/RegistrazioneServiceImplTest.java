@@ -243,4 +243,95 @@ public class RegistrazioneServiceImplTest {
         assertThrows(IllegalArgumentException.class,
                 () -> this.registrazioneService.registraPaziente(null));
     }
+
+    @Test
+    public void TestLoginEmailSbagliata() throws Exception {
+        request = new AuthenticationRequest(
+                "Wpasswd1!%",
+                "fabiola2@libero.it"
+        );
+
+
+        Mockito.when(this.adminDAO.findByEmail(any())).thenReturn(null);
+        Mockito.when(this.pazienteDAO.findByEmail(any())).thenReturn(null);
+        Mockito.when(this.medicoDAO.findByEmail(any())).thenReturn(null);
+
+        assertEquals(AuthenticationResponse.builder().token(null).build(), registrazioneService.login(request));
+
+    }
+
+    @Test
+    public void TestLoginPasswordErrata() throws Exception {
+        request = new AuthenticationRequest(
+                "Wpasswd9!%",
+                "fabiola@libero.it"
+        );
+
+        String password = request.getPassword();
+        Admin a1 = new Admin(LocalDate.of(2000, 11, 18),
+                "PDSLPD08E18C129Q",
+                "+393887124110",
+                "Wpasswd1!%",
+                "fabiola@libero.it",
+                "Fabiola",
+                "Valorant",
+                "F");
+
+        Mockito.when(this.adminDAO.findByEmail(any())).thenReturn(a1);
+        Mockito.when(this.pwdEncoder.matches(password, a1.getPassword())).thenReturn(false);
+
+        assertEquals(AuthenticationResponse.builder().token(null).build(), registrazioneService.login(request));
+
+
+    }
+
+
+    @Test
+    public void TestLoginPasswordErrataPaziente() throws Exception {
+        request = new AuthenticationRequest(
+                "Wpasswd9!%",
+                "fabiola@libero.it"
+        );
+
+        String password = request.getPassword();
+
+        Paziente paziente = new Paziente(LocalDate.of(2000, 11, 18),
+                "PDSLPD08E18C129Y",
+                "+393887124900",
+                "Wpasswd1!%",
+                "giuseppegiordano@libero.it",
+                "Giuseppe",
+                "Giordano",
+                "M");
+
+        Mockito.when(this.pazienteDAO.findByEmail(any())).thenReturn(paziente);
+
+        Mockito.when(this.pwdEncoder.matches(password, paziente.getPassword())).thenReturn(false);
+
+        assertEquals(AuthenticationResponse.builder().token(null).build(), registrazioneService.login(request));
+    }
+
+    @Test
+    public void TestLoginPasswordErrataMedico() throws Exception {
+        request = new AuthenticationRequest(
+                "Wpasswd9!%",
+                "fabiola@libero.it"
+        );
+
+        String password = request.getPassword();
+        Medico med1 = new Medico(LocalDate.of(2000, 11, 18),
+                "PDSLPD00E19C139A",
+                "+393809123300",
+                "Apasswd1!%",
+                "alessandrozoccola@libero.it",
+                "Alessandro",
+                "Zoccola",
+                "M");
+
+        Mockito.when(this.medicoDAO.findByEmail(any())).thenReturn(med1);
+        Mockito.when(this.pwdEncoder.matches(password, med1.getPassword())).thenReturn(false);
+
+        assertEquals(AuthenticationResponse.builder().token(null).build(), registrazioneService.login(request));
+    }
 }
+
