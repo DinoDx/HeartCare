@@ -18,7 +18,8 @@ public interface RegistrazioneService {
      * @param paziente è il paziente che viene registrato.
      * @return response.
      */
-    AuthenticationResponse registraPaziente(Paziente paziente)
+    AuthenticationResponse registraPaziente(Paziente paziente,
+                                            String confermaPassword)
             throws Exception;
     /**
      * Firma del metodo che consente la registrazione di un medico.

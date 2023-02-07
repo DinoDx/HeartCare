@@ -76,7 +76,24 @@ public class RegistrazioneServiceImplTest {
 
     @Mock
     private UtenteRegistratoDAO utenteRegistratoDAO;
-    private Indirizzo indirizzo;
+    private Paziente paziente;
+    private String confermaPassword;
+
+    @BeforeEach
+    @SneakyThrows
+    public void setup() throws Exception {
+        paziente = new Paziente(
+                LocalDate.parse("2001-06-15"),
+                "CCLMRA02G14E321Q",
+                "+393421234561",
+                "Wpasswd1!%",
+                "mario@gmail.com",
+                "Mario",
+                "Cicalese",
+                "M"
+        );
+        confermaPassword = "Wpasswd1!%";
+    }
 
     @Test
     public void TestLoginPaziente() throws Exception {
@@ -95,9 +112,6 @@ public class RegistrazioneServiceImplTest {
                "Giordano",
                "M");
 
-
-
-
        when(this.pazienteDAO.findByEmail(any())).thenReturn(paziente);
        when(this.adminDAO.findByEmail(any())).thenReturn(null);
        when(this.medicoDAO.findByEmail(any())).thenReturn(null);
@@ -106,9 +120,6 @@ public class RegistrazioneServiceImplTest {
         assertEquals(AuthenticationResponse.builder()
                .token(jwtToken)
                .build(), this.rs.login(request));
-
-
-
    }
     @Test
     public void TestLoginMedico() throws Exception {
@@ -138,9 +149,6 @@ public class RegistrazioneServiceImplTest {
         assertEquals(AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build(), this.rs.login(request));
-
-
-
     }
 
     @Test
@@ -171,9 +179,6 @@ public class RegistrazioneServiceImplTest {
         assertEquals(AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build(), this.rs.login(request));
-
-
-
     }
 
     /**
@@ -183,17 +188,6 @@ public class RegistrazioneServiceImplTest {
     @Test
     public void registraPaziente()
             throws Exception {
-        Paziente paziente = new Paziente(
-                LocalDate.parse("2001-06-15"),
-                "CCLMRA02G14E321Q",
-                "+393421234561",
-                "Wpasswd1!%",
-                "mario@gmail.com",
-                "Mario",
-                "Cicalese",
-                "M"
-        );
-
         Paziente SavedPaziente = new Paziente(
                 LocalDate.parse("2001-06-15"),
                 "CCLMRA02G14E321Q",
@@ -210,7 +204,7 @@ public class RegistrazioneServiceImplTest {
         when(this.utenteRegistratoDAO.findByEmail(any())).thenReturn(null);
         assertEquals(AuthenticationResponse.builder()
                 .token(token)
-                .build(), this.registrazioneService.registraPaziente(paziente));
+                .build(), this.registrazioneService.registraPaziente(paziente,confermaPassword));
     }
 
     /**
@@ -231,17 +225,39 @@ public class RegistrazioneServiceImplTest {
                 "M"
         );
         when(this.utenteRegistratoDAO.findByEmail(any())).thenReturn(paziente);
-        assertThrows(IllegalArgumentException.class, () -> this.registrazioneService.registraPaziente(paziente));
+        assertThrows(IllegalArgumentException.class, () -> this.registrazioneService.registraPaziente(paziente,confermaPassword));
     }
 
     /**
-     * metodo che si occupa di testare la registrazione del paziente
-     * quando viene passato passato un paziente come null
+     * metodo che si occupa di testare la registrazione del paziente.
+     * quando viene passato passato un paziente come null.
      */
     @Test
     public void TestRegistrazionePazienteNull() {
         assertThrows(IllegalArgumentException.class,
-                () -> this.registrazioneService.registraPaziente(null));
+                () -> this.registrazioneService.registraPaziente(null,null));
+    }
+
+    /**
+     * metodo che si occupa di testare se la password inserita in fase di.
+     * registrazione rispetta la regex definita.
+     */
+    @Test
+    public void TestRegistrazionePasswordErrata() throws Exception {
+        paziente.setPassword("passwordCheNonRispettaIlFormato");
+        assertThrows(IllegalArgumentException.class,
+                () -> this.registrazioneService.registraPaziente(paziente,confermaPassword));
+    }
+
+    /**
+     * metodo che si occupa di testare se la password di conferma.
+     * corrisponde con la prima inserita.
+     */
+    @Test
+    public void TestRegistrazioneConfermaPasswordDiversa(){
+        confermaPassword = "passwordDiversa";
+        assertThrows(IllegalArgumentException.class,
+                () -> this.registrazioneService.registraPaziente(paziente,confermaPassword));
     }
 
     @Test

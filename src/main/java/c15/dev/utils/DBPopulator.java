@@ -69,7 +69,7 @@ public class DBPopulator {
         Paziente paz2 = new Paziente(dataNascita,
                 "PDSLPH00E18C129A",
                 "+393887122221",
-                "Wpasswd2!%",
+                "Wpasswd1!%",
                 "pinomecca@libero.it",
                 "Pino",
                 "Mecca",
@@ -77,16 +77,17 @@ public class DBPopulator {
         Paziente paz3 = new Paziente( dataNascita,
                 "PPSLWD10E18C128A",
                 "+393887124321",
-                "Wpasswd2!%",
+                "Wpasswd1!%",
                 "carloidea@libero.it",
                 "Carlo",
                 "Idea",
                 "M");
+        String confermaPass = "Wpasswd1!%";
 
         pazientiList.addAll(List.of(paz1, paz2, paz3));
         pazientiList.stream().forEach(paz -> {
             try {
-                regService.registraPaziente(paz);
+                regService.registraPaziente(paz,confermaPass);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
