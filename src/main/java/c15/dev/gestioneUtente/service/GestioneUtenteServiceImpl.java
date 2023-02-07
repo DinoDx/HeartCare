@@ -14,6 +14,9 @@ import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 import c15.dev.utils.JwtService;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +30,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author Carlo.
  *  Creato il : 03/01/2023.
@@ -115,14 +121,38 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param cognomeCaregiver nome del caregiver.
      */
     @Override
-    public void assegnaCaregiver(final Long idPaziente,
-                                 final String emailCaregiver,
-                                 final String nomeCaregiver,
-                                 final String cognomeCaregiver) {
+    public boolean assegnaCaregiver(final Long idPaziente,
+                                    final String emailCaregiver,
+                                    final String nomeCaregiver,
+                                    final String cognomeCaregiver) {
+
+        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pat = Pattern.compile(regexPattern);
+
+        Matcher match = pat.matcher(emailCaregiver);
+        boolean matches = match.matches();
+
 
         Optional<UtenteRegistrato> pz =  paziente.findById(idPaziente);
         if(pz.isEmpty()) {
-            return;
+            return false;
+        }
+
+        if (emailCaregiver.equals("")) {
+            return false;
+        }
+
+        if(!matches) {
+            return false;
+        }
+
+        if (nomeCaregiver.equals("")) {
+            return false;
+        }
+
+        if (cognomeCaregiver.equals("")) {
+            return false;
         }
 
         Paziente tmp = (Paziente) pz.get();
@@ -130,6 +160,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         tmp.setNomeCaregiver(nomeCaregiver);
         tmp.setCognomeCaregiver(cognomeCaregiver);
         paziente.save(tmp);
+        return true;
     }
 
     /**
@@ -565,6 +596,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param ind indirizzo che si vuole aggiornare.
      */
     public void updateIndirizzo(final Indirizzo ind) {
-        this.indirizzo.save(ind); }
-
+        indirizzo.save(ind);
+    }
+    
 }

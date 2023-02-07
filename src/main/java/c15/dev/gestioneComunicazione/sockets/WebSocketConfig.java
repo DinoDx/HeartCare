@@ -1,3 +1,4 @@
+
 package c15.dev.gestioneComunicazione.sockets;
 
 import org.springframework.context.annotation.Configuration;

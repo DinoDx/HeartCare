@@ -72,7 +72,7 @@ public class RegistrazioneController {
         String citta = paziente.get("citta");
         String provincia = paziente.get("provincia");
         String civico = paziente.get("nCivico");
-        Integer cap = Integer.valueOf(paziente.get("cap"));
+        String cap = (paziente.get("cap"));
         String via = paziente.get("via");
 
         Indirizzo ind = new Indirizzo(citta,civico,cap,provincia,via);
@@ -104,7 +104,7 @@ public class RegistrazioneController {
         String citta = medico.get("citta");
         String provincia = medico.get("provincia");
         String civico = medico.get("nCivico");
-        Integer cap = Integer.valueOf(medico.get("cap"));
+        String cap = (medico.get("cap"));
         String via = medico.get("via");
 
         Indirizzo ind = new Indirizzo(citta,civico,cap,provincia,via);

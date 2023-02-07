@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +27,9 @@ import java.util.List;
 @RequestMapping(path =  "/comunicazione")
 @CrossOrigin
 public class GestioneComunicazioneController {
+    /**
+     * Service per le operazioni di scambio di messaggi.
+     */
     @Autowired
     private SimpMessagingTemplate template;
 
@@ -55,10 +62,10 @@ public class GestioneComunicazioneController {
      */
     @PostMapping(path = "/invioNota")
     public ResponseEntity<Object>
-    invioNota(@RequestBody final HashMap<String,String> nota) {
+    invioNota(@RequestBody final HashMap<String, String> nota) {
         long idDestinatario = Long.parseLong(nota.get("idDestinatario"));
         long idMittente = Long.parseLong(nota.get("idMittente"));
-        service.invioNota(nota.get("nota"),idDestinatario,idMittente);
+        service.invioNota(nota.get("nota"), idDestinatario, idMittente);
         List<Nota> note = service.findAllNote();
         return new ResponseEntity<>(note, HttpStatus.OK);
     }
@@ -70,7 +77,7 @@ public class GestioneComunicazioneController {
      */
     @PostMapping(path = ("/fetchTutteLeNote"))
     public ResponseEntity<Object>
-    fetchTutteLeNote(@RequestBody final HashMap<String,Long> utente) {
+    fetchTutteLeNote(@RequestBody final HashMap<String, Long> utente) {
         Long id = utente.get("idMittente");
         return new ResponseEntity<>(service.findNoteByIdUtente(id),
                                     HttpStatus.OK);
@@ -87,7 +94,7 @@ public class GestioneComunicazioneController {
     public ResponseEntity<Object> noteByUser(
             final HttpServletRequest request) {
         var email = request.getUserPrincipal().getName();
-        if(utenteService.findUtenteByEmail(email)==null) {
+        if (utenteService.findUtenteByEmail(email) == null) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         List<Nota> list = service.findNoteNonLetteByUser(email);
@@ -97,7 +104,7 @@ public class GestioneComunicazioneController {
                         .nome(n.getMedico().getNome())
                         .messaggio(n.getContenuto()).build()).toList();
 
-        return new ResponseEntity<>(result,HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**
@@ -107,8 +114,9 @@ public class GestioneComunicazioneController {
      */
     @PostMapping(path = "/getMedico")
     public ResponseEntity<Object>
-    fetchMedcioPerPaziente(@RequestBody final HashMap<String,Long> utente) {
+    fetchMedcioPerPaziente(@RequestBody final HashMap<String, Long> utente) {
         Long id = utente.get("idMittente");
-        return  new ResponseEntity<>(utenteService.findMedicoByPaziente(id),HttpStatus.OK);
+        return  new ResponseEntity<>(utenteService.findMedicoByPaziente(id),
+                                                             HttpStatus.OK);
     }
 }
