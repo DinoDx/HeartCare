@@ -11,15 +11,15 @@ import java.util.List;
  * @author Leopoldo Todisco.
  * Creato il 05/01/2023.
  * Service per il package gestioneVisita.
- *
  */
 public interface GestioneVisitaService {
 
     /**
      * Firma del metodo aggiunta visita.
      * @param visita i dati della visita da creare.
+     * @return vero o falso.
      */
-    void aggiuntaVisita(Visita visita);
+    boolean aggiuntaVisita(Visita visita);
 
     /**
      * Firma del metodo trova visite programmate dall'utente.
