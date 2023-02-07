@@ -20,11 +20,21 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MisurazioneEventListener implements PostInsertEventListener {
+    /**
+     * service documentazione.
+     */
     @Autowired
     private GestioneComunicazioneService comunicazioneService;
+    /**
+     * sessione di hibernate.
+     */
     @Autowired
     private SessionFactory session;
 
+    /**
+     * metodo di inizializzazione del listener.
+     * Si esegue come post construct.
+     */
     @PostConstruct
     protected void init() {
         SessionFactoryImpl sF = session.unwrap(SessionFactoryImpl.class);
@@ -35,29 +45,36 @@ public class MisurazioneEventListener implements PostInsertEventListener {
     }
 
     /**
-     *
-     * @param event
+     * Metodo che richiama il service per inviare una notifica.
+     * @param event coincide con l'avvenuto insrrimento nel db.
      */
     @Override
-    public void onPostInsert(PostInsertEvent event) {
+    public void onPostInsert(final PostInsertEvent event) {
         var eventEntity = event.getEntity();
         var str = "La misurazione del tuo paziente è sballato";
 
-        if(eventEntity instanceof Misurazione) {
+        if (eventEntity instanceof Misurazione) {
             Misurazione misurazione = (Misurazione) eventEntity;
             if (ControlloMisurazioni.chiamaControllo(misurazione)) {
                 comunicazioneService.
                         sendNotifica("Misurazione Sballata",
                         misurazione.getPaziente().getId());
-                if(misurazione.getPaziente().getEmailCaregiver() != null) {
-                    comunicazioneService.invioEmail(str, misurazione.getPaziente().getEmailCaregiver());
+                if (misurazione.getPaziente().getEmailCaregiver() != null) {
+                    comunicazioneService.invioEmail(str,
+                            misurazione.getPaziente().getEmailCaregiver());
                 }
             }
         }
     }
 
+    /**
+     *
+     * @param persister The persister for the entity in question.
+     *
+     * @return true o false.
+     */
     @Override
-    public boolean requiresPostCommitHandling(EntityPersister persister) {
+    public boolean requiresPostCommitHandling(final EntityPersister persister) {
         return false;
     }
 }

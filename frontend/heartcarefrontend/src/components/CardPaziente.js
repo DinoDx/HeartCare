@@ -118,6 +118,7 @@ function CardPaziente(props) {
         }
 
         const fetchData = async() => {
+            console.log(" ciao ", props.idPaziente)
             const response = await fetch("http://localhost:8080/getAllMisurazioniByPaziente",{
                 method : "POST",
                 headers : config,
@@ -126,6 +127,7 @@ function CardPaziente(props) {
                 })
             }).then(response => {
                 return response.json()
+                console.log(response)
             })
             setMisurazioni(response);
         }
@@ -166,11 +168,13 @@ function CardPaziente(props) {
                     <h2>Fascicolo Sanitario del Paziente {props.nomePaziente} {props.cognomePaziente}</h2>
                     <div className="contenitoreMisurazioni">
                         {Categorie.map( cat => {
+                        console.log("bug2 ", cat)
                             return(
                                 <div>
                                     <h2>{cat}</h2>
                                     <div className="bloccoMisurazione">
                                         {returnByCategoria(cat).map( mis => {
+                                        console.log("bug ", mis)
                                             return (
                                                 <div className="contenitoreMisurazione">
                                                     <div className="contenitoreIcona"><FaNotesMedical className="iconaMisurazione"/></div>

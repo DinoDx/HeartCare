@@ -10,7 +10,7 @@ import c15.dev.model.entity.Misurazione;
 public interface IDispositivoMedico {
     /**
      * Firma del metodo che avvia la misurazione.
-     * @return
+     * @return misurazione.
      */
-    public Misurazione avvioMisurazione();
+    Misurazione avvioMisurazione();
 }

@@ -44,18 +44,15 @@ public class DispositivoMedicoAdapter implements IDispositivoMedico {
     @Override
     public Misurazione avvioMisurazione() {
         String misurazioneJSON = adaptee.avvioMisurazione();
-        //Misurazione misurazione = gson.fromJson(misurazioneJSON, misurazioneFactory(misurazioneJSON).getClass());
 
         ObjectMapper om = JsonMapper.builder()
                 .addModule(new JavaTimeModule())
                 .build();
         try {
-            System.out.println("MISURAZIONE  JSON = " + misurazioneJSON);
             Misurazione result = om.readValue(misurazioneJSON,
                     misurazioneFactory(misurazioneJSON).getClass());
             result.setPaziente(adaptee.getPaziente());
             result.setDispositivoMedico(adaptee);
-            System.out.println("FUNZIONA?\n");
             System.out.println(result);
             return result;
         } catch (JsonProcessingException e) {

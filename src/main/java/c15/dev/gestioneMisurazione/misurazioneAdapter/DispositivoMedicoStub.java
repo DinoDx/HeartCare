@@ -1,7 +1,12 @@
 package c15.dev.gestioneMisurazione.misurazioneAdapter;
 
 
-import c15.dev.model.entity.*;
+import c15.dev.model.entity.MisurazioneHolterECG;
+import c15.dev.model.entity.MisurazioneGlicemica;
+import c15.dev.model.entity.MisurazioneEnzimiCardiaci;
+import c15.dev.model.entity.MisurazionePressione;
+import c15.dev.model.entity.MisurazioneSaturazione;
+import c15.dev.model.entity.MisurazioneCoagulazione;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -10,7 +15,6 @@ import com.google.gson.Gson;
 
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,7 +25,15 @@ import java.util.concurrent.ThreadLocalRandom;
  * Questa classe permette di generare le misurazioni.
  */
 public class DispositivoMedicoStub {
-    private Map<String,Number> mappa;
+    /**
+     * Mappa in cui le chiavi sono i nomi dei parametri della misurazione
+     * il numero indica il valore.
+     */
+    private Map<String, Number> mappa;
+
+    /**
+     * Google gson consente di serializzare in JSON oggetti Java.
+     */
     private Gson gson;
 
     /**
@@ -39,22 +51,22 @@ public class DispositivoMedicoStub {
      * Questo metodo restituisce una misurazione della categoria.
      * Enzimi Cardiaci.
      */
-    public String MisurazioneEnzimiCardiaciStub(String genere){
-
-        Integer mioglobina = ThreadLocalRandom.current().nextInt(0,85);
+    public String misurazioneEnzimiCardiaciStub(final String genere) {
+        Integer mioglobina = ThreadLocalRandom.current().nextInt(0, 85);
         Integer creatinKenasi;
         System.out.println(genere);
-        if(genere.toUpperCase().equals("M"))
+        if (genere.toUpperCase().equals("M")) {
             creatinKenasi = ThreadLocalRandom.current().nextInt(30, 200);
-        else
+        } else {
             creatinKenasi = ThreadLocalRandom.current().nextInt(30, 170);
+        }
         Double troponinaCardiaca = ThreadLocalRandom
                                     .current()
                                     .nextDouble(0.1, 10);
-        System.out.println(creatinKenasi);
-        mappa.put("mioglobina",mioglobina);
-        mappa.put("creatinKenasi",creatinKenasi);
-        mappa.put("troponinaCardiaca",troponinaCardiaca);
+
+        mappa.put("mioglobina", mioglobina);
+        mappa.put("creatinKenasi", creatinKenasi);
+        mappa.put("troponinaCardiaca", troponinaCardiaca);
 
         var misurazioneH = MisurazioneEnzimiCardiaci.builder()
                 .mioglobina(mioglobina)
@@ -70,7 +82,6 @@ public class DispositivoMedicoStub {
 
         try {
             String result = mapper.writeValueAsString(misurazioneH);
-            System.out.println("Sono dentro disp medico stub "+result);
             return result;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -83,13 +94,13 @@ public class DispositivoMedicoStub {
      * Questo metodo restituisce una misurazione della categoria.
      * Saturazione.
      */
-    public String MisurazioneSaturazioneStub(){
+    public String misurazioneSaturazioneStub() {
         Integer battitiPerMinuto = ThreadLocalRandom.current().nextInt(60, 90);
         Integer percentualeSaturazione =
                 ThreadLocalRandom.current().nextInt(75, 100);
 
-        mappa.put("battitiPerMinuto",battitiPerMinuto);
-        mappa.put("percentualeSaturazione",percentualeSaturazione);
+        mappa.put("battitiPerMinuto", battitiPerMinuto);
+        mappa.put("percentualeSaturazione", percentualeSaturazione);
 
         var misurazioneH = MisurazioneSaturazione.builder()
                 .battitiPerMinuto(battitiPerMinuto)
@@ -117,44 +128,38 @@ public class DispositivoMedicoStub {
      * Questo metodo restituisce una misurazione della categoria.
      * Pressione.
      */
-    public String MisurazionePressioneStub(Integer eta){
+    public String misurazionePressioneStub(final Integer eta) {
         Integer battitiPerMinuto =
                 ThreadLocalRandom.current().nextInt(60, 90);
         Integer pressioneMinima = 0;
         Integer pressioneMassima = 0;
         Integer pressioneMedia;
 
-        if(eta < 20){
+        if (eta < 20) {
             pressioneMinima = ThreadLocalRandom.current().nextInt(73, 105);
             pressioneMassima = ThreadLocalRandom.current().nextInt(81, 120);
-
-        }
-        else if(eta > 19 && eta < 30){
+        } else if (eta > 19 && eta < 30) {
             pressioneMinima = ThreadLocalRandom.current().nextInt(75, 108);
             pressioneMassima = ThreadLocalRandom.current().nextInt(84, 133);
-        }
-        else if(eta > 29 && eta < 40){
+        } else if (eta > 29 && eta < 40) {
             pressioneMinima = ThreadLocalRandom.current().nextInt(78, 111);
             pressioneMassima = ThreadLocalRandom.current().nextInt(86, 135);
-        }
-        else if(eta > 39 && eta < 50){
+        } else if (eta > 39 && eta < 50) {
             pressioneMinima = ThreadLocalRandom.current().nextInt(80, 113);
             pressioneMassima = ThreadLocalRandom.current().nextInt(88, 139);
-        }
-        else if(eta > 49 && eta < 60){
+        } else if (eta > 49 && eta < 60) {
             pressioneMinima = ThreadLocalRandom.current().nextInt(81, 116);
             pressioneMassima = ThreadLocalRandom.current().nextInt(90, 144);
-        }
-        else if(eta > 60){
+        } else if (eta > 60) {
             pressioneMinima = ThreadLocalRandom.current().nextInt(83, 118);
             pressioneMassima = ThreadLocalRandom.current().nextInt(91, 147);
         }
 
-        pressioneMedia = (2*pressioneMinima+pressioneMassima)/3;
-        mappa.put("battitiPerMinuto",battitiPerMinuto);
-        mappa.put("pressioneMinima",pressioneMinima);
-        mappa.put("pressioneMassima",pressioneMassima);
-        mappa.put("pressioneMedia",pressioneMedia);
+        pressioneMedia = (2 * pressioneMinima + pressioneMassima) / 3;
+        mappa.put("battitiPerMinuto", battitiPerMinuto);
+        mappa.put("pressioneMinima", pressioneMinima);
+        mappa.put("pressioneMassima", pressioneMassima);
+        mappa.put("pressioneMedia", pressioneMedia);
 
         var misurazioneH = MisurazionePressione.builder()
                 .battitiPerMinuto(battitiPerMinuto)
@@ -182,7 +187,7 @@ public class DispositivoMedicoStub {
      * @return String.
      * Questo metodo restituisce una misurazione della categoria Glicemica.
      */
-    public String MisurazioneGlicemicaStub(){
+    public String misurazioneGlicemicaStub() {
         Integer zuccheriNelSangue = ThreadLocalRandom
                                         .current()
                                         .nextInt(70, 110);
@@ -199,13 +204,12 @@ public class DispositivoMedicoStub {
                 .trigliceridi(trigliceridi)
                 .dataMisurazione(LocalDate.now()).build();
 
-
         ObjectMapper mapper = JsonMapper.builder()
                 .addModule(new JavaTimeModule())
                 .build();
 
         try {
-            /*Stringa che viene restituita.*/
+            /**Stringa che viene restituita.*/
             String result = mapper.writeValueAsString(misurazioneH);
             return result;
         } catch (JsonProcessingException e) {
@@ -219,7 +223,7 @@ public class DispositivoMedicoStub {
      * Questo metodo restituisce una misurazione della categoria.
      * HolterECG.
      */
-    public String MisurazioneHolterECGStub(){
+    public String misurazioneHolterECGStub() {
         Integer durataOndaP = ThreadLocalRandom.current().nextInt(60, 120);
         Integer battitiPerMinuto = ThreadLocalRandom.current().nextInt(60, 90);
         Double durataComplessoQRS = ThreadLocalRandom
@@ -229,11 +233,11 @@ public class DispositivoMedicoStub {
                 .nextDouble(0.10, 0.20);
         Integer ondaT = ThreadLocalRandom.current().nextInt(300, 500);
 
-        mappa.put("durataOndaP",durataOndaP);
-        mappa.put("battitiPerMinuto",battitiPerMinuto);
-        mappa.put("durataComplessoQRS",durataComplessoQRS);
-        mappa.put("intervalloPR",intervalloPR);
-        mappa.put("ondaT",ondaT);
+        mappa.put("durataOndaP", durataOndaP);
+        mappa.put("battitiPerMinuto", battitiPerMinuto);
+        mappa.put("durataComplessoQRS", durataComplessoQRS);
+        mappa.put("intervalloPR", intervalloPR);
+        mappa.put("ondaT", ondaT);
 
         var misurazioneH = MisurazioneHolterECG.builder()
                 .durataOndaP(durataOndaP)
@@ -264,7 +268,7 @@ public class DispositivoMedicoStub {
      * @return String.
      * Questo metodo restituisce una misurazione della categoria Coagulazione.
      */
-    public String MisurazioneCoagulazioneStub(){
+    public String misurazioneCoagulazioneStub() {
         var tempoDiProtrombina = ThreadLocalRandom.current().nextInt(8, 14);
         var inr = ThreadLocalRandom.current().nextDouble(0.9, 1.3);
 

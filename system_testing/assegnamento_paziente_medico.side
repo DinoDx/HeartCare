@@ -1,0 +1,123 @@
+{
+  "id": "4a9d432c-2c9a-4c6e-9c75-0e5318b3c7d2",
+  "version": "2.0",
+  "name": "HeartCare",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "c2fca4a0-df88-41ec-9cdc-f6c0d7f3500a",
+    "name": "assegnamento_paziente",
+    "commands": [{
+      "id": "56feb365-ebd7-485c-bd97-a48017e0571f",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f3f05298-b3cd-41ed-b6ff-3ab9b9abcbc6",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1512x945",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f981a29a-1d15-411e-9113-fa2382a1939b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "94a57d63-311a-44a1-adb5-d8a9af02b808",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "fabiola@libero.it"
+    }, {
+      "id": "4cd9c29a-a477-4301-b173-c70e9f536d52",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(2)",
+      "targets": [
+        ["css=.formEditText:nth-child(2)", "css:finder"],
+        ["xpath=//input[@type='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Wpasswd1!%"
+    }, {
+      "id": "781c41f7-9419-47b7-a397-d62ebcc77371",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formButton",
+      "targets": [
+        ["css=.formButton", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "70df307a-a177-4bf2-b3be-e83b0fa2889d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cardUtente:nth-child(1) .button:nth-child(2)",
+      "targets": [
+        ["css=.cardUtente:nth-child(1) .button:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/div/div[2]/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Assegna')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d446140a-df07-4186-8c79-233214b13746",
+      "comment": "",
+      "command": "click",
+      "target": "css=.selectPaziente",
+      "targets": [
+        ["css=.selectPaziente", "css:finder"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b0d4f21e-3e1d-4b32-aa50-f2f1510c51eb",
+      "comment": "",
+      "command": "select",
+      "target": "css=.selectPaziente",
+      "targets": [],
+      "value": "label=Vincenzo"
+    }, {
+      "id": "4aa82930-edad-4901-aabd-d4e772806988",
+      "comment": "",
+      "command": "click",
+      "target": "css=.button:nth-child(3)",
+      "targets": [
+        ["css=.button:nth-child(3)", "css:finder"],
+        ["xpath=//body/div[2]/div/div[2]/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Conferma')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "65e138ac-393b-453c-8d2f-aaabf11a22f0",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}

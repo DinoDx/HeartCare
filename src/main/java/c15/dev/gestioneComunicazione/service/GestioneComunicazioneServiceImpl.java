@@ -2,15 +2,13 @@ package c15.dev.gestioneComunicazione.service;
 
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.dao.NotaDAO;
-import c15.dev.model.dao.NotificaDAO;
 import c15.dev.model.dto.NotaDTO;
 import c15.dev.model.dto.NotificaDTO;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Nota;
 import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.enumeration.StatoNotifica;
+import c15.dev.model.entity.enumeration.StatoNota;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -40,12 +38,6 @@ public class GestioneComunicazioneServiceImpl
      */
     @Autowired
     private GestioneUtenteService utenteService;
-
-    /**
-     * Provvede alle operazioni del db della notifica.
-     */
-    @Autowired
-    private NotificaDAO daoNotifica;
 
     /**
      * Provvede alle operazioni del db delle note.
@@ -96,7 +88,7 @@ public class GestioneComunicazioneServiceImpl
             Nota nota = new Nota(messaggio,
                     LocalDate.now(),
                     idMittente,
-                    StatoNotifica.NON_LETTA,
+                    StatoNota.NON_LETTA,
                     m,
                     p);
             notaDAO.save(nota);
@@ -110,7 +102,7 @@ public class GestioneComunicazioneServiceImpl
                 new Nota(messaggio,
                         LocalDate.now(),
                         idMittente,
-                        StatoNotifica.NON_LETTA,
+                        StatoNota.NON_LETTA,
                         m,
                         p);
         notaDAO.save(nota);
@@ -160,7 +152,7 @@ public class GestioneComunicazioneServiceImpl
         long idUser = user.getId();
 
         var list = notaDAO.findNoteByIdUtente(idUser);
-        return list.stream().filter(n -> n.getStatoNota().equals(StatoNotifica.NON_LETTA)).toList();
+        return list.stream().filter(n -> n.getStatoNota().equals(StatoNota.NON_LETTA)).toList();
 
     }
 

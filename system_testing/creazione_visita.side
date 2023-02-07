@@ -1,0 +1,196 @@
+{
+  "id": "4a9d432c-2c9a-4c6e-9c75-0e5318b3c7d2",
+  "version": "2.0",
+  "name": "HeartCare",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "1cbb815b-3fff-4d34-9e8c-117cedf81234",
+    "name": "creazione_visita",
+    "commands": [{
+      "id": "280a6c44-cc42-4a6a-a286-52264c45ee5f",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "80257d45-1286-427e-bbaf-bcee3c18e769",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1400x767",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "392c109e-e491-4d02-a409-bdf6d6d88caf",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "pinomecca1@libero.it"
+    }, {
+      "id": "ae2b96b5-d2b4-4800-8c62-ec04c46f0e5f",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(2)",
+      "targets": [
+        ["css=.formEditText:nth-child(2)", "css:finder"],
+        ["xpath=//input[@type='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Wpasswd2!%"
+    }, {
+      "id": "8a6dc91c-cc32-4ca2-8519-e75b44d51f19",
+      "comment": "",
+      "command": "click",
+      "target": "css=.contenitoreLogin",
+      "targets": [
+        ["css=.contenitoreLogin", "css:finder"],
+        ["xpath=//div[@id='root']/div/div", "xpath:idRelative"],
+        ["xpath=//div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca640bf8-497b-4ef6-ae7a-7823eacd29a0",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "alessandrozoccola@libero.it"
+    }, {
+      "id": "42a0efec-ffe2-424e-84ce-7536a9e077b1",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(2)",
+      "targets": [
+        ["css=.formEditText:nth-child(2)", "css:finder"],
+        ["xpath=//input[@type='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Apasswd1!%"
+    }, {
+      "id": "3b69545c-0224-492c-90e7-587dee8dc81b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formButton",
+      "targets": [
+        ["css=.formButton", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "60cb4a5d-4e87-4b17-9841-a1a8625fb0f1",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\32 > .iconaMenu",
+      "targets": [
+        ["css=#\\32 > .iconaMenu", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "4bc04f54-ce3d-474f-b0b6-858344a161c3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneAggiungiVisita",
+      "targets": [
+        ["css=.bottoneAggiungiVisita", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e68330b-e39a-4e4c-b54f-d90e17bffd4e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(1) > .selectPaziente",
+      "targets": [
+        ["css=.containerSingoloInputAggiungiVisita:nth-child(1) > .selectPaziente", "css:finder"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7fb119d4-ad0f-44ea-81b7-c53374db2c40",
+      "comment": "",
+      "command": "select",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(1) > .selectPaziente",
+      "targets": [],
+      "value": "label=Giuseppe Giordano"
+    }, {
+      "id": "ecd4157e-d776-425a-9ff7-539f877feedd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(2) > .selectPaziente",
+      "targets": [
+        ["css=.containerSingoloInputAggiungiVisita:nth-child(2) > .selectPaziente", "css:finder"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "34e707c9-ad57-4542-b24a-2ed84943a8c2",
+      "comment": "",
+      "command": "select",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(2) > .selectPaziente",
+      "targets": [],
+      "value": "label=Via nazionale appia , Caserta(CE), 80056"
+    }, {
+      "id": "769a677b-f14d-4667-8b8d-926d55b0cf85",
+      "comment": "",
+      "command": "click",
+      "target": "id=calendar",
+      "targets": [
+        ["id=calendar", "id"],
+        ["css=#calendar", "css:finder"],
+        ["xpath=//input[@id='calendar']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "69a71726-c8bb-4437-b354-3be0c888b534",
+      "comment": "",
+      "command": "type",
+      "target": "id=calendar",
+      "targets": [
+        ["id=calendar", "id"],
+        ["css=#calendar", "css:finder"],
+        ["xpath=//input[@id='calendar']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "2023-03-10"
+    }, {
+      "id": "d466130c-7362-480f-a5f1-76c038e255d3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.aggiungiBottoneVisita",
+      "targets": [
+        ["css=.aggiungiBottoneVisita", "css:finder"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "65e138ac-393b-453c-8d2f-aaabf11a22f0",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["1cbb815b-3fff-4d34-9e8c-117cedf81234"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}

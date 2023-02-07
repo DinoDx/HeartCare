@@ -1,16 +1,24 @@
 package c15.dev.gestioneMisurazione.controller;
 
-import c15.dev.gestioneComunicazione.service.GestioneComunicazioneService;
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoAdapter;
 import c15.dev.gestioneMisurazione.misurazioneAdapter.DispositivoMedicoStub;
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
-import c15.dev.model.entity.*;
+import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.MisurazionePressione;
+import c15.dev.model.entity.Misurazione;
+import c15.dev.model.entity.MisurazioneGlicemica;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
@@ -27,30 +35,34 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class GestioneMisurazioneController {
-    @Autowired
-    private GestioneComunicazioneService comunicazioneService;
-
+    /**
+     * consente di fare richieste via http.
+     */
     @Autowired
     private RestTemplate restTemplate;
 
     /**
-     * Service per la misurazione
+     * Service per la misurazione.
      */
     @Autowired
     private GestioneMisurazioneService misurazioneService;
 
     /**
-     * Service per la gestione utenti
+     * Service per la gestione utenti.
      */
     @Autowired
     private GestioneUtenteService utenteService;
+    /**
+     * stub dispositivo medico.
+     */
     private DispositivoMedicoStub dispositivoMedicoStub
             = new DispositivoMedicoStub();
 
     /**
      * Metodo per la registrazione del dispositivo.
-     * @param requestMap
-     * @param request
+     * @param requestMap body della http request.
+     * @param request http servlet.
+     * @return response con relativo stato.
      */
     @PostMapping(value = "/dispositivo/registra")
     public ResponseEntity<Object>
@@ -60,7 +72,7 @@ public class GestioneMisurazioneController {
         var user = utenteService.findUtenteByEmail(email);
         var idUser = user.getId();
 
-        if(!utenteService.isPaziente(user.getId())) {
+        if (!utenteService.isPaziente(user.getId())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
@@ -74,14 +86,19 @@ public class GestioneMisurazioneController {
 
     /**
      * Metodo per la rimozione del dispositivo.
-     * @param dispositivo
+     * @param map dispositivo da rimuovere.
+     * @param request è la richiesta http.
+     * @return response con relativo stato.
      */
     @RequestMapping(value = "/rimuoviDispositivo", method = RequestMethod.POST)
     public ResponseEntity<Object>
-    rimozioneDispositivo(@RequestParam final DispositivoMedico dispositivo,
+    rimozioneDispositivo(@RequestBody final HashMap<String, Object> map,
                          final HttpServletRequest request) {
         var email = request.getUserPrincipal().getName();
         var usr = utenteService.findUtenteByEmail(email);
+        var idDispositivo = Long.parseLong(map.get("id").toString());
+
+        var dispositivo = misurazioneService.getById(idDispositivo);
         misurazioneService.rimozioneDispositivo(dispositivo, usr.getId());
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -89,7 +106,7 @@ public class GestioneMisurazioneController {
 
     /**
      *
-     * @param id
+     * @param id id paziente.
      * @return List<Misurazione> elenco delle misurazioni.
      */
     @PostMapping(value = "/FascicoloSanitarioElettronico")
@@ -103,20 +120,21 @@ public class GestioneMisurazioneController {
 
     /**
      *
-     * @param request
-     * @param map
+     * @param request servlet.
+     * @param map body della richiesta.
      * @return Misurazione singola misurazione.
      * Questo metodo permette di avviare una registrazione sull'id.
      * del dispositivo passato input e di restituire la misurazione generata.
      *
      */
     @PostMapping(value = "/avvioMisurazione")
-    public Misurazione avvioMisurazione(@RequestBody final HashMap<String,
-            Object> map, final HttpServletRequest request) {
+    public Misurazione
+    avvioMisurazione(@RequestBody final HashMap<String, Object> map,
+                     final HttpServletRequest request) {
 
         var email = request.getUserPrincipal().getName();
         var u = utenteService.findUtenteByEmail(email);
-        if(u == null || !utenteService.isPaziente(u.getId())) {
+        if (u == null || !utenteService.isPaziente(u.getId())) {
             return null;
         }
 
@@ -128,33 +146,35 @@ public class GestioneMisurazioneController {
                 new DispositivoMedicoAdapter(dispositivoMedico);
         var m =  dispositivoAdapter.avvioMisurazione();
 
-
-
         misurazioneService.save(m);
         return m;
     }
 
     /**
      * Metodo per ricevere le misurazioni tramite una categorie.
-     * @param body
+     * @param bo body della richiesta.
      * @returnn elenco misurazioni di una specifica categoria.
      */
     @PostMapping(value = "/getMisurazioneCategoria")
-    public List<Misurazione> getMisurazioniByCategoria(
-            @RequestBody HashMap<String,Object> body){
-        String cat = body.get("categoria").toString() ;
-        Long idPaz = Long.parseLong(body.get("id").toString());
+    public List<Misurazione>
+    getMisurazioniByCategoria (@RequestBody final HashMap<String, Object> bo) {
+        String cat = bo.get("categoria").toString();
+        Long idPaz = Long.parseLong(bo.get("id").toString());
         return misurazioneService.getMisurazioneByCategoria(cat, idPaz);
     }
 
     /**
      * Metodo per ricevere le misurazioni da un paziente.
-     * @param body
+     * La differenza fra questo e il fascicolo medico sta nel fatto
+     * che qui le misurazioni sono misurazioneDTO il che semplifica
+     * alcuni task nel frontend.R
+     * @param body body della richiesta.
      * @return elenco delle misurazioni del paziente passato in input.
      */
     @PostMapping(value = "/getAllMisurazioniByPaziente")
-    public ResponseEntity<Object> getAllMisurazioniByPaziente(
-            @RequestBody HashMap<String,Object> body){
+    public ResponseEntity<Object>
+    getAllMisurazioniByPaziente (@RequestBody
+                                 final HashMap<String, Object> body) {
         Long idPaz = Long.parseLong(body.get("id").toString());
         var list = misurazioneService.getAllMisurazioniByPaziente(idPaz);
         return new ResponseEntity<>(list, HttpStatus.OK);
@@ -162,40 +182,33 @@ public class GestioneMisurazioneController {
 
     /**
      * Metodo per ricevere le cateogire delle misurazioni di un paziente.
-     * @param body
+     * @param body body della richiesta.
      * @return lista di stringhe che indicano tutte le
      * categorie delle misurazioni.
      */
     @PostMapping(value = "/getCategorie")
-    public List<String> getCategorieByPaziente(
-            @RequestBody HashMap<String, Object> body) {
+    public List<String>
+    getCategorieByPaziente(final @RequestBody HashMap<String, Object> body) {
         Long idPaz = Long.parseLong(body.get("id").toString());
         return misurazioneService.findCategorieByPaziente(idPaz);
     }
 
     /**
      * Metodo per prevedere se l'utente avrà un infarto.
-     * @param body
+     * @param body body della richiesta.
+     * @param request servlet.
      * @return risultato della predizione 1 o 0.
      */
     @PostMapping(value = "/avvioPredizione")
-    public ResponseEntity<Object> avvioPredizione(@RequestBody final HashMap<String, String> body,
-                                                    final HttpServletRequest request) {
+    public ResponseEntity<Object>
+    avvioPredizione(@RequestBody final HashMap<String, String> body,
+                    final HttpServletRequest request) {
+
         var email = request.getUserPrincipal().getName();
         var usr = utenteService.findUtenteByEmail(email);
         Paziente paz = (Paziente) usr;
         long id = usr.getId();
 
-        /**
-         * "age":90,
-         * "sex": 1,
-         * "trestbps": 180,
-         * "chol": 250,
-         * "fbs": 1,
-         * "thalach": 250,
-         * "thal": 1
-         *
-         * */
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         var eta = Period
                         .between(usr.getDataDiNascita(), LocalDate.now())
@@ -204,10 +217,9 @@ public class GestioneMisurazioneController {
         map.put("age", eta);
 
         var sex = usr.getGenere();
-        if(sex.equals("M")) {
+        if (sex.equals("M")) {
             map.put("sex", 1);
-        }
-        else {
+        } else {
             map.put("sex", 0);
         }
 
@@ -237,19 +249,17 @@ public class GestioneMisurazioneController {
                 .get();
         int flag = (fbs.getZuccheriNelSangue() > 120) ? 1 : 0;
         map.put("fbs", flag);
-
         map.put("thalach", pressione.getBattitiPerMinuto());
 
-        if(body.get("infarto").equals("si")) {
+        if (body.get("infarto").equals("si")) {
             map.put("thal", 1);
-        }
-        else {
+        } else {
             map.put("thal", 0);
         }
 
-
-
-        var i =  restTemplate.postForObject("http://localhost:8081/", map, String.class);
+        var i =  restTemplate.postForObject("http://localhost:8083/",
+                                                        map,
+                                                        String.class);
         i = i.substring(1, 2);
         return new ResponseEntity<>(Integer.valueOf(i), HttpStatus.OK);
     }

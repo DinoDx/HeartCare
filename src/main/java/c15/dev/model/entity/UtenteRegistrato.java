@@ -168,13 +168,6 @@ public class UtenteRegistrato implements Serializable, UserDetails {
     @JsonBackReference
     private Indirizzo indirizzoResidenza;
 
-    /**
-     * Insieme delle notifiche relative a un utente.
-     */
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "destinatario")
-    private Set<Notifica> elencoNotifiche;
-
     @Enumerated(EnumType.STRING)
     private Role ruolo;
 
