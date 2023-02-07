@@ -157,7 +157,8 @@ export default function Dispositivi() {
             <div className="box-visite">
             {Object.keys(dispositivi).map(function(num, index){
                 return (
-                  <CardDispositivo key={index} 
+                  <CardDispositivo key={index}
+                                  id = {dispositivi[num]["id"]}
                                   titolo={dispositivi[num]["categoria"]} 
                                   descrizione={dispositivi[num]["descrizione"]} />
                 )
