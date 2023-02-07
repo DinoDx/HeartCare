@@ -19,11 +19,6 @@ import java.util.Set;
  * dal controller del package, ma anche da altri controller e services.
  */
 public interface GestioneUtenteService {
-    /**
-     * Firma del metodo di login.
-     * @return UtenteRegistrato loggato.
-     */
-    AuthenticationResponse login(AuthenticationRequest request);
 
     /**
      * Firma del metodo di assegnaCaregiver.
@@ -36,12 +31,6 @@ public interface GestioneUtenteService {
                           String emailCaregiver,
                           String nomeCaregiver,
                           String cognomeCaregiver);
-
-    /**
-     * Firma del metodo rimuoviPaziente.
-     * @param idUtente id del paziente che deve essere rimosso.
-     */
-    void rimuoviPaziente(Long idUtente);
 
     /**
      * Firma del metodo rimuoviMedico.
@@ -94,13 +83,6 @@ public interface GestioneUtenteService {
     Medico findMedicoById(Long id);
 
     /**
-     * Firma metodo findMedicoByCf.
-     * @param codiceFiscale
-     * @return true o false.
-     */
-    boolean findMedicoByCf(String codiceFiscale);
-
-    /**
      * Firma metodo findUtenteByCf.
      * @param cf
      * @return true o false.
@@ -115,12 +97,6 @@ public interface GestioneUtenteService {
     void updatePaziente(Paziente paz);
 
     void updateUtente(UtenteRegistrato u);
-
-    /**
-     * Firma del metodo updateMedico.
-     * @param med medico da aggiornare.
-     */
-    void updateMedico(Medico med);
 
     /**
      * Firma del metodo getTuttiMedici.
@@ -171,13 +147,6 @@ public interface GestioneUtenteService {
      */
 
     boolean checkByEmail(String email);
-
-    /**
-     * Firma metodo checkMedicoByEmail
-     * @param email email del medico da ricercare.
-     * @return true o false.
-     */
-    boolean checkMedicoByEmail(String email);
 
     /**
      * Firma del metodo registraIndirizzo.
