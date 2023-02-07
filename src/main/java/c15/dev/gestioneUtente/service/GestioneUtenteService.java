@@ -20,28 +20,16 @@ import java.util.Set;
  */
 public interface GestioneUtenteService {
     /**
-     * Firma del metodo di login.
-     * @return UtenteRegistrato loggato.
-     */
-    AuthenticationResponse login(AuthenticationRequest request);
-
-    /**
      * Firma del metodo di assegnaCaregiver.
      * @param idPaziente del paziente a cui si vuole assegnare il caregiver.
      * @param emailCaregiver email del caregiver.
      * @param nomeCaregiver nome del caregiver.
      * @param cognomeCaregiver nome del caregiver.
      */
-    void assegnaCaregiver(Long idPaziente,
+    boolean assegnaCaregiver(Long idPaziente,
                           String emailCaregiver,
                           String nomeCaregiver,
                           String cognomeCaregiver);
-
-    /**
-     * Firma del metodo rimuoviPaziente.
-     * @param idUtente id del paziente che deve essere rimosso.
-     */
-    void rimuoviPaziente(Long idUtente);
 
     /**
      * Firma del metodo rimuoviMedico.
@@ -51,14 +39,16 @@ public interface GestioneUtenteService {
 
     /**
      * Firma del metodo isPaziente.
-     * @param idUtente id dell'utente che vogliamo controllare che sia un paziente.
+     * @param idUtente id dell'utente che vogliamo controllare
+     * che sia un paziente.
      * @return true o false.
      */
     boolean isPaziente(long idUtente);
 
     /**
      * Firma del metodo isMedico.
-     * @param idUtente id dell'utente che vogliamo controllare che sia un medico.
+     * @param idUtente id dell'utente che vogliamo controllare
+     * che sia un medico.
      * @return true o false.
      */
     boolean isMedico(long idUtente);
@@ -94,33 +84,16 @@ public interface GestioneUtenteService {
     Medico findMedicoById(Long id);
 
     /**
-     * Firma metodo findMedicoByCf.
-     * @param codiceFiscale
-     * @return true o false.
-     */
-    boolean findMedicoByCf(String codiceFiscale);
-
-    /**
      * Firma metodo findUtenteByCf.
      * @param cf
      * @return true o false.
      */
     boolean findUtenteByCf(String cf);
-
-
     /**
-     * Firma del metodo updatePaziente.
-     * @param paz paziente da aggiornare.
+     * Firma del metodo updateUtente.
+     * @param u utente da aggiornare.
      */
-    void updatePaziente(Paziente paz);
-
     void updateUtente(UtenteRegistrato u);
-
-    /**
-     * Firma del metodo updateMedico.
-     * @param med medico da aggiornare.
-     */
-    void updateMedico(Medico med);
 
     /**
      * Firma del metodo getTuttiMedici.
@@ -173,13 +146,6 @@ public interface GestioneUtenteService {
     boolean checkByEmail(String email);
 
     /**
-     * Firma metodo checkMedicoByEmail
-     * @param email email del medico da ricercare.
-     * @return true o false.
-     */
-    boolean checkMedicoByEmail(String email);
-
-    /**
      * Firma del metodo registraIndirizzo.
      * @param ind indirizzo da registrare.
      * @return true o false.
@@ -203,7 +169,7 @@ public interface GestioneUtenteService {
     boolean assegnaMedicoAPaziente(long idMedico, long idUtente);
 
     /**
-     * Firma del metodo che ritorna la lista di dispositivi di un paziente,
+     * Firma del metodo che ritorna la lista di dispositivi di un paziente.
      * @param idPaziente id del Paziente.
      * @return Insieme di dispositivi medici.
      */
@@ -223,13 +189,13 @@ public interface GestioneUtenteService {
       Long findMedicoByPaziente(long idPaziente);
 
     /**
-     * Firma metodo findAllIndirizzi
+     * Firma metodo findAllIndirizzi.
      * @return  Lista di indirizzi.
      */
      List<Indirizzo> findAllIndirizzi();
 
     /**
-     * Firma metodo rimuoviUtente
+     * Firma metodo rimuoviUtente.
      * @param idUtente id utente.
      */
     void rimuoviUtente(Long idUtente);
@@ -246,7 +212,7 @@ public interface GestioneUtenteService {
     /**
      * Firma metodo encryptPassword.
      * @param nuovaPassword nuova password da inserire.
-     * @return String
+     * @return String.
      */
     String encryptPassword(String nuovaPassword);
 }

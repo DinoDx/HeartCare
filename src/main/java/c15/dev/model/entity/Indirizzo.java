@@ -9,8 +9,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
 
 import java.io.Serializable;
 import java.util.List;
@@ -57,7 +60,9 @@ public final class Indirizzo implements Serializable {
      * deve essere un numero intero di 5 cifre.
      */
     @NotNull
-    private Integer cap;
+    @Pattern(regexp = "^[0-9]*$")
+    @Size(min = 5, max = 5)
+    private String cap;
 
     /**
      * Stringa che rappresenta la provincia dell'indirizzo.
@@ -105,7 +110,7 @@ public final class Indirizzo implements Serializable {
      */
     public Indirizzo(final String cit,
                      final String numeroCivico,
-                     final Integer codiceAvviamentoPostale,
+                     final String codiceAvviamentoPostale,
                      final String prov,
                      final String via) {
         this.citta = cit;

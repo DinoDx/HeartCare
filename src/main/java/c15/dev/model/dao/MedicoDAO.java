@@ -13,23 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MedicoDAO extends UtenteRegistratoDAO {
     /**
-     *
-     * @param email
-     * @param password
-     * @return Medico trovato nel db.
-     */
-    Medico findByEmailAndPassword(String email, byte[] password);
-
-    Medico findBycodiceFiscale(String codiceFiscale);
-
-    /**
-     *
-     * @param id del medico.
-     * @return Medico corrispondente.
-     */
-    Medico findMedicoById(Long id);
-
-    /**
      * Ricerca di un medico tramite un email.
      * @param email email da ricercare nel db.
      * @return medico con quella email.

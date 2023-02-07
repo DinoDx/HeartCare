@@ -22,5 +22,5 @@ public interface UtenteRegistratoDAO
      * @param email email dell'utente da ricercare.
      * @return Utente corrispondente.
      */
-    public UtenteRegistrato findByEmail(String email);
+    UtenteRegistrato findByEmail(String email);
 }

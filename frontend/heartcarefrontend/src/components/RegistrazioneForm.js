@@ -2,7 +2,8 @@ import React from "react";
 import '../css/RegistrazioneStyle.css';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import Modal from "react-responsive-modal";
+import { Navigate } from "react-router";
 import moment from 'moment';
 
 
@@ -55,6 +56,10 @@ function RegistrazioneForm() {
 
         setCodiceFiscale(event.target.value);
     }
+
+    const [openErrore, setOpenErrore] = useState(false);
+    const onOpenModalErrore = () => setOpenErrore(true);
+    const onCloseModalErrore = () => setOpenErrore(false);
   
     const { register, formState: { errors }, handleSubmit } = useForm();
 
@@ -82,6 +87,12 @@ function RegistrazioneForm() {
         via: data.via,
         nCivico: data.nCivico
     })
+    }).then(response =>{
+        if(response.status != 200){
+            onOpenModalErrore();
+        }else{
+            window.location.href = "/"
+        }
     })
 
     return (
@@ -297,7 +308,9 @@ function RegistrazioneForm() {
             </div>
 
             <button className="formButton" onClick={handleSubmit(onSubmit)}>Registrati</button>
-
+            <Modal open={openErrore} onClose={onCloseModalErrore} center>
+        <h2>Registrazione non andata a buon fine controlla i parametri.</h2>
+        </Modal>
         </div>
     );
 }

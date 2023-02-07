@@ -51,7 +51,7 @@ public class GestioneUtenteController {
     @Autowired
     private GestioneComunicazioneService gestioneComunicazioneService;
     /**
-     * Sessione
+     * Sessione.
      */
     @Autowired
     private HttpSession session;
@@ -89,17 +89,19 @@ public class GestioneUtenteController {
         String pwd = map.get("password");
         Long id = Long.valueOf(map.get("id"));
 
-        if (service.controllaPassword(pwd,id)){
+        if (service.controllaPassword(pwd, id)) {
 
-            Long idUtente = service.findUtenteByEmail(map.get("email")).getId();
+            Long idUtente = service.findUtenteByEmail(map.get("email"))
+                                                         .getId();
 
-            if(service.isPaziente(idUtente)) {
+            if (service.isPaziente(idUtente)) {
 
                 service.rimuoviUtente(idUtente);
                 return new ResponseEntity<>(HttpStatus.OK);
-            } else if(service.isMedico(idUtente)){
+            } else if (service.isMedico(idUtente)) {
                 service.rimuoviMedico(idUtente);
-                return new ResponseEntity<>(HttpStatus.OK);}
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
@@ -112,10 +114,10 @@ public class GestioneUtenteController {
      */
     @RequestMapping(value = "/assegnaPaziente", method = RequestMethod.POST)
     public ResponseEntity<Object>
-    assegnaPaziente(@RequestBody final HashMap<String,String> assegnamento) {
+    assegnaPaziente(@RequestBody final HashMap<String, String> assegnamento) {
         long idPaziente = Long.parseLong(assegnamento.get("idPaziente"));
         long idMedico = Long.parseLong(assegnamento.get("idMedico"));
-        service.assegnaPaziente(idMedico,idPaziente);
+        service.assegnaPaziente(idMedico, idPaziente);
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
@@ -188,7 +190,7 @@ public class GestioneUtenteController {
 
 
         HashMap<String, Object> map = new HashMap<>();
-        if(service.isPaziente(idUtente)){
+        if (service.isPaziente(idUtente)) {
             Paziente paziente = service.findPazienteById(idUtente);
             map.put("nome", paziente.getNome());
             map.put("cognome", paziente.getCognome());
@@ -197,9 +199,7 @@ public class GestioneUtenteController {
             map.put("emailCaregiver", paziente.getEmailCaregiver());
             map.put("nomeCaregiver", paziente.getNomeCaregiver());
             map.put("cognomeCaregiver", paziente.getCognomeCaregiver());
-        }
-
-        else if(service.isMedico(idUtente) || service.isAdmin(idUtente)){
+        } else if (service.isMedico(idUtente) || service.isAdmin(idUtente)) {
             Medico medico = service.findMedicoById(idUtente);
             map.put("nome", medico.getNome());
             map.put("cognome", medico.getCognome());
@@ -221,7 +221,7 @@ public class GestioneUtenteController {
 
 
         HashMap<String, Object> map = new HashMap<>();
-        if(service.isPaziente(idUtente)){
+        if (service.isPaziente(idUtente)) {
             Paziente paziente = service.findPazienteById(idUtente);
             Indirizzo indirizzo = paziente.getIndirizzoResidenza();
             map.put("citta", indirizzo.getCitta());
@@ -232,9 +232,7 @@ public class GestioneUtenteController {
             map.put("emailCaregiver", paziente.getEmailCaregiver());
             map.put("nomeCaregiver", paziente.getNomeCaregiver());
             map.put("cognomeCaregiver", paziente.getCognomeCaregiver());
-        }
-
-        else if(service.isMedico(idUtente)){
+        } else if (service.isMedico(idUtente)) {
             Medico medico = service.findMedicoById(idUtente);
             Indirizzo indirizzo = medico.getIndirizzoResidenza();
             map.put("citta", indirizzo.getCitta());
@@ -264,10 +262,10 @@ public class GestioneUtenteController {
     visualizzazioneHomeUtente(@PathVariable("id") final long idUtente) {
         HashMap<String, Object> map = new HashMap<>();
 
-        if(service.isPaziente(idUtente)){
+        if (service.isPaziente(idUtente)) {
             Paziente paz = service.findPazienteById(idUtente);
             int nVisite = paz.getElencoVisite().stream()
-                    .filter(v->
+                    .filter(v ->
                             v.getStatoVisita().equals(StatoVisita.PROGRAMMATA))
                     .toList()
                     .size();
@@ -277,8 +275,7 @@ public class GestioneUtenteController {
             map.put("cognome", paz.getCognome());
             map.put("numeroNote", paz.getNote().size());
             map.put("sesso", paz.getGenere());
-        }
-        else if (service.isMedico(idUtente)) {
+        } else if (service.isMedico(idUtente)) {
             Medico med = service.findMedicoById(idUtente);
             map.put("pazientiTotali", med.getElencoPazienti().size());
             int nVisite = med.getElencoVisite()
@@ -322,7 +319,7 @@ public class GestioneUtenteController {
         var txt = requestMap.get("txt");
         var list = service.getTuttiPazienti().stream().toList();
 
-        if(txt == null || txt.isBlank() || txt.isEmpty()) {
+        if (txt == null || txt.isBlank() || txt.isEmpty()) {
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
 
@@ -346,16 +343,17 @@ public class GestioneUtenteController {
         String txt = requestMap.get("txt");
         var list = service.getTuttiUtenti();
 
-        if(txt == null || txt.isBlank() || txt.isEmpty()) {
+        if (txt == null || txt.isBlank() || txt.isEmpty()) {
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
 
         var listFiltered = list.stream()
-                .filter( utente -> (utente.getNome()+ " " +utente.getCognome())
+                .filter(utente -> (utente.getNome() + " "
+                        + utente.getCognome())
                                     .toLowerCase()
                                     .contains(txt.toLowerCase())).toList();
 
-        return new ResponseEntity<>(listFiltered,HttpStatus.OK);
+        return new ResponseEntity<>(listFiltered, HttpStatus.OK);
     }
 
 
@@ -364,33 +362,30 @@ public class GestioneUtenteController {
      * in base a nome e cognome passati nella searchbar.
      * I pazienti devono appartenere al medico in questione.
      * @param requestMap il testo che viene passato.
+     * @param request la richiesta che contiene dati dell'utente.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
      */
     @PostMapping(value = "/searchbarMedico")
     public ResponseEntity<Object>
     pazientiSearch(@RequestBody final HashMap<String, String> requestMap,
                    final HttpServletRequest request) {
-        /** txt indica il testo che viene passato dal frontend.*/
         var txt = requestMap.get("txt");
-        /** email dell'utente che chiama il metodo.*/
         var email = request.getUserPrincipal().getName();
         var usr = service.findUtenteByEmail(email);
 
-        if(usr == null || !usr.getRuolo().equals(Role.MEDICO)) {
+        if (usr == null || !usr.getRuolo().equals(Role.MEDICO)) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         var medico = (Medico) usr;
         var listaPazienti = medico.getElencoPazienti();
 
-        /** se il testo che viene passato è vuoto
-         * si restituisce tutta la lista.*/
-        if(txt == null || txt.isBlank() || txt.isEmpty()) {
+
+        if (txt == null || txt.isBlank() || txt.isEmpty()) {
             return new ResponseEntity<>(listaPazienti, HttpStatus.OK);
         }
 
-        /** se il testo non è vuoto allora si filtrano i risultati.*/
         var listPaz = listaPazienti.stream()
-                .filter(pz -> (pz.getNome()+" "+pz.getCognome())
+                .filter(pz -> (pz.getNome() + " " + pz.getCognome())
                                 .toLowerCase()
                                 .contains(txt.toLowerCase()))
                 .toList();
@@ -403,7 +398,7 @@ public class GestioneUtenteController {
      */
     @GetMapping(value = "/getIndirizzi")
     public ResponseEntity<Object> getIndirizzi() {
-        return new ResponseEntity<>(service.findAllIndirizzi(),HttpStatus.OK);
+        return new ResponseEntity<>(service.findAllIndirizzi(), HttpStatus.OK);
     }
 
     /**
@@ -425,7 +420,7 @@ public class GestioneUtenteController {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
 
-        if (service.controllaPassword(pwd, u.getId()) == true) {
+        if (service.controllaPassword(pwd, u.getId())) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
@@ -443,7 +438,7 @@ public class GestioneUtenteController {
                                 final HttpServletRequest request) {
 
         var email = request.getUserPrincipal().getName();
-        if(service.findUtenteByEmail(email) == null) {
+        if (service.findUtenteByEmail(email) == null) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(service.getTuttiUtenti()
@@ -458,17 +453,18 @@ public class GestioneUtenteController {
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
      * @throws Exception
      */
-    @PostMapping( "/modifica/password")
+    @PostMapping("/modifica/password")
     public ResponseEntity<Object>
-            modificaPassword(@RequestBody final HashMap<String,String> utente)
+            modificaPassword(@RequestBody final HashMap<String, String> utente)
                                                             throws Exception {
 
         Long idUtente = Long.valueOf(utente.get("id"));
         String vecchiaPassword = utente.get("vecchiaPassword");
-        if(service.controllaPassword(vecchiaPassword,idUtente)){
+        if (service.controllaPassword(vecchiaPassword, idUtente)) {
             UtenteRegistrato u = service.findUtenteById(idUtente);
            // Paziente p = (Paziente) service.findUtenteById(idUtente);
-            u.setPassword(service.encryptPassword(utente.get("nuovaPassword")));
+            u.setPassword(service.encryptPassword(utente
+                                            .get("nuovaPassword")));
             //u.setPassword(utente.get("nuovaPassword"));
             service.updateUtente(u);
             //service.updatePaziente(p);
@@ -487,14 +483,15 @@ public class GestioneUtenteController {
      */
     @PostMapping("/modifica/indirizzo")
     public ResponseEntity<Object> modificaIndirizzo(
-            @RequestBody final HashMap<String,String> indirizzo) {
+            @RequestBody final HashMap<String, String> indirizzo) {
 
         Long idUtente = Long.valueOf(indirizzo.get("id"));
-        Indirizzo ind = service.findUtenteById(idUtente).getIndirizzoResidenza();
+        Indirizzo ind = service.findUtenteById(idUtente)
+                                            .getIndirizzoResidenza();
         ind.setCitta(indirizzo.get("citta"));
         ind.setProvincia(indirizzo.get("provincia"));
         ind.setNCivico(indirizzo.get("numeroCivico"));
-        ind.setCap(Integer.valueOf(indirizzo.get("cap")));
+        ind.setCap((indirizzo.get("cap")));
         ind.setVia(indirizzo.get("via"));
 
         service.updateIndirizzo(ind);
@@ -509,19 +506,20 @@ public class GestioneUtenteController {
      */
     @PostMapping("/modifica/caregiver")
     public ResponseEntity<Object>
-    modificaCaregiver(@RequestBody final HashMap<String,String> caregiver) {
+    modificaCaregiver(@RequestBody final HashMap<String, String> caregiver) {
         Long idUtente = Long.valueOf(caregiver.get("id"));
         Paziente p = service.findPazienteById(idUtente);
+        String nome = caregiver.get("nomeCaregiver");
+        String email = caregiver.get("emailCaregiver");
+        String cognome = caregiver.get("cognomeCaregiver");
+        if (service.assegnaCaregiver(idUtente, email, nome, cognome)) {
+            gestioneComunicazioneService.invioEmail("Sei diventato caregiver",
+                    p.getEmailCaregiver());
 
-        p.setNomeCaregiver(caregiver.get("nomeCaregiver"));
-        p.setCognomeCaregiver(caregiver.get("cognomeCaregiver"));
-        p.setEmailCaregiver(caregiver.get("emailCaregiver"));
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
 
-        service.updatePaziente(p);
-        gestioneComunicazioneService.invioEmail("Sei diventato caregiver",
-                p.getEmailCaregiver());
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
 
@@ -543,7 +541,7 @@ public class GestioneUtenteController {
         map.put("email", med.getEmail());
         map.put("telefono", med.getNumeroTelefono());
 
-        return new ResponseEntity<>(map,HttpStatus.OK);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 

@@ -14,6 +14,9 @@ import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 import c15.dev.utils.JwtService;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +30,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author Carlo.
  *  Creato il : 03/01/2023.
@@ -93,19 +99,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param request richiesta.
      * @return AuthenticationResponse.
      */
-    @Override
-    public AuthenticationResponse login(final AuthenticationRequest request) {
-        authenticationManager.authenticate
-                (new UsernamePasswordAuthenticationToken(
-                        request.getEmail(), request.getPassword()));
-
-
-        var user = this.findUtenteByEmail(request.getEmail());
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .build();
-        }
 
     /**
      * Metodo che assegna un caregiver a un paziente.
@@ -115,14 +108,38 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param cognomeCaregiver nome del caregiver.
      */
     @Override
-    public void assegnaCaregiver(final Long idPaziente,
-                                 final String emailCaregiver,
-                                 final String nomeCaregiver,
-                                 final String cognomeCaregiver) {
+    public boolean assegnaCaregiver(final Long idPaziente,
+                                    final String emailCaregiver,
+                                    final String nomeCaregiver,
+                                    final String cognomeCaregiver) {
+
+        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pat = Pattern.compile(regexPattern);
+
+        Matcher match = pat.matcher(emailCaregiver);
+        boolean matches = match.matches();
+
 
         Optional<UtenteRegistrato> pz =  paziente.findById(idPaziente);
         if(pz.isEmpty()) {
-            return;
+            return false;
+        }
+
+        if (emailCaregiver.equals("")) {
+            return false;
+        }
+
+        if(!matches) {
+            return false;
+        }
+
+        if (nomeCaregiver.equals("")) {
+            return false;
+        }
+
+        if (cognomeCaregiver.equals("")) {
+            return false;
         }
 
         Paziente tmp = (Paziente) pz.get();
@@ -130,6 +147,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         tmp.setNomeCaregiver(nomeCaregiver);
         tmp.setCognomeCaregiver(cognomeCaregiver);
         paziente.save(tmp);
+        return true;
     }
 
     /**
@@ -142,7 +160,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     public boolean assegnaIndirizzoAdUtente(final long idUtente,
                                             final Indirizzo ind) {
         Optional<UtenteRegistrato> user = utente.findById(idUtente);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             return false;
         }
 
@@ -170,7 +188,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * Metodo che trova tutti i dispositivi di un paziente
+     * Metodo che trova tutti i dispositivi di un paziente.
      * @param idPaziente id paziente.
      * @return insieme dispositivi medici.
      */
@@ -182,19 +200,8 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         res.addAll(daoM.findByPaziente(idPaziente));
 
 
-        res.forEach(s->System.out.println(s.getId()));
+        res.forEach(s -> System.out.println(s.getId()));
         return res;
-    }
-
-
-    /**
-     * Metodo che elimina un paziente.
-     * @param idUtente id utente.
-     */
-    @Override
-    public void rimuoviPaziente(final Long idUtente) {
-        Optional<UtenteRegistrato> u = paziente.findById(idUtente);
-        paziente.delete(u.get());
     }
 
     /**
@@ -217,7 +224,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     public boolean isPaziente(final long idUtente) {
         Optional<UtenteRegistrato> u = paziente.findById(idUtente);
 
-        if (u.isEmpty()){
+        if (u.isEmpty()) {
             return false;
         } else if (u.get().getClass().getSimpleName().equals("Paziente")) {
             return true;
@@ -235,7 +242,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     public boolean isMedico(final long idUtente) {
         Optional<UtenteRegistrato> u = medico.findById(idUtente);
 
-        if (u.isEmpty()){
+        if (u.isEmpty()) {
             return false;
         } else if (u.get().getClass().getSimpleName().equals("Medico")) {
             return true;
@@ -252,7 +259,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     public boolean isAdmin(final long idUtente) {
         Optional<UtenteRegistrato> u = admin.findById(idUtente);
 
-        if (u.isEmpty()){
+        if (u.isEmpty()) {
             return false;
         } else if (u.get().getClass().getSimpleName().equals("Admin")) {
             return true;
@@ -270,10 +277,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     public boolean assegnaPaziente(final long idMedico,
                                    final long idPaziente) {
         Optional<UtenteRegistrato> med = medico.findById(idMedico);
-        if(med.isEmpty()) {
+        if (med.isEmpty()) {
             return false;
         }
-        Optional<UtenteRegistrato> paz = medico.findById(idPaziente);
+        Optional<UtenteRegistrato> paz = paziente.findById(idPaziente);
         if(paz.isEmpty()) {
             return false;
         }
@@ -293,7 +300,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Override
     public Paziente findPazienteById(final Long id) {
         Optional<UtenteRegistrato> paz = paziente.findById(id);
-        if(paz.isEmpty()){
+        if (paz.isEmpty()) {
             return null;
         }
 
@@ -308,7 +315,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Override
     public Medico findMedicoById(final Long id) {
         Optional<UtenteRegistrato> paz = medico.findById(id);
-        if(paz.isEmpty()){
+        if (paz.isEmpty()) {
             return null;
         }
 
@@ -320,15 +327,15 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param codiceFiscale codice fiscale del medico.
      * @return true o false.
      */
-    @Override
+   /* @Override
     public boolean findMedicoByCf(final String codiceFiscale) {
         Medico u = medico.findBycodiceFiscale(codiceFiscale);
 
-        if (u == null){
+        if (u == null) {
             return false;
         }
         return true;
-    }
+    } */
     /**
      * Metodo che restituisce un paziente tramite il codice fiscale.
      * @param codiceFiscale codice fiscale utente.
@@ -338,7 +345,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     public boolean findUtenteByCf(final String codiceFiscale) {
             Paziente u = paziente.findBycodiceFiscale(codiceFiscale);
 
-        if (u == null){
+        if (u == null) {
             return false;
         }
         return true;
@@ -351,25 +358,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Override
     public boolean checkByEmail(final String email) {
         Paziente u = paziente.findByEmail(email);
-        if (u == null){
+        if (u == null) {
             return false;
         }
         return true;
     }
-    /**
-     * Metodo che restituisce un medico tramite la sua email.
-     * @param email email del medico.
-     * @return true o false.
-     */
-    @Override
-    public boolean checkMedicoByEmail(final String email) {
-        Medico u = medico.findByEmail(email);
-        if (u == null){
-            return false;
-        }
-        return true;
-    }
-
     /**
      * Metodo per registrare indirizzo nel DB.
      * @param ind è l'indirizzo da aggiungere.
@@ -389,7 +382,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Override
     public UtenteRegistrato findUtenteById(final Long id) {
         Optional<UtenteRegistrato> u = utente.findById(id);
-        if (u.isEmpty()){
+        if (u.isEmpty()) {
             return null;
         }
          return u.get();
@@ -404,32 +397,15 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     public UtenteRegistrato findUtenteByEmail(final String email) {
         UtenteRegistrato result;
 
-        if((result = paziente.findByEmail(email)) != null) {
+        if ((result = paziente.findByEmail(email)) != null) {
+            return result;
+        } else if ((result = medico.findByEmail(email)) != null) {
+            return result;
+        } else if ((result = admin.findByEmail(email)) != null) {
             return result;
         }
-
-        else if((result = medico.findByEmail(email)) != null) {
-            return result;
-        }
-
-        else if((result = admin.findByEmail(email)) != null) {
-            return result;
-        }
-
         return null;
     }
-
-
-    /**
-     * Metodo per fare update di un paziente nel DB.
-     * @param paz è il paziente da aggiornare.
-     */
-    @Override
-    public void updatePaziente(final Paziente paz) {
-
-        this.paziente.save(paz);
-    }
-
 
     /**
      * Metodo per fare update di un utente nel DB.
@@ -437,15 +413,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      */
     public void updateUtente(final UtenteRegistrato u) {
         this.utente.save(u);
-    }
-
-    /**
-     * Metodo per fare un update di un'entry nel DB.
-     * @param med è il medico da aggiornare.
-     */
-    @Override
-    public void updateMedico(final Medico med) {
-        this.medico.save(med);
     }
 
     /**
@@ -462,17 +429,16 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return Lista di tutti i pazienti.
      */
     @Override
-    public List<UtenteRegistrato> getTuttiPazienti(){
-        System.out.println("CIAO2");
+    public List<UtenteRegistrato> getTuttiPazienti() {
         return paziente.findAll();
     }
 
     /**
-     * Metodo che restituisce tutti gli utenti dal db
+     * Metodo che restituisce tutti gli utenti dal db.
      * @return Lista di tutti gli utenti.
      */
     @Override
-    public List<UtenteRegistrato> getTuttiUtenti(){
+    public List<UtenteRegistrato> getTuttiUtenti() {
         return utente.findAll();
     }
 
@@ -492,7 +458,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return paziente.findAll().stream()
                 .filter((p) -> p.getClass().getSimpleName().equals("Paziente"))
                 .map(Paziente.class::cast)
-                .filter(p -> p.getMedico().getId()==(idMedico))
+                .filter(p -> p.getMedico().getId() == (idMedico))
                 .toList();
     }
 
@@ -504,7 +470,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @return Long.
      */
     @Override
-    public  Long findMedicoByPaziente(final long idPaziente){
+    public  Long findMedicoByPaziente(final long idPaziente) {
         Medico m = findPazienteById(idPaziente).getMedico();
         return m.getId();
     }
@@ -543,7 +509,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         UtenteRegistrato u = utente.findById(idUtente).get();
         boolean isPasswordMatch = passwordEncoder.matches(pwd, u.getPassword());
 
-        if(isPasswordMatch) {
+        if (isPasswordMatch) {
             return true;
         }
 
@@ -565,6 +531,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param ind indirizzo che si vuole aggiornare.
      */
     public void updateIndirizzo(final Indirizzo ind) {
-        this.indirizzo.save(ind); }
+        indirizzo.save(ind);
+    }
 
 }

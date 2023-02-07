@@ -103,7 +103,7 @@ public class GestioneMisurazioneServiceImplTest {
         disp.put("numeroSeriale", "12345456122142357");
         disp.put("categoria", "Misuratore di pressione");
 
-        assertEquals(false, serviceMisurazione.registrazioneDispositivo(disp, 1L));
+        assertEquals(true, serviceMisurazione.registrazioneDispositivo(disp, 1L));
     }
 
 

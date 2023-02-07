@@ -9,6 +9,7 @@ import c15.dev.model.entity.Nota;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.enumeration.StatoNota;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -82,7 +83,7 @@ public class GestioneComunicazioneServiceImpl
     public void invioNota(final String messaggio,
                           final Long idDestinatario,
                           final Long idMittente) {
-        if(utenteService.isMedico(idMittente)){
+        if (utenteService.isMedico(idMittente)) {
             Medico m =  utenteService.findMedicoById(idMittente);
             Paziente p = utenteService.findPazienteById(idDestinatario);
             Nota nota = new Nota(messaggio,
@@ -113,7 +114,7 @@ public class GestioneComunicazioneServiceImpl
      * Implementazione del metodo che cerca tutte le note.
      * @return lista di tutte le note.
      */
-    public List<Nota> findAllNote(){
+    public List<Nota> findAllNote() {
         return notaDAO.findAll();
     }
 
@@ -152,7 +153,9 @@ public class GestioneComunicazioneServiceImpl
         long idUser = user.getId();
 
         var list = notaDAO.findNoteByIdUtente(idUser);
-        return list.stream().filter(n -> n.getStatoNota().equals(StatoNota.NON_LETTA)).toList();
+        return list.stream().filter(n -> n.getStatoNota()
+                .equals(StatoNota.NON_LETTA))
+                .toList();
 
     }
 
