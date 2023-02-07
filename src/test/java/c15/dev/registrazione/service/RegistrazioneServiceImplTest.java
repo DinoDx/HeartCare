@@ -48,8 +48,7 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration(classes = HeartCareApplicationTests.class)
 public class RegistrazioneServiceImplTest {
 
-    @InjectMocks
-    RegistrazioneServiceImpl registrazioneService;
+
 
     @InjectMocks
     private RegistrazioneServiceImpl rs;
@@ -69,6 +68,8 @@ public class RegistrazioneServiceImplTest {
 
     @Mock
     private AuthenticationManager authenticationManager;
+    @Mock
+    private AuthenticationResponse authenticationResponse;
 
     /**
      * Provvede alla criptazione della password.
@@ -78,13 +79,10 @@ public class RegistrazioneServiceImplTest {
 
     @Mock
     private JwtService jwtService;
-
-
-
-
-
     @Mock
     private UtenteRegistratoDAO utenteRegistratoDAO;
+
+    Indirizzo indirizzo;
 
 
 
@@ -317,7 +315,7 @@ public class RegistrazioneServiceImplTest {
         when(this.utenteRegistratoDAO.findByEmail(any())).thenReturn(null);
         assertEquals(AuthenticationResponse.builder()
                 .token(token)
-                .build(), this.registrazioneService.registraPaziente(paziente));
+                .build(), this.rs.registraPaziente(paziente));
     }
 
     /**
@@ -327,6 +325,7 @@ public class RegistrazioneServiceImplTest {
      */
     @Test
     public void TestRegistrazioneEmailPresente() throws Exception {
+
         Paziente paziente = new Paziente(
                 LocalDate.parse("2001-06-15"),
                 "CCLMRA02G14E321Q",
@@ -338,7 +337,7 @@ public class RegistrazioneServiceImplTest {
                 "M"
         );
         when(this.utenteRegistratoDAO.findByEmail(any())).thenReturn(paziente);
-        assertThrows(IllegalArgumentException.class, () -> this.registrazioneService.registraPaziente(paziente));
+        assertThrows(IllegalArgumentException.class, () -> this.rs.registraPaziente(paziente));
     }
 
     /**
@@ -348,7 +347,7 @@ public class RegistrazioneServiceImplTest {
     @Test
     public void TestRegistrazionePazienteNull() {
         assertThrows(IllegalArgumentException.class,
-                () -> this.registrazioneService.registraPaziente(null));
+                () -> this.rs.registraPaziente(null));
     }
 }
 
