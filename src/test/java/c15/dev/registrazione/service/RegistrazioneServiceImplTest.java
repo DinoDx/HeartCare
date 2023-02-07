@@ -18,6 +18,7 @@ import org.apache.catalina.Authenticator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -28,6 +29,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.naming.AuthenticationException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -250,10 +252,13 @@ public class RegistrazioneServiceImplTest {
                 "fabiola2@libero.it"
         );
 
+
         Mockito.when(this.adminDAO.findByEmail(any())).thenReturn(null);
         Mockito.when(this.pazienteDAO.findByEmail(any())).thenReturn(null);
         Mockito.when(this.medicoDAO.findByEmail(any())).thenReturn(null);
-        assertFalse(false);
+
+        assertEquals(AuthenticationResponse.builder().token(null).build(), registrazioneService.login(request));
+
     }
 
     @Test
@@ -276,7 +281,7 @@ public class RegistrazioneServiceImplTest {
         Mockito.when(this.adminDAO.findByEmail(any())).thenReturn(a1);
         Mockito.when(this.pwdEncoder.matches(password, a1.getPassword())).thenReturn(false);
 
-        assertFalse(false);
+        assertEquals(AuthenticationResponse.builder().token(null).build(), registrazioneService.login(request));
 
 
     }
@@ -304,7 +309,7 @@ public class RegistrazioneServiceImplTest {
 
         Mockito.when(this.pwdEncoder.matches(password, paziente.getPassword())).thenReturn(false);
 
-        assertFalse(false);
+        assertEquals(AuthenticationResponse.builder().token(null).build(), registrazioneService.login(request));
     }
 
     @Test
@@ -327,6 +332,6 @@ public class RegistrazioneServiceImplTest {
         Mockito.when(this.medicoDAO.findByEmail(any())).thenReturn(med1);
         Mockito.when(this.pwdEncoder.matches(password, med1.getPassword())).thenReturn(false);
 
-        assertFalse(false);
+        assertEquals(AuthenticationResponse.builder().token(null).build(), registrazioneService.login(request));
     }
 }
