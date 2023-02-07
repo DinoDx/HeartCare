@@ -79,15 +79,14 @@ public class RegistrazioneServiceImplTest {
     @Mock
     private JwtService jwtService;
 
-    @Mock
-    private AuthenticationResponse authenticationResponse;
+
 
 
 
     @Mock
     private UtenteRegistratoDAO utenteRegistratoDAO;
 
-    private Indirizzo indirizzo;
+
 
 
     @Test
@@ -116,9 +115,6 @@ public class RegistrazioneServiceImplTest {
         var jwtToken = jwtService.generateToken(paziente);
 
 
-       when(this.pazienteDAO.findByEmail(any())).thenReturn(paziente);
-       when(this.adminDAO.findByEmail(any())).thenReturn(null);
-       when(this.medicoDAO.findByEmail(any())).thenReturn(null);
 
 
         assertEquals(AuthenticationResponse.builder()
