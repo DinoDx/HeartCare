@@ -89,25 +89,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     private PasswordEncoder pwdEncoder;
 
     /**
-     * Metodo che permette di fare il login.
-     * @param request richiesta.
-     * @return AuthenticationResponse.
-     */
-    @Override
-    public AuthenticationResponse login(final AuthenticationRequest request) {
-        authenticationManager.authenticate
-                (new UsernamePasswordAuthenticationToken(
-                        request.getEmail(), request.getPassword()));
-
-
-        var user = this.findUtenteByEmail(request.getEmail());
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .build();
-        }
-
-    /**
      * Metodo che assegna un caregiver a un paziente.
      * @param idPaziente del paziente a cui si vuole assegnare il caregiver.
      * @param emailCaregiver email del caregiver.
@@ -186,17 +167,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return res;
     }
 
-
-    /**
-     * Metodo che elimina un paziente.
-     * @param idUtente id utente.
-     */
-    @Override
-    public void rimuoviPaziente(final Long idUtente) {
-        Optional<UtenteRegistrato> u = paziente.findById(idUtente);
-        paziente.delete(u.get());
-    }
-
     /**
      * Metodo che elimina un medico.
      * @param idUtente id dell'utente.
@@ -273,7 +243,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         if(med.isEmpty()) {
             return false;
         }
-        Optional<UtenteRegistrato> paz = medico.findById(idPaziente);
+        Optional<UtenteRegistrato> paz = paziente.findById(idPaziente);
         if(paz.isEmpty()) {
             return false;
         }
@@ -314,21 +284,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
         return (Medico) paz.get();
     }
-
-    /**
-     * Metodo che restituisce un medico tramite il codice fiscale.
-     * @param codiceFiscale codice fiscale del medico.
-     * @return true o false.
-     */
-    @Override
-    public boolean findMedicoByCf(final String codiceFiscale) {
-        Medico u = medico.findBycodiceFiscale(codiceFiscale);
-
-        if (u == null){
-            return false;
-        }
-        return true;
-    }
     /**
      * Metodo che restituisce un paziente tramite il codice fiscale.
      * @param codiceFiscale codice fiscale utente.
@@ -351,19 +306,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Override
     public boolean checkByEmail(final String email) {
         Paziente u = paziente.findByEmail(email);
-        if (u == null){
-            return false;
-        }
-        return true;
-    }
-    /**
-     * Metodo che restituisce un medico tramite la sua email.
-     * @param email email del medico.
-     * @return true o false.
-     */
-    @Override
-    public boolean checkMedicoByEmail(final String email) {
-        Medico u = medico.findByEmail(email);
         if (u == null){
             return false;
         }
@@ -437,15 +379,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      */
     public void updateUtente(final UtenteRegistrato u) {
         this.utente.save(u);
-    }
-
-    /**
-     * Metodo per fare un update di un'entry nel DB.
-     * @param med è il medico da aggiornare.
-     */
-    @Override
-    public void updateMedico(final Medico med) {
-        this.medico.save(med);
     }
 
     /**
