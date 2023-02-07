@@ -99,19 +99,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param request richiesta.
      * @return AuthenticationResponse.
      */
-    @Override
-    public AuthenticationResponse login(final AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(), request.getPassword()));
-
-
-        var user = this.findUtenteByEmail(request.getEmail());
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .build();
-        }
 
     /**
      * Metodo che assegna un caregiver a un paziente.
@@ -340,7 +327,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
      * @param codiceFiscale codice fiscale del medico.
      * @return true o false.
      */
-    @Override
+   /* @Override
     public boolean findMedicoByCf(final String codiceFiscale) {
         Medico u = medico.findBycodiceFiscale(codiceFiscale);
 
@@ -348,7 +335,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
             return false;
         }
         return true;
-    }
+    } */
     /**
      * Metodo che restituisce un paziente tramite il codice fiscale.
      * @param codiceFiscale codice fiscale utente.
@@ -376,20 +363,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         }
         return true;
     }
-    /**
-     * Metodo che restituisce un medico tramite la sua email.
-     * @param email email del medico.
-     * @return true o false.
-     */
-    @Override
-    public boolean checkMedicoByEmail(final String email) {
-        Medico u = medico.findByEmail(email);
-        if (u == null) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * Metodo per registrare indirizzo nel DB.
      * @param ind è l'indirizzo da aggiungere.
@@ -433,18 +406,6 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         }
         return null;
     }
-
-
-    /**
-     * Metodo per fare update di un paziente nel DB.
-     * @param paz è il paziente da aggiornare.
-     */
-    @Override
-    public void updatePaziente(final Paziente paz) {
-
-        this.paziente.save(paz);
-    }
-
 
     /**
      * Metodo per fare update di un utente nel DB.
