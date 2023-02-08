@@ -4,7 +4,10 @@
 Progetto combinato di <strong> "Ingegneria del Software" </strong> e <strong> "Gestione Progetti Software" </strong>
 </div>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/xs11v8twbm9qgqid/branch/main?svg=true)](https://ci.appveyor.com/project/MarcoCalenda14/heartcare/branch/main)
+<br><br>
+
+[![Build](https://github.com/DinoDx/HeartCare/actions/workflows/maven.yml/badge.svg?branch=main)
+](https://github.com/DinoDx/HeartCare/actions/workflows/maven.yml)
 
 <h2>Introduzione</h2>
 
