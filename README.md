@@ -2,9 +2,9 @@
 <img src="https://i.imgur.com/Kj1SJZT.png" alt="logo" width="600"/>
 <h2>Università degli Studi di Salerno</h2>
 Progetto combinato di <strong> "Ingegneria del Software" </strong> e <strong> "Gestione Progetti Software" </strong>
-<br><br>
-<img src="https://ci.appveyor.com/api/projects/status/xs11v8twbm9qgqid?svg=true" alt="build" width="100"/>
 </div>
+
+[![Build status](https://ci.appveyor.com/api/projects/status/xs11v8twbm9qgqid/branch/main?svg=true)](https://ci.appveyor.com/project/MarcoCalenda14/heartcare/branch/main)
 
 <h2>Introduzione</h2>
 
