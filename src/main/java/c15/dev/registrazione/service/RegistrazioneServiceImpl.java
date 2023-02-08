@@ -12,6 +12,7 @@ import c15.dev.model.entity.Paziente;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
 import c15.dev.utils.JwtService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -80,7 +81,8 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
      * @return response.
      */
     @Override
-    public AuthenticationResponse registraPaziente(final Paziente paz)
+    public AuthenticationResponse registraPaziente(@Valid final Paziente paz,
+                                                   String confermaPassword)
                                                     throws Exception {
 
         if (paz == null) {
@@ -91,8 +93,22 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
             );
         }
 
-        paz.setPassword(pwdEncoder.encode(paz.getPassword()));
+        String password = paz.getPassword();
+        if (!(password.matches(
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
+                "[A-Za-z\\d@$!%*?&]{8,16}$"))){
+            throw new IllegalArgumentException(
+                    "La password non rispetta il giusto formato"
+            );
+        }
 
+        if (!(password.equals(confermaPassword))){
+            throw new IllegalArgumentException(
+                    "La password di conferma non corrisponde"
+            );
+        }
+
+        paz.setPassword(pwdEncoder.encode(password));
         Paziente savedPaziente = pazienteDAO.save(paz);
         Long id = savedPaziente.getId();
         var jwtToken = jwtService.generateToken(paz);
