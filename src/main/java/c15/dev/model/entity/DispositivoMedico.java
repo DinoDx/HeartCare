@@ -88,7 +88,7 @@ public class DispositivoMedico {
      * Campo relativo al numero seriale del dispositivo medico.
      * Invariante: deve essere composta da 30 caratteri.
      */
-    @Column(unique = true )
+    @Column(unique = true)
     @NotNull
     @Size(min = LENGTH_10, max = LENGTH_30)
     private String numeroSeriale;
@@ -164,12 +164,12 @@ public class DispositivoMedico {
         var dispositivoMedicoStub = new DispositivoMedicoStub();
         String misurazione = " ";
 
-        switch(categoria) {
+        switch (categoria) {
             case "ECG": misurazione = dispositivoMedicoStub
                     .misurazioneHolterECGStub();
                 break;
             case "Saturimetro" : misurazione = dispositivoMedicoStub
-                    .misurazioneSaturazioneStub() ;
+                    .misurazioneSaturazioneStub();
                 break;
             case "Coagulometro" : misurazione =
                     dispositivoMedicoStub.misurazioneCoagulazioneStub();
@@ -202,7 +202,7 @@ public class DispositivoMedico {
      * @return booleano.
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

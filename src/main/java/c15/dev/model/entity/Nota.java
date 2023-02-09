@@ -69,7 +69,8 @@ public class Nota implements Serializable {
     private StatoNota statoNota;
 
     /**
-     * Campo (chiave esterna) relativo al medico che ha scritto/ricevuto la nota.
+     * Campo (chiave esterna) relativo al medico che ha
+     *  scritto/ricevuto la nota.
      **/
     @ManyToOne
     @JoinColumn(name = "id_medico",
@@ -77,7 +78,8 @@ public class Nota implements Serializable {
     @JsonBackReference
     private Medico medico;
     /**
-     * Campo (chiave esterna) relativo al paziente che ha scritto/ricevuto la nota.
+     * Campo (chiave esterna) relativo al paziente che ha
+     *  scritto/ricevuto la nota.
      **/
     @ManyToOne
     @JoinColumn(name = "id_paziente",
@@ -85,9 +87,6 @@ public class Nota implements Serializable {
     @JsonBackReference
     private Paziente paziente;
 
-    /**
-     * Costruttore vuoto per la classe nota.
-     **/
 
     /**
      * @param contenuto rappresenta il contenuto della nota.
@@ -197,7 +196,7 @@ public class Nota implements Serializable {
      * @param statoNota
      * metodo che permette di definire lo stato della nota.
      */
-    public void setStatoNota(StatoNota statoNota) {
+    public void setStatoNota(final StatoNota statoNota) {
         this.statoNota = statoNota;
     }
 

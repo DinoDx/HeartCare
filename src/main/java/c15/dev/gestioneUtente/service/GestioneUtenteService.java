@@ -5,9 +5,6 @@ import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.DispositivoMedico;
 import c15.dev.model.entity.Indirizzo;
-import c15.dev.utils.AuthenticationRequest;
-import c15.dev.utils.AuthenticationResponse;
-
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +22,7 @@ public interface GestioneUtenteService {
      * @param emailCaregiver email del caregiver.
      * @param nomeCaregiver nome del caregiver.
      * @param cognomeCaregiver nome del caregiver.
+     * @return true o false.
      */
     boolean assegnaCaregiver(Long idPaziente,
                           String emailCaregiver,

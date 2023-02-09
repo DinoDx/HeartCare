@@ -26,7 +26,7 @@ public enum StatoVisita {
      * @param displayStato rappresenta il nome dello stato che verrà mostrato.
      * Costruttore dell'enumeratore StatoVisita.
      */
-    StatoVisita(String displayStato) {
+    StatoVisita(final String displayStato) {
         this.displayStato = displayStato;
     }
 
@@ -35,7 +35,7 @@ public enum StatoVisita {
      * @return displayStato.
      * metodo che resituisce lo stato.
      */
-    public String getDisplayStato_Visita() {
+    public String getDisplayStatoVisita() {
         return displayStato;
     }
 }

@@ -16,6 +16,7 @@ public interface RegistrazioneService {
     /**
      * Firma del metodo che consente la registrazione di un paziente.
      * @param paziente è il paziente che viene registrato.
+     * @param confermaPassword la conferma della password.
      * @return response.
      */
     AuthenticationResponse registraPaziente(Paziente paziente,

@@ -9,7 +9,6 @@ import c15.dev.model.entity.Nota;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.enumeration.StatoNota;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -129,7 +128,7 @@ public class GestioneComunicazioneServiceImpl
         List<Nota> note = notaDAO.findNoteByIdUtente(id);
         List<NotaDTO> dto = note
                 .stream()
-                .map(e->
+                .map(e ->
                         new NotaDTO(utenteService
                                 .findUtenteById(e.getAutore())
                                 .getNome()
@@ -148,7 +147,7 @@ public class GestioneComunicazioneServiceImpl
      * @return lista delle note non lette dell'utente.
      */
     @Override
-    public List<Nota> findNoteNonLetteByUser(String email) {
+    public List<Nota> findNoteNonLetteByUser(final String email) {
         var user = utenteService.findUtenteByEmail(email);
         long idUser = user.getId();
 

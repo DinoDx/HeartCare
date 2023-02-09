@@ -82,7 +82,8 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
      */
     @Override
     public AuthenticationResponse registraPaziente(@Valid final Paziente paz,
-                                                   String confermaPassword)
+                                                   final String
+                                                           confermaPassword)
                                                     throws Exception {
 
         if (paz == null) {
@@ -95,14 +96,15 @@ public class RegistrazioneServiceImpl implements RegistrazioneService {
 
         String password = paz.getPassword();
         if (!(password.matches(
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
-                "[A-Za-z\\d@$!%*?&]{8,16}$"))){
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])"
+                        +
+                "[A-Za-z\\d@$!%*?&]{8,16}$"))) {
             throw new IllegalArgumentException(
                     "La password non rispetta il giusto formato"
             );
         }
 
-        if (!(password.equals(confermaPassword))){
+        if (!(password.equals(confermaPassword))) {
             throw new IllegalArgumentException(
                     "La password di conferma non corrisponde"
             );

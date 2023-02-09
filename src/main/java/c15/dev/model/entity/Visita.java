@@ -74,7 +74,7 @@ public class Visita implements Serializable {
      * Chiave esterna che fa riferimento alla classe Indirizzo.
      **/
     @ManyToOne
-    @JoinColumn(name="id_indirizzo", referencedColumnName = "id")
+    @JoinColumn(name = "id_indirizzo", referencedColumnName = "id")
     @JsonBackReference
     @NotNull
     private Indirizzo indirizzoVisita;
@@ -212,7 +212,7 @@ public class Visita implements Serializable {
      * @return
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

@@ -6,13 +6,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+import lombok.Getter;
+import jakarta.persistence.Entity;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.LazyGroup;
-
 import java.time.LocalDate;
 import java.util.*;
 
@@ -138,9 +139,9 @@ public class Paziente extends UtenteRegistrato {
      * @return booleano.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Paziente paziente)) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {return true;}
+        if (!(o instanceof Paziente paziente)) {return false;}
         return Objects.equals(getNomeCaregiver(),
                 paziente.getNomeCaregiver())
                 && Objects.equals(getCognomeCaregiver(),

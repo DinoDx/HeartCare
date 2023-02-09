@@ -1,8 +1,6 @@
 package c15.dev.model.dao;
 
-import c15.dev.model.entity.Admin;
 import c15.dev.model.entity.UtenteRegistrato;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminDAO extends UtenteRegistratoDAO {
     /**
-     * Metodo per la ricerca tramite una email
+     * Metodo per la ricerca tramite una email.
      * @param email
      * @return utente trovato nel db.
      */

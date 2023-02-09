@@ -77,9 +77,9 @@ public class Misurazione implements Serializable {
      * @param dispositivo rappresenta il dispositivo medico con cui è stata.
      *effettuata la misurazione.
      */
-    public Misurazione(LocalDate data,
-                       Paziente paziente,
-                       DispositivoMedico dispositivo) {
+    public Misurazione(final LocalDate data,
+                       final Paziente paziente,
+                       final DispositivoMedico dispositivo) {
         this.dataMisurazione = data;
         this.paziente = paziente;
         this.dispositivoMedico = dispositivo;

@@ -22,8 +22,11 @@ import com.google.gson.Gson;
  *
  */
 public class DispositivoMedicoAdapter implements IDispositivoMedico {
-    /**adaptee è il dispositivo la cui misurazione va adattata*/
+    /**adaptee è il dispositivo la cui misurazione va adattata.*/
     private DispositivoMedico adaptee;
+    /**
+     * gson è una libreria di google utilizzata per convertire i file json.
+     */
     private Gson gson;
 
     /**

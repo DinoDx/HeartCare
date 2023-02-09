@@ -8,16 +8,16 @@ package c15.dev.model.entity.enumeration;
  */
 public enum Autore {
     /**
-     * M sta per medico
+     * M sta per medico.
      */
     M("Medico"),
     /**
-     * P sta per paziente
+     * P sta per paziente.
      */
     P("Paziente");
 
     /**
-     * Campo relativo al nome che verrà mostrata
+     * Campo relativo al nome che verrà mostrata.
      */
     private String displayName;
 
@@ -26,7 +26,7 @@ public enum Autore {
      * @param displayName rappresenta il nome che verrà mostrato
      * costruttore dell'enumeratore Autore
      */
-    Autore(String displayName) {
+    Autore(final String displayName) {
         this.displayName = displayName;
     }
 

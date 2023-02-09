@@ -13,7 +13,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.checkerframework.checker.index.qual.LTEqLengthOf;
 
 import java.io.Serializable;
 import java.util.List;
@@ -125,7 +124,7 @@ public final class Indirizzo implements Serializable {
      * @return booleano.
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

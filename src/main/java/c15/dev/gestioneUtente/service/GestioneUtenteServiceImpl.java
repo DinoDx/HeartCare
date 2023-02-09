@@ -11,17 +11,14 @@ import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.DispositivoMedico;
-import c15.dev.utils.AuthenticationRequest;
-import c15.dev.utils.AuthenticationResponse;
+
 import c15.dev.utils.JwtService;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -94,11 +91,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     @Autowired
     private PasswordEncoder pwdEncoder;
 
-    /**
-     * Metodo che permette di fare il login.
-     * @param request richiesta.
-     * @return AuthenticationResponse.
-     */
+
 
     /**
      * Metodo che assegna un caregiver a un paziente.
@@ -122,7 +115,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
 
         Optional<UtenteRegistrato> pz =  paziente.findById(idPaziente);
-        if(pz.isEmpty()) {
+        if (pz.isEmpty()) {
             return false;
         }
 
@@ -130,7 +123,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
             return false;
         }
 
-        if(!matches) {
+        if (!matches) {
             return false;
         }
 
@@ -322,11 +315,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return (Medico) paz.get();
     }
 
-    /**
-     * Metodo che restituisce un medico tramite il codice fiscale.
-     * @param codiceFiscale codice fiscale del medico.
-     * @return true o false.
-     */
+
    /* @Override
     public boolean findMedicoByCf(final String codiceFiscale) {
         Medico u = medico.findBycodiceFiscale(codiceFiscale);

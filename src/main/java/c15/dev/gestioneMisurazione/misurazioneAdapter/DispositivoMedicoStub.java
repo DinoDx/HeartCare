@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -83,7 +82,7 @@ public class DispositivoMedicoStub {
 
         try {
             String result = mapper.writeValueAsString(misurazioneH);
-            System.out.println("Sono dentro disp medico stub "+result);
+            System.out.println("Sono dentro disp medico stub " + result);
             return result;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -212,7 +211,6 @@ public class DispositivoMedicoStub {
                 .build();
 
         try {
-            /**Stringa che viene restituita.*/
             String result = mapper.writeValueAsString(misurazioneH);
             return result;
         } catch (JsonProcessingException e) {

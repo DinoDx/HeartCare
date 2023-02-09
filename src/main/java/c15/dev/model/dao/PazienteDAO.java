@@ -1,9 +1,6 @@
 package c15.dev.model.dao;
 
 import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.UtenteRegistrato;
-import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,7 +15,7 @@ public interface PazienteDAO extends UtenteRegistratoDAO {
      * @param email email del paziente.
      * @return Paziente trovato nel db.
      */
-    public Paziente findByEmail(String email);
+     Paziente findByEmail(String email);
 
     /**
      * Query che ci permette di ricercare un paziente.
@@ -26,6 +23,6 @@ public interface PazienteDAO extends UtenteRegistratoDAO {
      * @param codiceFiscale del paziente.
      * @return Paziente trovato nel db.
      */
-    public Paziente findBycodiceFiscale(String codiceFiscale);
+     Paziente findBycodiceFiscale(String codiceFiscale);
 
 }

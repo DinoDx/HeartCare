@@ -28,7 +28,7 @@ public enum StatoNota {
      * @param displayStato rappresenta il nome dello stato che verrà mostrato.
      * Costruttore dell'enumeratore StatoNotifica.
      */
-    StatoNota(String displayStato) {
+    StatoNota(final String displayStato) {
         this.displayStato = displayStato;
     }
 

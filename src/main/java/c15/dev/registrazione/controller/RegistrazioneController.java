@@ -4,7 +4,6 @@ import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.model.entity.Indirizzo;
 import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
-import c15.dev.model.entity.UtenteRegistrato;
 import c15.dev.registrazione.service.RegistrazioneService;
 import c15.dev.utils.AuthenticationRequest;
 import c15.dev.utils.AuthenticationResponse;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -83,7 +82,8 @@ public class RegistrazioneController {
         Indirizzo ind = new Indirizzo(citta, civico, cap, provincia, via);
         registrazioneService.saveIndirizzo(ind);
         p.setIndirizzoResidenza(ind);
-        return registrazioneService.registraPaziente(p,paziente.get("confermaPassword"));
+        return registrazioneService.registraPaziente
+                                (p, paziente.get("confermaPassword"));
     }
 
 
@@ -133,10 +133,7 @@ public class RegistrazioneController {
         return registrazioneService.login(req);
     }
 
-    /**
-     * Metodo che permette all'admin di registrare un medico.
-     * @param med medico da registrare.
-     */
+
     /* @RequestMapping(value = "/registraMedico", method = RequestMethod.POST)
     public void
     registraMedico(@Valid @RequestBody final Medico med) throws Exception {

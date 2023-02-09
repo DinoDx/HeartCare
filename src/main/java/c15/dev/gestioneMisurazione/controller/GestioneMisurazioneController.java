@@ -153,11 +153,11 @@ public class GestioneMisurazioneController {
     /**
      * Metodo per ricevere le misurazioni tramite una categorie.
      * @param bo body della richiesta.
-     * @returnn elenco misurazioni di una specifica categoria.
+     * @return elenco misurazioni di una specifica categoria.
      */
     @PostMapping(value = "/getMisurazioneCategoria")
     public List<Misurazione>
-    getMisurazioniByCategoria (@RequestBody final HashMap<String, Object> bo) {
+    getMisurazioniByCategoria(@RequestBody final HashMap<String, Object> bo) {
         String cat = bo.get("categoria").toString();
         Long idPaz = Long.parseLong(bo.get("id").toString());
         return misurazioneService.getMisurazioneByCategoria(cat, idPaz);
@@ -173,7 +173,7 @@ public class GestioneMisurazioneController {
      */
     @PostMapping(value = "/getAllMisurazioniByPaziente")
     public ResponseEntity<Object>
-    getAllMisurazioniByPaziente (@RequestBody
+    getAllMisurazioniByPaziente(@RequestBody
                                  final HashMap<String, Object> body) {
         Long idPaz = Long.parseLong(body.get("id").toString());
         var list = misurazioneService.getAllMisurazioniByPaziente(idPaz);

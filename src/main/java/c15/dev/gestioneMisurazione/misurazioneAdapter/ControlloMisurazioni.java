@@ -187,7 +187,7 @@ public class ControlloMisurazioni {
 
         if (mioGlobina > 90 || creatinKinasi > 200 || troponinaCardiaca > 10) {
              return true;
-        } else if(mioGlobina < 0
+        } else if (mioGlobina < 0
                 || creatinKinasi < 20 || troponinaCardiaca < 0) {
 
             return true;

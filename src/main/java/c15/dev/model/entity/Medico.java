@@ -98,9 +98,9 @@ public class Medico extends UtenteRegistrato {
      * @return booleano.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Medico medico)) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {return true;}
+        if (!(o instanceof Medico medico)) {return false;}
         return Objects.equals(getElencoPazienti(),
                 medico.getElencoPazienti()) && Objects.equals(getNote(), medico
                 .getNote()) && Objects.equals(getElencoVisite(),
