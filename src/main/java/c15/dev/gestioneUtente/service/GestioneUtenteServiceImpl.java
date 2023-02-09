@@ -94,11 +94,13 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
 
     /**
+     * @pre L'utente deve essere un pazienete.
      * Metodo che assegna un caregiver a un paziente.
      * @param idPaziente del paziente a cui si vuole assegnare il caregiver.
      * @param emailCaregiver email del caregiver.
      * @param nomeCaregiver nome del caregiver.
      * @param cognomeCaregiver nome del caregiver.
+     * @post Viene assegnato il caregiver.
      */
     @Override
     public boolean assegnaCaregiver(final Long idPaziente,
@@ -144,10 +146,13 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * @pre idUtente != null,
+     * ind != null
      * Metodo che assegna indirizzo ad utente.
      * @param idUtente id utente.
      * @param ind indirizzo da assegnare.
      * @return true o false.
+     * @post L'indirizzo viene assegnato correttamente.
      */
     @Override
     public boolean assegnaIndirizzoAdUtente(final long idUtente,
@@ -163,10 +168,12 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * @pre idMedico != null e idPaziente != null.
      * Metodo che assegna medico a paziente.
      * @param idMedico id medico.
      * @param idPaziente id paziente.
      * @return true o false.
+     * @post Il medico viene assegnato correttamente.
      */
     @Override
     public boolean assegnaMedicoAPaziente(final long idMedico,
@@ -181,9 +188,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * @pre idPaziente != null.
      * Metodo che trova tutti i dispositivi di un paziente.
      * @param idPaziente id paziente.
      * @return insieme dispositivi medici.
+     * @post hashSet != null.
      */
     @Override
     public Set<DispositivoMedico>
@@ -198,8 +207,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * @pre L'id deve corrispondere ad un medico.
      * Metodo che elimina un medico.
      * @param idUtente id dell'utente.
+     * @post Il medico viene eliminato.
      */
     @Override
     public void rimuoviMedico(final Long idUtente) {
@@ -208,10 +219,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
 
-    /**
+    /**@pre Il paziente deve esistere.
      * Metodo che verifica se un utente è un paziente.
      * @param idUtente id dell'utente.
      * @return true o false.
+     * @post
      */
     @Override
     public boolean isPaziente(final long idUtente) {
@@ -226,7 +238,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return false;
     }
 
-    /**
+    /**@pre Il medico  deve esistere.
      * Metodo che verifica se un utente è un medico.
      * @param idUtente id dell'utente.
      * @return true o false.
@@ -244,6 +256,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * @pre L'admin deve esistere.
      * Implementazione del metodo che verifica se un utente è un admin.
      * @param idUtente id dell'utente che vogliamo controllare sia un admin.
      * @return true o false.
@@ -261,10 +274,12 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * @pre idMedico != null e idPaziente != null.
      * Metodo che assegna un paziente ad un medico.
      * @param idMedico id del medico.
      * @param idPaziente id del paziente.
      * @return true o false.
+     * @post Il paziente viene assegnato correttamente.
      */
     @Override
     public boolean assegnaPaziente(final long idMedico,
@@ -286,9 +301,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * @pre id != null.
      * Metodo che trova un Paziente tramite id.
      * @param id id del paziente.
      * @return Paziente.
+     * @post Il paziente viene trovato.
      */
     @Override
     public Paziente findPazienteById(final Long id) {
@@ -301,9 +318,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * @pre id != null.
      * Metodo che trova Medico tramite id.
      * @param id id del medico.
      * @return Medico.
+     * @post Il medico viene trovato.
      */
     @Override
     public Medico findMedicoById(final Long id) {
@@ -326,9 +345,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return true;
     } */
     /**
+     * @pre codiceFiscale != null
      * Metodo che restituisce un paziente tramite il codice fiscale.
      * @param codiceFiscale codice fiscale utente.
      * @return true o false.
+     * @post Il paziente viene trovato.
      */
     @Override
     public boolean findUtenteByCf(final String codiceFiscale) {
