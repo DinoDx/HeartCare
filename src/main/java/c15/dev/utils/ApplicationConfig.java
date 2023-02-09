@@ -42,7 +42,7 @@ public class ApplicationConfig {
 
     /**
      * Dependency Injection per il password encoder.
-     * @return
+     * @return password encoder.
      */
     @Bean
     public PasswordEncoder pwdEncoder() {
@@ -63,16 +63,22 @@ public class ApplicationConfig {
 
     /**
      * Dependency Injection per il manager di autenticazione.
+     * @param config authentication configuration.
      * @return authentication manager.
      */
     @Bean
     public AuthenticationManager
-    authenticationManager(AuthenticationConfiguration config)
+    authenticationManager(final AuthenticationConfiguration config)
             throws Exception {
         return config.getAuthenticationManager();
     }
 
+    /**
+     *
+     * @return rest template per richieste http.
+     */
     @Bean
     public RestTemplate getRestTemplate() {
-        return new RestTemplate();}
+        return new RestTemplate();
+    }
 }

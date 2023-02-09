@@ -13,7 +13,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -25,7 +29,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Collection;
 
 /**
  * @author Leopoldo Todisco.
@@ -91,24 +96,29 @@ public class UtenteRegistrato implements Serializable, UserDetails {
     @Column(name = "id")
     private long id;
 
-    /**
+    /*
      * Campo relativo alla Data di nascita nel formato GG-MM-AAAA.
-     * Invariante: la data di nascita deve essere inferiore o uguale alla data corrente.
+     * Invariante: la data di nascita deve essere
+     * inferiore o uguale alla data corrente.
      */
     /*@NotNull
     @Past
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataDiNascita;*/
 
+    /**
+     * Campo relativo alla Data di nascita nel formato GG-MM-AAAA.
+     * Invariante: la data di nascita deve essere
+     * inferiore o uguale alla data corrente.
+     */
     @NotNull
     @Past
-
     private LocalDate dataDiNascita;
     /**
      * Campo relativo al Codice Fiscale.
      * Invariante: deve rispettare l'espressione regolare.
      */
-    @Column(length = LENGTH_16,unique = true)
+    @Column(length = LENGTH_16, unique = true)
     @NotNull
     @Pattern(regexp =
             "^[A-Z]{6}[A-Z0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$",
@@ -123,7 +133,7 @@ public class UtenteRegistrato implements Serializable, UserDetails {
     @Column(unique = true)
     @NotNull
     @Pattern(regexp = "^((00|\\+)39[\\. ]??)??3\\d{2}[\\. ]??\\d{6,7}$")
-    @Size(min=LENGTH_13, max=LENGTH_13)
+    @Size(min = LENGTH_13, max = LENGTH_13)
     private String numeroTelefono;
 
     /**
@@ -177,6 +187,9 @@ public class UtenteRegistrato implements Serializable, UserDetails {
     @JsonBackReference
     private Indirizzo indirizzoResidenza;
 
+    /**
+     * ruolo dell'utente nel sistema.
+     */
     @Enumerated(EnumType.STRING)
     private Role ruolo;
 
@@ -196,6 +209,7 @@ public class UtenteRegistrato implements Serializable, UserDetails {
      * @param nome rappresenta il nome di un utente.
      * @param cognome rappresenta il cognome di un utente.
      * @param sesso rappresenta il genere di un utente.
+     * @param ruolo è il ruolo dell'utente nel sistema.
      */
     public UtenteRegistrato(final LocalDate dataNascita,
                   final String codFiscale,
@@ -215,16 +229,15 @@ public class UtenteRegistrato implements Serializable, UserDetails {
         this.ruolo = ruolo;
 
         String regexpPassword =
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])" +
-                "[A-Za-z\\d@$!%*?&]{8,16}$";
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])"
+                        + "[A-Za-z\\d@$!%*?&]{8,16}$";
 
-        /**La password deve rispettare l'espressione regolare.*/
-        if(pass.matches(regexpPassword)) {
+        /*La password deve rispettare l'espressione regolare.*/
+        if (pass.matches(regexpPassword)) {
             this.password = pass;
-        }
-        else {
-            throw new Exception("La password non rispetta " +
-                    "l'espressione regolare");
+        } else {
+            throw new Exception("La password non rispetta "
+                    + "l'espressione regolare");
         }
     }
 

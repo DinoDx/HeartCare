@@ -82,8 +82,8 @@ public class RegistrazioneController {
         Indirizzo ind = new Indirizzo(citta, civico, cap, provincia, via);
         registrazioneService.saveIndirizzo(ind);
         p.setIndirizzoResidenza(ind);
-        return registrazioneService.registraPaziente
-                                (p, paziente.get("confermaPassword"));
+        return registrazioneService.registraPaziente(p,
+                paziente.get("confermaPassword"));
     }
 
 

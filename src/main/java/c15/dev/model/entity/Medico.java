@@ -47,7 +47,6 @@ public class Medico extends UtenteRegistrato {
     /**
      * Questo campo indica la lista di visite in cui un medico è coinvolto.
      */
-
     @JsonManagedReference
     @JsonIgnore
     @OneToMany(mappedBy = "medico", fetch = FetchType.LAZY)
@@ -99,12 +98,16 @@ public class Medico extends UtenteRegistrato {
      */
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {return true;}
-        if (!(o instanceof Medico medico)) {return false;}
-        return Objects.equals(getElencoPazienti(),
-                medico.getElencoPazienti()) && Objects.equals(getNote(), medico
-                .getNote()) && Objects.equals(getElencoVisite(),
-                medico.getElencoVisite());
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Medico medico)) {
+            return false;
+        }
+
+        return Objects.equals(getElencoPazienti(), medico.getElencoPazienti())
+                && Objects.equals(getNote(), medico.getNote())
+                && Objects.equals(getElencoVisite(), medico.getElencoVisite());
     }
 
     /**

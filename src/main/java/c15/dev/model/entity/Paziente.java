@@ -15,7 +15,8 @@ import jakarta.persistence.Entity;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Set;
+import java.util.Objects;
 
 
 /**
@@ -140,8 +141,12 @@ public class Paziente extends UtenteRegistrato {
      */
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {return true;}
-        if (!(o instanceof Paziente paziente)) {return false;}
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Paziente paziente)) {
+            return false;
+        }
         return Objects.equals(getNomeCaregiver(),
                 paziente.getNomeCaregiver())
                 && Objects.equals(getCognomeCaregiver(),

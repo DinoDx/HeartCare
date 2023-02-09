@@ -3,17 +3,27 @@ package c15.dev.utils;
 import c15.dev.gestioneMisurazione.service.GestioneMisurazioneService;
 import c15.dev.gestioneUtente.service.GestioneUtenteService;
 import c15.dev.gestioneVisita.service.GestioneVisitaService;
-import c15.dev.model.entity.*;
+import c15.dev.model.entity.Medico;
+import c15.dev.model.entity.Paziente;
+import c15.dev.model.entity.Misurazione;
+import c15.dev.model.entity.MisurazioneCoagulazione;
+import c15.dev.model.entity.MisurazioneEnzimiCardiaci;
+import c15.dev.model.entity.MisurazioneGlicemica;
+import c15.dev.model.entity.MisurazioneHolterECG;
+import c15.dev.model.entity.MisurazionePressione;
+import c15.dev.model.entity.MisurazioneSaturazione;
+import c15.dev.model.entity.Admin;
+import c15.dev.model.entity.DispositivoMedico;
+import c15.dev.model.entity.Visita;
+import c15.dev.model.entity.Indirizzo;
 import c15.dev.registrazione.service.RegistrazioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static c15.dev.model.entity.enumeration.StatoVisita.EFFETTUATA;
@@ -28,12 +38,24 @@ import static c15.dev.model.entity.enumeration.StatoVisita.PROGRAMMATA;
 @Component
 @Scope("singleton")
 public class DBPopulator {
+    /**
+     * service di registrazione.
+     */
     @Autowired
     private RegistrazioneService regService;
+    /**
+     * service di gestione utente.
+     */
     @Autowired
     private GestioneUtenteService userService;
+    /**
+     * service di gestione misurazione.
+     */
     @Autowired
     private GestioneMisurazioneService gestioneMisurazioneService;
+    /**
+     * service di gestione visita.
+     */
     @Autowired
     private GestioneVisitaService gestioneVisitaService;
     private List<Paziente> pazientiList = new ArrayList<>();
@@ -87,7 +109,7 @@ public class DBPopulator {
         pazientiList.addAll(List.of(paz1, paz2, paz3));
         pazientiList.stream().forEach(paz -> {
             try {
-                regService.registraPaziente(paz,confermaPass);
+                regService.registraPaziente(paz, confermaPass);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

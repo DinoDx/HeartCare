@@ -67,10 +67,15 @@ public class GestioneMisurazioneServiceImpl
     /**
      * Questo metodo ha il compito di controllare che la categoria.
      * passata dal frontend sia una categoria contemplata.
+     * @pre: la stringa categoria non deve essere vuota o null.
      * @param categoria
      * @return true or false.
      */
     private boolean checkCategorie(final String categoria) {
+        if (categoria == null || categoria.isEmpty()) {
+            return false;
+        }
+
         if ((categoria.equalsIgnoreCase("Saturimetro"))
                 || (categoria.equalsIgnoreCase("Coagulometro"))
                 || (categoria.equalsIgnoreCase("Misuratore di pressione"))
@@ -85,15 +90,22 @@ public class GestioneMisurazioneServiceImpl
     /**
      * Metodo di registrazione del dispositivo che viene usato solo nel.
      * DBPopulator.
+     * @pre dispositivo diverso da null.
      * @param disp che vogliamo assegnare ad un utente.
      * @param idPaziente id del paziente a cui vogliamo assegnare.
      *                   il dispositivo.
      * @return true o false.
+     * @post il dispositivo è presente nel database.
      */
     @Override
     public boolean registrazioneDispositivo(final DispositivoMedico disp,
                                             final long idPaziente) {
+        if (disp == null) {
+            return false;
+        }
+
         Optional<UtenteRegistrato> paziente = pazienteDao.findById(idPaziente);
+
         if (paziente.isEmpty()) {
             return false;
         }
@@ -104,13 +116,19 @@ public class GestioneMisurazioneServiceImpl
 
     /**
      * Metodo che consente di registrare un dispositivo.
-     * @param map
-     * @param idPaziente
+     * @pre la hashmap non deve essere null.
+     * @param map è il dispositivo sotto forma di mappa.
+     * @param idPaziente è l'id del paziente.
+     * @post il dispositivo è presente nel database.
      * @return true o false.
      */
     @Override
     public boolean registrazioneDispositivo(final HashMap<String, String> map,
                                             final long idPaziente) {
+        if (map == null) {
+            return false;
+        }
+
         Optional<UtenteRegistrato> paziente = pazienteDao.findById(idPaziente);
         if (paziente.isEmpty()) {
             return false;
@@ -175,11 +193,17 @@ public class GestioneMisurazioneServiceImpl
      */
     @Override
     public DispositivoMedico getById(final Long id) {
+        if (id == null) {
+            return null;
+        }
+
         return dispositivoDao.findById(id).get();
     }
 
     /**
      * Metodo per ricevere le misurazioni da una categoria.
+     * @pre id appartiene a un paziente (controllo eseguito nel controller)
+     *      categoria è una categoria contemplata nel sistema.
      * @param categoria
      * @param id
      * @return lista di misurazioni.
@@ -187,38 +211,60 @@ public class GestioneMisurazioneServiceImpl
     @Override
     public List<Misurazione> getMisurazioneByCategoria(final String categoria,
                                                        final Long id) {
+        if (!checkCategorie(categoria)) {
+            return null;
+        }
+
         return (List<Misurazione>)
                 misurazioneDAO.findByCategoria(categoria, id);
     }
 
     /**
      * Metodo per salvare le misurazioni.
-     * @param misurazione
+     * @pre: moisurazione != null.
+     * @param misurazione da salvare.
      * @return misurazione.
+     * @post: la misurazione viene aggiunta al database.
      */
     @Transactional
     @Override
     public Misurazione save(final Misurazione misurazione) {
+        if (misurazione == null) {
+            return null;
+        }
+
         return misurazioneDAO.save(misurazione);
     }
 
     /**
      * Metodo per ricercare le categorie delle misurazioni da un paziente.
-     * @param id
+     * @pre id != null e deve appertenre a un paziente
+     * (controllo fatto nel controller).
+     * @param id è l'id del paziente.
      * @return lista di stringhe.
+     * @post: /.
      */
     @Override
     public List<String> findCategorieByPaziente(final Long id) {
+        if (id == null) {
+            return null;
+        }
+
         return (List<String>) misurazioneDAO.findCategorieByPaziente(id);
     }
 
     /**
      * Metodo per ricevere tutte le misurazioni di un paziente.
-     * @param id
-     * @return lista di misurazine dto.
+     * @pre l'id non deve essere null.
+     * @param id è l'id del paziente.
+     * @return lista di misurazione dto.
      */
     @Override
     public List<MisurazioneDTO> getAllMisurazioniByPaziente(final Long id) {
+        if (id == null) {
+            return null;
+        }
+
         var list = (List<Misurazione>) misurazioneDAO
                                         .getAllMisurazioniByPaziente(id);
         List<MisurazioneDTO> listDTO = list

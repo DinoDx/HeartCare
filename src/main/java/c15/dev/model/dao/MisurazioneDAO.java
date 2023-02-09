@@ -33,8 +33,7 @@ public interface MisurazioneDAO extends JpaRepository<Misurazione, Long> {
      * @return di una misurazione.
      */
     @Query(value = "SELECT m FROM Misurazione m "
-            +
-            "WHERE m.dispositivoMedico.categoria = ?1 and m.paziente.id = ?2")
+            + "WHERE m.dispositivoMedico.categoria = ?1 and m.paziente.id = ?2")
      Iterable<Misurazione> findByCategoria(String categoria, Long id);
 
     /**
@@ -43,8 +42,8 @@ public interface MisurazioneDAO extends JpaRepository<Misurazione, Long> {
      * @param id id del paziente.
      * @return di una categoria.
      */
-    @Query(value = "SELECT m.dispositivoMedico.categoria FROM Misurazione m " +
-            "WHERE m.paziente.id = ?1 GROUP BY m.dispositivoMedico.categoria")
+    @Query(value = "SELECT m.dispositivoMedico.categoria FROM Misurazione m "
+            + "WHERE m.paziente.id = ?1 GROUP BY m.dispositivoMedico.categoria")
      Iterable<String> findCategorieByPaziente(Long id);
 
     /**

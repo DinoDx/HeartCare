@@ -47,7 +47,7 @@ public class CORSFilter implements Filter {
 
 //        X-Content-Type-Options: nosniff
 
-        /**
+        /*
          * In questa sezione si definiscono gli header di una response.
          */
         response.setHeader("Access-Control-Allow-Origin",
