@@ -13,7 +13,7 @@
     <suppress checks="FinalParameters" files=".*[\\/]src[\\/]test[\\/]"/>
     <!-- Suppression of the main class -->
     <suppress checks="[a-zA-Z0-9]*" files="HeartCareApplication\.java"/>
-    <suppress checks="." files="utils\DBPopulator.java"/>
+    <suppress checks=".*" files="c15.dev.utils.DBPopulator"/>
     <!-- Others -->
     <suppress checks="PackageName" files="\.java"/>
     <suppress checks="DesignForExtension" files=".+\.(?:jar|zip|java|war|class|tar|bin)$"/>
