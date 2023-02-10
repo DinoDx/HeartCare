@@ -1,0 +1,116 @@
+{
+  "id": "91044d32-99ff-4931-9311-68180d4a9c88",
+  "version": "2.0",
+  "name": "assegnaCaregiver",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "3994a14f-e327-4ef5-9d3a-2e8532d04f0f",
+    "name": "nomeNull",
+    "commands": [{
+      "id": "449d4829-1267-41ff-a10b-48666d139137",
+      "comment": "",
+      "command": "open",
+      "target": "/HomePaziente",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b4f8cb4d-d000-413a-aab5-0658c1abdf0f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1048",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4670c9bf-7336-4503-b2b8-dfa64a41344e",
+      "comment": "",
+      "command": "click",
+      "target": "id=4",
+      "targets": [
+        ["id=4", "id"],
+        ["css=#\\34", "css:finder"],
+        ["xpath=//div[@id='4']", "xpath:attributes"],
+        ["xpath=//div[@id='menu-paziente']/a[4]/div", "xpath:idRelative"],
+        ["xpath=//a[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2e8b7e40-bb7c-44f1-a902-0cffa86a622a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(4)",
+      "targets": [
+        ["css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(4)", "css:finder"],
+        ["xpath=(//input[@type='text'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4fcca82f-6078-4716-8898-8677bacdef39",
+      "comment": "",
+      "command": "type",
+      "target": "css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(4)",
+      "targets": [
+        ["css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(4)", "css:finder"],
+        ["xpath=(//input[@type='text'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input[2]", "xpath:position"]
+      ],
+      "value": "Todisco"
+    }, {
+      "id": "90ce2600-0ca9-4230-b978-8ec37c442621",
+      "comment": "",
+      "command": "click",
+      "target": "css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(5)",
+      "targets": [
+        ["css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(5)", "css:finder"],
+        ["xpath=(//input[@type='text'])[8]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "924ddf9e-8488-47eb-ba92-1ec5c414e6f5",
+      "comment": "",
+      "command": "type",
+      "target": "css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(5)",
+      "targets": [
+        ["css=.contenitoreForm-infoCaregiver > .formEditText:nth-child(5)", "css:finder"],
+        ["xpath=(//input[@type='text'])[8]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input[3]", "xpath:position"]
+      ],
+      "value": "leotodisco23@gmail.com"
+    }, {
+      "id": "b4a4326b-793a-46d8-90f1-e9c56ee3b5df",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formButton:nth-child(6)",
+      "targets": [
+        ["css=.formButton:nth-child(6)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ccfd9f36-4731-4ccd-9b10-f80ee7c3ff06",
+      "comment": "",
+      "command": "click",
+      "target": "css=.react-responsive-modal-closeButton path",
+      "targets": [
+        ["css=.react-responsive-modal-closeButton path", "css:finder"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "f60d366b-5aaa-4e24-bca3-9d029a88af22",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["3994a14f-e327-4ef5-9d3a-2e8532d04f0f"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
