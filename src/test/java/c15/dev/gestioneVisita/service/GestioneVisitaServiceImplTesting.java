@@ -8,6 +8,7 @@ import c15.dev.model.entity.Medico;
 import c15.dev.model.entity.Paziente;
 import c15.dev.model.entity.Visita;
 import c15.dev.model.entity.enumeration.StatoVisita;
+import jdk.jfr.Period;
 import lombok.SneakyThrows;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,6 +50,8 @@ public class GestioneVisitaServiceImplTesting {
     private Visita visitaNoPaziente;
     private Visita visitaNoMedico;
     private Visita visitaNoIndirizzo;
+
+    private Visita visitaDataPassata;
 
     @Mock
     private VisitaDAO visitaDAO;
@@ -110,6 +113,12 @@ public class GestioneVisitaServiceImplTesting {
                 null
         );
 
+        visitaDataPassata = new Visita(LocalDate.now().minusDays(1),
+                StatoVisita.PROGRAMMATA,
+                medico,
+                paziente,
+                indirizzo);
+
     }
 
     @Test
@@ -130,6 +139,11 @@ public class GestioneVisitaServiceImplTesting {
     @Test
     public void testAggiuntaVisitaNoIndirizzo(){
         assertEquals(false, service.aggiuntaVisita(visitaNoIndirizzo));
+    }
+
+    @Test
+    public void testAggiuntaVisitaDataPassata(){
+        assertEquals(false, service.aggiuntaVisita(visitaDataPassata));
     }
 
 }

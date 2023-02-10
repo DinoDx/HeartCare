@@ -1,0 +1,338 @@
+{
+  "id": "b8528078-69ee-4399-83ed-8f92e51cb492",
+  "version": "2.0",
+  "name": "testAggiungiVisita",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "175a0471-0ce9-46fa-bcfc-e6f38a96803b",
+    "name": "testAggiungiVisitaNoPaziente",
+    "commands": [{
+      "id": "8eb61ffb-348e-4b06-a899-25d4cfd760b1",
+      "comment": "",
+      "command": "open",
+      "target": "/HomeMedico",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "601fb716-7e3f-4d2f-a8c4-9d12883f0a0f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1055",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3d5aed17-3ff0-4cd3-8b04-2145455cfc25",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\32 > span",
+      "targets": [
+        ["css=#\\32 > span", "css:finder"],
+        ["xpath=//div[@id='2']/span", "xpath:idRelative"],
+        ["xpath=//a[2]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Schedule')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ce533d02-6a39-4163-b39a-fed1f8248cbe",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneAggiungiVisita",
+      "targets": [
+        ["css=.bottoneAggiungiVisita", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7bea852-466d-46c1-aae1-64eb3aec475c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(2) > .selectPaziente",
+      "targets": [
+        ["css=.containerSingoloInputAggiungiVisita:nth-child(2) > .selectPaziente", "css:finder"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d265dad6-d890-4d06-be35-03b8c923d21e",
+      "comment": "",
+      "command": "select",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(2) > .selectPaziente",
+      "targets": [],
+      "value": "label=Via roma , Salerno(SA), 81043"
+    }, {
+      "id": "a79c53c7-13ca-4d21-8af8-9813fbefa1ad",
+      "comment": "",
+      "command": "click",
+      "target": "id=calendar",
+      "targets": [
+        ["id=calendar", "id"],
+        ["css=#calendar", "css:finder"],
+        ["xpath=//input[@id='calendar']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "34dc029d-0927-4968-a91e-d58b499c48a4",
+      "comment": "",
+      "command": "type",
+      "target": "id=calendar",
+      "targets": [
+        ["id=calendar", "id"],
+        ["css=#calendar", "css:finder"],
+        ["xpath=//input[@id='calendar']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "2023-02-11"
+    }, {
+      "id": "9711afa8-dfcc-4a5f-b39d-68067f139a42",
+      "comment": "",
+      "command": "click",
+      "target": "css=.aggiungiBottoneVisita",
+      "targets": [
+        ["css=.aggiungiBottoneVisita", "css:finder"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "d8eb75d6-642f-4e6c-8c5a-536d6b4882ed",
+    "name": "testAggiungiVisitaDataPassata",
+    "commands": [{
+      "id": "c2ed5690-89d8-408a-9061-06450858d1ad",
+      "comment": "",
+      "command": "open",
+      "target": "/HomeMedico",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8637a0f5-f640-4858-98a3-974b28a2c995",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1055",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1ff48e3c-08bd-4b63-9833-b935c4fddbbf",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\32 > span",
+      "targets": [
+        ["css=#\\32 > span", "css:finder"],
+        ["xpath=//div[@id='2']/span", "xpath:idRelative"],
+        ["xpath=//a[2]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Schedule')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bf76baf3-7ab9-467a-813b-b8a7797f2cc4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneAggiungiVisita",
+      "targets": [
+        ["css=.bottoneAggiungiVisita", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6c0d8e27-1ba4-4c97-8d9c-bde7d1694ce9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(1) > .selectPaziente",
+      "targets": [
+        ["css=.containerSingoloInputAggiungiVisita:nth-child(1) > .selectPaziente", "css:finder"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fa3ec034-dfcc-4d75-a159-096e69529a14",
+      "comment": "",
+      "command": "select",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(1) > .selectPaziente",
+      "targets": [],
+      "value": "label=Giuseppe Giordano"
+    }, {
+      "id": "e51e42b5-70d3-4149-84ba-db232abdb97d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(2) > .selectPaziente",
+      "targets": [
+        ["css=.containerSingoloInputAggiungiVisita:nth-child(2) > .selectPaziente", "css:finder"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "95e83f48-b28c-4188-a46f-ce72ac86027d",
+      "comment": "",
+      "command": "select",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(2) > .selectPaziente",
+      "targets": [],
+      "value": "label=Via nazionale appia , Caserta(CE), 80056"
+    }, {
+      "id": "99de9f26-8b9b-45b9-acbe-11cd1a1030a9",
+      "comment": "",
+      "command": "click",
+      "target": "id=calendar",
+      "targets": [
+        ["id=calendar", "id"],
+        ["css=#calendar", "css:finder"],
+        ["xpath=//input[@id='calendar']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c5a272b7-8be5-4d53-ae28-0b0dbf878551",
+      "comment": "",
+      "command": "type",
+      "target": "id=calendar",
+      "targets": [
+        ["id=calendar", "id"],
+        ["css=#calendar", "css:finder"],
+        ["xpath=//input[@id='calendar']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "2023-02-07"
+    }, {
+      "id": "1d6e6de1-d7c9-4f38-b3cb-2686777fcb3e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.aggiungiBottoneVisita",
+      "targets": [
+        ["css=.aggiungiBottoneVisita", "css:finder"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "571b2739-2399-492e-ab3e-e54a90366837",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.aggiungiBottoneVisita",
+      "targets": [
+        ["css=.aggiungiBottoneVisita", "css:finder"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b04ec452-c900-45a2-b992-c86541c5d07f",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.aggiungiBottoneVisita",
+      "targets": [
+        ["css=.aggiungiBottoneVisita", "css:finder"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "a301762c-7146-4f2a-909a-8ff0f998332a",
+    "name": "testAggiungiVisitaNoIndirizzo",
+    "commands": [{
+      "id": "c15f7bea-8c2d-4273-b2cf-f035d62f3766",
+      "comment": "",
+      "command": "open",
+      "target": "/HomeMedico",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c26ac1e9-0c84-42de-a7b2-a2fd5d9c6222",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1055",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "844e100c-32c7-4a13-be28-922c6067ab79",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\32 > span",
+      "targets": [
+        ["css=#\\32 > span", "css:finder"],
+        ["xpath=//div[@id='2']/span", "xpath:idRelative"],
+        ["xpath=//a[2]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Schedule')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e050d1a2-1570-4532-bdb6-365c7c7be8c2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneAggiungiVisita",
+      "targets": [
+        ["css=.bottoneAggiungiVisita", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e8977d00-cf4b-4ca7-aa5a-429fd3119e1b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(1) > .selectPaziente",
+      "targets": [
+        ["css=.containerSingoloInputAggiungiVisita:nth-child(1) > .selectPaziente", "css:finder"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "de1e7c21-d858-45fa-8b7c-9d48cc8af50b",
+      "comment": "",
+      "command": "select",
+      "target": "css=.containerSingoloInputAggiungiVisita:nth-child(1) > .selectPaziente",
+      "targets": [],
+      "value": "label=Giuseppe Giordano"
+    }, {
+      "id": "fd67c8b4-84be-4ce2-b0ac-777dc194cdd7",
+      "comment": "",
+      "command": "click",
+      "target": "id=calendar",
+      "targets": [
+        ["id=calendar", "id"],
+        ["css=#calendar", "css:finder"],
+        ["xpath=//input[@id='calendar']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "312d8215-85c7-465c-93fb-f1594f4155ee",
+      "comment": "",
+      "command": "type",
+      "target": "id=calendar",
+      "targets": [
+        ["id=calendar", "id"],
+        ["css=#calendar", "css:finder"],
+        ["xpath=//input[@id='calendar']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "2023-02-11"
+    }, {
+      "id": "64f0b36a-32c3-48b1-bd6d-5ef7ade6cb80",
+      "comment": "",
+      "command": "click",
+      "target": "css=.aggiungiBottoneVisita",
+      "targets": [
+        ["css=.aggiungiBottoneVisita", "css:finder"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "0e92e708-8809-446e-bc26-bc92f1ff29ee",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["175a0471-0ce9-46fa-bcfc-e6f38a96803b"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
