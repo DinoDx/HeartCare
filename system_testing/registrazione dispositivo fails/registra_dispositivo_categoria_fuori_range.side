@@ -1,0 +1,220 @@
+{
+  "id": "0d3d1172-c208-41fa-b907-791f466928c0",
+  "version": "2.0",
+  "name": "registra_dispositivo",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "9ce4da3c-18e8-40f0-8f7e-1fd0a487ffcc",
+    "name": "Categoria_troppo_lunga",
+    "commands": [{
+      "id": "f9e749f5-deab-4773-87f7-a02eee0c311c",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2959b175-fdd1-4432-97f7-226c10e00430",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1512x945",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9a097493-746a-4bf2-86fe-4703a3b1d48f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1ef19d76-5f94-46ed-afc3-0d00ff4c51b6",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "giuseppegiordano@libero.it"
+    }, {
+      "id": "f0d86abd-28ac-4980-b16f-c09f1dda4169",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(2)",
+      "targets": [
+        ["css=.formEditText:nth-child(2)", "css:finder"],
+        ["xpath=//input[@type='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Wpasswd1!%"
+    }, {
+      "id": "4c3dbc68-6c82-440f-966f-896f34570b1c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formButton",
+      "targets": [
+        ["css=.formButton", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "89da1db3-1db8-47de-b457-55807a276ec1",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=#\\32 > span",
+      "targets": [
+        ["css=#\\32 > span", "css:finder"],
+        ["xpath=//div[@id='2']/span", "xpath:idRelative"],
+        ["xpath=//a[2]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Fascicolo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "55ee7c01-07c5-4101-a293-cb528cc29c5b",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\33 > span",
+      "targets": [
+        ["css=#\\33 > span", "css:finder"],
+        ["xpath=//div[@id='3']/span", "xpath:idRelative"],
+        ["xpath=//a[3]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Dispositivi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a3b88cbe-4816-4120-a51b-7311a373c2fd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneHomePaziente",
+      "targets": [
+        ["css=.bottoneHomePaziente", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[3]/button", "xpath:idRelative"],
+        ["xpath=//body/div/div/div[2]/div/div/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi Dispositivo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "23e05f82-7e29-4115-b310-51f5703142c0",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.bottoneHomePaziente",
+      "targets": [
+        ["css=.bottoneHomePaziente", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[3]/button", "xpath:idRelative"],
+        ["xpath=//body/div/div/div[2]/div/div/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi Dispositivo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f188271d-ee9e-4e74-acec-177063ad0a2a",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.bottoneHomePaziente",
+      "targets": [
+        ["css=.bottoneHomePaziente", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[3]/button", "xpath:idRelative"],
+        ["xpath=//body/div/div/div[2]/div/div/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi Dispositivo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eb8bedc0-e446-476f-8b11-50a0b418440e",
+      "comment": "",
+      "command": "click",
+      "target": "name=categoria",
+      "targets": [
+        ["name=categoria", "name"],
+        ["css=.selectPaziente", "css:finder"],
+        ["xpath=//select[@name='categoria']", "xpath:attributes"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "19a86f4a-c3f3-4954-a8fb-cc3b5277bc62",
+      "comment": "",
+      "command": "select",
+      "target": "name=categoria",
+      "targets": [],
+      "value": "label=Misuratore di pressione"
+    }, {
+      "id": "bf5136c6-acd3-4042-8f0b-1b656290426d",
+      "comment": "",
+      "command": "click",
+      "target": "name=desc",
+      "targets": [
+        ["name=desc", "name"],
+        ["css=.textAreaTestoNote:nth-child(5)", "css:finder"],
+        ["xpath=//textarea[@name='desc']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8d68b11c-72a4-479f-b8e2-dd6e7a194ad6",
+      "comment": "",
+      "command": "type",
+      "target": "name=desc",
+      "targets": [
+        ["name=desc", "name"],
+        ["css=.textAreaTestoNote:nth-child(5)", "css:finder"],
+        ["xpath=//textarea[@name='desc']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "hhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshshhshshshshhshshs"
+    }, {
+      "id": "906e3480-c6d7-4e15-bc47-66b0e84ab061",
+      "comment": "",
+      "command": "click",
+      "target": "name=nSeriale",
+      "targets": [
+        ["name=nSeriale", "name"],
+        ["css=.textAreaTestoNote:nth-child(7)", "css:finder"],
+        ["xpath=//textarea[@name='nSeriale']", "xpath:attributes"],
+        ["xpath=//textarea[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "62a1d084-4ccf-48e1-8a23-961e0213b47e",
+      "comment": "",
+      "command": "type",
+      "target": "name=nSeriale",
+      "targets": [
+        ["name=nSeriale", "name"],
+        ["css=.textAreaTestoNote:nth-child(7)", "css:finder"],
+        ["xpath=//textarea[@name='nSeriale']", "xpath:attributes"],
+        ["xpath=//textarea[2]", "xpath:position"]
+      ],
+      "value": "SRLNMBR5009"
+    }, {
+      "id": "d474e987-32dc-49e7-b3ea-196783fea364",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneInviaNota",
+      "targets": [
+        ["css=.bottoneInviaNota", "css:finder"],
+        ["xpath=//body/div[2]/div/div[2]/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "58c2931e-cab2-4543-87fa-b9278674c943",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["9ce4da3c-18e8-40f0-8f7e-1fd0a487ffcc"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}

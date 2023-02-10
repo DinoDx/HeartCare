@@ -1,0 +1,184 @@
+{
+  "id": "ee78f50c-9240-4ad2-b3c7-ee03111d2783",
+  "version": "2.0",
+  "name": "registrazione_dispositivo_numero_seriale_non_in_range",
+  "url": "http://localhost:3000/",
+  "tests": [{
+    "id": "db52d94b-de4a-4e83-b8bc-a38da80fb975",
+    "name": "numero_seriale_null",
+    "commands": [{
+      "id": "6393c858-7a2c-451f-bcb5-0c9ac28eb291",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2205bddf-f69b-4538-b567-5a100a6137a3",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1512x875",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e44fe67a-5726-474e-81b0-861b0718cd37",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e8502ba5-808e-4dbc-94f0-01e628ced46c",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(1)",
+      "targets": [
+        ["css=.formEditText:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "giuseppegiordano@libero.it"
+    }, {
+      "id": "18b12d28-8940-403d-9696-b65d7a28a82e",
+      "comment": "",
+      "command": "type",
+      "target": "css=.formEditText:nth-child(2)",
+      "targets": [
+        ["css=.formEditText:nth-child(2)", "css:finder"],
+        ["xpath=//input[@type='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Wpasswd1!%"
+    }, {
+      "id": "8a184ac5-4e2b-4d14-acaf-08c4f94c0810",
+      "comment": "",
+      "command": "click",
+      "target": "css=.formButton",
+      "targets": [
+        ["css=.formButton", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ecfd18be-216d-46ab-ace1-0e07935368f9",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\33 > span",
+      "targets": [
+        ["css=#\\33 > span", "css:finder"],
+        ["xpath=//div[@id='3']/span", "xpath:idRelative"],
+        ["xpath=//a[3]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Dispositivi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "90034d34-70e6-4ae4-98af-f9c963d68d6a",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=#\\33 > span",
+      "targets": [
+        ["css=#\\33 > span", "css:finder"],
+        ["xpath=//div[@id='3']/span", "xpath:idRelative"],
+        ["xpath=//a[3]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Dispositivi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d81c4d06-496f-45d6-9055-94b38a55dafb",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=#\\33 > span",
+      "targets": [
+        ["css=#\\33 > span", "css:finder"],
+        ["xpath=//div[@id='3']/span", "xpath:idRelative"],
+        ["xpath=//a[3]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Dispositivi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "79d1d3ff-f2c1-4420-9958-0bb0567ecfb6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneHomePaziente",
+      "targets": [
+        ["css=.bottoneHomePaziente", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[3]/button", "xpath:idRelative"],
+        ["xpath=//body/div/div/div[2]/div/div/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi Dispositivo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9a189f4f-e8da-4f1e-a5fc-e0074beefdc8",
+      "comment": "",
+      "command": "click",
+      "target": "name=categoria",
+      "targets": [
+        ["name=categoria", "name"],
+        ["css=.selectPaziente", "css:finder"],
+        ["xpath=//select[@name='categoria']", "xpath:attributes"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a4a8899f-9377-4025-b6aa-79f106735945",
+      "comment": "",
+      "command": "select",
+      "target": "name=categoria",
+      "targets": [],
+      "value": "label=Coagulometro"
+    }, {
+      "id": "401de086-0a2c-4423-aee4-f76bb99e275e",
+      "comment": "",
+      "command": "click",
+      "target": "name=desc",
+      "targets": [
+        ["name=desc", "name"],
+        ["css=.textAreaTestoNote:nth-child(5)", "css:finder"],
+        ["xpath=//textarea[@name='desc']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0739bae5-a9bf-4ffb-a380-cd1d39fd37ef",
+      "comment": "",
+      "command": "type",
+      "target": "name=desc",
+      "targets": [
+        ["name=desc", "name"],
+        ["css=.textAreaTestoNote:nth-child(5)", "css:finder"],
+        ["xpath=//textarea[@name='desc']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "categoria"
+    }, {
+      "id": "9235a230-6f1d-4506-bb1b-20656ad9d625",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottoneInviaNota",
+      "targets": [
+        ["css=.bottoneInviaNota", "css:finder"],
+        ["xpath=//body/div[2]/div/div[2]/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "e7ee9eb6-baca-48b2-9df4-2781d9897b07",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["db52d94b-de4a-4e83-b8bc-a38da80fb975"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
