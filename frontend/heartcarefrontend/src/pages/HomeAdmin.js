@@ -317,7 +317,7 @@ function HomeAdmin(){
                                        required: true
                                    })} />
                             <error className="errore">
-                                {errors.citta?.type === "required" && "Inserire una provincia"}
+                                {errors.provincia?.type === "required" && "Inserire una provincia"}
                             </error>
                         </div>
                         <div className="contenitoreEditTextCortissima">
@@ -327,7 +327,7 @@ function HomeAdmin(){
                                        required: true
                                    })} />
                             <error className="errore">
-                                {errors.citta?.type === "required" && "Inserire una via"}
+                                {errors.via?.type === "required" && "Inserire una via"}
                             </error>
                         </div>
                         <div className="contenitoreEditTextCortissima">
@@ -337,7 +337,7 @@ function HomeAdmin(){
                                        required: true
                                    })} />
                             <error className="errore">
-                                {errors.citta?.type === "required" && "Inserire un numero civico"}
+                                {errors.nCivico?.type === "required" && "Inserire un numero civico"}
                             </error>
                         </div>
                         <div className="contenitoreEditTextCortissima">
@@ -347,7 +347,7 @@ function HomeAdmin(){
                                        required: true
                                    })} />
                             <error className="errore">
-                                {errors.citta?.type === "required" && "Inserire un cap"}
+                                {errors.cap?.type === "required" && "Inserire un cap"}
                             </error>
                         </div>
 
