@@ -94,13 +94,13 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
 
     /**
-     * @pre L'utente deve essere un pazienete.
+     * pre L'utente deve essere un pazienete.
      * Metodo che assegna un caregiver a un paziente.
      * @param idPaziente del paziente a cui si vuole assegnare il caregiver.
      * @param emailCaregiver email del caregiver.
      * @param nomeCaregiver nome del caregiver.
      * @param cognomeCaregiver nome del caregiver.
-     * @post Viene assegnato il caregiver.
+     * post Viene assegnato il caregiver.
      */
     @Override
     public boolean assegnaCaregiver(final Long idPaziente,
@@ -146,13 +146,13 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * @pre idUtente != null,
+     * pre idUtente != null,
      * ind != null
      * Metodo che assegna indirizzo ad utente.
      * @param idUtente id utente.
      * @param ind indirizzo da assegnare.
      * @return true o false.
-     * @post L'indirizzo viene assegnato correttamente.
+     * post L'indirizzo viene assegnato correttamente.
      */
     @Override
     public boolean assegnaIndirizzoAdUtente(final long idUtente,
@@ -168,12 +168,12 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * @pre idMedico != null e idPaziente != null.
+     * pre idMedico != null e idPaziente != null.
      * Metodo che assegna medico a paziente.
      * @param idMedico id medico.
      * @param idPaziente id paziente.
      * @return true o false.
-     * @post Il medico viene assegnato correttamente.
+     * post Il medico viene assegnato correttamente.
      */
     @Override
     public boolean assegnaMedicoAPaziente(final long idMedico,
@@ -188,11 +188,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * @pre idPaziente != null.
+     * pre idPaziente != null.
      * Metodo che trova tutti i dispositivi di un paziente.
      * @param idPaziente id paziente.
      * @return insieme dispositivi medici.
-     * @post hashSet != null.
+     * post hashSet != null.
      */
     @Override
     public Set<DispositivoMedico>
@@ -207,10 +207,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * @pre L'id deve corrispondere ad un medico.
+     * pre L'id deve corrispondere ad un medico.
      * Metodo che elimina un medico.
      * @param idUtente id dell'utente.
-     * @post Il medico viene eliminato.
+     * post Il medico viene eliminato.
      */
     @Override
     public void rimuoviMedico(final Long idUtente) {
@@ -219,11 +219,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
 
-    /**@pre Il paziente deve esistere.
+    /**pre Il paziente deve esistere.
      * Metodo che verifica se un utente è un paziente.
      * @param idUtente id dell'utente.
      * @return true o false.
-     * @post
+     * post
      */
     @Override
     public boolean isPaziente(final long idUtente) {
@@ -238,7 +238,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return false;
     }
 
-    /**@pre Il medico  deve esistere.
+    /**pre Il medico  deve esistere.
      * Metodo che verifica se un utente è un medico.
      * @param idUtente id dell'utente.
      * @return true o false.
@@ -256,7 +256,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * @pre L'admin deve esistere.
+     * pre L'admin deve esistere.
      * Implementazione del metodo che verifica se un utente è un admin.
      * @param idUtente id dell'utente che vogliamo controllare sia un admin.
      * @return true o false.
@@ -274,12 +274,12 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * @pre idMedico != null e idPaziente != null.
+     * pre idMedico != null e idPaziente != null.
      * Metodo che assegna un paziente ad un medico.
      * @param idMedico id del medico.
      * @param idPaziente id del paziente.
      * @return true o false.
-     * @post Il paziente viene assegnato correttamente.
+     * post Il paziente viene assegnato correttamente.
      */
     @Override
     public boolean assegnaPaziente(final long idMedico,
@@ -301,11 +301,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * @pre id != null.
+     * pre id != null.
      * Metodo che trova un Paziente tramite id.
      * @param id id del paziente.
      * @return Paziente.
-     * @post Il paziente viene trovato.
+     * post Il paziente viene trovato.
      */
     @Override
     public Paziente findPazienteById(final Long id) {
@@ -318,11 +318,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
-     * @pre id != null.
+     * pre id != null.
      * Metodo che trova Medico tramite id.
      * @param id id del medico.
      * @return Medico.
-     * @post Il medico viene trovato.
+     * post Il medico viene trovato.
      */
     @Override
     public Medico findMedicoById(final Long id) {
@@ -345,11 +345,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return true;
     } */
     /**
-     * @pre codiceFiscale != null
+     * pre codiceFiscale != null
      * Metodo che restituisce un paziente tramite il codice fiscale.
      * @param codiceFiscale codice fiscale utente.
      * @return true o false.
-     * @post Il paziente viene trovato.
+     * post Il paziente viene trovato.
      */
     @Override
     public boolean findUtenteByCf(final String codiceFiscale) {
@@ -361,9 +361,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return true;
     }
     /**
+     * pre: email non deve essere null.
      * Metodo che restituisce un paziente tramite la sua email.
      * @param email email del paziente.
      * @return true o false.
+     * post: email del paziente esiste.
      */
     @Override
     public boolean checkByEmail(final String email) {
@@ -374,9 +376,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
         return true;
     }
     /**
+     * pre: ind non deve essere null.
      * Metodo per registrare indirizzo nel DB.
      * @param ind è l'indirizzo da aggiungere.
      * @return true o false.
+     * post: ind viene salvato nel db.
      */
     @Override
     public boolean registraIndirizzo(final Indirizzo ind) {
@@ -385,9 +389,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * pre: id non deve essere null.
      * Metodo che restituisce un utente tramite il suo id.
      * @param id id dell'utente.
      * @return UtenteRegistrato.
+     * post: utenteRegistrato viene trovato.
      */
     @Override
     public UtenteRegistrato findUtenteById(final Long id) {
@@ -399,9 +405,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * pre: email non deve essere null.
      * Metodo che restituisce un utente tramite la sua mail.
      * @param email email dell'utente.
      * @return UtenteRegistrato.
+     * post: utenteRegistrato viene trovato tramite mail.
      */
     @Override
     public UtenteRegistrato findUtenteByEmail(final String email) {
@@ -418,8 +426,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * pre: u non deve essere null.
      * Metodo per fare update di un utente nel DB.
      * @param u utente da aggiornare.
+     * post: u viene modificato.
      */
     public void updateUtente(final UtenteRegistrato u) {
         this.utente.save(u);
@@ -428,6 +438,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     /**
      * Metodo per ottenere tutti i medici del db.
      * @return lista di tutti i medici.
+     * post: lista di medici.
      */
     @Override
     public List<UtenteRegistrato> getTuttiMedici() {
@@ -437,6 +448,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     /**
      * Metodo per ottenere tutti i pazienti del db.
      * @return Lista di tutti i pazienti.
+     * post: lista di pazienti.
      */
     @Override
     public List<UtenteRegistrato> getTuttiPazienti() {
@@ -446,6 +458,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     /**
      * Metodo che restituisce tutti gli utenti dal db.
      * @return Lista di tutti gli utenti.
+     * post: lista di utenti.
      */
     @Override
     public List<UtenteRegistrato> getTuttiUtenti() {
@@ -453,9 +466,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * pre: idMedico non deve essere null.
      * Metodo per ottenere tutti i pazienti del db di un medico.
      * @param idMedico id del medico.
      * @return Lista di tutti i pazienti asscociati al medico.
+     * post: list di paziente non è null.
      */
     @Override
     public List<Paziente> getPazientiByMedico(final long idMedico) {
@@ -475,9 +490,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
 
 
     /**
+     * pre: idPaziente non deve essere null.
      * Metodo per la ricerca di un medico tramite il suo paziente.
      * @param idPaziente id del paziente.
      * @return Long.
+     * post: idMedico.
      */
     @Override
     public  Long findMedicoByPaziente(final long idPaziente) {
@@ -488,6 +505,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     /**
      * metodo che restituisce gli indirizzi dal db.
      * @return Lista di indirizzi.
+     * post: list di indirizzo non è null.
      */
     @Override
     public List<Indirizzo> findAllIndirizzi() {
@@ -495,8 +513,10 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * pre: idUtente non deve essere null.
      * Metodo che rimuove un utente dal db.
      * @param idUtente id dell'utente.
+     * post: utente viene eliminato dal db.
      */
     @Override
     public void rimuoviUtente(final Long idUtente) {
@@ -505,6 +525,7 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * pre: pwd e idUtente non devono essere null.
      * metodo che controlla che la password passata
      * sia uguale a quella presente nel db.
      * @param pwd password passata.
@@ -527,9 +548,11 @@ public class GestioneUtenteServiceImpl implements GestioneUtenteService {
     }
 
     /**
+     * pre: nuovaPassword non deve essere null.
      * Metodo che decripta la nuova password.
      * @param nuovaPassword password nuova che si vuole inserire.
      * @return String.
+     * post: nuovaPassword criptata.
      */
     @Override
     public String encryptPassword(final String nuovaPassword) {

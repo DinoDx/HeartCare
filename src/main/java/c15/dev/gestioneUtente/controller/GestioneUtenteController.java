@@ -58,6 +58,7 @@ public class GestioneUtenteController {
 
 
     /**
+     * pre: idPaziente non deve essere null.
      * Metodo per assegnare un caregiver.
      * @param idPaziente id del paziente.
      * @param emailCaregiver email del caregiver.
@@ -78,6 +79,7 @@ public class GestioneUtenteController {
     }
 
     /**
+     * pre: questo metodo può essere chiamato solo da un admin.
      * Metodo per rimuovere un Paziente o un Medico.
      * @param map hashmap contente i dati dell'utente.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
@@ -108,6 +110,7 @@ public class GestioneUtenteController {
     }
 
     /**
+     * pre: questo metodo può essere chiamato solo da un admin.
      * Metodo che assegna un paziente a un medico.
      * @param assegnamento HashMap contenete gli id del paziente e del medico.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
@@ -123,9 +126,11 @@ public class GestioneUtenteController {
     }
 
     /**
+     * pre: pre: questo metodo può essere chiamato solo da un admin.
      * Metodo che restituisce tutti i medici.
      * Invariante: il metodo può essere chiamato solo da admin.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     * post: list di medico non deve essere null.
      */
     @RequestMapping(value = "/getTuttiMedici", method = RequestMethod.POST)
     public ResponseEntity<Object> getTuttiMedici() {
@@ -141,9 +146,11 @@ public class GestioneUtenteController {
     }
 
     /**
+     * pre: questo metodo può essere chiamato solo da un admin.
      * Metodo che restituisce tutti i pazienti.
      * Invariante: il metodo può essere chiamato solo da admin.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     * list di Paziente non deve essere null.
      */
     @RequestMapping(value = "/getTuttiPazienti", method = RequestMethod.POST)
     public ResponseEntity<Object> getTuttiPazienti() {
@@ -159,6 +166,7 @@ public class GestioneUtenteController {
     }
 
     /**
+     * pre: idMedico non deve essere null.
      * Metodo che restituisce tutti i pazienti di un medico.
      * @param idMedico id del medico.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
@@ -174,6 +182,7 @@ public class GestioneUtenteController {
 
 
     /**
+     * pre: IdUtente non deve essere null.
      * @author Leopoldo Todisco.
      * Metodo che permette di ottenere i dati relativi a un utente qualsiasi.
      * @param idUtente id dell'utente.
@@ -211,6 +220,7 @@ public class GestioneUtenteController {
     }
 
     /**
+     * pre: idUtente non deve essere null.
      * Metodo che restituisce i dati per la modifica.
      * @param idUtente id dell'utente.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
@@ -251,6 +261,7 @@ public class GestioneUtenteController {
 
 
     /**
+     * pre: idUtente non deve essere null.
      * @author Paolo Carmine Valletta.
      * Metodo che permette di visualizzare la home di un Medico o Paziente.
      * @param idUtente id dell'utente.
@@ -295,6 +306,7 @@ public class GestioneUtenteController {
     }
 
     /**
+     * pre: idPaziente non deve essere null.
      * Metodo che permette di ottenere tutti i dispositivi.
      * associati a un paziente.
      * @param idPaziente id del paziente.
@@ -395,6 +407,7 @@ public class GestioneUtenteController {
     /**
      * Metodo che restituisce tutti gli indirizzi.
      * @return ResponseEntity è la response che sarà fetchata dal frontend.
+     * list di indirizzo non deve essre null.
      */
     @GetMapping(value = "/getIndirizzi")
     public ResponseEntity<Object> getIndirizzi() {
@@ -402,6 +415,7 @@ public class GestioneUtenteController {
     }
 
     /**
+     * pre: pwd non deve essere null.
      * Metodo che controlla che la password passata sia uguale
      * a quella della richiesta.
      * @param pwd password.
@@ -524,6 +538,7 @@ public class GestioneUtenteController {
 
 
     /**
+     * pre: idPaziente non deve essere null.
      * Metodo che serve per restituire il medico di un paziente.
      * @param idPaziente id del paziente.
      * @return mappa con parametri del medico.

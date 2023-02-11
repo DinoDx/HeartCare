@@ -60,7 +60,7 @@ public class GestioneMisurazioneController {
 
     /**
      * Metodo per la registrazione del dispositivo.
-     * @pre: il metodo deve essere chiamato solo da un paziente.
+     * pre: il metodo deve essere chiamato solo da un paziente.
      * @param requestMap body della http request.
      * @param request http servlet.
      * @return response con relativo stato.
@@ -87,7 +87,7 @@ public class GestioneMisurazioneController {
 
     /**
      * Metodo per la rimozione del dispositivo.
-     * @pre: il metodo deve essere chiamato solo da un paziente.
+     * pre: il metodo deve essere chiamato solo da un paziente.
      * @param map dispositivo da rimuovere.
      * @param request è la richiesta http.
      * @return response con relativo stato.
@@ -109,7 +109,7 @@ public class GestioneMisurazioneController {
     /**
      *
      * @param id id paziente.
-     * @return List<Misurazione> elenco delle misurazioni.
+     * @return List di misurazione elenco delle misurazioni.
      */
     @PostMapping(value = "/FascicoloSanitarioElettronico")
     public List<Misurazione>
@@ -121,7 +121,7 @@ public class GestioneMisurazioneController {
     }
 
     /**
-     * @pre solo un utente registrato come paziente può accedere a questa
+     * pre solo un utente registrato come paziente può accedere a questa
      * funzionalitò.
      * @param request servlet.
      * @param map body della richiesta.
@@ -198,7 +198,7 @@ public class GestioneMisurazioneController {
 
     /**
      * Metodo per prevedere se l'utente avrà un infarto.
-     * @pre: il metodo deve essere chiamato solo da un paziente.
+     * pre: il metodo deve essere chiamato solo da un paziente.
      * @param body body della richiesta.
      * @param request servlet.
      * @return risultato della predizione 1 o 0.

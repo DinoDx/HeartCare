@@ -67,7 +67,7 @@ public class GestioneMisurazioneServiceImpl
     /**
      * Questo metodo ha il compito di controllare che la categoria.
      * passata dal frontend sia una categoria contemplata.
-     * @pre: la stringa categoria non deve essere vuota o null.
+     * pre: la stringa categoria non deve essere vuota o null.
      * @param categoria
      * @return true or false.
      */
@@ -90,12 +90,12 @@ public class GestioneMisurazioneServiceImpl
     /**
      * Metodo di registrazione del dispositivo che viene usato solo nel.
      * DBPopulator.
-     * @pre dispositivo diverso da null.
+     * pre dispositivo diverso da null.
      * @param disp che vogliamo assegnare ad un utente.
      * @param idPaziente id del paziente a cui vogliamo assegnare.
      *                   il dispositivo.
      * @return true o false.
-     * @post il dispositivo è presente nel database.
+     * post il dispositivo è presente nel database.
      */
     @Override
     public boolean registrazioneDispositivo(final DispositivoMedico disp,
@@ -116,10 +116,10 @@ public class GestioneMisurazioneServiceImpl
 
     /**
      * Metodo che consente di registrare un dispositivo.
-     * @pre la hashmap non deve essere null.
+     * pre la hashmap non deve essere null.
      * @param map è il dispositivo sotto forma di mappa.
      * @param idPaziente è l'id del paziente.
-     * @post il dispositivo è presente nel database.
+     * post il dispositivo è presente nel database.
      * @return true o false.
      */
     @Override
@@ -202,7 +202,7 @@ public class GestioneMisurazioneServiceImpl
 
     /**
      * Metodo per ricevere le misurazioni da una categoria.
-     * @pre id appartiene a un paziente (controllo eseguito nel controller)
+     * pre id appartiene a un paziente (controllo eseguito nel controller)
      *      categoria è una categoria contemplata nel sistema.
      * @param categoria
      * @param id
@@ -221,10 +221,10 @@ public class GestioneMisurazioneServiceImpl
 
     /**
      * Metodo per salvare le misurazioni.
-     * @pre: moisurazione != null.
+     * pre: moisurazione != null.
      * @param misurazione da salvare.
      * @return misurazione.
-     * @post: la misurazione viene aggiunta al database.
+     * post: la misurazione viene aggiunta al database.
      */
     @Transactional
     @Override
@@ -238,11 +238,11 @@ public class GestioneMisurazioneServiceImpl
 
     /**
      * Metodo per ricercare le categorie delle misurazioni da un paziente.
-     * @pre id != null e deve appertenre a un paziente
+     * pre id != null e deve appertenre a un paziente
      * (controllo fatto nel controller).
      * @param id è l'id del paziente.
      * @return lista di stringhe.
-     * @post: /.
+     * post: /.
      */
     @Override
     public List<String> findCategorieByPaziente(final Long id) {
@@ -255,7 +255,7 @@ public class GestioneMisurazioneServiceImpl
 
     /**
      * Metodo per ricevere tutte le misurazioni di un paziente.
-     * @pre l'id non deve essere null.
+     * pre l'id non deve essere null.
      * @param id è l'id del paziente.
      * @return lista di misurazione dto.
      */
