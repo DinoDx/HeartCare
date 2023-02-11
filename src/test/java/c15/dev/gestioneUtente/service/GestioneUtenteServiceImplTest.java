@@ -27,6 +27,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 
+/**
+ * @author Paolo Carmine Valletta, Carlo Venditto.
+ *  * Creato il 03/02/2023.
+ *  * Classe di test per la gestione service di utente.
+ */
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @ContextConfiguration(classes = HeartCareApplicationTests.class)

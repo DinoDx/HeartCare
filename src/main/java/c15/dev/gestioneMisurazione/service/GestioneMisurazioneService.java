@@ -47,7 +47,7 @@ public interface GestioneMisurazioneService {
 
     /**
      * @param id è l'id del paziente.
-     * @return List<Misurazione>.
+     * @return List di misurazione.
      * Metodo che restituisce tutte le misurazioni presenti nel database.
      */
     List<Misurazione> getMisurazioniByPaziente(Long id);

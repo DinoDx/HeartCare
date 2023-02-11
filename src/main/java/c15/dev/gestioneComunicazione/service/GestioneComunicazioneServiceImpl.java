@@ -53,7 +53,7 @@ public class GestioneComunicazioneServiceImpl
 
 
     /**
-     * @pre La taglia del messaggio deve essre > 0,
+     * pre La taglia del messaggio deve essre > 0,
      * emailDestinatario deve essere >0.
      * Metodo per inviare una email.
      * @param messaggio messaggio da inviare nell'email.
@@ -75,7 +75,7 @@ public class GestioneComunicazioneServiceImpl
     }
 
     /**
-     * @pre Messaggio deve essere diverso da null,
+     * pre Messaggio deve essere diverso da null,
      * idDestinario deve essere diverso da null,
      * idMittente deve essere diverso da null.
      * Metodo per inviare una nota.
@@ -117,18 +117,18 @@ public class GestioneComunicazioneServiceImpl
     /**
      * Implementazione del metodo che cerca tutte le note.
      * @return lista di tutte le note.
-     * @post List<Nota> deve essere diversa da null.
+     * post List di nota deve essere diversa da null.
      */
     public List<Nota> findAllNote() {
         return notaDAO.findAll();
     }
 
     /**
-     * @pre Id deve essre diverso da null.
+     * pre Id deve essre diverso da null.
      * Firma del metodo che ricerca tutte le note di un utente.
      * @param id identificativo dell'utente.
      * @return lista delle note dell'utente.
-     * @post La lista deve essere diversa da null.
+     * post La lista deve essere diversa da null.
      */
     @Override
     public List<NotaDTO> findNoteByIdUtente(final long id) {
@@ -150,11 +150,11 @@ public class GestioneComunicazioneServiceImpl
     }
 
     /**
-     * @pre email diversa da null.
+     * pre email diversa da null.
      * Firma del metodo che restituisce tutte le note non lette di un utente.
      * @param email email dell'utente.
      * @return lista delle note non lette dell'utente.
-     * @post La lista deve essere diversa da null.
+     * post La lista deve essere diversa da null.
      */
     @Override
     public List<Nota> findNoteNonLetteByUser(final String email) {
@@ -169,7 +169,7 @@ public class GestioneComunicazioneServiceImpl
     }
 
 
-    /**@pre Il messaggio non deve essere vuoto e l'utente deve esistere.
+    /**pre Il messaggio non deve essere vuoto e l'utente deve esistere.
      * Metodo per inviare una notifica al frontend.
      * @param message è il messaggio che viene passato al frontend.
      */
