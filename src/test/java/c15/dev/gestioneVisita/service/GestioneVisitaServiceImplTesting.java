@@ -22,7 +22,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
