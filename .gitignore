@@ -53,5 +53,8 @@ atlassian-ide-plugin.xml
 
 data/
 
+# Environmental variables
 .env
+
+# NodeJS ReactJS
 node_modules/
